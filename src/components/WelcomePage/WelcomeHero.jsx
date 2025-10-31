@@ -8,11 +8,11 @@ const WelcomeHero = () => {
 
   return (
     <section 
-      className="relative overflow-hidden min-h-screen"
+      className="relative overflow-hidden"
       style={{
         backgroundImage: `url('${backgroundImage}')`,
         backgroundSize: '200% auto',
-        backgroundPosition: '-460px -660px',
+        backgroundPosition: '-440px -860px',
         backgroundRepeat: 'no-repeat',
         width: '100%'
       }}
@@ -38,7 +38,7 @@ const WelcomeHero = () => {
         </div>
 
         {/* CountrySelection поверх whiteLayer */}
-        <div className="absolute left-0 right-0 z-[2] pt-32 md:pt-24 sm:pt-20" style={{ top: '500px' }}>
+        <div className="absolute left-0 right-0 z-[2]" style={{ top: '500px' }}>
           <CountrySelection />
         </div>
       </div>

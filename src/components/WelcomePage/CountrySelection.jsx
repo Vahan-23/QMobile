@@ -35,11 +35,12 @@ const CountrySelection = () => {
       <div className="max-w-[600px]">
         <h1 className="mb-10 drop-shadow-lg" style={{ 
           color: '#03355c',
-          fontSize: '3.875rem',
-          lineHeight: '4.25rem',
+          fontSize: 'clamp(2rem, 4vw, 3.5625rem)',
+          lineHeight: 'clamp(2.5rem, 5vw, 4.25rem)',
           fontWeight: '700',
           letteSpacing: '4px',
-          fontFamily: 'unset'
+          fontFamily: 'unset',
+          marginTop: '20px'
         }}>
           WHERE DO YOU<br />CURRENTLY LIVE?
         </h1>
