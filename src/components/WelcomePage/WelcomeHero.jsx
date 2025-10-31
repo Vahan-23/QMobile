@@ -30,8 +30,8 @@ const WelcomeHero = () => {
         </div>
 
         {/* Контент с тайским текстом - поверх whiteLayer */}
-        <div className="absolute left-0 right-0 z-[2] pt-12 px-12 pb-12 md:pt-8 md:px-8 sm:pt-8 sm:px-8" style={{ top: '150px' }}>
-          <h2 className="text-white text-5xl font-bold mb-2.5 sm:text-[90px] sm:font-thin">
+        <div className="absolute left-0 right-0 z-[2] pt-12 px-12 pb-12 md:pt-8 md:px-8 sm:pt-8 sm:px-8" style={{ top: '60px' , left: '50px' }}>
+          <h2 className="text-white text-5xl font-bold mb-2.5 sm:text-[115px] sm:font-thin">
             ยินดีต้อนรับกลับบ้าน
           </h2>
           <p className="text-white cursor-pointer" style={{ fontSize: '1.875rem' }}>Switch language</p>
