@@ -18,7 +18,7 @@ const WelcomeFooter = () => {
         paddingLeft: pxToPosition(50, { minPx: 16, maxPx: 50 }),
         paddingRight: pxToPosition(50, { minPx: 16, maxPx: 50 }),
         minHeight: pxToResponsive(830, 60),
-        overflow: 'hidden' 
+        overflow: 'visible' // Изменено на visible чтобы не скрывать dropdown 
       }}>
       <div 
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mb-8 sm:mb-10 md:mb-12 relative z-[2]"

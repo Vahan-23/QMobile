@@ -1,10 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { pxToPosition, pxToResponsive } from './utils/responsive';
 
 const CountrySelection = () => {
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedOtherCountry, setSelectedOtherCountry] = useState('Thailand');
+  const dropdownRef = useRef(null);
+  const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0, width: 0 });
+
+  // Обновить позицию dropdown
+  const updateDropdownPosition = () => {
+    if (isDropdownOpen && dropdownRef.current) {
+      const rect = dropdownRef.current.getBoundingClientRect();
+      setDropdownPosition({
+        top: rect.bottom + 8, // +8 для небольшого отступа
+        left: rect.left,
+        width: rect.width
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (isDropdownOpen) {
+      updateDropdownPosition();
+      const handleScroll = () => updateDropdownPosition();
+      const handleResize = () => updateDropdownPosition();
+      window.addEventListener('scroll', handleScroll, true);
+      window.addEventListener('resize', handleResize);
+      return () => {
+        window.removeEventListener('scroll', handleScroll, true);
+        window.removeEventListener('resize', handleResize);
+      };
+    }
+  }, [isDropdownOpen]);
 
   // Маппинг стран на ISO коды для флагов
   const countryCodeMap = {
@@ -49,6 +78,27 @@ const CountrySelection = () => {
     return null;
   };
 
+  // Закрывать dropdown при клике вне его области
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isDropdownOpen && dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        // Проверяем, что клик был не по dropdown списку
+        const dropdownList = document.querySelector('[data-dropdown-list]');
+        if (!dropdownList || !dropdownList.contains(event.target)) {
+          setIsDropdownOpen(false);
+        }
+      }
+    };
+
+    if (isDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isDropdownOpen]);
+
   // Конкретные позиции из дизайна:
   // padding: 50px слева и справа, max-width: 600px
   // gap между флагами: 153px
@@ -56,8 +106,9 @@ const CountrySelection = () => {
 
   return (
     <main 
-      className="relative z-[5]"
+      className="relative"
       style={{
+        zIndex: 1000, // Высокий z-index чтобы dropdown был впереди футера
         paddingLeft: pxToPosition(50, { minPx: 16, maxPx: 50 }),
         paddingRight: pxToPosition(50, { minPx: 16, maxPx: 50 }),
         paddingTop: pxToPosition(56, { minPx: 32, maxPx: 56 }),
@@ -141,8 +192,9 @@ const CountrySelection = () => {
           }}>
             PICK ANOTHER COUNTRY
           </div>
-          <div className="relative">
+          <div className="relative" style={{ zIndex: 10000, isolation: 'isolate' }}>
             <div 
+              ref={dropdownRef}
               className="border-2 bg-white/90 backdrop-blur-sm cursor-pointer flex items-center gap-2 shadow-lg"
               style={{ 
                 width: pxToResponsive(304, 38), // Уменьшено на 20%
@@ -190,12 +242,18 @@ const CountrySelection = () => {
               </svg>
             </div>
             
-            {isDropdownOpen && (
-              <div className="absolute top-full left-0 mt-2 bg-white border-2 shadow-lg z-10 max-h-60 overflow-y-auto" style={{ 
-                width: pxToResponsive(304, 38), // Такая же ширина как у основного бокса
-                borderColor: '#03355c', 
-                borderRadius: '8px' 
-              }}>
+            {isDropdownOpen && createPortal(
+              <div 
+                data-dropdown-list
+                className="fixed bg-white border-2 shadow-lg max-h-60 overflow-y-auto" 
+                style={{ 
+                  top: `${dropdownPosition.top}px`,
+                  left: `${dropdownPosition.left}px`,
+                  width: dropdownPosition.width || pxToResponsive(304, 38),
+                  borderColor: '#03355c', 
+                  borderRadius: '8px',
+                  zIndex: 10000 // Очень высокий z-index чтобы быть поверх всего
+                }}>
                 {otherCountries.map((country, index) => (
                   <div
                     key={index}
@@ -230,7 +288,8 @@ const CountrySelection = () => {
                     <span className="text-gray-800 text-sm sm:text-base">{country.name}</span>
                   </div>
                 ))}
-              </div>
+              </div>,
+              document.body
             )}
           </div>
         </div>
