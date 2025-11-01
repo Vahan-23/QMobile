@@ -9,12 +9,12 @@ const CountrySelection = () => {
   const dropdownRef = useRef(null);
   const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0, width: 0 });
 
-  // Обновить позицию dropdown
+  // Обновить позицию dropdown для Portal
   const updateDropdownPosition = () => {
     if (isDropdownOpen && dropdownRef.current) {
       const rect = dropdownRef.current.getBoundingClientRect();
       setDropdownPosition({
-        top: rect.bottom + 8, // +8 для небольшого отступа
+        top: rect.bottom + 8, // getBoundingClientRect уже учитывает скролл
         left: rect.left,
         width: rect.width
       });
@@ -26,10 +26,10 @@ const CountrySelection = () => {
       updateDropdownPosition();
       const handleScroll = () => updateDropdownPosition();
       const handleResize = () => updateDropdownPosition();
-      window.addEventListener('scroll', handleScroll, true);
+      window.addEventListener('scroll', handleScroll);
       window.addEventListener('resize', handleResize);
       return () => {
-        window.removeEventListener('scroll', handleScroll, true);
+        window.removeEventListener('scroll', handleScroll);
         window.removeEventListener('resize', handleResize);
       };
     }
@@ -108,7 +108,6 @@ const CountrySelection = () => {
     <main 
       className="relative"
       style={{
-        zIndex: 1000, // Высокий z-index чтобы dropdown был впереди футера
         paddingLeft: pxToPosition(50, { minPx: 16, maxPx: 50 }),
         paddingRight: pxToPosition(50, { minPx: 16, maxPx: 50 }),
         paddingTop: pxToPosition(56, { minPx: 32, maxPx: 56 }),
@@ -192,7 +191,7 @@ const CountrySelection = () => {
           }}>
             PICK ANOTHER COUNTRY
           </div>
-          <div className="relative" style={{ zIndex: 10000, isolation: 'isolate' }}>
+          <div className="relative" style={{ zIndex: 1000 }}>
             <div 
               ref={dropdownRef}
               className="border-2 bg-white/90 backdrop-blur-sm cursor-pointer flex items-center gap-2 shadow-lg"
@@ -252,7 +251,7 @@ const CountrySelection = () => {
                   width: dropdownPosition.width || pxToResponsive(304, 38),
                   borderColor: '#03355c', 
                   borderRadius: '8px',
-                  zIndex: 10000 // Очень высокий z-index чтобы быть поверх всего
+                  zIndex: 10000 // Очень высокий z-index для Portal
                 }}>
                 {otherCountries.map((country, index) => (
                   <div
