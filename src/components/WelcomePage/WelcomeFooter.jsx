@@ -17,37 +17,38 @@ const WelcomeFooter = () => {
         paddingBottom: pxToPosition(63, { minPx: 32, maxPx: 63 }),
         paddingLeft: pxToPosition(50, { minPx: 16, maxPx: 50 }),
         paddingRight: pxToPosition(50, { minPx: 16, maxPx: 50 }),
-        minHeight: pxToResponsive(830, 60),
+        minHeight: 'clamp(320px, 39.6vw, 750px)',
         overflow: 'hidden' 
       }}>
       <div 
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mb-8 sm:mb-10 md:mb-12 relative z-[2]"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 relative z-[2]"
         style={{
-          gap: pxToPosition(20, { minPx: 16, maxPx: 20 })
+          gap: pxToPosition(5, { minPx: 0, maxPx: 5 })
         }}>
         {/* Колонка 1 */}
         <div 
           className="flex-1" 
           style={{ 
-            padding: pxToPosition(20, { minPx: 10, maxPx: 20 })
+            padding: 0
           }}>
           <h3 className="text-base font-semibold" style={{ 
-            fontSize: 'clamp(1rem, 2vw, 1.8rem)', 
-            marginBottom: 'clamp(20px, 4vw, 50px)' 
+            fontSize: 'clamp(12px, 1.5vw, 39px)', 
+            marginBottom: 'clamp(8px, 1.5vw, 50px)',
+            fontFamily: 'math'
           }}>
             Our story
           </h3>
           <ul className="list-none" style={{ padding: 0, margin: 0 }}>
-            <li style={{ marginBottom: 'clamp(20px, 4vw, 50px)' }}>
+            <li style={{ marginBottom: 'clamp(5px, 1vw, 50px)' }}>
               <a href="#" className="text-white opacity-90 hover:opacity-100 transition-opacity no-underline" style={{ 
-                fontSize: 'clamp(0.875rem, 2vw, 1.8rem)' 
+                fontSize: 'clamp(10px, 1.3vw, 36px)' 
               }}>
                 Marketplace
               </a>
             </li>
-            <li style={{ marginBottom: 'clamp(20px, 4vw, 50px)' }}>
+            <li style={{ marginBottom: 'clamp(5px, 1vw, 50px)' }}>
               <a href="#" className="text-white opacity-90 hover:opacity-100 transition-opacity no-underline" style={{ 
-                fontSize: 'clamp(0.875rem, 2vw, 1.8rem)' 
+                fontSize: 'clamp(10px, 1.3vw, 36px)' 
               }}>
                 Blog
               </a>
@@ -59,25 +60,27 @@ const WelcomeFooter = () => {
         <div 
           className="flex-1" 
           style={{ 
-            padding: pxToPosition(20, { minPx: 10, maxPx: 20 })
+            padding: 0,
+            marginLeft: pxToPosition(-60, { minPx: -30, maxPx: -60 })
           }}>
           <h3 className="text-base font-semibold" style={{ 
-            fontSize: 'clamp(1rem, 2vw, 1.8rem)', 
-            marginBottom: 'clamp(20px, 4vw, 50px)' 
+            fontSize: 'clamp(12px, 1.5vw, 39px)', 
+            marginBottom: 'clamp(8px, 1.5vw, 50px)',
+            fontFamily: 'math'
           }}>
             Support
           </h3>
           <ul className="list-none" style={{ padding: 0, margin: 0 }}>
-            <li style={{ marginBottom: 'clamp(20px, 4vw, 50px)' }}>
+            <li style={{ marginBottom: 'clamp(5px, 1vw, 50px)' }}>
               <a href="#" className="text-white opacity-90 hover:opacity-100 transition-opacity no-underline" style={{ 
-                fontSize: 'clamp(0.875rem, 2vw, 1.8rem)' 
+                fontSize: 'clamp(10px, 1.3vw, 36px)' 
               }}>
                 FAQs
               </a>
             </li>
-            <li style={{ marginBottom: 'clamp(20px, 4vw, 50px)' }}>
+            <li style={{ marginBottom: 'clamp(5px, 1vw, 50px)' }}>
               <a href="#" className="text-white opacity-90 hover:opacity-100 transition-opacity no-underline" style={{ 
-                fontSize: 'clamp(0.875rem, 2vw, 1.8rem)' 
+                fontSize: 'clamp(10px, 1.3vw, 36px)' 
               }}>
                 Contact us
               </a>
@@ -89,25 +92,27 @@ const WelcomeFooter = () => {
         <div 
           className="flex-1" 
           style={{ 
-            padding: pxToPosition(20, { minPx: 10, maxPx: 20 })
+            padding: 0,
+            marginLeft: pxToPosition(-120, { minPx: -60, maxPx: -120 })
           }}>
           <h3 className="text-base font-semibold" style={{ 
-            fontSize: 'clamp(1rem, 2vw, 1.8rem)', 
-            marginBottom: 'clamp(20px, 4vw, 50px)' 
+            fontSize: 'clamp(12px, 1.5vw, 39px)', 
+            marginBottom: 'clamp(8px, 1.5vw, 50px)',
+            fontFamily: 'math'
           }}>
             Terms & conditions
           </h3>
           <ul className="list-none" style={{ padding: 0, margin: 0 }}>
-            <li style={{ marginBottom: 'clamp(20px, 4vw, 50px)' }}>
+            <li style={{ marginBottom: 'clamp(5px, 1vw, 50px)' }}>
               <a href="#" className="text-white opacity-90 hover:opacity-100 transition-opacity no-underline" style={{ 
-                fontSize: 'clamp(0.875rem, 2vw, 1.8rem)' 
+                fontSize: 'clamp(10px, 1.3vw, 36px)' 
               }}>
                 Privacy policy
               </a>
             </li>
-            <li style={{ marginBottom: 'clamp(20px, 4vw, 50px)' }}>
+            <li style={{ marginBottom: 'clamp(5px, 1vw, 50px)' }}>
               <a href="#" className="text-white opacity-90 hover:opacity-100 transition-opacity no-underline" style={{ 
-                fontSize: 'clamp(0.875rem, 2vw, 1.8rem)' 
+                fontSize: 'clamp(10px, 1.3vw, 36px)' 
               }}>
                 Cookies policy
               </a>
@@ -117,75 +122,145 @@ const WelcomeFooter = () => {
 
         {/* Колонка 4 - Логотип */}
         <div 
-          className="flex-1 flex items-start" 
+          className="flex-1 flex items-start flex-col" 
           style={{ 
-            padding: pxToPosition(20, { minPx: 10, maxPx: 20 })
+            padding: 0,
+            marginLeft: pxToPosition(-60, { minPx: -30, maxPx: -60 }),
+            marginTop: pxToPosition(-30, { minPx: -15, maxPx: -30 })
           }}>
           <img 
             src="/Qmobile_Logo.png" 
             alt="Qmobile Logo" 
-            className="w-full max-w-[200px] sm:max-w-[250px] md:max-w-[300px] h-auto"
+            className="w-full max-w-[250px] sm:max-w-[300px] md:max-w-[350px] h-auto"
             style={{ 
               objectFit: 'contain'
             }}
           />
+          <div className="text-2xl font-bold" style={{ 
+            fontSize: 'clamp(20px, 2.5vw, 50px)', 
+            lineHeight: pxToPosition(56, { minPx: 32, maxPx: 56 }),
+            color: '#02284f',
+            fontWeight: 900,
+            textAlign: 'center',
+            marginTop: pxToPosition(120, { minPx: 20, maxPx: 120 }),
+            marginLeft: pxToPosition(-40, { minPx: -20, maxPx: -40 })
+          }}>
+            WE ARE HERE<br />FOR YOU
+          </div>
         </div>
       </div>
 
       {/* Нижняя часть футера */}
       <div className="flex justify-end items-end relative z-[2] flex-col sm:flex-row sm:gap-10 sm:items-center">
         {/* Контактная секция */}
-        <div className="text-center sm:text-right w-full sm:w-auto">
-          <div className="text-2xl font-bold" style={{ 
-            fontSize: 'clamp(1.25rem, 2.5vw, 1.8rem)', 
-            marginBottom: 'clamp(15px, 3vw, 20px)' 
-          }}>
-            WE ARE HERE<br />FOR YOU
-          </div>
-          <div className="flex justify-center sm:justify-end gap-3 sm:gap-4 md:gap-5 lg:gap-[20px] flex-wrap">
+        <div className="text-center sm:text-right w-full sm:w-auto" style={{ marginTop: pxToPosition(80, { minPx: 10, maxPx: 80 }) }}>
+          <div className="flex justify-start flex-wrap" style={{ gap: pxToPosition(120, { minPx: 20, maxPx: 120 }) }}>
             {/* Chat */}
-            <div className="text-center cursor-pointer transition-transform hover:-translate-y-1">
-              <div className="bg-white/20 rounded-full flex items-center justify-center mx-auto mb-2 text-xl sm:text-2xl md:text-3xl" 
-                   style={{ 
-                     width: 'clamp(50px, 6vw, 70px)', 
-                     height: 'clamp(50px, 6vw, 70px)' 
-                   }}>
-                💬
+            <div className="text-center cursor-pointer transition-transform hover:-translate-y-1" style={{ minWidth: pxToPosition(120, { minPx: 80, maxPx: 120 }) }}>
+              <div 
+                className="flex items-center justify-center overflow-hidden mx-auto"
+                style={{ 
+                  marginBottom: '15px',
+                  width: 'clamp(80px, 8vw, 180px)', 
+                  height: 'clamp(60px, 6vw, 135px)',
+                  borderRadius: '53% / 60%',
+                  background: 'linear-gradient(to left, #49A0E3 0%, #1977D1 100%)',
+                  boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
+                  transform: 'rotate(331deg)'
+                }}
+              >
+                <img 
+                  src="/Images/msg.png" 
+                  alt="Chat" 
+                  style={{ 
+                    width: '80%', 
+                    height: '80%',
+                    objectFit: 'contain',
+                    transform: 'rotate(-331deg)'
+                  }}
+                />
               </div>
               <div className="text-sm font-bold" style={{ 
-                fontSize: 'clamp(0.875rem, 2vw, 1.8rem)' 
+                fontSize: 'clamp(14px, 1.8vw, 36px)',
+                color: '#005291',
+                textAlign: 'center',
+                marginTop: 'clamp(20px, 2vw, 50px)',
+                fontWeight: 900,
+                fontFamily: 'sans-serif'
               }}>
                 CHAT
               </div>
             </div>
 
             {/* WhatsApp */}
-            <div className="text-center cursor-pointer transition-transform hover:-translate-y-1">
-              <div className="bg-white/20 rounded-full flex items-center justify-center mx-auto mb-2 text-xl sm:text-2xl md:text-3xl" 
-                   style={{ 
-                     width: 'clamp(50px, 6vw, 70px)', 
-                     height: 'clamp(50px, 6vw, 70px)' 
-                   }}>
-                📱
+            <div className="text-center cursor-pointer transition-transform hover:-translate-y-1" style={{ minWidth: '120px' }}>
+              <div 
+                className="flex items-center justify-center overflow-hidden mx-auto"
+                style={{ 
+                  marginBottom: '15px',
+                  width: 'clamp(80px, 8vw, 180px)', 
+                  height: 'clamp(60px, 6vw, 135px)',
+                  borderRadius: '53% / 60%',
+                  background: 'linear-gradient(to top, #49A0E3 0%, #1977D1 100%)',
+                  boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
+                  transform: 'rotate(331deg)'
+                }}
+              >
+                <img 
+                  src="/Images/wtp.png" 
+                  alt="WhatsApp" 
+                  style={{ 
+                    width: '80%', 
+                    height: '80%',
+                    objectFit: 'contain',
+                    transform: 'rotate(-331deg)'
+                  }}
+                />
               </div>
               <div className="text-sm font-bold" style={{ 
-                fontSize: 'clamp(0.875rem, 2vw, 1.8rem)' 
+                fontSize: 'clamp(14px, 1.8vw, 36px)',
+                color: '#005291',
+                textAlign: 'center',
+                marginTop: 'clamp(20px, 2vw, 50px)',
+                fontWeight: 900,
+                fontFamily: 'sans-serif'
               }}>
                 WHATSAPP
               </div>
             </div>
 
             {/* Call */}
-            <div className="text-center cursor-pointer transition-transform hover:-translate-y-1">
-              <div className="bg-white/20 rounded-full flex items-center justify-center mx-auto mb-2 text-xl sm:text-2xl md:text-3xl" 
-                   style={{ 
-                     width: 'clamp(50px, 6vw, 70px)', 
-                     height: 'clamp(50px, 6vw, 70px)' 
-                   }}>
-                📞
+            <div className="text-center cursor-pointer transition-transform hover:-translate-y-1" style={{ minWidth: '120px' }}>
+              <div 
+                className="flex items-center justify-center overflow-hidden mx-auto"
+                style={{ 
+                  marginBottom: '15px',
+                  width: 'clamp(80px, 8vw, 180px)', 
+                  height: 'clamp(60px, 6vw, 135px)',
+                  borderRadius: '53% / 60%',
+                  background: 'linear-gradient(to top, #49A0E3 0%, #1977D1 100%)',
+                  boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
+                  transform: 'rotate(331deg)'
+                }}
+              >
+                <img 
+                  src="/Images/phn.png" 
+                  alt="Call" 
+                  style={{ 
+                    width: '80%', 
+                    height: '80%',
+                    objectFit: 'contain',
+                    transform: 'rotate(-331deg)'
+                  }}
+                />
               </div>
               <div className="text-sm font-bold" style={{ 
-                fontSize: 'clamp(0.875rem, 2vw, 1.8rem)' 
+                fontSize: 'clamp(14px, 1.8vw, 36px)',
+                color: '#005291',
+                textAlign: 'center',
+                marginTop: 'clamp(20px, 2vw, 50px)',
+                fontWeight: 900,
+                fontFamily: 'sans-serif'
               }}>
                 CALL US
               </div>
@@ -194,15 +269,19 @@ const WelcomeFooter = () => {
         </div>
       </div>
 
+      {/* Нижний отступ для футера */}
+      <div style={{ marginBottom: pxToPosition(-600, { minPx: -300, maxPx: -600 }) }}></div>
+
       {/* WhiteFacture изображение - половина за границей */}
       {/* Точные позиции: bottom: 230px, left: 4%, right: -6% */}
       <div style={{ 
         position: 'absolute',
-        bottom: pxToPosition(230, { minPx: 100, maxPx: 230 }),
+        bottom: pxToPosition(200, { minPx: 0, maxPx: 200 }),
         left: '4%', // Процент от ширины контейнера
-        right: '-6%', // Отрицательный процент для выхода за границы
+        right: '-3%',
         transform: 'translateY(calc(70% - 63px))',
-        zIndex: 1
+        zIndex: 1,
+        overflow: 'hidden'
       }}>
         <img 
           src="/Images/whiteFacture.png" 
