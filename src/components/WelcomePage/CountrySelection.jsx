@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { pxToPosition, pxToResponsive } from './utils/responsive';
 
 const CountrySelection = () => {
   const [selectedCountry, setSelectedCountry] = useState(null);
@@ -30,66 +31,115 @@ const CountrySelection = () => {
     };
   };
 
+  // Конкретные позиции из дизайна:
+  // padding: 50px слева и справа, max-width: 600px
+  // gap между флагами: 153px
+  // размер флагов: 190px
+
   return (
-    <main className="px-12 py-14 relative z-[5] md:px-10 sm:px-8 sm:py-10">
-      <div className="max-w-[600px]">
-        <h1 className="mb-10 drop-shadow-lg" style={{ 
+    <main 
+      className="relative z-[5]"
+      style={{
+        paddingLeft: pxToPosition(50, { minPx: 16, maxPx: 50 }),
+        paddingRight: pxToPosition(50, { minPx: 16, maxPx: 50 }),
+        paddingTop: pxToPosition(56, { minPx: 32, maxPx: 56 }),
+        paddingBottom: pxToPosition(56, { minPx: 32, maxPx: 56 })
+      }}>
+      <div 
+        className="w-full"
+        style={{ 
+          maxWidth: pxToResponsive(600, 80)
+        }}>
+        <h1 className="drop-shadow-lg" style={{ 
           color: '#03355c',
-          fontSize: 'clamp(2rem, 4vw, 3.5625rem)',
-          lineHeight: 'clamp(2.5rem, 5vw, 4.25rem)',
+          fontSize: 'clamp(1.5rem, 4vw, 3.5625rem)',
+          lineHeight: 'clamp(1.75rem, 5vw, 4.25rem)',
           fontWeight: '700',
-          letteSpacing: '4px',
+          letterSpacing: 'clamp(2px, 0.3vw, 4px)',
           fontFamily: 'unset',
-          marginTop: '20px'
+          marginTop: 'clamp(10px, 2vw, 20px)',
+          marginBottom: 0 // Убираем отступ чтобы флаги начинались сразу от текста
         }}>
           WHERE DO YOU<br />CURRENTLY LIVE?
         </h1>
 
-        {/* Сетка стран */}
-        <div className="flex flex-row mb-12 items-end flex-nowrap" style={{ gap: '153px' }}>
+        {/* Сетка стран - конкретные позиции */}
+        {/* На мобильных: 2 колонки, на планшетах и выше: 4 колонки с точным gap 153px */}
+        <div 
+          className="flex items-start mb-8 sm:mb-10 md:mb-12"
+          style={{
+            marginTop: pxToPosition(40, { minPx: 20, maxPx: 40 }), // Отступ сверху чтобы первый флаг начинался от "CURRENTLY"
+            gap: pxToPosition(120, { minPx: 60, maxPx: 120 }), // Еще больше отступ между флагами
+            flexWrap: 'wrap'
+          }}>
           {countries.map((country, index) => (
             <div
               key={index}
-              className="text-center cursor-pointer transition-transform hover:scale-110 flex-shrink-0"
+              className="cursor-pointer transition-transform hover:scale-110"
+              style={{
+                flexShrink: 0,
+                width: 'auto'
+              }}
               onClick={() => setSelectedCountry(country.name)}
             >
               <div
-                className="rounded-full mx-auto mb-4 border-[3px] border-white overflow-hidden flex items-center justify-center shadow-lg"
+                className="rounded-full mx-auto border-[2px] sm:border-[3px] border-white overflow-hidden flex items-center justify-center shadow-lg"
                 style={{
                   ...getFlagStyle(country.flag),
-                  width: '190px',
-                  height: '190px'
+                  width: pxToResponsive(100, 8), // Размер флагов 100px
+                  height: pxToResponsive(100, 8), // Размер флагов 100px
+                  marginBottom: pxToPosition(4, { minPx: 2, maxPx: 4 }) // Минимальный отступ под флагом
                 }}
               >
                 {/* Здесь будет изображение флага */}
               </div>
-              <div className="text-sm drop-shadow-md font-semibold" style={{ color: '#7b7b7b' }}>{country.name}</div>
+              <div className="drop-shadow-md font-semibold text-center" style={{ 
+                color: '#7b7b7b',
+                fontSize: 'clamp(0.65rem, 1.2vw, 0.75rem)', // Уменьшен размер текста
+                lineHeight: '1.2'
+              }}>
+                {country.name}
+              </div>
             </div>
           ))}
         </div>
 
         {/* Dropdown для другой страны */}
-        <div className="mt-10" style={{ marginTop: '3.5rem' }}>
-          <div className="mb-5 drop-shadow-lg" style={{ color: '#03355c', fontSize: '2.55rem', fontWeight: '800' }}>
+        <div className="mt-6 sm:mt-8 md:mt-10 lg:mt-14">
+          <div className="mb-3 sm:mb-4 md:mb-5 drop-shadow-lg" style={{ 
+            color: '#03355c', 
+            fontSize: 'clamp(1.25rem, 3vw, 2.55rem)', 
+            fontWeight: '800' 
+          }}>
             PICK ANOTHER COUNTRY
           </div>
           <div className="relative">
             <div 
-              className="w-full px-6 py-5 border-2 bg-white/90 backdrop-blur-sm cursor-pointer flex items-center gap-3 shadow-lg"
-              style={{ minWidth: '350px', marginTop: '1rem', borderColor: '#03355c', borderRadius: '8px' }}
+              className="w-full px-4 sm:px-5 md:px-6 py-3 sm:py-4 md:py-5 border-2 bg-white/90 backdrop-blur-sm cursor-pointer flex items-center gap-2 sm:gap-3 shadow-lg"
+              style={{ 
+                marginTop: 'clamp(0.5rem, 1.5vw, 1rem)', 
+                borderColor: '#03355c', 
+                borderRadius: '8px' 
+              }}
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             >
               <div
                 className="rounded-full border-2 border-white overflow-hidden flex items-center justify-center flex-shrink-0"
                 style={{
                   background: 'linear-gradient(180deg, red 0%, red 33%, white 33%, white 66%, red 66%, red 100%)',
-                  width: '60px',
-                  height: '60px'
+                  width: pxToResponsive(60, 8),
+                  height: pxToResponsive(60, 8)
                 }}
               ></div>
-              <span className="flex-grow" style={{ color: '#03355c', fontSize: '42px', fontWeight: '500' }}>{selectedOtherCountry}</span>
+              <span className="flex-grow truncate" style={{ 
+                color: '#03355c', 
+                fontSize: 'clamp(1rem, 3vw, 2.625rem)', 
+                fontWeight: '500' 
+              }}>
+                {selectedOtherCountry}
+              </span>
               <svg 
-                className={`w-5 h-5 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} 
+                className={`w-4 h-4 sm:w-5 sm:h-5 transition-transform flex-shrink-0 ${isDropdownOpen ? 'rotate-180' : ''}`} 
                 fill="none" 
                 stroke="currentColor" 
                 viewBox="0 0 24 24"
@@ -100,11 +150,14 @@ const CountrySelection = () => {
             </div>
             
             {isDropdownOpen && (
-              <div className="absolute top-full left-0 mt-2 w-full bg-white border-2 shadow-lg z-10 max-h-60 overflow-y-auto" style={{ minWidth: '350px', borderColor: '#03355c', borderRadius: '8px' }}>
+              <div className="absolute top-full left-0 mt-2 w-full bg-white border-2 shadow-lg z-10 max-h-60 overflow-y-auto" style={{ 
+                borderColor: '#03355c', 
+                borderRadius: '8px' 
+              }}>
                 {otherCountries.map((country, index) => (
                   <div
                     key={index}
-                    className="px-6 py-4 cursor-pointer hover:bg-gray-100 flex items-center gap-3"
+                    className="px-4 sm:px-5 md:px-6 py-3 sm:py-4 cursor-pointer hover:bg-gray-100 flex items-center gap-2 sm:gap-3"
                     onClick={() => {
                       setSelectedOtherCountry(country.name);
                       setIsDropdownOpen(false);
@@ -114,11 +167,11 @@ const CountrySelection = () => {
                       className="rounded-full border-2 border-white overflow-hidden flex items-center justify-center flex-shrink-0"
                       style={{
                         background: 'linear-gradient(180deg, red 0%, red 33%, white 33%, white 66%, red 66%, red 100%)',
-                        width: '50px',
-                        height: '50px'
+                        width: pxToResponsive(50, 6),
+                        height: pxToResponsive(50, 6)
                       }}
                     ></div>
-                    <span className="text-gray-800">{country.name}</span>
+                    <span className="text-gray-800 text-sm sm:text-base">{country.name}</span>
                   </div>
                 ))}
               </div>
