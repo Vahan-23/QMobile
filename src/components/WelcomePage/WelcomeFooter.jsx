@@ -1,5 +1,6 @@
 import React from 'react';
 import { pxToPosition, pxToResponsive } from './utils/responsive';
+import MobileFooter from './MobileFooter';
 
 const WelcomeFooter = () => {
   // Конкретные позиции из дизайна:
@@ -9,17 +10,20 @@ const WelcomeFooter = () => {
   // whiteFacture: bottom: 230px, left: 4%, right: -6%
 
   return (
-    <footer 
-      className="text-white relative" 
-      style={{ 
-        backgroundColor: '#03355c', 
-        paddingTop: pxToPosition(63, { minPx: 32, maxPx: 63 }), // calc(3rem + 15px) = 48px + 15px
-        paddingBottom: pxToPosition(63, { minPx: 32, maxPx: 63 }),
-        paddingLeft: pxToPosition(50, { minPx: 16, maxPx: 50 }),
-        paddingRight: pxToPosition(50, { minPx: 16, maxPx: 50 }),
-        minHeight: 'clamp(320px, 39.6vw, 750px)',
-        overflow: 'hidden' 
-      }}>
+    <>
+      <MobileFooter />
+      <div className="hidden lg:block">
+      <footer 
+        className="text-white relative" 
+        style={{ 
+          backgroundColor: '#03355c', 
+          paddingTop: pxToPosition(63, { minPx: 32, maxPx: 63 }), // calc(3rem + 15px) = 48px + 15px
+          paddingBottom: pxToPosition(63, { minPx: 32, maxPx: 63 }),
+          paddingLeft: pxToPosition(50, { minPx: 16, maxPx: 50 }),
+          paddingRight: pxToPosition(50, { minPx: 16, maxPx: 50 }),
+          minHeight: 'clamp(320px, 39.6vw, 750px)',
+          overflow: 'hidden' 
+        }}>
       <div 
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 relative z-[2]"
         style={{
@@ -295,6 +299,8 @@ const WelcomeFooter = () => {
         />
       </div>
     </footer>
+      </div>
+    </>
   );
 };
 
