@@ -13,7 +13,7 @@ const WelcomePage = () => {
           {/* Header */}
           <WelcomeHeader />
 
-          {/* Hero Section (включает CountrySelection внутри) */}
+          {/* Hero Section (includes CountrySelection inside) */}
           <WelcomeHero />
 
           {/* Footer */}

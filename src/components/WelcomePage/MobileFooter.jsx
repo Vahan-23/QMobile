@@ -19,7 +19,7 @@ const MobileFooter = () => {
           style={{
             gap: pxToPosition(5, { minPx: 25, maxPx: 5 })
           }}>
-          {/* Логотип */}
+          {/* Logo */}
           <div 
             className="flex items-start flex-col" 
             style={{ 
@@ -35,7 +35,7 @@ const MobileFooter = () => {
             />
           </div>
 
-          {/* Колонка 1 */}
+          {/* Column 1 */}
           <div 
             style={{ 
               padding: 0
@@ -68,7 +68,7 @@ const MobileFooter = () => {
             </ul>
           </div>
 
-          {/* Колонка 2 */}
+          {/* Column 2 */}
           <div 
             style={{ 
               padding: 0
@@ -101,7 +101,7 @@ const MobileFooter = () => {
             </ul>
           </div>
 
-          {/* Колонка 3 */}
+          {/* Column 3 */}
           <div 
             style={{ 
               padding: 0
@@ -134,7 +134,7 @@ const MobileFooter = () => {
             </ul>
           </div>
 
-          {/* WE ARE HERE FOR YOU - после Cookies policy */}
+          {/* WE ARE HERE FOR YOU - below Cookies policy */}
           <div className="text-center w-full relative" style={{ marginTop: pxToPosition(40, { minPx: 20, maxPx: 40 }), marginBottom: '90px' }}>
             <div className="text-2xl font-bold" style={{ 
               fontSize: '31px', 
@@ -146,9 +146,9 @@ const MobileFooter = () => {
           </div>
         </div>
 
-        {/* Нижняя часть футера */}
+        {/* Contact buttons section */}
         <div className="flex flex-col relative z-[2]" style={{ marginTop: pxToPosition(40, { minPx: 20, maxPx: 40 }) }}>
-          {/* Единое изображение FooterBack для всего блока */}
+          {/* Background decorative element FooterBack positioned at the top */}
           <div 
             style={{ 
               position: 'absolute',
@@ -171,9 +171,9 @@ const MobileFooter = () => {
             />
           </div>
 
-          {/* Контактная секция с иконками */}
+          {/* Contact buttons in the center */}
           <div className="text-center w-full relative" style={{ marginTop: '80px', marginBottom: '30px' }}>
-            {/* Иконки - поверх изображения */}
+            {/* Buttons - positioned above decorative element */}
             <div className="flex justify-center flex-wrap relative" style={{ gap: pxToPosition(120, { minPx: 20, maxPx: 120 }), zIndex: 2 }}>
               {/* Chat */}
               <div className="text-center cursor-pointer transition-transform hover:-translate-y-1" style={{ minWidth: pxToPosition(120, { minPx: 80, maxPx: 120 }) }}>

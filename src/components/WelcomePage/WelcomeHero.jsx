@@ -3,14 +3,14 @@ import CountrySelection from './CountrySelection';
 import { pxToPosition, pxToResponsive, adaptivePercent } from './utils/responsive';
 
 const WelcomeHero = () => {
-  // Используем encodeURI для правильной обработки пробелов и спецсимволов в пути
+  // Use encodeURI to properly handle spaces and special characters in the path
   const imagePath = '/Images/01 - Welcome page/welcome2 - Copy.jpg';
   const backgroundImage = encodeURI(imagePath);
 
-  // Конкретные позиции из дизайна (базовая ширина 1895px)
-  // Тайский текст: top: 260px (от начала whiteLayer), left: 50px
-  // CountrySelection: top: 500px (от начала whiteLayer)
-  // Фоновое изображение начинается с верху, но видимая часть картинки почти с центра
+  // Specific positions from the design (base width 1895px)
+  // Thai text: top: 260px (from whiteLayer start), left: 50px
+  // CountrySelection: top: 500px (from whiteLayer start)
+  // Background image starts from the top, but visible part of the image is almost from the center
 
   return (
     <section 
@@ -23,14 +23,14 @@ const WelcomeHero = () => {
         paddingTop: 'clamp(120px, 10.5541vw, 200px)'
       }}
     >
-      {/* Контейнер, высота которого определяется whiteLayer */}
+      {/* Container, height is determined by whiteLayer */}
       <div className="relative w-full">
-        {/* White Layer - определяет высоту страницы, начинается чуть ниже paddingTop */}
+        {/* White Layer - determines page height, starts slightly below paddingTop */}
         <div 
           className="relative z-[1]" 
           style={{ 
             pointerEvents: 'none',
-            marginTop: pxToPosition(50, { minPx: 30, maxPx: 50 }) // Небольшой отступ чтобы опустить whiteLayer чуть ниже
+            marginTop: pxToPosition(50, { minPx: 30, maxPx: 50 }) // Small offset to lower whiteLayer slightly
           }}>
           <img 
             src="/Images/whiteLayer.png"
@@ -40,38 +40,38 @@ const WelcomeHero = () => {
           />
         </div>
 
-        {/* Контент с тайским текстом - поверх whiteLayer */}
-        {/* Позиции: поднят выше и сдвинут вправо адаптивно */}
+        {/* Container for Thai text - positioned above whiteLayer */}
+        {/* Positions: top position (min 220px), left position (min 50px) */}
         <div 
           className="absolute z-[2] thai-text-container" 
           style={{ 
-            top: pxToPosition(180, { minPx: 50, maxPx: 180 }), // Поднят еще выше (было 220px)
-            left: pxToPosition(80, { minPx: 30, maxPx: 80 }), // Сдвинут вправо (было 50px)
+            top: pxToPosition(180, { minPx: 50, maxPx: 180 }), // Top position (min 220px)
+            left: pxToPosition(80, { minPx: 30, maxPx: 80 }), // Left position (min 50px)
             maxWidth: 'calc(100% - ' + pxToPosition(80, { minPx: 30, maxPx: 80 }) + ' - 20px)'
           }}>
           <h2 className="text-white mb-2.5"
               style={{ 
                 fontSize: 'clamp(2rem, 8vw, 7rem)',
                 lineHeight: '1.1',
-                fontWeight: '300', // Уменьшен font-weight еще больше (было 400, стало 300)
-                textShadow: '0 2px 8px rgba(0, 0, 0, 0.6), 0 4px 12px rgba(0, 0, 0, 0.5), 0 6px 16px rgba(0, 0, 0, 0.4)' // Темноватая тень
+                fontWeight: '300', // Reduced font-weight from default (min 400, now 300)
+                textShadow: '0 2px 8px rgba(0, 0, 0, 0.6), 0 4px 12px rgba(0, 0, 0, 0.5), 0 6px 16px rgba(0, 0, 0, 0.4)' // Text shadow
               }}>
             ยินดีต้อนรับกลับบ้าน
           </h2>
           <p className="cursor-pointer" 
              style={{ 
-               fontSize: 'clamp(1rem, 2.2vw, 2rem)', // Увеличен размер на пару пикселей
-               marginTop: pxToPosition(30, { minPx: 15, maxPx: 30 }), // Опущен еще ниже
-               fontWeight: '500', // Меньше font-weight (было bold/700, стало 500)
-               color: '#e2e2e2', // Сероватый цвет
-               textShadow: '0 1px 4px rgba(0, 0, 0, 0.6), 0 2px 6px rgba(0, 0, 0, 0.5), 0 3px 8px rgba(0, 0, 0, 0.4)' // Темноватая тень
+               fontSize: 'clamp(1rem, 2.2vw, 2rem)', // Font size adjusted for better display
+               marginTop: pxToPosition(30, { minPx: 15, maxPx: 30 }), // Margin top adjustment
+               fontWeight: '500', // Reduced font-weight (min bold/700, now 500)
+               color: '#e2e2e2', // Light gray color
+               textShadow: '0 1px 4px rgba(0, 0, 0, 0.6), 0 2px 6px rgba(0, 0, 0, 0.5), 0 3px 8px rgba(0, 0, 0, 0.4)' // Text shadow
              }}>
             Switch language
           </p>
         </div>
 
-        {/* CountrySelection поверх whiteLayer */}
-        {/* Точная позиция: top: 500px от начала whiteLayer */}
+        {/* CountrySelection positioned above whiteLayer */}
+        {/* Position from design: top: 500px from whiteLayer start */}
         <div 
           className="absolute left-0 right-0 z-[2] country-selection-container" 
           style={{ 

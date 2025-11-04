@@ -1,19 +1,19 @@
-# Система адаптивного позиционирования
+# Responsive Design Utilities
 
-Эта система позволяет использовать конкретные позиции элементов из дизайна (базовая ширина 1895px) с автоматической адаптацией для всех экранов до планшета включительно.
+This utility module contains functions for converting pixel values from design to responsive units (base width 1895px) and creating adaptive layouts. All functions work with the design base width and create responsive values.
 
-## Основные функции
+## Available Functions
 
 ### `pxToPosition(px, options)`
-Преобразует пиксели в адаптивные значения для позиционирования (top, left, right, bottom).
+Converts pixel value to responsive value for positioning (top, left, right, bottom).
 
-**Параметры:**
-- `px` - пиксели из дизайна (от базовой ширины 1895px)
-- `options` - опции:
-  - `minPx` - минимальное значение в пикселях для мобильных
-  - `maxPx` - максимальное значение в пикселях для больших экранов
+**Parameters:**
+- `px` - Pixel value from design (for the design base width 1895px)
+- `options` - Options:
+  - `minPx` - Minimum responsive value in pixels for small screens
+  - `maxPx` - Maximum responsive value in pixels for large screens (optional)
 
-**Пример:**
+**Example:**
 ```javascript
 style={{
   top: pxToPosition(260, { minPx: 80, maxPx: 260 }),
@@ -22,69 +22,69 @@ style={{
 ```
 
 ### `pxToResponsive(px, minPercent)`
-Преобразует пиксели в адаптивные значения для размеров (width, height).
+Converts pixel value to responsive value for sizes (width, height).
 
-**Параметры:**
-- `px` - пиксели из дизайна
-- `minPercent` - минимальный процент от ширины экрана (опционально)
+**Parameters:**
+- `px` - Pixel value from design
+- `minPercent` - Minimum percentage for very small screens (optional)
 
-**Пример:**
+**Example:**
 ```javascript
 style={{
-  width: pxToResponsive(190, 15), // Минимум 15vw на маленьких экранах
+  width: pxToResponsive(190, 15), // Minimum 15vw on small screens
   height: pxToResponsive(190, 15)
 }}
 ```
 
 ### `pxToPercent(px)`
-Преобразует пиксели в проценты от базовой ширины.
+Converts pixel value to percentage relative to base width.
 
-**Пример:**
+**Example:**
 ```javascript
 style={{
-  left: pxToPercent(50) // ~2.64% от 1895px
+  left: pxToPercent(50) // ~2.64% for 1895px
 }}
 ```
 
-## Использование в компонентах
+## How to Use
 
-1. Импортируйте нужные функции:
+1. Import the required functions:
 ```javascript
 import { pxToPosition, pxToResponsive } from './utils/responsive';
 ```
 
-2. Используйте конкретные значения из дизайна:
+2. Use responsive values for positions from design:
 ```javascript
-// Точная позиция: top: 260px, left: 50px
+// Position from design: top: 260px, left: 50px
 <div style={{
   top: pxToPosition(260, { minPx: 80, maxPx: 260 }),
   left: pxToPosition(50, { minPx: 20, maxPx: 50 })
 }}>
 ```
 
-3. Для размеров используйте `pxToResponsive`:
+3. For sizes, use `pxToResponsive`:
 ```javascript
-// Размер флага: 190px
+// Flag size: 190px
 <div style={{
   width: pxToResponsive(190, 15),
   height: pxToResponsive(190, 15)
 }}>
 ```
 
-## Преимущества
+## Best Practices
 
-- ✅ Сохраняет точные позиции элементов из дизайна
-- ✅ Автоматически адаптируется для всех экранов
-- ✅ Использует clamp() для плавного масштабирования
-- ✅ Легко поддерживать и изменять позиции
-- ✅ Работает на мобильных, планшетах и десктопах
+- Use exact pixel values from design
+- Set min/max values for better control on different screens
+- Use clamp() for smooth scaling on different devices
+- Test on mobile and desktop devices
+- Adjust minimum values for better display on small screens
 
-## Адаптивные брейкпоинты
+## Screen Breakpoints
 
-Система автоматически работает со следующими размерами:
-- Мобильные: < 640px
-- Планшеты: 640px - 1024px  
-- Десктопы: > 1024px
+The following breakpoints are typically used in the project:
+- Mobile: < 640px
+- Tablet: 640px - 1024px  
+- Desktop: > 1024px
 
-Минимальные и максимальные значения в `pxToPosition` гарантируют корректное отображение на всех устройствах.
+Small and medium screens use responsive values from `pxToPosition` which automatically scale, so you don't need to manually specify different values for different breakpoints.
 

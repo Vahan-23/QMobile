@@ -9,12 +9,12 @@ const CountrySelection = () => {
   const dropdownRef = useRef(null);
   const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0, width: 0 });
 
-  // Обновить позицию dropdown для Portal
+  // Update dropdown position for Portal
   const updateDropdownPosition = () => {
     if (isDropdownOpen && dropdownRef.current) {
       const rect = dropdownRef.current.getBoundingClientRect();
       setDropdownPosition({
-        top: rect.bottom + 8, // getBoundingClientRect уже учитывает скролл
+        top: rect.bottom + 8, // getBoundingClientRect already accounts for scroll
         left: rect.left,
         width: rect.width
       });
@@ -35,7 +35,7 @@ const CountrySelection = () => {
     }
   }, [isDropdownOpen]);
 
-  // Маппинг стран на ISO коды для флагов
+  // Mapping countries to ISO codes for flags
   const countryCodeMap = {
     'Greece': 'GR',
     'Germany': 'DE',
@@ -69,7 +69,7 @@ const CountrySelection = () => {
     { name: 'Australia', flag: 'australia' }
   ];
 
-  // Получить URL флага из интернета
+  // Get flag URL from the internet
   const getFlagUrl = (countryName) => {
     const code = countryCodeMap[countryName];
     if (code) {
@@ -78,11 +78,11 @@ const CountrySelection = () => {
     return null;
   };
 
-  // Закрывать dropdown при клике вне его области
+  // Close dropdown when clicking outside its area
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (isDropdownOpen && dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        // Проверяем, что клик был не по dropdown списку
+        // Check that click was not on dropdown list
         const dropdownList = document.querySelector('[data-dropdown-list]');
         if (!dropdownList || !dropdownList.contains(event.target)) {
           setIsDropdownOpen(false);
@@ -99,10 +99,10 @@ const CountrySelection = () => {
     };
   }, [isDropdownOpen]);
 
-  // Конкретные позиции из дизайна:
-  // padding: 50px слева и справа, max-width: 600px
-  // gap между флагами: 153px
-  // размер флагов: 190px
+  // Specific positions from design:
+  // padding: 50px left and right, max-width: 600px
+  // gap between flags: 153px
+  // dropdown flags: 190px
 
   return (
     <main 
@@ -126,19 +126,19 @@ const CountrySelection = () => {
           letterSpacing: 'clamp(2px, 0.3vw, 4px)',
           fontFamily: 'unset',
           marginTop: 'clamp(10px, 2vw, 20px)',
-          marginBottom: pxToPosition(25, { minPx: 15, maxPx: 25 }) // Отступ между текстом и флагами
+          marginBottom: pxToPosition(25, { minPx: 15, maxPx: 25 }) // Gap between title and flags
         }}>
           WHERE DO YOU<br />CURRENTLY LIVE?
         </h1>
 
-        {/* Сетка стран - конкретные позиции */}
-        {/* Блок с флагами в ряд, на ≤560px уменьшается и поднимается выше */}
+        {/* Flags row - specific positions from design */}
+        {/* Flags and columns: at 560px width responsive, positioned and sized */}
         <div 
           className="flex items-start mb-2 sm:mb-3 md:mb-4 flags-row-mobile"
           style={{
-            marginTop: pxToPosition(20, { minPx: 15, maxPx: 20 }), // Отступ между текстом и флагами
-            gap: pxToPosition(120, { minPx: 60, maxPx: 120 }), // Еще больше отступ между флагами
-            flexWrap: 'nowrap' // Флаги в ряд, без переноса
+            marginTop: pxToPosition(20, { minPx: 15, maxPx: 20 }), // Gap between title and flags
+            gap: pxToPosition(120, { minPx: 60, maxPx: 120 }), // Gap between flags
+            flexWrap: 'nowrap' // Prevent wrapping, keep flags in a row
           }}>
           {countries.map((country, index) => (
             <div
@@ -153,9 +153,9 @@ const CountrySelection = () => {
               <div
                 className="rounded-full mx-auto border-[1px] sm:border-[2px] border-white overflow-hidden flex items-center justify-center shadow-lg bg-gray-200 flag-item"
                 style={{
-                  width: pxToResponsive(65, 5), // Уменьшен размер флагов до 65px
-                  height: pxToResponsive(65, 5), // Уменьшен размер флагов до 65px
-                  marginBottom: pxToPosition(4, { minPx: 2, maxPx: 4 }) // Минимальный отступ под флагом
+                  width: pxToResponsive(65, 5), // Responsive flag size, base 65px
+                  height: pxToResponsive(65, 5), // Responsive flag size, base 65px
+                  marginBottom: pxToPosition(4, { minPx: 2, maxPx: 4 }) // Gap between flag and text
                 }}
               >
                 <img 
@@ -164,7 +164,7 @@ const CountrySelection = () => {
                   className="w-full h-full object-cover flag-item"
                   style={{ borderRadius: '50%' }}
                   onError={(e) => {
-                    // Если загрузка флага не удалась, показываем синий фон
+                    // If flag image failed to load, hide it and set background
                     e.target.style.display = 'none';
                     e.target.parentElement.style.background = '#0066cc';
                   }}
@@ -172,7 +172,7 @@ const CountrySelection = () => {
               </div>
               <div className="drop-shadow-md font-semibold text-center flag-text" style={{ 
                 color: '#7b7b7b',
-                fontSize: 'clamp(0.65rem, 1.2vw, 0.75rem)', // Уменьшен размер текста
+                fontSize: 'clamp(0.65rem, 1.2vw, 0.75rem)', // Responsive text size
                 lineHeight: '1.2'
               }}>
                 {country.name}
@@ -181,13 +181,13 @@ const CountrySelection = () => {
           ))}
         </div>
 
-        {/* Dropdown для другой страны */}
+        {/* Dropdown section for other countries */}
         <div style={{ marginTop: pxToPosition(25, { minPx: 15, maxPx: 25 }) }}>
           <div className="mb-3 sm:mb-4 md:mb-5 drop-shadow-lg" style={{ 
             color: '#03355c', 
             fontSize: 'clamp(1rem, 2.5vw, 2rem)', 
             fontWeight: '800',
-            marginBottom: pxToPosition(10, { minPx: 5, maxPx: 10 }) // Уменьшен отступ снизу
+            marginBottom: pxToPosition(10, { minPx: 5, maxPx: 10 }) // Responsive margin bottom
           }}>
             PICK ANOTHER COUNTRY
           </div>
@@ -208,7 +208,7 @@ const CountrySelection = () => {
                 style={{
                   width: pxToResponsive(32, 4),
                   height: pxToResponsive(32, 4),
-                  marginLeft: pxToPosition(6, { minPx: 3, maxPx: 6 }) // Флаг сдвинут чуть вправо
+                  marginLeft: pxToPosition(6, { minPx: 3, maxPx: 6 }) // Flag on the left
                 }}
               >
                 <img 
@@ -217,7 +217,7 @@ const CountrySelection = () => {
                   className="w-full h-full object-cover"
                   style={{ borderRadius: '50%' }}
                   onError={(e) => {
-                    // Если загрузка флага не удалась, показываем градиентный фон
+                    // If flag image failed to load, hide it and set gradient background
                     e.target.style.display = 'none';
                     e.target.parentElement.style.background = 'linear-gradient(180deg, red 0%, red 33%, white 33%, white 66%, red 66%, red 100%)';
                   }}
@@ -251,14 +251,14 @@ const CountrySelection = () => {
                   width: dropdownPosition.width || 'clamp(55vw, 16.0422vw, 304px)',
                   borderColor: '#03355c', 
                   borderRadius: '8px',
-                  zIndex: 10000 // Очень высокий z-index для Portal
+                  zIndex: 10000 // High z-index for Portal
                 }}>
                 {otherCountries.map((country, index) => (
                   <div
                     key={index}
                     className="cursor-pointer hover:bg-gray-100 flex items-center gap-2 sm:gap-3"
                     style={{
-                      padding: pxToPosition(8, { minPx: 6, maxPx: 8 }) // Компактный padding
+                      padding: pxToPosition(8, { minPx: 6, maxPx: 8 }) // Item padding
                     }}
                     onClick={() => {
                       setSelectedOtherCountry(country.name);
@@ -278,7 +278,7 @@ const CountrySelection = () => {
                         className="w-full h-full object-cover"
                         style={{ borderRadius: '50%' }}
                         onError={(e) => {
-                          // Если загрузка флага не удалась, показываем градиентный фон
+                          // If flag image failed to load, hide it and set gradient background
                           e.target.style.display = 'none';
                           e.target.parentElement.style.background = 'linear-gradient(180deg, red 0%, red 33%, white 33%, white 66%, red 66%, red 100%)';
                         }}

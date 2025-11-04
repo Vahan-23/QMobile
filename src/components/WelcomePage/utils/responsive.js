@@ -1,25 +1,25 @@
 /**
- * Хелпер для адаптивного позиционирования
- * Преобразует пиксели из дизайна (базовая ширина 1895px) в адаптивные значения
+ * Utility functions for responsive design
+ * Converts pixel values from design to responsive units (base width 1895px) and creates adaptive layouts
  */
 
-// Базовая ширина дизайна
+// Base width from design
 const BASE_WIDTH = 1895;
 
 /**
- * Преобразует пиксели в проценты от базовой ширины для использования с left/right
- * @param {number} px - пиксели из дизайна
- * @returns {string} - процентное значение
+ * Converts pixel value to percentage value for width/height or left/right
+ * @param {number} px - Pixel value from design
+ * @returns {string} - Percentage value
  */
 export const pxToPercent = (px) => {
   return `${(px / BASE_WIDTH) * 100}%`;
 };
 
 /**
- * Создает адаптивное процентное значение для background-position
- * @param {number} percent - базовый процент (например, 50 для center)
- * @param {number} offsetPx - смещение в пикселях (положительное = вправо/вниз)
- * @returns {string} - адаптивное процентное значение
+ * Creates adaptive percentage value for background-position
+ * @param {number} percent - Base percentage (e.g., 50 for center)
+ * @param {number} offsetPx - Offset in pixels (negative = left/top, positive = right/bottom)
+ * @returns {string} - Adaptive percentage value
  */
 export const adaptivePercent = (percent, offsetPx = 0) => {
   const basePercent = percent;
@@ -31,10 +31,10 @@ export const adaptivePercent = (percent, offsetPx = 0) => {
 };
 
 /**
- * Преобразует пиксели в адаптивное значение с clamp для width/height
- * @param {number} px - пиксели из дизайна
- * @param {number} minPercent - минимальный процент от ширины экрана (опционально)
- * @returns {string} - clamp значение
+ * Converts pixel value to responsive value with clamp for width/height
+ * @param {number} px - Pixel value from design
+ * @param {number} minPercent - Minimum percentage for very small screens (optional)
+ * @returns {string} - clamp value
  */
 export const pxToResponsive = (px, minPercent = null) => {
   const min = minPercent ? `${minPercent}vw` : `${px * 0.5}px`;
@@ -42,20 +42,20 @@ export const pxToResponsive = (px, minPercent = null) => {
 };
 
 /**
- * Преобразует пиксели в vw единицы для абсолютного позиционирования
- * @param {number} px - пиксели из дизайна
- * @returns {string} - vw значение
+ * Converts pixel value to vw units for simple responsive sizing
+ * @param {number} px - Pixel value from design
+ * @returns {string} - vw value
  */
 export const pxToVw = (px) => {
   return `${(px / BASE_WIDTH) * 100}vw`;
 };
 
 /**
- * Создает адаптивное значение для top/bottom/left/right позиций
- * Использует комбинацию vw и clamp для точного позиционирования
- * @param {number} px - пиксели из дизайна
- * @param {object} options - опции { minPx, maxPx, basePx }
- * @returns {string} - адаптивное значение
+ * Creates responsive value for top/bottom/left/right positions
+ * Uses clamp with vw for adaptive positioning
+ * @param {number} px - Pixel value from design
+ * @param {object} options - Options { minPx, maxPx, basePx }
+ * @returns {string} - Responsive value
  */
 export const pxToPosition = (px, options = {}) => {
   const { minPx, maxPx } = options;
@@ -65,7 +65,7 @@ export const pxToPosition = (px, options = {}) => {
     return `clamp(${minPx}px, ${vwValue}vw, ${maxPx}px)`;
   }
   
-  // Для мобильных делаем минимальный размер, для больших экранов - максимальный
+  // If min/max not specified, use defaults. For better scaling on small screens, use smaller min. For larger - increase
   const min = minPx !== undefined ? minPx : px * 0.3;
   const max = maxPx !== undefined ? maxPx : px;
   
@@ -73,9 +73,9 @@ export const pxToPosition = (px, options = {}) => {
 };
 
 /**
- * Создает стили для конкретного элемента с позиционированием
+ * Creates position styles object for absolute/relative positioning
  * @param {object} positions - { top, right, bottom, left, width, height }
- * @returns {object} - объект стилей
+ * @returns {object} - Styles object
  */
 export const createPositionStyles = (positions) => {
   const styles = {};
@@ -111,11 +111,11 @@ export const createPositionStyles = (positions) => {
 };
 
 /**
- * Медиа-запросы для планшетов и мобильных
- * Возвращает значение в зависимости от размера экрана
+ * Helper function for responsive values
+ * Currently returns object, values should be used with CSS media queries or useMediaQuery
  */
 export const getResponsiveValue = (mobile, tablet, desktop) => {
-  // Используется в сочетании с CSS или через useMediaQuery
+  // Currently just returns object, should be used with CSS media queries or useMediaQuery
   return {
     mobile,
     tablet,

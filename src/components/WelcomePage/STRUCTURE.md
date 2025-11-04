@@ -1,49 +1,49 @@
-# Структура Welcome Page
+# Welcome Page Structure
 
-## Компоненты
+## Components
 
-### WelcomePage (главный компонент)
-- Управляет состоянием текущей страницы
-- Координирует все дочерние компоненты
-- Обрабатывает навигацию между страницами
+### WelcomePage (main component)
+- Manages current page state
+- Coordinates all child components
+- Handles navigation between pages
 
 ### WelcomeHeader
-- **Расположение**: Верх страницы (absolute)
-- **Содержит**: Кнопка "Пропустить"
-- **Функция**: Позволяет пропустить приветствие
+- **Location**: Top of the page (absolute)
+- **Contains**: Skip button
+- **Function**: Allows to skip the welcome
 
 ### WelcomeHero
-- **Расположение**: Центральная часть экрана
-- **Содержит**: Фоновое изображение (WP.jpg), заголовок, подзаголовок
-- **Функция**: Главный визуальный элемент страницы
+- **Location**: Center of the screen
+- **Contains**: Background image (WP.jpg), title, subtitle
+- **Function**: Main visual element of the page
 
 ### PageIndicators
-- **Расположение**: Между Hero и кнопками
-- **Содержит**: Точки-индикаторы текущей страницы
-- **Функция**: Показывает на какой странице пользователь
+- **Location**: Between Hero and buttons
+- **Contains**: Dot indicators for current page
+- **Function**: Shows which page the user is on
 
 ### WelcomeButtons
-- **Расположение**: Нижняя часть экрана (fixed)
-- **Содержит**: Кнопки "Пропустить" и "Далее"/"Начать"
-- **Функция**: Навигация по страницам приветствия
+- **Location**: Bottom of the screen (fixed)
+- **Contains**: Skip and Next/Start buttons
+- **Function**: Navigation through welcome pages
 
-## Структура файлов
+## File Structure
 
 ```
 WelcomePage/
-├── WelcomePage.js       # Главный компонент
-├── WelcomeHeader.js     # Шапка с кнопкой Skip
-├── WelcomeHero.js       # Hero секция с изображением
-├── WelcomeButtons.js    # Кнопки навигации
-├── PageIndicators.js    # Индикаторы страниц
-├── index.js             # Экспорты
-└── STRUCTURE.md         # Эта документация
+├── WelcomePage.js       # Main component
+├── WelcomeHeader.js     # Header with Skip button
+├── WelcomeHero.js       # Hero section with image
+├── WelcomeButtons.js    # Navigation buttons
+├── PageIndicators.js    # Page indicators
+├── index.js             # Exports
+└── STRUCTURE.md         # This documentation
 ```
 
-## Как изменить дизайн под макет
+## How to Modify Design to Match Layout
 
-1. **Изображение фона**: Измените `backgroundImage` в `WelcomeHero.js`
-2. **Текст**: Измените заголовок и подзаголовок в `WelcomeHero.js`
-3. **Кнопки**: Измените стили и текст в `WelcomeButtons.js`
-4. **Индикаторы**: Измените стили в `PageIndicators.js`
-5. **Расположение**: Измените классы Tailwind в каждом компоненте
+1. **Background image**: Change `backgroundImage` in `WelcomeHero.js`
+2. **Text**: Change title and subtitle in `WelcomeHero.js`
+3. **Buttons**: Change styles and text in `WelcomeButtons.js`
+4. **Indicators**: Change styles in `PageIndicators.js`
+5. **Layout**: Change Tailwind classes in each component

@@ -3,10 +3,10 @@ import { pxToPosition, pxToResponsive } from './utils/responsive';
 import MobileFooter from './MobileFooter';
 
 const WelcomeFooter = () => {
-  // Конкретные позиции из дизайна:
-  // padding: 50px слева и справа
-  // высота: 830px
-  // gap между колонками: 20px
+  // Specific positions from design:
+  // padding: 50px left and right
+  // height: 830px
+  // gap between columns: 20px
   // whiteFacture: bottom: 230px, left: 4%, right: -6%
 
   return (
@@ -29,7 +29,7 @@ const WelcomeFooter = () => {
         style={{
           gap: pxToPosition(5, { minPx: 0, maxPx: 5 })
         }}>
-        {/* Колонка 1 */}
+        {/* Column 1 */}
         <div 
           className="flex-1" 
           style={{ 
@@ -60,7 +60,7 @@ const WelcomeFooter = () => {
           </ul>
         </div>
 
-        {/* Колонка 2 */}
+        {/* Column 2 */}
         <div 
           className="flex-1" 
           style={{ 
@@ -92,7 +92,7 @@ const WelcomeFooter = () => {
           </ul>
         </div>
 
-        {/* Колонка 3 */}
+        {/* Column 3 */}
         <div 
           className="flex-1" 
           style={{ 
@@ -124,7 +124,7 @@ const WelcomeFooter = () => {
           </ul>
         </div>
 
-        {/* Колонка 4 - Логотип */}
+        {/* Column 4 - Logo */}
         <div 
           className="flex-1 flex items-start flex-col" 
           style={{ 
@@ -154,9 +154,9 @@ const WelcomeFooter = () => {
         </div>
       </div>
 
-      {/* Нижняя часть футера */}
+      {/* Contact buttons section */}
       <div className="flex justify-end items-end relative z-[2] flex-col sm:flex-row sm:gap-10 sm:items-center">
-        {/* Контактная секция */}
+        {/* Contact buttons */}
         <div className="text-center sm:text-right w-full sm:w-auto" style={{ marginTop: pxToPosition(80, { minPx: 10, maxPx: 80 }) }}>
           <div className="flex justify-start flex-wrap" style={{ gap: pxToPosition(120, { minPx: 20, maxPx: 120 }) }}>
             {/* Chat */}
@@ -273,15 +273,15 @@ const WelcomeFooter = () => {
         </div>
       </div>
 
-      {/* Нижний отступ для футера */}
+      {/* Spacing at the bottom */}
       <div style={{ marginBottom: pxToPosition(-600, { minPx: -300, maxPx: -600 }) }}></div>
 
-      {/* WhiteFacture изображение - половина за границей */}
-      {/* Точные позиции: bottom: 230px, left: 4%, right: -6% */}
+      {/* WhiteFacture decorative element - positioned at the bottom */}
+      {/* Position from design: bottom: 230px, left: 4%, right: -6% */}
       <div style={{ 
         position: 'absolute',
         bottom: pxToPosition(200, { minPx: 0, maxPx: 200 }),
-        left: '4%', // Процент от ширины контейнера
+        left: '4%', // Fixed left position
         right: '-3%',
         transform: 'translateY(calc(70% - 63px))',
         zIndex: 1,

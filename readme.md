@@ -1,83 +1,83 @@
 # QMobile
 
-React приложение с Tailwind CSS
+React application with Tailwind CSS
 
-## Структура проекта
+## Project Structure
 
 ```
 QMobile/
 ├── public/
 │   ├── Images/
-│   │   └── 01 - Welcome page/    # Изображения для Welcome страницы
-│   │       ├── WP.jpg            # Основное изображение Welcome Page
+│   │   └── 01 - Welcome page/    # Images for Welcome page
+│   │       ├── WP.jpg            # Main Welcome Page image
 │   │       ├── welcome1.jpg
 │   │       ├── welcome2.jpg
 │   │       ├── welcome3.jpg
 │   │       └── ...
 │   └── index.html
 ├── src/
-│   ├── components/               # Компоненты приложения
+│   ├── components/               # Application components
 │   │   ├── WelcomePage/
-│   │   │   ├── WelcomePage.js      # Главный компонент
-│   │   │   ├── WelcomeHeader.js    # Шапка с кнопкой Skip
-│   │   │   ├── WelcomeHero.js      # Hero секция с фоновым изображением
-│   │   │   ├── WelcomeButtons.js   # Кнопки навигации
-│   │   │   ├── PageIndicators.js   # Индикаторы страниц
+│   │   │   ├── WelcomePage.js      # Main component
+│   │   │   ├── WelcomeHeader.js    # Header with Skip button
+│   │   │   ├── WelcomeHero.js      # Hero section with background image
+│   │   │   ├── WelcomeButtons.js   # Navigation buttons
+│   │   │   ├── PageIndicators.js   # Page indicators
 │   │   │   ├── index.js
-│   │   │   └── STRUCTURE.md         # Структура компонента
-│   │   └── README.md            # Документация по компонентам
-│   ├── App.js                   # Главный компонент
-│   ├── index.js                 # Точка входа
-│   └── index.css                # Глобальные стили (Tailwind)
+│   │   │   └── STRUCTURE.md         # Component structure
+│   │   └── README.md            # Component documentation
+│   ├── App.js                   # Main component
+│   ├── index.js                 # Entry point
+│   └── index.css                # Global styles (Tailwind)
 ├── package.json
 ├── tailwind.config.js
 └── postcss.config.js
 ```
 
-## Где что добавлять
+## Where to Add Things
 
-### 📁 **Изображения**
-- **Путь**: `public/Images/[Название папки]/`
-- **Использование**: В компонентах путь начинается с `/Images/...`
-- **Пример**: `public/Images/01 - Welcome page/welcome1.jpg` → `/Images/01 - Welcome page/welcome1.jpg`
+### 📁 **Images**
+- **Path**: `public/Images/[Folder name]/`
+- **Usage**: In components, path starts with `/Images/...`
+- **Example**: `public/Images/01 - Welcome page/welcome1.jpg` → `/Images/01 - Welcome page/welcome1.jpg`
 
-### 📁 **Новые компоненты**
-- **Путь**: `src/components/[ComponentName]/`
-- **Структура**:
+### 📁 **New Components**
+- **Path**: `src/components/[ComponentName]/`
+- **Structure**:
   ```
   ComponentName/
-    ├── ComponentName.js    # Основной компонент
-    └── index.js            # Экспорт
+    ├── ComponentName.js    # Main component
+    └── index.js            # Export
   ```
-- **Импорт**: `import ComponentName from './components/ComponentName'`
+- **Import**: `import ComponentName from './components/ComponentName'`
 
-### 📁 **Стили**
-- **Глобальные**: `src/index.css` (Tailwind директивы)
-- **Компонентные**: Можете создать `ComponentName.css` рядом с компонентом
+### 📁 **Styles**
+- **Global**: `src/index.css` (Tailwind directives)
+- **Component**: You can create `ComponentName.css` next to the component
 
-## Установка
+## Installation
 
 ```bash
 npm install
 ```
 
-## Запуск
+## Running
 
 ```bash
 npm start
 ```
 
-Приложение откроется в браузере по адресу [http://localhost:3000](http://localhost:3000)
+The application will open in the browser at [http://localhost:3000](http://localhost:3000)
 
-## Сборка
+## Build
 
 ```bash
 npm run build
 ```
 
-Собранное приложение будет в папке `build`
+The built application will be in the `build` folder
 
-## Тестирование
+## Testing
 
 ```bash
 npm test
