@@ -1,0 +1,202 @@
+?? Styleguide
+‘’’’’’’’’’’’’’’’’’Style Guide for Q Mobile Website
+
+Style Guide for Desktop
+1. Introduction
+
+
+2. Typography
+Element	Font Family	Weight	Size (px)	Size (rem)	Line?Height	Usage
+Hero Title	Rubik	Regular	50	3.125rem	1.2	Homepage hero banner
+Section Title	Rubik	Bold	42	2.625rem	1.2	Section headings
+Subsection Title	Rubik	Bold	36	2.25rem	1.2	Subsection headings
+Card Title	Rubik	Bold	30	1.875rem	1.2	Card or component titles
+Minor Heading	Rubik	Bold	28.75	1.797rem	1.2	Secondary headings
+Body Text	Rubik	Regular	21	1.3125rem	1.2	Paragraphs, form labels
+Caption / Meta	Rubik	Regular	14	0.875rem	1.2	Captions, meta information
+
+3. Color Palette
+Name	Hex	RGB	Description / Usage
+Primary Navy	#04365D	rgb(4, 54, 93)	Main text, headings
+Secondary Blue	#005493	rgb(0, 83, 146)	Secondary buttons, links
+Accent Turquoise	#33B1BB	rgb(51, 177, 187)	Primary buttons, highlights
+Light Turquoise	#67CAD7	rgb(104, 201, 214)	Background accents, info panels
+Dark Blue	#0038B8	rgb(0, 56, 184)	Illustrative elements, icons
+Danger Red	#A41830	rgb(164, 24, 48)	Error messages, alerts
+Neutral Dark	#2C2A49	rgb(44, 42, 73)	Secondary text
+Neutral Light	#F4F5F8	rgb(244, 245, 248)	Page background
+White	#FFFFFF	rgb(255, 255, 255)	Backgrounds, cards
+
+4. Spacing & Layout
+Base Unit: 8px grid system
+
+Spacing increments: 4px, 8px, 16px, 24px, 32px
+
+Max container width: 1280px
+
+Breakpoints:
+
+Desktop: ? 1024px
+
+Tablet: 768px – 1023px
+
+Mobile: ? 767px
+
+
+5. UI Components
+5.1 Buttons
+Primary Button:
+ 
+
+Background: Tourquise
+
+Text: Primary Navy
+
+Padding: 12px 24px
+
+Border?Radius: 4px
+
+Hover: Background #68C9D6
+
+Secondary Button:
+ 
+
+Background: Secondary Blue
+
+Border: 1px solid #005493
+
+Text: #FFFFFF
+
+Padding: 12px 24px
+
+Border?Radius: 4px
+
+Hover: Background #04365D, Text #FFFFFF
+
+5.2 Form Elements
+Input Field:
+
+Background: #FFFFFF
+
+Border: 1px solid #2C2A49
+
+Padding: 8px 12px
+
+Border?Radius: 4px
+
+Focus: Border #33B1BB
+
+Select / Dropdown:
+
+Same as input field, with arrow icon #2C2A49
+
+
+6. Icons & Imagery
+Icon Style: Flat, 24px, stroke width 2px
+
+Color: #2C2A49 primary, #33B1BB accent
+
+Image Aspect Ratios: 16:9 for banners, 1:1 for thumbnails
+
+
+Style Guide for Mobile
+1. Introduction
+
+
+2. Typography
+Element	Font Family	Weight	Size (px)	Size (rem)	Line?Height	Usage
+Hero Title	Rubik	Regular	28	1.75rem	1.3	Mobile hero banner
+Section Title	Rubik	Bold	24	1.5rem	1.3	Section headings
+Subsection Title	Rubik	Bold	20	1.25rem	1.3	Subsection headings
+Card Title	Rubik	Bold	18	1.125rem	1.3	Card or component titles
+Body Text	Rubik	Regular	16	1rem	1.5	Paragraphs, form labels
+Caption / Meta	Rubik	Regular	12	0.75rem	1.3	Captions, meta information
+
+3. Color Palette
+Name	Hex	RGB	Description / Usage
+Primary Navy	#04365D	rgb(4, 54, 93)	Main text, headings
+Secondary Blue	#005392	rgb(0, 83, 146)	Secondary buttons, links
+Accent Turquoise	#33B1BB	rgb(51, 177, 187)	Primary buttons, highlights
+Light Turquoise	#68C9D6	rgb(104, 201, 214)	Background accents, info panels
+Dark Blue	#0038B8	rgb(0, 56, 184)	Illustrative elements, icons
+Danger Red	#A41830	rgb(164, 24, 48)	Error messages, alerts
+Neutral Dark	#2C2A49	rgb(44, 42, 73)	Secondary text
+Neutral Light	#F4F5F8	rgb(244, 245, 248)	Page background
+White	#FFFFFF	rgb(255, 255, 255)	Backgrounds, cards
+
+4. Spacing & Layout
+Base Unit: 8px grid system
+
+Spacing increments: 4px, 8px, 16px, 24px
+
+Max container width: 360px
+
+Margins: 16px on left and right
+
+Breakpoints:
+
+Mobile: ? 767px
+
+Tablet: 768px – 1023px
+
+Desktop: ? 1024px
+
+
+5. UI Components
+5.1 Buttons
+Primary (Full-Width) Button:
+
+Background: #33B1BB
+
+Text: #FFFFFF
+
+Padding: 12px 0
+
+Border?Radius: 4px
+
+Margin: 16px 0
+
+Hover: Background #68C9D6
+
+Secondary Button:
+
+Background: Transparent
+
+Border: 1px solid #04365D
+
+Text: #04365D
+
+Padding: 12px 0
+
+Border?Radius: 4px
+
+Margin: 16px 0
+
+Hover: Background #04365D, Text #FFFFFF
+
+5.2 Form Elements
+Input Field:
+
+Background: #FFFFFF
+
+Border: 1px solid #2C2A49
+
+Padding: 12px 16px
+
+Border?Radius: 4px
+
+Focus: Border #33B1BB
+
+Select / Dropdown:
+
+Same as input field, with arrow icon #2C2A49
+
+
+6. Icons & Imagery
+Icon Style: Flat, 24px, stroke width 2px
+
+Color: #2C2A49 primary, #33B1BB accent
+
+Image Aspect Ratios: 16:9 for banners, 1:1 for thumbnails
+
+Next Step: Review mobile specs and confirm or adjust as needed.
