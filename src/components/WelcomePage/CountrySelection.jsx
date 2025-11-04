@@ -120,30 +120,30 @@ const CountrySelection = () => {
         }}>
         <h1 className="drop-shadow-lg" style={{ 
           color: '#03355c',
-          fontSize: 'clamp(1.5rem, 4vw, 3.5625rem)',
-          lineHeight: 'clamp(1.75rem, 5vw, 4.25rem)',
+          fontSize: 'clamp(1.2rem, 3vw, 2.5rem)',
+          lineHeight: 'clamp(1.4rem, 3.5vw, 3rem)',
           fontWeight: '700',
           letterSpacing: 'clamp(2px, 0.3vw, 4px)',
           fontFamily: 'unset',
           marginTop: 'clamp(10px, 2vw, 20px)',
-          marginBottom: 0 // Убираем отступ чтобы флаги начинались сразу от текста
+          marginBottom: pxToPosition(25, { minPx: 15, maxPx: 25 }) // Отступ между текстом и флагами
         }}>
           WHERE DO YOU<br />CURRENTLY LIVE?
         </h1>
 
         {/* Сетка стран - конкретные позиции */}
-        {/* На мобильных: 2 колонки, на планшетах и выше: 4 колонки с точным gap 153px */}
+        {/* Блок с флагами в ряд, на ≤560px уменьшается и поднимается выше */}
         <div 
-          className="flex items-start mb-8 sm:mb-10 md:mb-12"
+          className="flex items-start mb-2 sm:mb-3 md:mb-4 flags-row-mobile"
           style={{
-            marginTop: pxToPosition(40, { minPx: 20, maxPx: 40 }), // Отступ сверху чтобы первый флаг начинался от "CURRENTLY"
+            marginTop: pxToPosition(20, { minPx: 15, maxPx: 20 }), // Отступ между текстом и флагами
             gap: pxToPosition(120, { minPx: 60, maxPx: 120 }), // Еще больше отступ между флагами
-            flexWrap: 'wrap'
+            flexWrap: 'nowrap' // Флаги в ряд, без переноса
           }}>
           {countries.map((country, index) => (
             <div
               key={index}
-              className="cursor-pointer transition-transform hover:scale-110"
+              className="cursor-pointer transition-transform hover:scale-110 flag-item"
               style={{
                 flexShrink: 0,
                 width: 'auto'
@@ -151,17 +151,17 @@ const CountrySelection = () => {
               onClick={() => setSelectedCountry(country.name)}
             >
               <div
-                className="rounded-full mx-auto border-[2px] sm:border-[3px] border-white overflow-hidden flex items-center justify-center shadow-lg bg-gray-200"
+                className="rounded-full mx-auto border-[1px] sm:border-[2px] border-white overflow-hidden flex items-center justify-center shadow-lg bg-gray-200 flag-item"
                 style={{
-                  width: pxToResponsive(100, 8), // Размер флагов 100px
-                  height: pxToResponsive(100, 8), // Размер флагов 100px
+                  width: pxToResponsive(65, 5), // Уменьшен размер флагов до 65px
+                  height: pxToResponsive(65, 5), // Уменьшен размер флагов до 65px
                   marginBottom: pxToPosition(4, { minPx: 2, maxPx: 4 }) // Минимальный отступ под флагом
                 }}
               >
                 <img 
                   src={getFlagUrl(country.name)}
                   alt={`${country.name} flag`}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover flag-item"
                   style={{ borderRadius: '50%' }}
                   onError={(e) => {
                     // Если загрузка флага не удалась, показываем синий фон
@@ -170,7 +170,7 @@ const CountrySelection = () => {
                   }}
                 />
               </div>
-              <div className="drop-shadow-md font-semibold text-center" style={{ 
+              <div className="drop-shadow-md font-semibold text-center flag-text" style={{ 
                 color: '#7b7b7b',
                 fontSize: 'clamp(0.65rem, 1.2vw, 0.75rem)', // Уменьшен размер текста
                 lineHeight: '1.2'
@@ -182,10 +182,10 @@ const CountrySelection = () => {
         </div>
 
         {/* Dropdown для другой страны */}
-        <div style={{ marginTop: pxToPosition(60, { minPx: 30, maxPx: 60 }) }}>
+        <div style={{ marginTop: pxToPosition(25, { minPx: 15, maxPx: 25 }) }}>
           <div className="mb-3 sm:mb-4 md:mb-5 drop-shadow-lg" style={{ 
             color: '#03355c', 
-            fontSize: 'clamp(1.25rem, 3vw, 2.55rem)', 
+            fontSize: 'clamp(1rem, 2.5vw, 2rem)', 
             fontWeight: '800',
             marginBottom: pxToPosition(10, { minPx: 5, maxPx: 10 }) // Уменьшен отступ снизу
           }}>
@@ -196,8 +196,8 @@ const CountrySelection = () => {
               ref={dropdownRef}
               className="border-2 bg-white/90 backdrop-blur-sm cursor-pointer flex items-center gap-2 shadow-lg"
               style={{ 
-                width: pxToResponsive(304, 38), // Уменьшено на 20%
-                padding: pxToPosition(4, { minPx: 3, maxPx: 4 }), // Еще более компактный padding
+                width: 'clamp(55vw, 16.0422vw, 304px)',
+                padding: 'clamp(3px, 0.211082vw, 4px)',
                 borderColor: '#03355c', 
                 borderRadius: '8px' 
               }}
@@ -206,8 +206,8 @@ const CountrySelection = () => {
               <div
                 className="rounded-full border-2 border-white overflow-hidden flex items-center justify-center flex-shrink-0 bg-gray-200"
                 style={{
-                  width: pxToResponsive(22, 3),
-                  height: pxToResponsive(22, 3),
+                  width: pxToResponsive(32, 4),
+                  height: pxToResponsive(32, 4),
                   marginLeft: pxToPosition(6, { minPx: 3, maxPx: 6 }) // Флаг сдвинут чуть вправо
                 }}
               >
@@ -248,7 +248,7 @@ const CountrySelection = () => {
                 style={{ 
                   top: `${dropdownPosition.top}px`,
                   left: `${dropdownPosition.left}px`,
-                  width: dropdownPosition.width || pxToResponsive(304, 38),
+                  width: dropdownPosition.width || 'clamp(55vw, 16.0422vw, 304px)',
                   borderColor: '#03355c', 
                   borderRadius: '8px',
                   zIndex: 10000 // Очень высокий z-index для Portal
@@ -268,8 +268,8 @@ const CountrySelection = () => {
                     <div
                       className="rounded-full border-2 border-white overflow-hidden flex items-center justify-center flex-shrink-0 bg-gray-200"
                       style={{
-                        width: pxToResponsive(22, 3),
-                        height: pxToResponsive(22, 3)
+                        width: pxToResponsive(32, 4),
+                        height: pxToResponsive(32, 4)
                       }}
                     >
                       <img 

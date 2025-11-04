@@ -1,3 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Кастомные стили для медиа-запроса ≤560px */
+@media (max-width: 560px) {
+  .thai-text-container {
+    top: clamp(20px, 5vw, 50px) !important;
+  }
+  
+  .country-selection-container {
+    top: clamp(100px, 20vw, 200px) !important;
+  }
+  
+  .flags-row-mobile {
+    margin-top: 15px !important;
+    gap: 15px !important;
+  }
+  
+  .flags-row-mobile > div > div[class*="rounded-full"] {
+    width: 40px !important;
+    height: 40px !important;
+    min-width: 40px !important;
+    min-height: 40px !important;
+    border-width: 1px !important;
+  }
+  
+  .flags-row-mobile > div > div[class*="rounded-full"] img {
+    width: 40px !important;
+    height: 40px !important;
+  }
+  
+  .flags-row-mobile .flag-text {
+    font-size: 0.8rem !important;
+  }
+}

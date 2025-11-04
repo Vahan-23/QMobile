@@ -43,7 +43,7 @@ const WelcomeHero = () => {
         {/* Контент с тайским текстом - поверх whiteLayer */}
         {/* Позиции: поднят выше и сдвинут вправо адаптивно */}
         <div 
-          className="absolute z-[2]" 
+          className="absolute z-[2] thai-text-container" 
           style={{ 
             top: pxToPosition(180, { minPx: 50, maxPx: 180 }), // Поднят еще выше (было 220px)
             left: pxToPosition(80, { minPx: 30, maxPx: 80 }), // Сдвинут вправо (было 50px)
@@ -73,7 +73,7 @@ const WelcomeHero = () => {
         {/* CountrySelection поверх whiteLayer */}
         {/* Точная позиция: top: 500px от начала whiteLayer */}
         <div 
-          className="absolute left-0 right-0 z-[2]" 
+          className="absolute left-0 right-0 z-[2] country-selection-container" 
           style={{ 
             top: pxToPosition(500, { minPx: 200, maxPx: 500 })
           }}>
