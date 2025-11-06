@@ -2,7 +2,27 @@ import React from 'react';
 
 const ProductCard = ({ product }) => {
   return (
-    <div className="bg-white">
+    <>
+      <style>{`
+        @keyframes bubble {
+          0% { transform: scale(0.98); }
+          40% { transform: scale(0.96); }
+          100% { transform: scale(1.05); }
+        }
+        .product-card:hover {
+          animation: bubble 0.4s ease-out forwards;
+        }
+        .product-card {
+          transition: transform 0.3s ease-out;
+        }
+        .product-card:not(:hover) {
+          transform: scale(1);
+        }
+      `}</style>
+      <div 
+        className="bg-white product-card"
+        style={{ cursor: 'pointer' }}
+      >
       {/* Product Image */}
       <div className="w-[88%] mx-auto aspect-square mb-4 overflow-hidden">
         {/* Если есть изображение продукта, используйте его, иначе показывайте placeholder */}
@@ -58,6 +78,7 @@ const ProductCard = ({ product }) => {
         </button>
       </div>
     </div>
+    </>
   );
 };
 

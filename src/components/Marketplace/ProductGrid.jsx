@@ -323,7 +323,6 @@ const ProductGrid = ({ selectedCategory, setSelectedCategory }) => {
                 className="font-bold text-[#03355c] uppercase"
                 style={{ 
                   fontSize: '2.475rem', 
-                  marginBottom: '2.625rem',
                   paddingLeft: 'clamp(0%, 2%, 5%)'
                 }}
               >
@@ -333,7 +332,9 @@ const ProductGrid = ({ selectedCategory, setSelectedCategory }) => {
               {/* Products Grid - 4 columns */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-3">
                 {products.map(product => (
-                  <ProductCard key={product.id} product={product} />
+                  <div key={product.id} style={{ marginTop: '60px' }}>
+                    <ProductCard product={product} />
+                  </div>
                 ))}
               </div>
             </div>
