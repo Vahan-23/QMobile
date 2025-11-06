@@ -1,8 +1,12 @@
 import React from 'react';
+import { useLanguage } from '../../contexts/LanguageContext';
+import { translations } from '../../translations';
 import { pxToPosition, pxToResponsive } from './utils/responsive';
 import MobileFooter from './MobileFooter';
 
 const WelcomeFooter = () => {
+  const { language, isRTL } = useLanguage();
+  const t = translations[language];
   // Specific positions from design:
   // padding: 50px left and right
   // height: 830px
@@ -35,26 +39,40 @@ const WelcomeFooter = () => {
           style={{ 
             padding: 0
           }}>
-          <h3 className="text-base font-semibold" style={{ 
-            fontSize: 'clamp(12px, 1.5vw, 39px)', 
-            marginBottom: 'clamp(8px, 1.5vw, 50px)',
-            fontFamily: 'math'
-          }}>
-            Our story
+          <h3 
+            className="text-base font-semibold" 
+            style={{ 
+              fontSize: 'clamp(12px, 1.5vw, 39px)', 
+              marginBottom: 'clamp(8px, 1.5vw, 50px)',
+              fontFamily: isRTL ? 'Arial, sans-serif' : 'math',
+              direction: isRTL ? 'rtl' : 'ltr',
+              textAlign: isRTL ? 'right' : 'left'
+            }}>
+            {t.ourStory}
           </h3>
           <ul className="list-none" style={{ padding: 0, margin: 0 }}>
             <li style={{ marginBottom: 'clamp(5px, 1vw, 50px)' }}>
-              <a href="#" className="text-white opacity-90 hover:opacity-100 transition-opacity no-underline" style={{ 
-                fontSize: 'clamp(10px, 1.3vw, 36px)' 
-              }}>
-                Marketplace
+              <a 
+                href="#" 
+                className="text-white opacity-90 hover:opacity-100 transition-opacity no-underline" 
+                style={{ 
+                  fontSize: 'clamp(10px, 1.3vw, 36px)',
+                  direction: isRTL ? 'rtl' : 'ltr',
+                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                }}>
+                {t.marketplace}
               </a>
             </li>
             <li style={{ marginBottom: 'clamp(5px, 1vw, 50px)' }}>
-              <a href="#" className="text-white opacity-90 hover:opacity-100 transition-opacity no-underline" style={{ 
-                fontSize: 'clamp(10px, 1.3vw, 36px)' 
-              }}>
-                Blog
+              <a 
+                href="#" 
+                className="text-white opacity-90 hover:opacity-100 transition-opacity no-underline" 
+                style={{ 
+                  fontSize: 'clamp(10px, 1.3vw, 36px)',
+                  direction: isRTL ? 'rtl' : 'ltr',
+                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                }}>
+                {t.blog}
               </a>
             </li>
           </ul>
@@ -67,26 +85,40 @@ const WelcomeFooter = () => {
             padding: 0,
             marginLeft: pxToPosition(-60, { minPx: -30, maxPx: -60 })
           }}>
-          <h3 className="text-base font-semibold" style={{ 
-            fontSize: 'clamp(12px, 1.5vw, 39px)', 
-            marginBottom: 'clamp(8px, 1.5vw, 50px)',
-            fontFamily: 'math'
-          }}>
-            Support
+          <h3 
+            className="text-base font-semibold" 
+            style={{ 
+              fontSize: 'clamp(12px, 1.5vw, 39px)', 
+              marginBottom: 'clamp(8px, 1.5vw, 50px)',
+              fontFamily: isRTL ? 'Arial, sans-serif' : 'math',
+              direction: isRTL ? 'rtl' : 'ltr',
+              textAlign: isRTL ? 'right' : 'left'
+            }}>
+            {t.support}
           </h3>
           <ul className="list-none" style={{ padding: 0, margin: 0 }}>
             <li style={{ marginBottom: 'clamp(5px, 1vw, 50px)' }}>
-              <a href="#" className="text-white opacity-90 hover:opacity-100 transition-opacity no-underline" style={{ 
-                fontSize: 'clamp(10px, 1.3vw, 36px)' 
-              }}>
-                FAQs
+              <a 
+                href="#" 
+                className="text-white opacity-90 hover:opacity-100 transition-opacity no-underline" 
+                style={{ 
+                  fontSize: 'clamp(10px, 1.3vw, 36px)',
+                  direction: isRTL ? 'rtl' : 'ltr',
+                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                }}>
+                {t.faqs}
               </a>
             </li>
             <li style={{ marginBottom: 'clamp(5px, 1vw, 50px)' }}>
-              <a href="#" className="text-white opacity-90 hover:opacity-100 transition-opacity no-underline" style={{ 
-                fontSize: 'clamp(10px, 1.3vw, 36px)' 
-              }}>
-                Contact us
+              <a 
+                href="#" 
+                className="text-white opacity-90 hover:opacity-100 transition-opacity no-underline" 
+                style={{ 
+                  fontSize: 'clamp(10px, 1.3vw, 36px)',
+                  direction: isRTL ? 'rtl' : 'ltr',
+                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                }}>
+                {t.contactUs}
               </a>
             </li>
           </ul>
@@ -99,26 +131,40 @@ const WelcomeFooter = () => {
             padding: 0,
             marginLeft: pxToPosition(-120, { minPx: -60, maxPx: -120 })
           }}>
-          <h3 className="text-base font-semibold" style={{ 
-            fontSize: 'clamp(12px, 1.5vw, 39px)', 
-            marginBottom: 'clamp(8px, 1.5vw, 50px)',
-            fontFamily: 'math'
-          }}>
-            Terms & conditions
+          <h3 
+            className="text-base font-semibold" 
+            style={{ 
+              fontSize: 'clamp(12px, 1.5vw, 39px)', 
+              marginBottom: 'clamp(8px, 1.5vw, 50px)',
+              fontFamily: isRTL ? 'Arial, sans-serif' : 'math',
+              direction: isRTL ? 'rtl' : 'ltr',
+              textAlign: isRTL ? 'right' : 'left'
+            }}>
+            {t.termsConditions}
           </h3>
           <ul className="list-none" style={{ padding: 0, margin: 0 }}>
             <li style={{ marginBottom: 'clamp(5px, 1vw, 50px)' }}>
-              <a href="#" className="text-white opacity-90 hover:opacity-100 transition-opacity no-underline" style={{ 
-                fontSize: 'clamp(10px, 1.3vw, 36px)' 
-              }}>
-                Privacy policy
+              <a 
+                href="#" 
+                className="text-white opacity-90 hover:opacity-100 transition-opacity no-underline" 
+                style={{ 
+                  fontSize: 'clamp(10px, 1.3vw, 36px)',
+                  direction: isRTL ? 'rtl' : 'ltr',
+                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                }}>
+                {t.privacyPolicy}
               </a>
             </li>
             <li style={{ marginBottom: 'clamp(5px, 1vw, 50px)' }}>
-              <a href="#" className="text-white opacity-90 hover:opacity-100 transition-opacity no-underline" style={{ 
-                fontSize: 'clamp(10px, 1.3vw, 36px)' 
-              }}>
-                Cookies policy
+              <a 
+                href="#" 
+                className="text-white opacity-90 hover:opacity-100 transition-opacity no-underline" 
+                style={{ 
+                  fontSize: 'clamp(10px, 1.3vw, 36px)',
+                  direction: isRTL ? 'rtl' : 'ltr',
+                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                }}>
+                {t.cookiesPolicy}
               </a>
             </li>
           </ul>
@@ -133,23 +179,28 @@ const WelcomeFooter = () => {
             marginTop: pxToPosition(-30, { minPx: -15, maxPx: -30 })
           }}>
           <img 
-            src="/Qmobile_Logo.png" 
+            src={t.logo} 
             alt="Qmobile Logo" 
             className="w-full max-w-[250px] sm:max-w-[300px] md:max-w-[350px] h-auto"
             style={{ 
               objectFit: 'contain'
             }}
           />
-          <div className="text-2xl font-bold" style={{ 
-            fontSize: 'clamp(20px, 2.5vw, 50px)', 
-            lineHeight: pxToPosition(56, { minPx: 32, maxPx: 56 }),
-            color: '#02284f',
-            fontWeight: 900,
-            textAlign: 'center',
-            marginTop: pxToPosition(120, { minPx: 20, maxPx: 120 }),
-            marginLeft: pxToPosition(-40, { minPx: -20, maxPx: -40 })
-          }}>
-            WE ARE HERE<br />FOR YOU
+          <div 
+            className="text-2xl font-bold" 
+            style={{ 
+              fontSize: 'clamp(20px, 2.5vw, 50px)', 
+              lineHeight: pxToPosition(56, { minPx: 32, maxPx: 56 }),
+              color: '#02284f',
+              fontWeight: 900,
+              textAlign: 'center',
+              marginTop: pxToPosition(120, { minPx: 20, maxPx: 120 }),
+              marginLeft: pxToPosition(-40, { minPx: -20, maxPx: -40 }),
+              direction: isRTL ? 'rtl' : 'ltr',
+              fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+              whiteSpace: 'pre-line'
+            }}>
+            {t.weAreHereForYou}
           </div>
         </div>
       </div>
@@ -174,25 +225,29 @@ const WelcomeFooter = () => {
                 }}
               >
                 <img 
-                  src="/Images/msg.png" 
+                  src={t.chatIcon} 
                   alt="Chat" 
                   style={{ 
                     width: '80%', 
                     height: '80%',
                     objectFit: 'contain',
-                    transform: 'rotate(-331deg)'
+                    transform: 'rotate(-331deg)',
+                    transition: 'transform 0.3s ease-in-out'
                   }}
                 />
               </div>
-              <div className="text-sm font-bold" style={{ 
-                fontSize: 'clamp(14px, 1.8vw, 36px)',
-                color: '#005291',
-                textAlign: 'center',
-                marginTop: 'clamp(20px, 2vw, 50px)',
-                fontWeight: 900,
-                fontFamily: 'sans-serif'
-              }}>
-                CHAT
+              <div 
+                className="text-sm font-bold" 
+                style={{ 
+                  fontSize: 'clamp(14px, 1.8vw, 36px)',
+                  color: '#005291',
+                  textAlign: 'center',
+                  marginTop: 'clamp(20px, 2vw, 50px)',
+                  fontWeight: 900,
+                  fontFamily: isRTL ? 'Arial, sans-serif' : 'sans-serif',
+                  direction: isRTL ? 'rtl' : 'ltr'
+                }}>
+                {t.chat}
               </div>
             </div>
 
@@ -211,25 +266,29 @@ const WelcomeFooter = () => {
                 }}
               >
                 <img 
-                  src="/Images/wtp.png" 
+                  src={t.whatsappIcon} 
                   alt="WhatsApp" 
                   style={{ 
                     width: '80%', 
                     height: '80%',
                     objectFit: 'contain',
-                    transform: 'rotate(-331deg)'
+                    transform: 'rotate(-331deg)',
+                    transition: 'transform 0.3s ease-in-out'
                   }}
                 />
               </div>
-              <div className="text-sm font-bold" style={{ 
-                fontSize: 'clamp(14px, 1.8vw, 36px)',
-                color: '#005291',
-                textAlign: 'center',
-                marginTop: 'clamp(20px, 2vw, 50px)',
-                fontWeight: 900,
-                fontFamily: 'sans-serif'
-              }}>
-                WHATSAPP
+              <div 
+                className="text-sm font-bold" 
+                style={{ 
+                  fontSize: 'clamp(14px, 1.8vw, 36px)',
+                  color: '#005291',
+                  textAlign: 'center',
+                  marginTop: 'clamp(20px, 2vw, 50px)',
+                  fontWeight: 900,
+                  fontFamily: isRTL ? 'Arial, sans-serif' : 'sans-serif',
+                  direction: isRTL ? 'rtl' : 'ltr'
+                }}>
+                {t.whatsapp}
               </div>
             </div>
 
@@ -248,25 +307,29 @@ const WelcomeFooter = () => {
                 }}
               >
                 <img 
-                  src="/Images/phn.png" 
+                  src={t.phoneIcon} 
                   alt="Call" 
                   style={{ 
                     width: '80%', 
                     height: '80%',
                     objectFit: 'contain',
-                    transform: 'rotate(-331deg)'
+                    transform: 'rotate(-331deg)',
+                    transition: 'transform 0.3s ease-in-out'
                   }}
                 />
               </div>
-              <div className="text-sm font-bold" style={{ 
-                fontSize: 'clamp(14px, 1.8vw, 36px)',
-                color: '#005291',
-                textAlign: 'center',
-                marginTop: 'clamp(20px, 2vw, 50px)',
-                fontWeight: 900,
-                fontFamily: 'sans-serif'
-              }}>
-                CALL US
+              <div 
+                className="text-sm font-bold" 
+                style={{ 
+                  fontSize: 'clamp(14px, 1.8vw, 36px)',
+                  color: '#005291',
+                  textAlign: 'center',
+                  marginTop: 'clamp(20px, 2vw, 50px)',
+                  fontWeight: 900,
+                  fontFamily: isRTL ? 'Arial, sans-serif' : 'sans-serif',
+                  direction: isRTL ? 'rtl' : 'ltr'
+                }}>
+                {t.callUs}
               </div>
             </div>
           </div>
@@ -281,20 +344,21 @@ const WelcomeFooter = () => {
       <div style={{ 
         position: 'absolute',
         bottom: pxToPosition(200, { minPx: 0, maxPx: 200 }),
-        left: '4%', // Fixed left position
-        right: '-3%',
+        ...(isRTL ? { right: '4%', left: '-3%' } : { left: '4%', right: '-3%' }), // Mirror position for RTL
         transform: 'translateY(calc(70% - 63px))',
         zIndex: 1,
         overflow: 'hidden'
       }}>
         <img 
-          src="/Images/whiteFacture.png" 
+          src={t.whiteFacture} 
           alt="White Facture" 
           className="w-full h-auto block"
           style={{ 
             display: 'block',
             height: 'auto',
-            width: '100%'
+            width: '100%',
+            transform: isRTL ? 'scaleX(-1)' : 'none',
+            transition: 'transform 0.3s ease-in-out'
           }}
         />
       </div>

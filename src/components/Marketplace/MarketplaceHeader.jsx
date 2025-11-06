@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useLanguage } from '../../contexts/LanguageContext';
+import { translations } from '../../translations';
 
 const MarketplaceHeader = () => {
+  const { language, isRTL, toggleLanguage } = useLanguage();
+  const t = translations[language];
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -33,7 +37,7 @@ const MarketplaceHeader = () => {
           {/* Logo */}
           <div className="flex items-center flex-shrink-0 min-w-0">
             <img
-              src="/Qmobile_Logo.png"
+              src={t.logo}
               alt="Qmobile Logo"
               className="w-auto h-10 sm:h-12 md:h-16 lg:h-20 xl:h-24 2xl:h-32 max-h-full"
             />
@@ -44,49 +48,76 @@ const MarketplaceHeader = () => {
             <a 
               href="#" 
               className="text-white hover:opacity-80 transition-opacity whitespace-nowrap flex-shrink font-light"
-              style={{ fontSize: 'clamp(16px, 2vw, 36px)' }}
+              style={{ 
+                fontSize: 'clamp(16px, 2vw, 36px)',
+                direction: isRTL ? 'rtl' : 'ltr',
+                fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+              }}
             >
-              Join us
+              {t.joinUs}
             </a>
             <a 
               href="#" 
               className="text-white hover:opacity-80 transition-opacity whitespace-nowrap flex-shrink font-light"
-              style={{ fontSize: 'clamp(16px, 2vw, 36px)' }}
+              style={{ 
+                fontSize: 'clamp(16px, 2vw, 36px)',
+                direction: isRTL ? 'rtl' : 'ltr',
+                fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+              }}
             >
-              Our story
+              {t.ourStory}
             </a>
             <a 
               href="#" 
               className="text-white hover:opacity-80 transition-opacity whitespace-nowrap flex-shrink font-light"
-              style={{ fontSize: 'clamp(16px, 2vw, 36px)' }}
+              style={{ 
+                fontSize: 'clamp(16px, 2vw, 36px)',
+                direction: isRTL ? 'rtl' : 'ltr',
+                fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+              }}
             >
-              Marketplace
+              {t.marketplace}
             </a>
             <a 
               href="#" 
               className="text-white hover:opacity-80 transition-opacity whitespace-nowrap flex-shrink font-light"
-              style={{ fontSize: 'clamp(16px, 2vw, 36px)' }}
+              style={{ 
+                fontSize: 'clamp(16px, 2vw, 36px)',
+                direction: isRTL ? 'rtl' : 'ltr',
+                fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+              }}
             >
-              Support
+              {t.support}
             </a>
             <a 
               href="#" 
               className="text-white hover:opacity-80 transition-opacity whitespace-nowrap flex-shrink font-light"
-              style={{ fontSize: 'clamp(16px, 2vw, 36px)' }}
+              style={{ 
+                fontSize: 'clamp(16px, 2vw, 36px)',
+                direction: isRTL ? 'rtl' : 'ltr',
+                fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+              }}
             >
-              Blog
+              {t.blog}
             </a>
             <a 
               href="#" 
               className="text-white hover:opacity-80 transition-opacity whitespace-nowrap flex-shrink font-light"
-              style={{ fontSize: 'clamp(16px, 2vw, 36px)' }}
+              style={{ 
+                fontSize: 'clamp(16px, 2vw, 36px)',
+                direction: isRTL ? 'rtl' : 'ltr',
+                fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+              }}
             >
-              My Account
+              {t.myAccount}
             </a>
 
             {/* Language Switch */}
             <div className="flex items-center flex-shrink-0 ml-1 sm:ml-2">
-              <button className="flex items-center text-white hover:opacity-80 transition-opacity">
+              <button 
+                onClick={toggleLanguage}
+                className="flex items-center text-white hover:opacity-80 transition-opacity"
+              >
                 <img
                   src="/Images/2x/switch language icon@2x.png"
                   alt="Switch language"
@@ -105,7 +136,7 @@ const MarketplaceHeader = () => {
           {/* Logo */}
           <div className="flex items-center flex-shrink-0">
             <img
-              src="/Qmobile_Logo.png"
+              src={t.logo}
               alt="Qmobile Logo"
               className="w-auto h-16 max-h-full"
             />
@@ -116,6 +147,7 @@ const MarketplaceHeader = () => {
             {/* Language Switch */}
             <div className="flex items-center flex-shrink-0">
               <button 
+                onClick={toggleLanguage}
                 className="flex items-center text-white hover:opacity-80 transition-opacity"
                 style={{ transform: 'translateY(12px)' }}
               >
@@ -157,43 +189,67 @@ const MarketplaceHeader = () => {
                 href="#" 
                 className="text-white hover:opacity-80 transition-opacity font-light text-lg"
                 onClick={() => setIsMobileMenuOpen(false)}
+                style={{
+                  direction: isRTL ? 'rtl' : 'ltr',
+                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                }}
               >
-                Join us
+                {t.joinUs}
               </a>
               <a 
                 href="#" 
                 className="text-white hover:opacity-80 transition-opacity font-light text-lg"
                 onClick={() => setIsMobileMenuOpen(false)}
+                style={{
+                  direction: isRTL ? 'rtl' : 'ltr',
+                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                }}
               >
-                Our story
+                {t.ourStory}
               </a>
               <a 
                 href="#" 
                 className="text-white hover:opacity-80 transition-opacity font-light text-lg"
                 onClick={() => setIsMobileMenuOpen(false)}
+                style={{
+                  direction: isRTL ? 'rtl' : 'ltr',
+                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                }}
               >
-                Marketplace
+                {t.marketplace}
               </a>
               <a 
                 href="#" 
                 className="text-white hover:opacity-80 transition-opacity font-light text-lg"
                 onClick={() => setIsMobileMenuOpen(false)}
+                style={{
+                  direction: isRTL ? 'rtl' : 'ltr',
+                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                }}
               >
-                Support
+                {t.support}
               </a>
               <a 
                 href="#" 
                 className="text-white hover:opacity-80 transition-opacity font-light text-lg"
                 onClick={() => setIsMobileMenuOpen(false)}
+                style={{
+                  direction: isRTL ? 'rtl' : 'ltr',
+                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                }}
               >
-                Blog
+                {t.blog}
               </a>
               <a 
                 href="#" 
                 className="text-white hover:opacity-80 transition-opacity font-light text-lg"
                 onClick={() => setIsMobileMenuOpen(false)}
+                style={{
+                  direction: isRTL ? 'rtl' : 'ltr',
+                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                }}
               >
-                My Account
+                {t.myAccount}
               </a>
             </div>
           </div>
@@ -203,9 +259,14 @@ const MarketplaceHeader = () => {
            <div className="w-full" style={{ marginTop: 'clamp(40px, 8vw, 96px)' }}>
              <h1 
                className="text-center font-bold uppercase"
-               style={{ marginBottom: 'clamp(15px, 2vw, 30px)', fontSize: 'clamp(2rem, 5vw, 4.7rem)' }}
+               style={{ 
+                 marginBottom: 'clamp(15px, 2vw, 30px)', 
+                 fontSize: 'clamp(2rem, 5vw, 4.7rem)',
+                 direction: isRTL ? 'rtl' : 'ltr',
+                 fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+               }}
              >
-               MARKETPLACE
+               {t.marketplace.toUpperCase()}
              </h1>
            </div>
       </div>

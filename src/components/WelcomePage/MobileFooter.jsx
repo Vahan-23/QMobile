@@ -1,7 +1,11 @@
 import React from 'react';
+import { useLanguage } from '../../contexts/LanguageContext';
+import { translations } from '../../translations';
 import { pxToPosition, pxToResponsive } from './utils/responsive';
 
 const MobileFooter = () => {
+  const { language, isRTL } = useLanguage();
+  const t = translations[language];
   return (
     <div className="lg:hidden">
       <footer 
@@ -26,7 +30,7 @@ const MobileFooter = () => {
               padding: 0
             }}>
             <img 
-              src="/Qmobile_Logo.png" 
+              src={t.logo} 
               alt="Qmobile Logo" 
               className="w-full max-w-[250px] sm:max-w-[300px] md:max-w-[350px] h-auto"
               style={{ 
@@ -40,29 +44,43 @@ const MobileFooter = () => {
             style={{ 
               padding: 0
             }}>
-            <h3 className="text-base font-semibold" style={{ 
-              fontSize: '23px', 
-              marginBottom: 'clamp(8px, 1.5vw, 50px)',
-              fontFamily: 'math',
-              color: '#e3f1f8'
-            }}>
-              Our story
+            <h3 
+              className="text-base font-semibold" 
+              style={{ 
+                fontSize: '23px', 
+                marginBottom: 'clamp(8px, 1.5vw, 50px)',
+                fontFamily: isRTL ? 'Arial, sans-serif' : 'math',
+                color: '#e3f1f8',
+                direction: isRTL ? 'rtl' : 'ltr',
+                textAlign: isRTL ? 'right' : 'left'
+              }}>
+              {t.ourStory}
             </h3>
             <ul className="list-none" style={{ padding: 0, margin: 0 }}>
               <li style={{ marginBottom: 'clamp(5px, 1vw, 50px)' }}>
-                <a href="#" className="opacity-90 hover:opacity-100 transition-opacity no-underline" style={{ 
-                  fontSize: '23px',
-                  color: '#e3f1f8'
-                }}>
-                  Marketplace
+                <a 
+                  href="#" 
+                  className="opacity-90 hover:opacity-100 transition-opacity no-underline" 
+                  style={{ 
+                    fontSize: '23px',
+                    color: '#e3f1f8',
+                    direction: isRTL ? 'rtl' : 'ltr',
+                    fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                  }}>
+                  {t.marketplace}
                 </a>
               </li>
               <li style={{ marginBottom: 'clamp(5px, 1vw, 50px)' }}>
-                <a href="#" className="opacity-90 hover:opacity-100 transition-opacity no-underline" style={{ 
-                  fontSize: '23px',
-                  color: '#e3f1f8'
-                }}>
-                  Blog
+                <a 
+                  href="#" 
+                  className="opacity-90 hover:opacity-100 transition-opacity no-underline" 
+                  style={{ 
+                    fontSize: '23px',
+                    color: '#e3f1f8',
+                    direction: isRTL ? 'rtl' : 'ltr',
+                    fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                  }}>
+                  {t.blog}
                 </a>
               </li>
             </ul>
@@ -73,29 +91,43 @@ const MobileFooter = () => {
             style={{ 
               padding: 0
             }}>
-            <h3 className="text-base font-semibold" style={{ 
-              fontSize: '23px', 
-              marginBottom: 'clamp(8px, 1.5vw, 50px)',
-              fontFamily: 'math',
-              color: '#e3f1f8'
-            }}>
-              Support
+            <h3 
+              className="text-base font-semibold" 
+              style={{ 
+                fontSize: '23px', 
+                marginBottom: 'clamp(8px, 1.5vw, 50px)',
+                fontFamily: isRTL ? 'Arial, sans-serif' : 'math',
+                color: '#e3f1f8',
+                direction: isRTL ? 'rtl' : 'ltr',
+                textAlign: isRTL ? 'right' : 'left'
+              }}>
+              {t.support}
             </h3>
             <ul className="list-none" style={{ padding: 0, margin: 0 }}>
               <li style={{ marginBottom: 'clamp(5px, 1vw, 50px)' }}>
-                <a href="#" className="opacity-90 hover:opacity-100 transition-opacity no-underline" style={{ 
-                  fontSize: '23px',
-                  color: '#e3f1f8'
-                }}>
-                  FAQs
+                <a 
+                  href="#" 
+                  className="opacity-90 hover:opacity-100 transition-opacity no-underline" 
+                  style={{ 
+                    fontSize: '23px',
+                    color: '#e3f1f8',
+                    direction: isRTL ? 'rtl' : 'ltr',
+                    fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                  }}>
+                  {t.faqs}
                 </a>
               </li>
               <li style={{ marginBottom: 'clamp(5px, 1vw, 50px)' }}>
-                <a href="#" className="opacity-90 hover:opacity-100 transition-opacity no-underline" style={{ 
-                  fontSize: '23px',
-                  color: '#e3f1f8'
-                }}>
-                  Contact us
+                <a 
+                  href="#" 
+                  className="opacity-90 hover:opacity-100 transition-opacity no-underline" 
+                  style={{ 
+                    fontSize: '23px',
+                    color: '#e3f1f8',
+                    direction: isRTL ? 'rtl' : 'ltr',
+                    fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                  }}>
+                  {t.contactUs}
                 </a>
               </li>
             </ul>
@@ -106,29 +138,43 @@ const MobileFooter = () => {
             style={{ 
               padding: 0
             }}>
-            <h3 className="text-base font-semibold" style={{ 
-              fontSize: '23px', 
-              marginBottom: 'clamp(8px, 1.5vw, 50px)',
-              fontFamily: 'math',
-              color: '#e3f1f8'
-            }}>
-              Terms & conditions
+            <h3 
+              className="text-base font-semibold" 
+              style={{ 
+                fontSize: '23px', 
+                marginBottom: 'clamp(8px, 1.5vw, 50px)',
+                fontFamily: isRTL ? 'Arial, sans-serif' : 'math',
+                color: '#e3f1f8',
+                direction: isRTL ? 'rtl' : 'ltr',
+                textAlign: isRTL ? 'right' : 'left'
+              }}>
+              {t.termsConditions}
             </h3>
             <ul className="list-none" style={{ padding: 0, margin: 0 }}>
               <li style={{ marginBottom: 'clamp(5px, 1vw, 50px)' }}>
-                <a href="#" className="opacity-90 hover:opacity-100 transition-opacity no-underline" style={{ 
-                  fontSize: '23px',
-                  color: '#e3f1f8'
-                }}>
-                  Privacy policy
+                <a 
+                  href="#" 
+                  className="opacity-90 hover:opacity-100 transition-opacity no-underline" 
+                  style={{ 
+                    fontSize: '23px',
+                    color: '#e3f1f8',
+                    direction: isRTL ? 'rtl' : 'ltr',
+                    fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                  }}>
+                  {t.privacyPolicy}
                 </a>
               </li>
               <li style={{ marginBottom: 'clamp(5px, 1vw, 50px)' }}>
-                <a href="#" className="opacity-90 hover:opacity-100 transition-opacity no-underline" style={{ 
-                  fontSize: '23px',
-                  color: '#e3f1f8'
-                }}>
-                  Cookies policy
+                <a 
+                  href="#" 
+                  className="opacity-90 hover:opacity-100 transition-opacity no-underline" 
+                  style={{ 
+                    fontSize: '23px',
+                    color: '#e3f1f8',
+                    direction: isRTL ? 'rtl' : 'ltr',
+                    fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                  }}>
+                  {t.cookiesPolicy}
                 </a>
               </li>
             </ul>
@@ -136,12 +182,17 @@ const MobileFooter = () => {
 
           {/* WE ARE HERE FOR YOU - below Cookies policy */}
           <div className="text-center w-full relative" style={{ marginTop: pxToPosition(40, { minPx: 20, maxPx: 40 }), marginBottom: '90px' }}>
-            <div className="text-2xl font-bold" style={{ 
-              fontSize: '31px', 
-              color: '#66c8d5',
-              fontWeight: 900
-            }}>
-              WE ARE HERE FOR YOU
+            <div 
+              className="text-2xl font-bold" 
+              style={{ 
+                fontSize: '31px', 
+                color: '#66c8d5',
+                fontWeight: 900,
+                direction: isRTL ? 'rtl' : 'ltr',
+                fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                whiteSpace: 'pre-line'
+              }}>
+              {t.weAreHereForYou}
             </div>
           </div>
         </div>
@@ -160,13 +211,15 @@ const MobileFooter = () => {
             }}
           >
             <img 
-              src="/Images/footerBack.png" 
+              src={t.footerBack} 
               alt="Footer Back" 
               className="w-full h-auto block"
               style={{ 
                 display: 'block',
                 height: 'auto',
-                width: '100%'
+                width: '100%',
+                transform: isRTL ? 'scaleX(-1)' : 'none',
+                transition: 'transform 0.3s ease-in-out'
               }}
             />
           </div>
@@ -190,25 +243,29 @@ const MobileFooter = () => {
                   }}
                 >
                   <img 
-                    src="/Images/msg.png" 
+                    src={t.chatIcon} 
                     alt="Chat" 
                     style={{ 
                       width: '80%', 
                       height: '80%',
                       objectFit: 'contain',
-                      transform: 'rotate(-331deg)'
+                      transform: 'rotate(-331deg)',
+                      transition: 'transform 0.3s ease-in-out'
                     }}
                   />
                 </div>
-                <div className="text-sm font-bold" style={{ 
-                  fontSize: 'clamp(16px, 2vw, 42px)',
-                  color: '#005291',
-                  textAlign: 'center',
-                  marginTop: 'clamp(20px, 2vw, 50px)',
-                  fontWeight: 900,
-                  fontFamily: 'sans-serif'
-                }}>
-                  CHAT
+                <div 
+                  className="text-sm font-bold" 
+                  style={{ 
+                    fontSize: 'clamp(16px, 2vw, 42px)',
+                    color: '#005291',
+                    textAlign: 'center',
+                    marginTop: 'clamp(20px, 2vw, 50px)',
+                    fontWeight: 900,
+                    fontFamily: isRTL ? 'Arial, sans-serif' : 'sans-serif',
+                    direction: isRTL ? 'rtl' : 'ltr'
+                  }}>
+                  {t.chat}
                 </div>
               </div>
 
@@ -227,25 +284,29 @@ const MobileFooter = () => {
                   }}
                 >
                   <img 
-                    src="/Images/wtp.png" 
+                    src={t.whatsappIcon} 
                     alt="WhatsApp" 
                     style={{ 
                       width: '80%', 
                       height: '80%',
                       objectFit: 'contain',
-                      transform: 'rotate(-331deg)'
+                      transform: 'rotate(-331deg)',
+                      transition: 'transform 0.3s ease-in-out'
                     }}
                   />
                 </div>
-                <div className="text-sm font-bold" style={{ 
-                  fontSize: 'clamp(16px, 2vw, 42px)',
-                  color: '#005291',
-                  textAlign: 'center',
-                  marginTop: 'clamp(20px, 2vw, 50px)',
-                  fontWeight: 900,
-                  fontFamily: 'sans-serif'
-                }}>
-                  WHATSAPP
+                <div 
+                  className="text-sm font-bold" 
+                  style={{ 
+                    fontSize: 'clamp(16px, 2vw, 42px)',
+                    color: '#005291',
+                    textAlign: 'center',
+                    marginTop: 'clamp(20px, 2vw, 50px)',
+                    fontWeight: 900,
+                    fontFamily: isRTL ? 'Arial, sans-serif' : 'sans-serif',
+                    direction: isRTL ? 'rtl' : 'ltr'
+                  }}>
+                  {t.whatsapp}
                 </div>
               </div>
 
@@ -264,25 +325,29 @@ const MobileFooter = () => {
                   }}
                 >
                   <img 
-                    src="/Images/phn.png" 
+                    src={t.phoneIcon} 
                     alt="Call" 
                     style={{ 
                       width: '80%', 
                       height: '80%',
                       objectFit: 'contain',
-                      transform: 'rotate(-331deg)'
+                      transform: 'rotate(-331deg)',
+                      transition: 'transform 0.3s ease-in-out'
                     }}
                   />
                 </div>
-                <div className="text-sm font-bold" style={{ 
-                  fontSize: 'clamp(16px, 2vw, 42px)',
-                  color: '#005291',
-                  textAlign: 'center',
-                  marginTop: 'clamp(20px, 2vw, 50px)',
-                  fontWeight: 900,
-                  fontFamily: 'sans-serif'
-                }}>
-                  CALL US
+                <div 
+                  className="text-sm font-bold" 
+                  style={{ 
+                    fontSize: 'clamp(16px, 2vw, 42px)',
+                    color: '#005291',
+                    textAlign: 'center',
+                    marginTop: 'clamp(20px, 2vw, 50px)',
+                    fontWeight: 900,
+                    fontFamily: isRTL ? 'Arial, sans-serif' : 'sans-serif',
+                    direction: isRTL ? 'rtl' : 'ltr'
+                  }}>
+                  {t.callUs}
                 </div>
               </div>
             </div>
