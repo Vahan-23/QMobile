@@ -4,6 +4,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* RTL Support - Basic direction and text alignment */
+[dir="rtl"] {
+  direction: rtl;
+}
+
+[dir="ltr"] {
+  direction: ltr;
+}
+
 /* Кастомные стили для медиа-запроса ≤560px */
 @media (max-width: 560px) {
   .thai-text-container {
