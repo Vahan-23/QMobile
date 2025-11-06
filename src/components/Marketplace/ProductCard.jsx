@@ -3,9 +3,9 @@ import React from 'react';
 const ProductCard = ({ product }) => {
   return (
     <div className="bg-white">
-      {/* Product Image - Placeholder circle with Q icon */}
-      <div className="w-full aspect-square bg-[#5bc0de] rounded-full flex items-center justify-center mb-4 overflow-hidden">
-        {/* Если есть изображение продукта, используйте его, иначе показывайте Q иконку */}
+      {/* Product Image */}
+      <div className="w-[88%] mx-auto aspect-square mb-4 overflow-hidden">
+        {/* Если есть изображение продукта, используйте его, иначе показывайте placeholder */}
         {product.image ? (
           <img
             src={product.image}
@@ -14,32 +14,46 @@ const ProductCard = ({ product }) => {
           />
         ) : (
           <img
-            src="/Images/2x/Q__@2x.png"
+            src="/Images/2x/product_placeholder@2x.png"
             alt="Product"
-            className="w-2/3 h-2/3 object-contain"
+            className="w-full h-full object-cover"
           />
         )}
       </div>
 
       {/* Product Info */}
-      <div className="space-y-2">
+      <div className="text-center">
         {/* Product Title */}
-        <h3 className="font-bold text-[#333] text-sm md:text-base lg:text-lg">
+        <h3 
+          className="font-bold"
+          style={{ fontSize: '1.625rem', color: '#000000' }}
+        >
           Product title
         </h3>
 
         {/* Price per unit */}
-        <p className="text-[#333] text-sm md:text-base">
+        <p 
+          style={{ 
+            fontSize: '1.8rem', 
+            color: '#000000', 
+            marginTop: '20px' 
+          }}
+        >
           {product.pricePerUnit} NIS x {product.quantity}
         </p>
 
         {/* Total Price */}
-        <p className="text-[#333] text-xs md:text-sm">
+        <p 
+          style={{ 
+            fontSize: '1.275rem', 
+            color: '#767676' 
+          }}
+        >
           (Total {product.total} NIS)
         </p>
 
         {/* Add to Cart Button */}
-        <button className="w-full bg-[#03355c] text-white py-2 md:py-3 rounded-lg font-medium text-sm md:text-base hover:bg-[#003d7a] transition-colors mt-4">
+        <button className="mx-auto text-white py-1 md:py-1.5 px-8 md:px-10 rounded-full font-medium hover:opacity-90 transition-opacity mt-4" style={{ backgroundColor: '#005291', fontSize: '1.4rem' }}>
           ADD TO CART
         </button>
       </div>
