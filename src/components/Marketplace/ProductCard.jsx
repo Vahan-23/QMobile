@@ -1,6 +1,10 @@
 import React from 'react';
+import { useLanguage } from '../../contexts/LanguageContext';
+import { translations } from '../../translations';
 
 const ProductCard = ({ product }) => {
+  const { language, isRTL } = useLanguage();
+  const t = translations[language];
   return (
     <>
       <style>{`
@@ -46,9 +50,14 @@ const ProductCard = ({ product }) => {
         {/* Product Title */}
         <h3 
           className="font-bold"
-          style={{ fontSize: '1.625rem', color: '#000000' }}
+          style={{ 
+            fontSize: '1.625rem', 
+            color: '#000000',
+            direction: isRTL ? 'rtl' : 'ltr',
+            fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+          }}
         >
-          Product title
+          {t.productTitle}
         </h3>
 
         {/* Price per unit */}
@@ -56,7 +65,9 @@ const ProductCard = ({ product }) => {
           style={{ 
             fontSize: '1.8rem', 
             color: '#000000', 
-            marginTop: '20px' 
+            marginTop: '20px',
+            direction: isRTL ? 'rtl' : 'ltr',
+            fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
           }}
         >
           {product.pricePerUnit} NIS x {product.quantity}
@@ -66,15 +77,24 @@ const ProductCard = ({ product }) => {
         <p 
           style={{ 
             fontSize: '1.275rem', 
-            color: '#767676' 
+            color: '#767676',
+            direction: isRTL ? 'rtl' : 'ltr',
+            fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
           }}
         >
-          (Total {product.total} NIS)
+          ({t.total} {product.total} NIS)
         </p>
 
         {/* Add to Cart Button */}
-        <button className="mx-auto text-white py-1 md:py-1.5 px-8 md:px-10 rounded-full font-medium hover:opacity-90 transition-opacity mt-4" style={{ backgroundColor: '#005291', fontSize: '1.4rem' }}>
-          ADD TO CART
+        <button 
+          className="mx-auto text-white py-1 md:py-1.5 px-8 md:px-10 rounded-full font-medium hover:opacity-90 transition-opacity mt-4" 
+          style={{ 
+            backgroundColor: '#005291', 
+            fontSize: '1.4rem',
+            direction: isRTL ? 'rtl' : 'ltr',
+            fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+          }}>
+          {t.addToCart}
         </button>
       </div>
     </div>

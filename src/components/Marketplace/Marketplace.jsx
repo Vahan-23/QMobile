@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useLanguage } from '../../contexts/LanguageContext';
 import MarketplaceHeader from './MarketplaceHeader';
 import ProductGrid from './ProductGrid';
 import MarketplaceFooter from './MarketplaceFooter';
 
 const Marketplace = () => {
+  const { isRTL } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState('all');
 
   return (
@@ -12,6 +14,7 @@ const Marketplace = () => {
       style={{
         fontFamily: "'Rubik', sans-serif"
       }}
+      dir={isRTL ? 'rtl' : 'ltr'}
     >
       {/* Header - full width */}
       <MarketplaceHeader />

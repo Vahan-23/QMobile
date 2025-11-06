@@ -1,7 +1,11 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { useLanguage } from '../../contexts/LanguageContext';
+import { translations } from '../../translations';
 import ProductCard from './ProductCard';
 
 const ProductGrid = ({ selectedCategory, setSelectedCategory }) => {
+  const { language, isRTL } = useLanguage();
+  const t = translations[language];
   const desktopScrollRef = useRef(null);
   const mobileScrollRef = useRef(null);
   const [showScrollButton, setShowScrollButton] = useState(true);
@@ -9,12 +13,12 @@ const ProductGrid = ({ selectedCategory, setSelectedCategory }) => {
 
   // Categories as in the design
   const categories = [
-    { id: 'all', name: 'All' },
-    { id: 'category1', name: 'Category 1' },
-    { id: 'category2', name: 'Category 2' },
-    { id: 'category3', name: 'Category 3' },
-    { id: 'category4', name: 'Category 4' },
-    { id: 'category5', name: 'Category 5' }
+    { id: 'all', name: t.all },
+    { id: 'category1', name: t.category1 },
+    { id: 'category2', name: t.category2 },
+    { id: 'category3', name: t.category3 },
+    { id: 'category4', name: t.category4 },
+    { id: 'category5', name: t.category5 }
   ];
 
   // Sample products - replace with actual data
@@ -37,6 +41,14 @@ const ProductGrid = ({ selectedCategory, setSelectedCategory }) => {
     ]
   };
 
+  const getNormalizedScroll = (container) => {
+    if (!container) return { current: 0, max: 0 };
+    const max = container.scrollWidth - container.clientWidth;
+    const raw = container.scrollLeft;
+    const current = Math.min(Math.abs(raw), Math.max(max, 0));
+    return { current, max: Math.max(max, 0) };
+  };
+
   // Check scroll position
   const checkScrollPosition = () => {
     // Check both desktop and mobile containers, use the visible one
@@ -48,9 +60,9 @@ const ProductGrid = ({ selectedCategory, setSelectedCategory }) => {
     const container = isDesktop ? desktopContainer : mobileContainer;
     
     if (container && container.offsetParent !== null) {
-      const { scrollLeft, scrollWidth, clientWidth } = container;
-      setShowScrollButton(scrollLeft < scrollWidth - clientWidth - 10);
-      setShowLeftScrollButton(scrollLeft > 10);
+      const { current, max } = getNormalizedScroll(container);
+      setShowScrollButton(current < max - 10);
+      setShowLeftScrollButton(current > 10);
     }
   };
 
@@ -59,8 +71,12 @@ const ProductGrid = ({ selectedCategory, setSelectedCategory }) => {
     const mobileContainer = mobileScrollRef.current;
     
     const resetScroll = () => {
-      if (desktopContainer) desktopContainer.scrollLeft = 0;
-      if (mobileContainer) mobileContainer.scrollLeft = 0;
+      if (desktopContainer) {
+        desktopContainer.scrollLeft = isRTL ? desktopContainer.scrollWidth : 0;
+      }
+      if (mobileContainer) {
+        mobileContainer.scrollLeft = isRTL ? mobileContainer.scrollWidth : 0;
+      }
       checkScrollPosition();
     };
     
@@ -86,7 +102,7 @@ const ProductGrid = ({ selectedCategory, setSelectedCategory }) => {
       }
       window.removeEventListener('resize', checkScrollPosition);
     };
-  }, []);
+  }, [isRTL]);
 
   const scrollRight = () => {
     const desktopContainer = desktopScrollRef.current;
@@ -94,7 +110,8 @@ const ProductGrid = ({ selectedCategory, setSelectedCategory }) => {
     const isDesktop = window.innerWidth >= 768;
     const container = isDesktop ? desktopContainer : mobileContainer;
     if (container) {
-      container.scrollBy({ left: 200, behavior: 'smooth' });
+      const amount = isRTL ? -200 : 200;
+      container.scrollBy({ left: amount, behavior: 'smooth' });
     }
   };
 
@@ -104,7 +121,8 @@ const ProductGrid = ({ selectedCategory, setSelectedCategory }) => {
     const isDesktop = window.innerWidth >= 768;
     const container = isDesktop ? desktopContainer : mobileContainer;
     if (container) {
-      container.scrollBy({ left: -200, behavior: 'smooth' });
+      const amount = isRTL ? 200 : -200;
+      container.scrollBy({ left: amount, behavior: 'smooth' });
     }
   };
 
@@ -128,25 +146,33 @@ const ProductGrid = ({ selectedCategory, setSelectedCategory }) => {
           {/* Desktop Layout: horizontal */}
           <div className="hidden md:flex items-center justify-between">
             <div className="flex items-center flex-1 min-w-0" style={{ gap: 'clamp(16px, 2vw, 24px)' }}>
-              <span className="font-bold flex-shrink-0" style={{ color: '#03355c', fontSize: 'clamp(1.5rem, 3vw, 2.8rem)' }}>
-                CATEGORIES:
+              <span 
+                className="font-bold flex-shrink-0" 
+                style={{ 
+                  color: '#03355c', 
+                  fontSize: 'clamp(1.5rem, 3vw, 2.8rem)',
+                  direction: isRTL ? 'rtl' : 'ltr',
+                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                }}>
+                {t.categories}
               </span>
               <div className="flex items-center flex-1 min-w-0 relative" style={{ gap: 'clamp(8px, 1vw, 12px)' }}>
                 {/* Left scroll button block - Desktop */}
                 {showLeftScrollButton && (
                   <div
-                    className="absolute left-0 z-10 flex items-center justify-center flex-shrink-0 cursor-pointer"
+                    className="absolute z-10 flex items-center justify-center flex-shrink-0 cursor-pointer"
                     style={{
                       backgroundColor: '#ededed',
                       height: '100%',
                       width: 'auto',
-                      padding: '0 0.5rem'
+                      padding: '0 0.5rem',
+                      ...(isRTL ? { right: 0 } : { left: 0 })
                     }}
                   >
                     <button
                       onClick={scrollLeft}
                       className="bg-transparent border-none p-0 cursor-pointer h-full flex items-center justify-center"
-                      style={{ transform: 'scaleX(-1)' }}
+                      style={{ transform: isRTL ? 'none' : 'scaleX(-1)' }}
                     >
                       <img
                         src="/Images/2x/arrow_right@2x.png"
@@ -168,8 +194,13 @@ const ProductGrid = ({ selectedCategory, setSelectedCategory }) => {
                     overflowX: 'auto',
                     boxSizing: 'border-box',
                     gap: 'clamp(8px, 1vw, 12px)',
-                    paddingLeft: 'clamp(40px, 5vw, 60px)',
-                    paddingRight: 'clamp(40px, 5vw, 60px)'
+                    ...(isRTL ? {
+                      paddingRight: 'clamp(40px, 5vw, 60px)',
+                      paddingLeft: 'clamp(40px, 5vw, 60px)'
+                    } : {
+                      paddingLeft: 'clamp(40px, 5vw, 60px)',
+                      paddingRight: 'clamp(40px, 5vw, 60px)'
+                    })
                   }}
                   onScroll={checkScrollPosition}
                 >
@@ -188,7 +219,9 @@ const ProductGrid = ({ selectedCategory, setSelectedCategory }) => {
                           padding: 'clamp(0.8rem, 1.5vw, 1.2rem) clamp(2rem, 4vw, 4.5rem)',
                           fontWeight: 'bold',
                           fontSize: 'clamp(1rem, 1.8vw, 1.9rem)',
-                          color: isSelected ? 'white' : '#03355c'
+                          color: isSelected ? 'white' : '#03355c',
+                          direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
                         }}
                       >
                         {category.name}
@@ -200,17 +233,19 @@ const ProductGrid = ({ selectedCategory, setSelectedCategory }) => {
                 {/* Right scroll button block - Desktop */}
                 {showScrollButton && (
                   <div
-                    className="absolute right-0 z-10 flex items-center justify-center flex-shrink-0 cursor-pointer"
+                    className="absolute z-10 flex items-center justify-center flex-shrink-0 cursor-pointer"
                     style={{
                       backgroundColor: '#ededed',
                       height: '100%',
                       width: 'auto',
-                      padding: '0 0.5rem'
+                      padding: '0 0.5rem',
+                      ...(isRTL ? { left: 0 } : { right: 0 })
                     }}
                   >
                     <button
                       onClick={scrollRight}
                       className="bg-transparent border-none p-0 cursor-pointer h-full flex items-center justify-center"
+                      style={{ transform: isRTL ? 'scaleX(-1)' : 'none' }}
                     >
                       <img
                         src="/Images/2x/arrow_right@2x.png"
@@ -227,8 +262,15 @@ const ProductGrid = ({ selectedCategory, setSelectedCategory }) => {
           {/* Mobile Layout: vertical */}
           <div className="flex md:hidden flex-col" style={{ gap: 'clamp(16px, 4vw, 24px)' }}>
             {/* CATEGORIES label */}
-            <span className="font-bold text-center" style={{ color: '#03355c', fontSize: 'clamp(1.5rem, 3vw, 2.8rem)' }}>
-              CATEGORIES:
+            <span 
+              className="font-bold text-center" 
+              style={{ 
+                color: '#03355c', 
+                fontSize: 'clamp(1.5rem, 3vw, 2.8rem)',
+                direction: isRTL ? 'rtl' : 'ltr',
+                fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+              }}>
+              {t.categories}
             </span>
             
             {/* Categories container with arrows - Mobile */}
@@ -238,7 +280,7 @@ const ProductGrid = ({ selectedCategory, setSelectedCategory }) => {
                 <button
                   onClick={scrollLeft}
                   className="bg-transparent border-none p-0 cursor-pointer flex items-center justify-center flex-shrink-0"
-                  style={{ transform: 'scaleX(-1)' }}
+                  style={{ transform: isRTL ? 'none' : 'scaleX(-1)' }}
                 >
                   <img
                     src="/Images/2x/arrow_right@2x.png"
@@ -273,15 +315,17 @@ const ProductGrid = ({ selectedCategory, setSelectedCategory }) => {
                           ? 'bg-[#03355c] text-white'
                           : 'bg-[#66c8d5]'
                       }`}
-                      style={{
-                        padding: 'clamp(0.8rem, 1.5vw, 1.2rem) clamp(2rem, 4vw, 4.5rem)',
-                        fontWeight: 'bold',
-                        fontSize: 'clamp(1rem, 1.8vw, 1.9rem)',
-                        color: isSelected ? 'white' : '#03355c'
-                      }}
-                    >
-                      {category.name}
-                    </button>
+                        style={{
+                          padding: 'clamp(0.8rem, 1.5vw, 1.2rem) clamp(2rem, 4vw, 4.5rem)',
+                          fontWeight: 'bold',
+                          fontSize: 'clamp(1rem, 1.8vw, 1.9rem)',
+                          color: isSelected ? 'white' : '#03355c',
+                          direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                        }}
+                      >
+                        {category.name}
+                      </button>
                   );
                 })}
               </div>
@@ -291,6 +335,7 @@ const ProductGrid = ({ selectedCategory, setSelectedCategory }) => {
                 <button
                   onClick={scrollRight}
                   className="bg-transparent border-none p-0 cursor-pointer flex items-center justify-center flex-shrink-0"
+                  style={{ transform: isRTL ? 'scaleX(-1)' : 'none' }}
                 >
                   <img
                     src="/Images/2x/arrow_right@2x.png"
@@ -323,10 +368,13 @@ const ProductGrid = ({ selectedCategory, setSelectedCategory }) => {
                 className="font-bold text-[#03355c] uppercase"
                 style={{ 
                   fontSize: '2.475rem', 
-                  paddingLeft: 'clamp(0%, 2%, 5%)'
+                  paddingLeft: 'clamp(0%, 2%, 5%)',
+                  direction: isRTL ? 'rtl' : 'ltr',
+                  textAlign: isRTL ? 'right' : 'left',
+                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
                 }}
               >
-                {categoryKey === 'category1' ? 'CATEGORY 1' : 'CATEGORY 2'}
+                {categoryKey === 'category1' ? t.category1.toUpperCase() : t.category2.toUpperCase()}
               </h2>
 
               {/* Products Grid - 4 columns */}
