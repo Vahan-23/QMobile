@@ -31,12 +31,15 @@ const HomepageHeader = ({
     <header
       className="w-full text-white overflow-x-hidden"
       style={{
-        padding: isMobile ? '15px' : '50px 40px',
+        padding: '0px 0px',
         fontFamily: "'Rubik', sans-serif",
-        background: backgroundStyle ?? 'linear-gradient(to right, rgb(0, 84, 147), rgb(51, 177, 215))'
+        background: backgroundStyle ?? 'transparent'
       }}
     >
-      <div className="max-w-[1895px] mx-auto w-full">
+      <div
+        className="max-w-[1895px] mx-auto w-full"
+        style={{ padding: '30px' }}
+      >
         {/* Desktop Navigation Row */}
         <div className="hidden md:flex justify-between items-center w-full gap-2 sm:gap-4 md:gap-6 lg:gap-8 xl:gap-12">
           {/* Logo */}
@@ -49,7 +52,7 @@ const HomepageHeader = ({
           </div>
 
           {/* Navigation Links */}
-          <div className="flex items-center gap-4 sm:gap-6 md:gap-8 lg:gap-10 xl:gap-12 2xl:gap-14 flex-nowrap justify-center flex-1 min-w-0">
+          <div className="flex items-center flex-nowrap justify-center flex-1 min-w-0 nav-links-gap">
             <a 
               href="#" 
               className="text-white hover:opacity-80 transition-opacity whitespace-nowrap flex-shrink font-light"
