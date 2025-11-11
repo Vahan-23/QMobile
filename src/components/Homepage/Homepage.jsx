@@ -342,33 +342,85 @@ const Homepage = () => {
         <section
           className="w-full"
           style={{
-            padding: 'clamp(60px, 8vw, 120px) clamp(20px, 6vw, 80px)'
+            padding: '30px 0px 0px 0px'
           }}
         >
-          <div className="max-w-[1260px] mx-auto flex flex-col gap-12">
+          <div
+            style={{
+              maxWidth: '1260px',
+              marginLeft: isRTL ? 'auto' : 0,
+              marginRight: isRTL ? 0 : 'auto',
+              paddingLeft: 'clamp(20px, 6vw, 80px)',
+              paddingRight: 'clamp(20px, 6vw, 80px)'
+            }}
+          >
             <div
-              className="flex flex-col gap-4 text-center"
-              style={{ alignItems: 'center' }}
+              className="flex flex-col"
+              style={{
+                alignItems: isRTL ? 'flex-end' : 'flex-start',
+                textAlign: isRTL ? 'right' : 'left'
+              }}
             >
               <h2
                 className="font-bold uppercase text-[#03355c]"
                 style={{
-                  fontSize: 'clamp(1.8rem, 4vw, 3.8rem)'
+                  fontSize: '70px',
+                  textAlign: isRTL ? 'right' : 'left'
                 }}
-              >
-                {t.homeProductsHeading}
-              </h2>
-              <p
-                className="uppercase tracking-[0.2em] text-[#3aa4d3]"
+                dangerouslySetInnerHTML={{
+                  __html: t.homeProductsHeading
+                }}
+              />
+              <a
+                href="/marketplace"
+                className="flex items-center gap-4"
                 style={{
-                  fontSize: 'clamp(1rem, 2vw, 1.5rem)',
-                  letterSpacing: isRTL ? '0.1em' : '0.2em'
+                  flexDirection: isRTL ? 'row-reverse' : 'row',
+                  textDecoration: 'none',
+                  color: 'inherit',
+                  cursor: 'pointer',
+                  transition: 'opacity 0.2s ease'
+                }}
+                onMouseEnter={event => {
+                  event.currentTarget.style.opacity = '0.7';
+                }}
+                onMouseLeave={event => {
+                  event.currentTarget.style.opacity = '1';
                 }}
               >
-                {t.homeProductsSubheading}
-              </p>
+                <p
+                  className="uppercase text-[#04365d]"
+                  style={{
+                    fontSize: '30px',
+                    fontWeight: 700,
+                    letterSpacing: '0.1em',
+                    textAlign: isRTL ? 'right' : 'left',
+                    margin: 0
+                  }}
+                >
+                  {t.homeProductsSubheading}
+                </p>
+                <img
+                  src="/Images/2x/underline@2x.png"
+                  alt=""
+                  style={{
+                    width: '59px',
+                    height: 'auto',
+                    marginTop: '20px'
+                  }}
+                />
+              </a>
             </div>
+          </div>
+        </section>
 
+        <section
+          className="w-full"
+          style={{
+            padding: 'clamp(40px, 7vw, 100px) clamp(20px, 6vw, 80px)'
+          }}
+        >
+          <div className="max-w-[1260px] mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {productPresets.map(product => (
                 <div

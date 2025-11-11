@@ -24,7 +24,8 @@ export const translations = {
     homeSupportSubheading: 'WHEREVER YOU ARE',
     homeSupportBody: "We're dedicated to making your transition smooth and your stay comfortable, while keeping you connected to what matter most. Stay close to your family, friends, and loved ones with our daily communication solutions.",
     homeSupportLearnMore: 'LEARN MORE ABOUT',
-    homeProductsHeading: 'GET IT NOW, PAY WITH CREDITS',
+    homeProductsHeading:
+      'GET IT <span style="color:#67cad7;">NOW</span>, PAY WITH <span style="color:#67cad7;">CREDITS</span>',
     homeProductsSubheading: 'BROWSE MARKETPLACE',
     homeTestimonialDistance: '2115 MILES AWAY',
     homeTestimonialHighlight: 'NEVER FELT SO CLOSE',
