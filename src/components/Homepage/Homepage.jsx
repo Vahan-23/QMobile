@@ -83,12 +83,28 @@ const Homepage = () => {
                 />
               </div>
               <button
-                className="px-10 py-3 rounded-full font-semibold bg-white text-[#005490] hover:bg-white/90 transition"
+                className="px-10 py-3 rounded-full transition"
                 style={{
-                  fontSize: 'clamp(1rem, 1.5vw, 1.5rem)'
+                  paddingInline: '180px',
+                  paddingBlock: '30px',
+                  textTransform: 'uppercase',
+                  fontWeight: 100,
+                  fontSize: '57px',
+                  textAlign: 'center',
+                  marginTop: '50px',
+                  backgroundColor: '#67c9d6',
+                  color: '#000000'
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.backgroundColor = 'rgba(103, 202, 215, 0.75)';
+                  e.currentTarget.style.color = '#03355c';
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.backgroundColor = '#67c9d6';
+                  e.currentTarget.style.color = '#000000';
                 }}
               >
-                {t.joinUs}
+                {t.joinUs.toUpperCase()}
               </button>
             </div>
 
