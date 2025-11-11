@@ -15,7 +15,7 @@ const HomepageHeader = ({
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      setIsMobile(window.innerWidth <= 768);
     };
 
     checkMobile();
@@ -38,10 +38,10 @@ const HomepageHeader = ({
     >
       <div
         className="max-w-[1895px] mx-auto w-full"
-        style={{ padding: '30px' }}
+        style={{ padding: isMobile ? '20px 20px 0px 20px' : '30px' }}
       >
         {/* Desktop Navigation Row */}
-        <div className="hidden md:flex justify-between items-center w-full gap-2 sm:gap-4 md:gap-6 lg:gap-8 xl:gap-12">
+        <div className="hidden min-[769px]:flex justify-between items-center w-full gap-2 sm:gap-4 md:gap-6 lg:gap-8 xl:gap-12">
           {/* Logo */}
           <div className="flex items-center flex-shrink-0 min-w-0">
             <img
@@ -140,13 +140,17 @@ const HomepageHeader = ({
         </div>
 
         {/* Mobile Navigation Row */}
-        <div className="flex md:hidden justify-between items-center w-full">
+        <div className="flex min-[769px]:hidden justify-between items-center w-full">
           {/* Logo */}
           <div className="flex items-center flex-shrink-0">
             <img
               src={t.logo}
               alt="Qmobile Logo"
-              className="w-auto h-16 max-h-full"
+              className="object-contain"
+              style={{
+                width: '20rem',
+                height: '8rem'
+              }}
             />
           </div>
 
@@ -164,8 +168,8 @@ const HomepageHeader = ({
                   alt="Switch language"
                   className="object-contain"
                   style={{
-                    width: '5rem',
-                    height: '5rem'
+                    width: '8rem',
+                    height: '8rem'
                   }}
                 />
               </button>
@@ -181,8 +185,8 @@ const HomepageHeader = ({
                 alt="Menu"
                 className="object-contain"
                 style={{
-                  width: '2.5rem',
-                  height: '2.5rem'
+                  width: '4rem',
+                  height: '4rem'
                 }}
               />
             </button>
@@ -191,7 +195,7 @@ const HomepageHeader = ({
 
         {/* Mobile Menu Dropdown */}
         {isMobileMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 border-t border-white/20">
+          <div className="min-[769px]:hidden mt-4 pb-4 border-t border-white/20">
             <div className="flex flex-col gap-4 pt-4">
               <a 
                 href="#" 

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import HomepageHeader from './HomepageHeader';
 import homepageDesktopHero from './HomePageHero.png';
+import homepageMobileHero from './homePageMobilehero.png';
 import { ReactComponent as QKeepingText } from './q_IS_keeping.svg';
 import MarketplaceFooter from '../Marketplace/MarketplaceFooter';
 import { useLanguage } from '../../contexts/LanguageContext';
@@ -12,8 +13,19 @@ const productPresets = [
 ];
 
 const Homepage = () => {
+  const [isMobile, setIsMobile] = useState(false);
   const { language, isRTL } = useLanguage();
   const t = translations[language];
+
+  useEffect(() => {
+    const updateIsMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    updateIsMobile();
+    window.addEventListener('resize', updateIsMobile);
+    return () => window.removeEventListener('resize', updateIsMobile);
+  }, []);
 
   return (
     <div
@@ -21,13 +33,18 @@ const Homepage = () => {
       style={{ fontFamily: "'Rubik', sans-serif" }}
       dir={isRTL ? 'rtl' : 'ltr'}
     >
-      <div className="relative max-w-[1895px] mx-auto w-full">
+      <div
+        className="relative max-w-[1895px] mx-auto w-full min-h-[640px] min-[769px]:min-h-0"
+        style={{
+          background: 'linear-gradient(to top, #22afe4 0%, #005490 100%)'
+        }}
+      >
         <img
           src={homepageDesktopHero}
           alt="Qmobile homepage hero"
-          className="w-full h-auto object-cover block pointer-events-none select-none"
+          className="hidden min-[769px]:block w-full h-auto object-cover pointer-events-none select-none"
         />
-        <div className="absolute inset-0 flex flex-col">
+        <div className={`${isMobile ? 'relative' : 'absolute inset-0'} flex flex-col`}>
           <HomepageHeader showTitle={false} backgroundStyle="transparent">
         <section
           className="relative w-full"
@@ -68,8 +85,9 @@ const Homepage = () => {
               <p
                 className="uppercase font-semibold"
                 style={{
-                  fontSize:
-                    'clamp(18px, calc(18px + (67 - 18) * ((100vw - 505px) / 1390)), 67px)',
+                  fontSize: isMobile
+                    ? '46px'
+                    : 'clamp(18px, calc(18px + (67 - 18) * ((100vw - 505px) / 1390)), 67px)',
                   letterSpacing: isRTL ? '0.02rem' : '0.02rem',
                   color: '#67c9d6',
                   textAlign: isRTL ? 'right' : 'left'
@@ -86,14 +104,14 @@ const Homepage = () => {
                 <QKeepingText
                   style={{
                     aspectRatio: '1154.9 / 303.37',
-                    width: 'clamp(210px, 44vw, 48rem)',
+                    width: isMobile ? '444px' : 'clamp(210px, 44vw, 48rem)',
                     height: 'auto'
                   }}
                   aria-label={t.homeHeroHeadline}
                 />
               </div>
               <button
-                className="px-10 py-3 rounded-full transition"
+                className="hidden min-[769px]:inline-flex px-10 py-3 rounded-full transition"
                 style={{
                   width:
                     'clamp(150px, calc(150px + (600 - 150) * ((100vw - 505px) / 1390)), 600px)',
@@ -131,8 +149,28 @@ const Homepage = () => {
 
         </section>
 
+        {isMobile && (
+          <div
+            className="min-[769px]:hidden"
+            style={{
+              marginTop: '-100px',
+              width: '100vw',
+              marginLeft: 'calc(50% - 50vw)'
+            }}
+          >
+            <img
+              src={homepageMobileHero}
+              alt=""
+              style={{
+                width: '100%',
+                display: 'block'
+              }}
+            />
+          </div>
+        )}
+
         <section
-          className="relative z-[3] w-full"
+          className="relative z-[3] w-full hidden min-[769px]:block"
           style={{
             marginTop:
               'clamp(0px, calc(0px + (400px - 0px) * ((100vw - 505px) / 1390)), 400px)'
