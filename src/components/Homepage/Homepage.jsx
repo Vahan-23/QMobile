@@ -208,7 +208,7 @@ const Homepage = () => {
               paddingRight: isRTL ? 0 : 'clamp(8px, 3vw, 80px)',
               paddingLeft: isRTL ? 'clamp(8px, 3vw, 80px)' : 'clamp(181px, 32vw, 283px)',
               gap: '0.2rem',
-              paddingTop: 'clamp(50px, -268.459px + 33.9608vw, 360px)'
+              paddingTop: 'clamp(126px, -268.459px + 38.9608vw, 360px)'
             }}
           >
             <div>
