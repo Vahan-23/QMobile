@@ -7,9 +7,9 @@ import MarketplaceFooter from '../Marketplace/MarketplaceFooter';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { translations } from '../../translations';
 const productPresets = [
-  { id: 1, pricePerUnit: 320, installments: 10, total: 3200 },
-  { id: 2, pricePerUnit: 320, installments: 10, total: 3200 },
-  { id: 3, pricePerUnit: 320, installments: 10, total: 3200 }
+  { id: 1, pricePerUnit: 320, quantity: 10, total: 3200, image: null },
+  { id: 2, pricePerUnit: 320, quantity: 10, total: 3200, image: null },
+  { id: 3, pricePerUnit: 320, quantity: 10, total: 3200, image: null }
 ];
 
 const Homepage = () => {
@@ -417,50 +417,86 @@ const Homepage = () => {
         <section
           className="w-full"
           style={{
-            padding: 'clamp(40px, 7vw, 100px) clamp(20px, 6vw, 80px)'
+            padding: 'clamp(10px, 2vw, 25px) clamp(20px, 6vw, 80px) 170px'
           }}
         >
-          <div className="max-w-[1260px] mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="max-w-[1895px] mx-auto">
+            <style>{`
+              @keyframes homepage-bubble {
+                0% { transform: scale(0.99); }
+                100% { transform: scale(1.03); }
+              }
+              .homepage-product-card:hover {
+                animation: homepage-bubble 0.25s ease-out forwards;
+              }
+              .homepage-product-card {
+                transition: transform 0.3s ease-out;
+              }
+              .homepage-product-card:not(:hover) {
+                transform: scale(1);
+              }
+            `}</style>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
               {productPresets.map(product => (
-                <div
-                  key={product.id}
-                  className="rounded-3xl shadow-lg bg-white border border-[#e3eef8] flex flex-col items-center text-center gap-4 px-8 py-10"
-                >
-                  <div className="w-full flex justify-center">
-                    <img
-                      src="/Images/2x/product_placeholder@2x.png"
-                      alt={t.productTitle}
-                      className="w-[70%] max-w-[220px] h-auto object-contain"
-                    />
+                <div key={product.id} style={{ marginTop: '60px' }}>
+                  <div className="bg-white homepage-product-card" style={{ cursor: 'pointer' }}>
+                    <div className="w-[88%] mx-auto aspect-square mb-4 overflow-hidden">
+                      {product.image ? (
+                        <img src={product.image} alt={t.productTitle} className="w-full h-full object-cover" />
+                      ) : (
+                        <img
+                          src="/Images/2x/product_placeholder@2x.png"
+                          alt={t.productTitle}
+                          className="w-full h-full object-cover"
+                        />
+                      )}
+                    </div>
+                    <div className="text-center">
+                      <h3
+                        className="font-bold"
+                        style={{
+                          fontSize: '36px',
+                          color: '#000000',
+                          direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                        }}
+                      >
+                        {t.productTitle}
+                      </h3>
+                      <p
+                        style={{
+                          fontSize: '1.8rem',
+                          color: '#000000',
+                          marginTop: '20px',
+                          direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                        }}
+                      >
+                        {product.pricePerUnit} NIS x {product.quantity ?? product.installments}
+                      </p>
+                      <p
+                        style={{
+                          fontSize: '1.275rem',
+                          color: '#767676',
+                          direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                        }}
+                      >
+                        ({t.total} {product.total} NIS)
+                      </p>
+                      <button
+                        className="mx-auto text-white py-1 md:py-1.5 px-8 md:px-10 rounded-full font-medium hover:opacity-90 transition-opacity mt-4"
+                        style={{
+                          backgroundColor: '#005291',
+                          fontSize: '1.4rem',
+                          direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                        }}
+                      >
+                        {t.addToCart}
+                      </button>
+                    </div>
                   </div>
-                  <h3
-                    className="font-bold text-[#003b66]"
-                    style={{
-                      fontSize: 'clamp(1.5rem, 2.5vw, 1.9rem)'
-                    }}
-                  >
-                    {t.productTitle}
-                  </h3>
-                  <p
-                    className="text-[#03355c] font-semibold"
-                    style={{
-                      fontSize: 'clamp(1.3rem, 2.5vw, 1.8rem)'
-                    }}
-                  >
-                    {product.pricePerUnit} NIS x {product.installments}
-                  </p>
-                  <p className="text-[#7b8aa0]" style={{ fontSize: '1rem' }}>
-                    ({t.total} {product.total} NIS)
-                  </p>
-                  <button
-                    className="mt-2 px-8 py-2 rounded-full bg-[#005490] text-white font-semibold uppercase tracking-[0.2em] hover:bg-[#004374] transition"
-                    style={{
-                      fontSize: 'clamp(0.9rem, 1.6vw, 1.1rem)'
-                    }}
-                  >
-                    {t.addToCart}
-                  </button>
                 </div>
               ))}
             </div>
