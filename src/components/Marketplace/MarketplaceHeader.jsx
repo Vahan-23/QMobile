@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { translations } from '../../translations';
 
-const MarketplaceHeader = () => {
+const MarketplaceHeader = ({
+  showTitle = true,
+  titleKey = 'marketplace',
+  children
+}) => {
   const { language, isRTL, toggleLanguage } = useLanguage();
   const t = translations[language];
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -255,20 +259,23 @@ const MarketplaceHeader = () => {
           </div>
         )}
 
-                                                                       {/* MARKETPLACE Title */}
-           <div className="w-full" style={{ marginTop: 'clamp(40px, 8vw, 96px)' }}>
-             <h1 
-               className="text-center font-bold uppercase"
-               style={{ 
-                 marginBottom: 'clamp(15px, 2vw, 30px)', 
-                 fontSize: 'clamp(2rem, 5vw, 4.7rem)',
-                 direction: isRTL ? 'rtl' : 'ltr',
-                 fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-               }}
-             >
-               {t.marketplace.toUpperCase()}
-             </h1>
-           </div>
+        {showTitle && (
+          <div className="w-full" style={{ marginTop: 'clamp(40px, 8vw, 96px)' }}>
+            <h1 
+              className="text-center font-bold uppercase"
+              style={{ 
+                marginBottom: 'clamp(15px, 2vw, 30px)', 
+                fontSize: 'clamp(2rem, 5vw, 4.7rem)',
+                direction: isRTL ? 'rtl' : 'ltr',
+                fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+              }}
+            >
+              {t[titleKey]?.toUpperCase?.() || ''}
+            </h1>
+          </div>
+        )}
+
+        {children}
       </div>
     </header>
   );
