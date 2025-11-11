@@ -208,7 +208,7 @@ const Homepage = () => {
               paddingRight: isRTL ? 0 : 'clamp(8px, 3vw, 80px)',
               paddingLeft: isRTL ? 'clamp(8px, 3vw, 80px)' : 'clamp(181px, 32vw, 283px)',
               gap: '0.2rem',
-              paddingTop: 'clamp(126px, -268.459px + 38.9608vw, 360px)'
+              paddingTop: 'clamp(117px, -268.459px + 38.9608vw, 360px)'
             }}
           >
             <div>
@@ -293,7 +293,7 @@ const Homepage = () => {
       <section
         className="w-full text-[#04365d]"
         style={{
-          padding: 'clamp(70px, 4vw, 150px) clamp(24px, 7vw, 90px)',
+          padding: 'clamp(30px, 4vw, 150px) clamp(24px, 7vw, 90px)',
           background: '#67cad7'
         }}
       >
@@ -303,9 +303,9 @@ const Homepage = () => {
         >
           <p
             style={{
-              fontSize: 'clamp(3.2rem, 2vw, 5.3rem)',
+              fontSize: 'clamp(21px, 3vw, 54px)',
               whiteSpace: 'pre-line',
-              padding: 'clamp(53px, 7vw, 20px)',
+              padding: 0,
               direction: 'ltr',
               textAlign: 'center'
             }}
@@ -321,7 +321,7 @@ const Homepage = () => {
           >
             <span
               style={{
-                fontSize: '40px'
+                fontSize: 'clamp(15px, 1.8vw, 40px)'
               }}
             >
               {t.homeSupportLearnMore}
