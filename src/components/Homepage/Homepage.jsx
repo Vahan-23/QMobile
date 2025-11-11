@@ -14,18 +14,33 @@ const productPresets = [
 
 const Homepage = () => {
   const [isMobile, setIsMobile] = useState(false);
+  const [viewportWidth, setViewportWidth] = useState(
+    typeof window !== 'undefined' ? window.innerWidth : 768
+  );
   const { language, isRTL } = useLanguage();
   const t = translations[language];
 
   useEffect(() => {
     const updateIsMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
+      const width = window.innerWidth;
+      setViewportWidth(width);
+      setIsMobile(width <= 768);
     };
 
     updateIsMobile();
     window.addEventListener('resize', updateIsMobile);
     return () => window.removeEventListener('resize', updateIsMobile);
   }, []);
+
+  const constrainedWidth = Math.min(Math.max(viewportWidth, 290), 768);
+  const interpolationProgress =
+    constrainedWidth <= 290
+      ? 0
+      : constrainedWidth >= 768
+      ? 1
+      : (constrainedWidth - 290) / (768 - 290);
+  const lerp = (min, max) => min + (max - min) * interpolationProgress;
+  const mobileWelcomeFontSize = `${lerp(21, 46)}px`;
 
   return (
     <div
@@ -34,7 +49,7 @@ const Homepage = () => {
       dir={isRTL ? 'rtl' : 'ltr'}
     >
       <div
-        className="relative max-w-[1895px] mx-auto w-full min-h-[640px] min-[769px]:min-h-0"
+        className="relative max-w-[1895px] mx-auto w-full"
         style={{
           background: 'linear-gradient(to top, #22afe4 0%, #005490 100%)'
         }}
@@ -67,7 +82,7 @@ const Homepage = () => {
         >
           <div className="w-full flex flex-col lg:flex-row items-center gap-10 lg:gap-16 relative z-[2]">
             <div
-              className="flex-1 flex flex-col gap-6 lg:gap-8"
+              className="flex-1 flex flex-col"
               style={{
                 textAlign: 'left',
                 alignItems: 'flex-start',
@@ -78,15 +93,19 @@ const Homepage = () => {
                   : 'clamp(10px, calc(10px + (60px - 10px) * ((100vw - 505px) / 1390)), 60px)',
                 marginRight: 0,
                 gap: 'clamp(0.8rem, calc(0.8rem + (3.7rem - 0.8rem) * ((100vw - 768px) / 1127)), 3.7rem)',
-                marginTop: 'clamp(0px, calc((100vw - 768px) * 0.0), 0px)',
-                padding: 'clamp(25px, calc(25px + (100vw - 768px) * (35 / 1127)), 60px)'
+                marginTop: isMobile
+                  ? 'clamp(20px, 0px + 0vw, 0px)'
+                  : 'clamp(0px, calc((100vw - 768px) * 0.0), 0px)',
+                padding: isMobile
+                  ? 'clamp(10px, 1.14907px + 3.10559vw, 60px)'
+                  : 'clamp(25px, calc(25px + (100vw - 768px) * (35 / 1127)), 60px)'
               }}
             >
               <p
                 className="uppercase font-semibold"
                 style={{
                   fontSize: isMobile
-                    ? '46px'
+                    ? mobileWelcomeFontSize
                     : 'clamp(18px, calc(18px + (67 - 18) * ((100vw - 505px) / 1390)), 67px)',
                   letterSpacing: isRTL ? '0.02rem' : '0.02rem',
                   color: '#67c9d6',
@@ -98,13 +117,16 @@ const Homepage = () => {
               <div
                 className="flex"
                 style={{
-                  justifyContent: isRTL ? 'flex-end' : 'flex-start'
+                  justifyContent: isRTL ? 'flex-end' : 'flex-start',
+                  gap: isMobile ? '0.5rem' : 0
                 }}
               >
                 <QKeepingText
                   style={{
                     aspectRatio: '1154.9 / 303.37',
-                    width: isMobile ? '444px' : 'clamp(210px, 44vw, 48rem)',
+                    width: isMobile
+                      ? 'clamp(200px, 3.931px + 56.525vw, 444px)'
+                      : 'clamp(210px, 44vw, 48rem)',
                     height: 'auto'
                   }}
                   aria-label={t.homeHeroHeadline}
@@ -153,7 +175,7 @@ const Homepage = () => {
           <div
             className="min-[769px]:hidden"
             style={{
-              marginTop: '-100px',
+              marginTop: '-25px',
               width: '100vw',
               marginLeft: 'calc(50% - 50vw)'
             }}

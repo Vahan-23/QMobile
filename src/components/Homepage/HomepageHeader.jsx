@@ -12,16 +12,46 @@ const HomepageHeader = ({
   const t = translations[language];
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [viewportWidth, setViewportWidth] = useState(
+    typeof window !== 'undefined' ? window.innerWidth : 768
+  );
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
+      const width = window.innerWidth;
+      setViewportWidth(width);
+      setIsMobile(width <= 768);
     };
 
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  const constrainedWidth = Math.min(Math.max(viewportWidth, 290), 768);
+  const interpolationProgress =
+    constrainedWidth <= 290
+      ? 0
+      : constrainedWidth >= 768
+      ? 1
+      : (constrainedWidth - 290) / (768 - 290);
+
+  const lerp = (min, max) => min + (max - min) * interpolationProgress;
+
+  const mobileLogoDimensions = {
+    width: `${lerp(7, 20)}rem`,
+    height: `${lerp(3, 8)}rem`
+  };
+
+  const mobileSwitchDimensions = {
+    width: `${lerp(3, 8)}rem`,
+    height: `${lerp(3, 8)}rem`
+  };
+
+  const mobileBurgerDimensions = {
+    width: `${lerp(2, 4)}rem`,
+    height: `${lerp(2, 4)}rem`
+  };
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -38,7 +68,11 @@ const HomepageHeader = ({
     >
       <div
         className="max-w-[1895px] mx-auto w-full"
-        style={{ padding: isMobile ? '20px 20px 0px 20px' : '30px' }}
+        style={{
+          padding: isMobile
+            ? `${lerp(0, 20)}px ${lerp(8, 20)}px 0px`
+            : '30px'
+        }}
       >
         {/* Desktop Navigation Row */}
         <div className="hidden min-[769px]:flex justify-between items-center w-full gap-2 sm:gap-4 md:gap-6 lg:gap-8 xl:gap-12">
@@ -147,10 +181,7 @@ const HomepageHeader = ({
               src={t.logo}
               alt="Qmobile Logo"
               className="object-contain"
-              style={{
-                width: '20rem',
-                height: '8rem'
-              }}
+              style={mobileLogoDimensions}
             />
           </div>
 
@@ -167,10 +198,7 @@ const HomepageHeader = ({
                   src="/Images/2x/switch language icon@2x.png"
                   alt="Switch language"
                   className="object-contain"
-                  style={{
-                    width: '8rem',
-                    height: '8rem'
-                  }}
+                  style={mobileSwitchDimensions}
                 />
               </button>
             </div>
@@ -184,10 +212,7 @@ const HomepageHeader = ({
                 src="/Images/2x/hamburger@2x.png"
                 alt="Menu"
                 className="object-contain"
-                style={{
-                  width: '4rem',
-                  height: '4rem'
-                }}
+                style={mobileBurgerDimensions}
               />
             </button>
           </div>
