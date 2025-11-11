@@ -23,7 +23,7 @@ export const translations = {
     homeSupportHeading: 'WE ARE HERE FOR YOU',
     homeSupportSubheading: 'WHEREVER YOU ARE',
     homeSupportBody: "We're dedicated to making your transition smooth and your stay comfortable, while keeping you connected to what matter most. Stay close to your family, friends, and loved ones with our daily communication solutions.",
-    homeSupportLearnMore: 'LEARN MORE ABOUT Q',
+    homeSupportLearnMore: 'LEARN MORE ABOUT',
     homeProductsHeading: 'GET IT NOW, PAY WITH CREDITS',
     homeProductsSubheading: 'BROWSE MARKETPLACE',
     homeTestimonialDistance: '2115 MILES AWAY',

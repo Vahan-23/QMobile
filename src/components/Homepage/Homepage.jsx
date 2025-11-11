@@ -291,33 +291,49 @@ const Homepage = () => {
       </div>
 
       <section
-        className="w-full text-[#03355c]"
+        className="w-full text-[#04365d]"
         style={{
-          padding: 'clamp(60px, 8vw, 140px) clamp(20px, 6vw, 80px)',
-          background: '#f5fbff'
+          padding: 'clamp(70px, 4vw, 150px) clamp(24px, 7vw, 90px)',
+          background: '#67cad7'
         }}
       >
         <div
-          className="max-w-[900px] mx-auto flex flex-col gap-6 text-center"
+          className="mx-auto flex flex-col gap-6 text-center"
           style={{ alignItems: 'center' }}
         >
           <p
             style={{
-              fontSize: 'clamp(1rem, 2vw, 1.3rem)',
+              fontSize: 'clamp(3.2rem, 2vw, 5.3rem)',
               whiteSpace: 'pre-line',
-              direction: isRTL ? 'rtl' : 'ltr',
-              textAlign: isRTL ? 'right' : 'center'
+              padding: 'clamp(53px, 7vw, 20px)',
+              direction: 'ltr',
+              textAlign: 'center'
             }}
           >
             {t.homeSupportBody}
           </p>
           <button
-            className="uppercase px-10 py-3 rounded-full font-semibold bg-[#005490] text-white hover:bg-[#004374] transition"
+            type="button"
+            className="uppercase inline-flex items-center gap-4 font-semibold text-[#04365d] bg-transparent border-0 px-0 py-0 hover:opacity-80 transition"
             style={{
               fontSize: 'clamp(0.95rem, 1.5vw, 1.4rem)'
             }}
           >
-            {t.homeSupportLearnMore}
+            <span
+              style={{
+                fontSize: '40px'
+              }}
+            >
+              {t.homeSupportLearnMore}
+            </span>
+            <img
+              src="/Images/SVG/Q__.svg"
+              alt="Q logo"
+              className="h-auto"
+              style={{
+                width: 'clamp(40px, 8vw, 133px)'
+              }}
+            />
           </button>
         </div>
       </section>
