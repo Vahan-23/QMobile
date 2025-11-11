@@ -143,14 +143,12 @@ const Homepage = () => {
             style={{
               alignItems: 'center',
               textAlign: 'center',
-              marginLeft: isRTL
-                ? 0
-                : 'clamp(175px, calc(175px + (600px - 175px) * ((100vw - 505px) / 1390)), 600px)',
+              marginLeft: isRTL ? 0 : 'clamp(175px, calc(175px + (600px - 175px) * ((100vw - 505px) / 1390)), 600px)',
               marginRight: 0,
               paddingRight: isRTL ? 0 : 'clamp(8px, 3vw, 80px)',
-              paddingLeft: isRTL ? 'clamp(8px, 3vw, 80px)' : 'clamp(175px, 20vw, 200px)',
+              paddingLeft: isRTL ? 'clamp(8px, 3vw, 80px)' : 'clamp(181px, 32vw, 283px)',
               gap: '0.2rem',
-              paddingTop: 'clamp(0px, -251.459px + 37.9608vw, 360px)'
+              paddingTop: 'clamp(50px, -268.459px + 33.9608vw, 360px)'
             }}
           >
             <div>
