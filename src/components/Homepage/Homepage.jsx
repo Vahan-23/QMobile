@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import HomepageHeader from './HomepageHeader';
 import homepageDesktopHero from './HomePageHero.png';
 import homepageMobileHero from './homePageMobilehero.png';
@@ -17,6 +17,7 @@ const Homepage = () => {
   const [viewportWidth, setViewportWidth] = useState(
     typeof window !== 'undefined' ? window.innerWidth : 768
   );
+  const [activeTestimonial, setActiveTestimonial] = useState(0);
   const { language, isRTL } = useLanguage();
   const t = translations[language];
 
@@ -41,6 +42,48 @@ const Homepage = () => {
       : (constrainedWidth - 290) / (768 - 290);
   const lerp = (min, max) => min + (max - min) * interpolationProgress;
   const mobileWelcomeFontSize = `${lerp(21, 46)}px`;
+
+  const testimonialSlides = useMemo(() => {
+    const countries = t.countries || {};
+
+    return [
+      {
+        body: t.homeTestimonialBody,
+        name: t.homeTestimonialName,
+        origin: t.homeTestimonialOrigin,
+        flags: [
+          { code: 'th', label: countries.thailand || 'Thailand' },
+          { code: 'il', label: countries.israel || 'Israel' }
+        ]
+      },
+      {
+        body: t.homeTestimonialBody2 || t.homeTestimonialBody,
+        name: t.homeTestimonialName2 || t.homeTestimonialName,
+        origin: t.homeTestimonialOrigin2 || t.homeTestimonialOrigin,
+        flags: [
+          { code: 'il', label: countries.israel || 'Israel' },
+          { code: 'th', label: countries.thailand || 'Thailand' }
+        ]
+      }
+    ];
+  }, [t]);
+
+  const currentTestimonial =
+    testimonialSlides[activeTestimonial] ?? testimonialSlides[0];
+
+  const goToPreviousTestimonial = () => {
+    setActiveTestimonial(prev => {
+      const nextIndex = (prev - 1 + testimonialSlides.length) % testimonialSlides.length;
+      return nextIndex;
+    });
+  };
+
+  const goToNextTestimonial = () => {
+    setActiveTestimonial(prev => {
+      const nextIndex = (prev + 1) % testimonialSlides.length;
+      return nextIndex;
+    });
+  };
 
   return (
     <div
@@ -534,7 +577,7 @@ const Homepage = () => {
                 color: '#005392'
               }}
             >
-              {t.homeTestimonialBody}
+              {currentTestimonial.body}
             </p>
           </div>
 
@@ -544,18 +587,41 @@ const Homepage = () => {
               marginTop: '20px'
             }}
           >
-            <img
-              src="/Images/2x/arrow_left@2x.png"
-              alt=""
+            <button
+              type="button"
+              onClick={goToPreviousTestimonial}
+              onKeyDown={event => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
+                  goToPreviousTestimonial();
+                }
+              }}
+              aria-label={t.homeTestimonialPrevLabel || 'Previous testimonial'}
               style={{
                 position: 'absolute',
                 left: '30px',
                 top: '50%',
                 transform: 'translateY(-50%)',
                 width: '40px',
-                height: 'auto'
+                height: '40px',
+                padding: 0,
+                border: 'none',
+                background: 'transparent',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
               }}
-            />
+            >
+              <img
+                src="/Images/2x/arrow_left@2x.png"
+                alt=""
+                style={{
+                  width: '40px',
+                  height: 'auto'
+                }}
+              />
+            </button>
             <div
               className="flex flex-col items-center mx-auto"
               style={{
@@ -565,7 +631,7 @@ const Homepage = () => {
                 paddingInline: 'clamp(20px, 6vw, 80px)'
               }}
             >
-              <h4
+                <h4
                 className="text-center"
                 style={{
                   fontSize: '36px',
@@ -573,7 +639,7 @@ const Homepage = () => {
                   letterSpacing: '0.1em'
                 }}
               >
-                Nok Supansa
+                  {currentTestimonial.name}
               </h4>
               <p
                 className="text-center"
@@ -583,7 +649,7 @@ const Homepage = () => {
                   letterSpacing: '0.03em'
                 }}
               >
-                Originally from Thailand | Lives in Israel
+                  {currentTestimonial.origin}
               </p>
               <div
                 className="flex items-center justify-center"
@@ -592,12 +658,9 @@ const Homepage = () => {
                   marginTop: '20px'
                 }}
               >
-                {[
-                  { src: 'https://flagcdn.com/w80/th.png', alt: 'Thailand flag' },
-                  { src: 'https://flagcdn.com/w80/il.png', alt: 'Israel flag' }
-                ].map(flag => (
+                  {currentTestimonial.flags.map(flag => (
                   <div
-                    key={flag.alt}
+                      key={flag.code}
                     className="rounded-full overflow-hidden"
                     style={{
                       width: '80px',
@@ -607,8 +670,8 @@ const Homepage = () => {
                     }}
                   >
                     <img
-                      src={flag.src}
-                      alt={flag.alt}
+                        src={`https://flagcdn.com/w80/${flag.code.toLowerCase()}.png`}
+                        alt={flag.label}
                       style={{
                         width: '100%',
                         height: '100%',
@@ -619,18 +682,41 @@ const Homepage = () => {
                 ))}
               </div>
             </div>
-            <img
-              src="/Images/2x/arrow_right@2x.png"
-              alt=""
+            <button
+              type="button"
+              onClick={goToNextTestimonial}
+              onKeyDown={event => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
+                  goToNextTestimonial();
+                }
+              }}
+              aria-label={t.homeTestimonialNextLabel || 'Next testimonial'}
               style={{
                 position: 'absolute',
                 right: '30px',
                 top: '50%',
                 transform: 'translateY(-50%)',
                 width: '40px',
-                height: 'auto'
+                height: '40px',
+                padding: 0,
+                border: 'none',
+                background: 'transparent',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
               }}
-            />
+            >
+              <img
+                src="/Images/2x/arrow_right@2x.png"
+                alt=""
+                style={{
+                  width: '40px',
+                  height: 'auto'
+                }}
+              />
+            </button>
           </div>
         </section>
       </main>
