@@ -48,7 +48,6 @@ export const translations = {
     homePhoneIcon: '/Images/2x/phone@2x.png',
     // Marketplace
     joinUs: 'Join us',
-    marketplace: 'Marketplace',
     categories: 'CATEGORIES:',
     all: 'All',
     category1: 'Category 1',
@@ -132,7 +131,6 @@ export const translations = {
     homePhoneIcon: '/Images/2x/phone@2x.png',
     // Marketplace
     joinUs: 'انضم إلينا',
-    marketplace: 'السوق',
     categories: 'الفئات:',
     all: 'الكل',
     category1: 'الفئة 1',

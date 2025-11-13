@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { translations } from '../../translations';
-import { pxToPosition, pxToResponsive } from './utils/responsive';
+import { pxToPosition } from './utils/responsive';
 import MobileFooter from './MobileFooter';
 
 const WelcomeFooter = () => {
@@ -53,7 +53,7 @@ const WelcomeFooter = () => {
           <ul className="list-none" style={{ padding: 0, margin: 0 }}>
             <li style={{ marginBottom: 'clamp(5px, 1vw, 50px)' }}>
               <a 
-                href="#" 
+                href="/marketplace" 
                 className="text-white opacity-90 hover:opacity-100 transition-opacity no-underline" 
                 style={{ 
                   fontSize: 'clamp(10px, 1.3vw, 36px)',
@@ -65,7 +65,7 @@ const WelcomeFooter = () => {
             </li>
             <li style={{ marginBottom: 'clamp(5px, 1vw, 50px)' }}>
               <a 
-                href="#" 
+                href="/blog" 
                 className="text-white opacity-90 hover:opacity-100 transition-opacity no-underline" 
                 style={{ 
                   fontSize: 'clamp(10px, 1.3vw, 36px)',
@@ -99,7 +99,7 @@ const WelcomeFooter = () => {
           <ul className="list-none" style={{ padding: 0, margin: 0 }}>
             <li style={{ marginBottom: 'clamp(5px, 1vw, 50px)' }}>
               <a 
-                href="#" 
+                href="/faqs" 
                 className="text-white opacity-90 hover:opacity-100 transition-opacity no-underline" 
                 style={{ 
                   fontSize: 'clamp(10px, 1.3vw, 36px)',
@@ -111,7 +111,7 @@ const WelcomeFooter = () => {
             </li>
             <li style={{ marginBottom: 'clamp(5px, 1vw, 50px)' }}>
               <a 
-                href="#" 
+                href="/contact-us" 
                 className="text-white opacity-90 hover:opacity-100 transition-opacity no-underline" 
                 style={{ 
                   fontSize: 'clamp(10px, 1.3vw, 36px)',
@@ -145,7 +145,7 @@ const WelcomeFooter = () => {
           <ul className="list-none" style={{ padding: 0, margin: 0 }}>
             <li style={{ marginBottom: 'clamp(5px, 1vw, 50px)' }}>
               <a 
-                href="#" 
+                href="/privacy-policy" 
                 className="text-white opacity-90 hover:opacity-100 transition-opacity no-underline" 
                 style={{ 
                   fontSize: 'clamp(10px, 1.3vw, 36px)',
@@ -157,7 +157,7 @@ const WelcomeFooter = () => {
             </li>
             <li style={{ marginBottom: 'clamp(5px, 1vw, 50px)' }}>
               <a 
-                href="#" 
+                href="/cookies-policy" 
                 className="text-white opacity-90 hover:opacity-100 transition-opacity no-underline" 
                 style={{ 
                   fontSize: 'clamp(10px, 1.3vw, 36px)',
