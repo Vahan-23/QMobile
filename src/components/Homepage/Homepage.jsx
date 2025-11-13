@@ -95,7 +95,12 @@ const Homepage = () => {
   return (
     <div
       className="font-['Rubik',_sans-serif] text-[#03355c] bg-white min-h-screen overflow-x-hidden"
-      style={{ fontFamily: "'Rubik', sans-serif" }}
+      style={{
+        fontFamily: "'Rubik', sans-serif",
+        width: '100%',
+        maxWidth: isMobile ? '100%' : '1895px',
+        margin: '0 auto'
+      }}
       dir={isRTL ? 'rtl' : 'ltr'}
     >
       <div
