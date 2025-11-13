@@ -1,9 +1,10 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import HomepageHeader from './HomepageHeader';
 import homepageDesktopHero from './HomePageHero.png';
 import homepageMobileHero from './homePageMobilehero.png';
 import homepageMobileBanner from './Assets/homepage_mobile_banner.png';
-import { ReactComponent as QKeepingText } from './q_IS_keeping.svg';
+import qKeepingTextLTR from './q_IS_keeping.svg';
+import qKeepingTextRTL from './q_IS_keeping_arab.svg';
 import MarketplaceFooter from '../Marketplace/MarketplaceFooter';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { translations } from '../../translations';
@@ -22,6 +23,23 @@ const Homepage = () => {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const { language, isRTL } = useLanguage();
   const t = translations[language];
+
+  const keepingTextSrc = isRTL ? qKeepingTextRTL : qKeepingTextLTR;
+
+  const mirrorImageStyle = useCallback(
+    (style = {}) => {
+      if (!isRTL) {
+        return style;
+      }
+      const mergedTransform = [style.transform, 'scaleX(-1)'].filter(Boolean).join(' ');
+      return {
+          ...style,
+          transform: mergedTransform,
+          transformOrigin: style.transformOrigin || 'center'
+        };
+      },
+      [isRTL]
+    );
 
   useEffect(() => {
     const updateIsMobile = () => {
@@ -60,6 +78,10 @@ const Homepage = () => {
   const testimonialOriginFontSizeMobile = `${lerp(9, 20)}px`;
   const testimonialFlagSizeMobile = `${lerp(44, 80)}px`;
   const testimonialArrowSizeMobile = `${lerp(17, 40)}px`;
+
+  const supportOffset = 'clamp(175px, calc(175px + (600px - 175px) * ((100vw - 505px) / 1390)), 600px)';
+  const supportTightPadding = 'clamp(8px, 3vw, 80px)';
+  const supportWidePadding = 'clamp(181px, 32vw, 283px)';
 
   const testimonialSlides = useMemo(() => {
     const countries = t.countries || {};
@@ -129,6 +151,7 @@ const Homepage = () => {
           src={homepageDesktopHero}
           alt="Qmobile homepage hero"
           className="hidden min-[769px]:block w-full h-auto object-cover pointer-events-none select-none"
+          style={mirrorImageStyle()}
         />
         <div className={`${isMobile ? 'relative' : 'absolute inset-0'} flex flex-col`}>
           <HomepageHeader showTitle={false} backgroundStyle="transparent">
@@ -192,7 +215,8 @@ const Homepage = () => {
                   gap: isMobile ? '0.5rem' : 0
                 }}
               >
-                <QKeepingText
+                <img
+                  src={keepingTextSrc}
                   style={{
                     aspectRatio: '1154.9 / 303.37',
                     width: isMobile
@@ -200,7 +224,7 @@ const Homepage = () => {
                       : 'clamp(210px, 44vw, 48rem)',
                     height: 'auto'
                   }}
-                  aria-label={t.homeHeroHeadline}
+                  alt={t.homeHeroHeadline}
                 />
               </div>
               <button
@@ -254,10 +278,10 @@ const Homepage = () => {
             <img
               src={homepageMobileHero}
               alt=""
-              style={{
+              style={mirrorImageStyle({
                 width: '100%',
                 display: 'block'
-              }}
+              })}
             />
           </div>
         )}
@@ -270,14 +294,24 @@ const Homepage = () => {
           }}
         >
           <div
+            key={isRTL ? 'rtl-support' : 'ltr-support'}
             className="max-w-[1200px] mx-auto flex flex-col gap-10 text-white"
             style={{
               alignItems: 'center',
               textAlign: 'center',
-              marginLeft: isRTL ? 0 : 'clamp(175px, calc(175px + (600px - 175px) * ((100vw - 505px) / 1390)), 600px)',
-              marginRight: 0,
-              paddingRight: isRTL ? 0 : 'clamp(8px, 3vw, 80px)',
-              paddingLeft: isRTL ? 'clamp(8px, 3vw, 80px)' : 'clamp(181px, 32vw, 283px)',
+              ...(isRTL
+                ? {
+                    marginRight: supportOffset,
+                    marginLeft: 0,
+                    paddingLeft: supportTightPadding,
+                    paddingRight: supportWidePadding
+                  }
+                : {
+                    marginLeft: supportOffset,
+                    marginRight: 0,
+                    paddingRight: supportTightPadding,
+                    paddingLeft: supportWidePadding
+                  }),
               gap: '0.2rem',
               paddingTop: 'clamp(117px, -268.459px + 38.9608vw, 360px)'
             }}
@@ -317,12 +351,12 @@ const Homepage = () => {
                   <img
                     src={icon}
                     alt={label}
-                    style={{
+                    style={mirrorImageStyle({
                       width:
                         'clamp(40px, calc(40px + (120 - 40) * ((100vw - 505px) / 1390)), 120px)',
                       height: 'auto',
                       filter: 'drop-shadow(0 10px 25px rgba(0,0,0,0.2))'
-                    }}
+                    })}
                   />
                   <span
                     className="text-white font-extrabold"
@@ -476,15 +510,15 @@ const Homepage = () => {
                   >
                     {t.homeProductsSubheading}
                   </p>
-            <img
-              src="/Images/2x/underline@2x.png"
-              alt=""
-              style={{
-                width: isMobile ? underlineWidthMobile : '59px',
-                height: 'auto',
-                marginTop: '20px'
-              }}
-            />
+                  <img
+                    src="/Images/2x/underline@2x.png"
+                    alt=""
+                    style={mirrorImageStyle({
+                      width: isMobile ? underlineWidthMobile : '59px',
+                      height: 'auto',
+                      marginTop: '20px'
+                    })}
+                  />
                 </a>
               )}
             </div>
@@ -537,7 +571,11 @@ const Homepage = () => {
                       }}
                     >
                       {product.image ? (
-                        <img src={product.image} alt={t.productTitle} className="w-full h-full object-cover" />
+                        <img
+                          src={product.image}
+                          alt={t.productTitle}
+                          className="w-full h-full object-cover"
+                        />
                       ) : (
                         <img
                           src="/Images/2x/product_placeholder@2x.png"
@@ -638,11 +676,11 @@ const Homepage = () => {
               <img
                 src="/Images/2x/underline@2x.png"
                 alt=""
-                style={{
-                width: isMobile ? underlineWidthMobile : '59px',
+                style={mirrorImageStyle({
+                  width: isMobile ? underlineWidthMobile : '59px',
                   height: 'auto',
                   marginTop: '20px'
-                }}
+                })}
               />
             </a>
           </div>
@@ -797,7 +835,7 @@ const Homepage = () => {
                 src="/Images/2x/arrow_left@2x.png"
                 alt=""
                 style={{
-                    width: isMobile ? testimonialArrowSizeMobile : '40px',
+                  width: isMobile ? testimonialArrowSizeMobile : '40px',
                   height: 'auto'
                 }}
               />
@@ -894,7 +932,7 @@ const Homepage = () => {
                 src="/Images/2x/arrow_right@2x.png"
                 alt=""
                 style={{
-                    width: isMobile ? testimonialArrowSizeMobile : '40px',
+                  width: isMobile ? testimonialArrowSizeMobile : '40px',
                   height: 'auto'
                 }}
               />

@@ -173,9 +173,17 @@ const MarketplaceFooter = () => {
         {/* Column 4 - Logo */}
         <div 
           className="flex-1 flex items-start flex-col" 
-          style={{ 
+          style={{
             padding: 0,
-            marginLeft: pxToPosition(-60, { minPx: -30, maxPx: -60 }),
+            ...(isRTL
+              ? {
+                  marginRight: pxToPosition(-60, { minPx: -30, maxPx: -60 }),
+                  marginLeft: 0
+                }
+              : {
+                  marginLeft: pxToPosition(-60, { minPx: -30, maxPx: -60 }),
+                  marginRight: 0
+                }),
             marginTop: pxToPosition(-30, { minPx: -15, maxPx: -30 })
           }}>
           <img 
@@ -193,9 +201,17 @@ const MarketplaceFooter = () => {
               lineHeight: pxToPosition(56, { minPx: 32, maxPx: 56 }),
               color: '#02284f',
               fontWeight: 900,
-              textAlign: 'center',
+              textAlign: isRTL ? 'right' : 'center',
               marginTop: pxToPosition(120, { minPx: 20, maxPx: 120 }),
-              marginLeft: pxToPosition(-40, { minPx: -20, maxPx: -40 }),
+              ...(isRTL
+                ? {
+                    marginRight: pxToPosition(-40, { minPx: -20, maxPx: -40 }),
+                    marginLeft: 0
+                  }
+                : {
+                    marginLeft: pxToPosition(-40, { minPx: -20, maxPx: -40 }),
+                    marginRight: 0
+                  }),
               direction: isRTL ? 'rtl' : 'ltr',
               fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
               whiteSpace: 'pre-line'
