@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<svg width="1154.9" height="303.37" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <style>.cls-1{fill:#67cad7;}.cls-1,.cls-2{stroke-width:0px;}.cls-2,.cls-3{fill:#fff;}.cls-3{font-family:Rubik-Bold, Rubik;font-size:102.6px;font-weight:700;}</style>
+ </defs>
+ <g class="layer">
+  <title>Layer 1</title>
+  <g id="svg_8" transform="translate(593 0) translate(-595 -1) matrix(1 0 0 1 606 335)">
+   <text class="cls-3" font-size="102.6" id="svg_1" transform="matrix(1 0 0 1 -5 -330)" x="202.98" y="121.99">هو يبقيك</text>
+   <text class="cls-3" font-size="125" id="svg_3" transform="matrix(1 0 0 1 -5 -330)" x="19.95" y="272.61">قريب من المنزل</text>
+   <path class="cls-1" d="m10.16,-299.68c8.37,0 15.16,-6.79 15.16,-15.16s-6.78,-15.16 -15.16,-15.16s-15.16,6.79 -15.16,15.16s6.79,15.16 15.16,15.16" id="svg_5" transform="matrix(1 0 0 1 0 0)"/>
+   <path class="cls-2" d="m83.51,-294.31c-25.13,0 -45.58,20.45 -45.58,45.58s20.45,45.58 45.58,45.58s45.58,-20.45 45.58,-45.58s-20.45,-45.58 -45.58,-45.58m0,114.14c-37.8,0 -68.56,-30.75 -68.56,-68.56s30.76,-68.56 68.56,-68.56s68.56,30.76 68.56,68.56s-30.76,68.56 -68.56,68.56" id="svg_6" transform="matrix(1 0 0 1 0 0)"/>
+   <path class="cls-2" d="m139.55,-177.26c-2.89,0 -5.78,-1.08 -8.01,-3.25l-35.15,-34.18c-4.55,-4.42 -4.65,-11.7 -0.23,-16.25c4.42,-4.55 11.7,-4.65 16.25,-0.23l35.15,34.18c4.55,4.42 4.65,11.7 0.23,16.25c-2.25,2.32 -5.24,3.48 -8.24,3.48" id="svg_7" transform="matrix(1 0 0 1 0 0)"/>
+  </g>
+ </g>
+</svg>
