@@ -515,77 +515,123 @@ const Homepage = () => {
           className="relative overflow-hidden"
           style={{
             background: 'linear-gradient(135deg, #e3f5ff 0%, #ffffff 55%, #f0f9ff 100%)',
-            padding: 'clamp(60px, 8vw, 120px) clamp(20px, 6vw, 80px)'
+            padding: 'clamp(60px, 8vw, 120px) 0'
           }}
         >
-          <div className="max-w-[1260px] mx-auto grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] items-center gap-12 relative z-[2]">
-            <div className="flex flex-col gap-6">
-              <p
-                className="uppercase text-[#2f9ed7] font-bold tracking-[0.3em]"
-                style={{
-                  fontSize: 'clamp(1.1rem, 2.5vw, 1.8rem)',
-                  letterSpacing: isRTL ? '0.18em' : '0.3em'
-                }}
-              >
-                {t.homeTestimonialDistance}
-              </p>
-              <h3
-                className="text-[#03355c] font-bold uppercase"
-                style={{
-                  fontSize: 'clamp(2.2rem, 4.5vw, 3.8rem)'
-                }}
-              >
-                {t.homeTestimonialHighlight}
-              </h3>
-              <p
-                className="text-[#03355c]/80"
-                style={{
-                  fontSize: 'clamp(1rem, 2.1vw, 1.35rem)',
-                  lineHeight: 1.8,
-                  direction: isRTL ? 'rtl' : 'ltr',
-                  textAlign: isRTL ? 'right' : 'left'
-                }}
-              >
-                {t.homeTestimonialBody}
-              </p>
-              <div className="flex flex-col gap-2">
-                <span
-                  className="font-semibold text-[#03355c]"
-                  style={{ fontSize: 'clamp(1rem, 2vw, 1.3rem)' }}
-                >
-                  {t.homeTestimonialName}
-                </span>
-                <span
-                  className="text-[#2a84b4] uppercase tracking-[0.2em]"
-                  style={{
-                    fontSize: 'clamp(0.85rem, 1.6vw, 1rem)',
-                    letterSpacing: isRTL ? '0.12em' : '0.2em'
-                  }}
-                >
-                  {t.homeTestimonialOrigin}
-                </span>
-              </div>
-            </div>
-
-            <div className="relative flex justify-center">
-              <div className="relative">
-                <img
-                  src="/Images/2x/man_v6@2x.png"
-                  alt=""
-                  className="w-full max-w-[420px] h-auto object-contain rounded-[40px]"
-                />
-              </div>
-            </div>
+          <div
+            className="flex flex-col items-center mx-auto"
+            style={{
+              gap: '0.1rem',
+              maxWidth: '1260px',
+              width: '100%',
+              paddingInline: 'clamp(20px, 6vw, 80px)'
+            }}
+          >
+            <p
+              className="text-center font-bold"
+              style={{
+                fontSize: '40px',
+                color: '#005392'
+              }}
+            >
+              {t.homeTestimonialBody}
+            </p>
           </div>
 
           <div
-            className="absolute inset-y-0"
+            className="relative w-full"
             style={{
-              width: '45%',
-              background: 'radial-gradient(circle at 20% 50%, rgba(73,160,227,0.35), transparent 65%)',
-              [isRTL ? 'right' : 'left']: '-10%'
+              marginTop: '20px'
             }}
-          />
+          >
+            <img
+              src="/Images/2x/arrow_left@2x.png"
+              alt=""
+              style={{
+                position: 'absolute',
+                left: '30px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                width: '40px',
+                height: 'auto'
+              }}
+            />
+            <div
+              className="flex flex-col items-center mx-auto"
+              style={{
+                gap: '0.1rem',
+                maxWidth: '1260px',
+                width: '100%',
+                paddingInline: 'clamp(20px, 6vw, 80px)'
+              }}
+            >
+              <h4
+                className="text-center"
+                style={{
+                  fontSize: '36px',
+                  color: '#04365d',
+                  letterSpacing: '0.1em'
+                }}
+              >
+                Nok Supansa
+              </h4>
+              <p
+                className="text-center"
+                style={{
+                  fontSize: '20px',
+                  color: '#04365d',
+                  letterSpacing: '0.03em'
+                }}
+              >
+                Originally from Thailand | Lives in Israel
+              </p>
+              <div
+                className="flex items-center justify-center"
+                style={{
+                  gap: '1.75rem',
+                  marginTop: '20px'
+                }}
+              >
+                {[
+                  { src: 'https://flagcdn.com/w80/th.png', alt: 'Thailand flag' },
+                  { src: 'https://flagcdn.com/w80/il.png', alt: 'Israel flag' }
+                ].map(flag => (
+                  <div
+                    key={flag.alt}
+                    className="rounded-full overflow-hidden"
+                    style={{
+                      width: '80px',
+                      height: '80px',
+                      border: '0.5px solid #000000',
+                      boxShadow: '0 8px 20px rgba(3, 53, 92, 0.15)'
+                    }}
+                  >
+                    <img
+                      src={flag.src}
+                      alt={flag.alt}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover'
+                      }}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+            <img
+              src="/Images/2x/arrow_right@2x.png"
+              alt=""
+              style={{
+                position: 'absolute',
+                right: '30px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                width: '40px',
+                height: 'auto'
+              }}
+            />
+          </div>
         </section>
       </main>
 
