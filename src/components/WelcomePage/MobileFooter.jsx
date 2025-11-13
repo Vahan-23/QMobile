@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { translations } from '../../translations';
-import { pxToPosition, pxToResponsive } from './utils/responsive';
+import { pxToPosition } from './utils/responsive';
 
 const MobileFooter = () => {
   const { language, isRTL } = useLanguage();
