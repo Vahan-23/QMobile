@@ -52,6 +52,14 @@ const Homepage = () => {
   const productImageWidthMobile = `${lerp(110, 88)}%`;
   const productImageMarginMobile = `${lerp(-5, 0)}%`;
   const productCardMarginTopMobile = `${lerp(15, 60)}px`;
+  const browseMarketplaceFontSizeMobile = `${lerp(16, 36)}px`;
+  const underlineWidthMobile = `${lerp(25, 59)}px`;
+  const joinSupportFontSizeMobile = `${lerp(12, 33)}px`;
+  const testimonialBodyFontSizeMobile = `${lerp(14, 40)}px`;
+  const testimonialNameFontSizeMobile = `${lerp(16, 36)}px`;
+  const testimonialOriginFontSizeMobile = `${lerp(9, 20)}px`;
+  const testimonialFlagSizeMobile = `${lerp(44, 80)}px`;
+  const testimonialArrowSizeMobile = `${lerp(17, 40)}px`;
 
   const testimonialSlides = useMemo(() => {
     const countries = t.countries || {};
@@ -468,15 +476,15 @@ const Homepage = () => {
                   >
                     {t.homeProductsSubheading}
                   </p>
-                  <img
-                    src="/Images/2x/underline@2x.png"
-                    alt=""
-                    style={{
-                      width: '59px',
-                      height: 'auto',
-                      marginTop: '20px'
-                    }}
-                  />
+            <img
+              src="/Images/2x/underline@2x.png"
+              alt=""
+              style={{
+                width: isMobile ? underlineWidthMobile : '59px',
+                height: 'auto',
+                marginTop: '20px'
+              }}
+            />
                 </a>
               )}
             </div>
@@ -486,7 +494,7 @@ const Homepage = () => {
         <section
           className="w-full"
           style={{
-            padding: 'clamp(10px, 2vw, 25px) clamp(20px, 6vw, 80px) 170px'
+            padding: `clamp(10px, 2vw, 25px) clamp(20px, 6vw, 80px) ${isMobile ? '25px' : '170px'}`
           }}
         >
           <div className="max-w-[1895px] mx-auto">
@@ -619,7 +627,7 @@ const Homepage = () => {
               <p
                 className="uppercase text-[#04365d]"
                 style={{
-                  fontSize: '36px',
+                  fontSize: browseMarketplaceFontSizeMobile,
                   fontWeight: 700,
                   textAlign: 'center',
                   margin: 0
@@ -631,7 +639,7 @@ const Homepage = () => {
                 src="/Images/2x/underline@2x.png"
                 alt=""
                 style={{
-                  width: '59px',
+                width: isMobile ? underlineWidthMobile : '59px',
                   height: 'auto',
                   marginTop: '20px'
                 }}
@@ -672,7 +680,7 @@ const Homepage = () => {
                   paddingInline: '20px',
                   borderRadius: '9999px',
                   letterSpacing: '0.12em',
-                  fontSize: '33px',
+                  fontSize: joinSupportFontSizeMobile,
                   fontWeight: 100,
                   textDecoration: 'none',
                   boxShadow: '0 10px 30px rgba(3, 53, 92, 0.12)',
@@ -698,7 +706,7 @@ const Homepage = () => {
                   paddingInline: '20px',
                   borderRadius: '9999px',
                   letterSpacing: '0.12em',
-                  fontSize: '33px',
+                  fontSize: joinSupportFontSizeMobile,
                   fontWeight: 100,
                   textDecoration: 'none',
                   textAlign: 'center',
@@ -745,7 +753,7 @@ const Homepage = () => {
             <p
               className="text-center font-bold"
               style={{
-                fontSize: isMobile ? '33px' : '40px',
+                fontSize: isMobile ? testimonialBodyFontSizeMobile : '40px',
                 color: '#005392'
               }}
             >
@@ -774,8 +782,8 @@ const Homepage = () => {
                 left: '30px',
                 top: '50%',
                 transform: 'translateY(-50%)',
-                width: '40px',
-                height: '40px',
+                width: isMobile ? testimonialArrowSizeMobile : '40px',
+                height: isMobile ? testimonialArrowSizeMobile : '40px',
                 padding: 0,
                 border: 'none',
                 background: 'transparent',
@@ -789,7 +797,7 @@ const Homepage = () => {
                 src="/Images/2x/arrow_left@2x.png"
                 alt=""
                 style={{
-                  width: '40px',
+                    width: isMobile ? testimonialArrowSizeMobile : '40px',
                   height: 'auto'
                 }}
               />
@@ -805,25 +813,25 @@ const Homepage = () => {
                   : 'clamp(20px, 6vw, 80px)'
               }}
             >
-                <h4
+              <h4
                 className="text-center"
                 style={{
-                  fontSize: '36px',
+                  fontSize: isMobile ? testimonialNameFontSizeMobile : '36px',
                   color: '#04365d',
                   letterSpacing: '0.1em'
                 }}
               >
-                  {currentTestimonial.name}
+                {currentTestimonial.name}
               </h4>
               <p
                 className="text-center"
                 style={{
-                  fontSize: '20px',
+                  fontSize: isMobile ? testimonialOriginFontSizeMobile : '20px',
                   color: '#04365d',
                   letterSpacing: '0.03em'
                 }}
               >
-                  {currentTestimonial.origin}
+                {currentTestimonial.origin}
               </p>
               <div
                 className="flex items-center justify-center"
@@ -832,20 +840,20 @@ const Homepage = () => {
                   marginTop: '20px'
                 }}
               >
-                  {currentTestimonial.flags.map(flag => (
+                {currentTestimonial.flags.map(flag => (
                   <div
-                      key={flag.code}
+                    key={flag.code}
                     className="rounded-full overflow-hidden"
                     style={{
-                      width: '80px',
-                      height: '80px',
+                      width: isMobile ? testimonialFlagSizeMobile : '80px',
+                      height: isMobile ? testimonialFlagSizeMobile : '80px',
                       border: '0.5px solid #000000',
                       boxShadow: '0 8px 20px rgba(3, 53, 92, 0.15)'
                     }}
                   >
                     <img
-                        src={`https://flagcdn.com/w80/${flag.code.toLowerCase()}.png`}
-                        alt={flag.label}
+                      src={`https://flagcdn.com/w80/${flag.code.toLowerCase()}.png`}
+                      alt={flag.label}
                       style={{
                         width: '100%',
                         height: '100%',
@@ -871,8 +879,8 @@ const Homepage = () => {
                 right: '30px',
                 top: '50%',
                 transform: 'translateY(-50%)',
-                width: '40px',
-                height: '40px',
+                width: isMobile ? testimonialArrowSizeMobile : '40px',
+                height: isMobile ? testimonialArrowSizeMobile : '40px',
                 padding: 0,
                 border: 'none',
                 background: 'transparent',
@@ -886,7 +894,7 @@ const Homepage = () => {
                 src="/Images/2x/arrow_right@2x.png"
                 alt=""
                 style={{
-                  width: '40px',
+                    width: isMobile ? testimonialArrowSizeMobile : '40px',
                   height: 'auto'
                 }}
               />
