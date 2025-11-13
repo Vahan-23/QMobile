@@ -88,7 +88,7 @@ const HomepageHeader = ({
           {/* Navigation Links */}
           <div className="flex items-center flex-nowrap justify-center flex-1 min-w-0 nav-links-gap">
             <a 
-              href="#" 
+              href="/join-us" 
               className="text-white hover:opacity-80 transition-opacity whitespace-nowrap flex-shrink font-light"
               style={{ 
                 fontSize: 'clamp(16px, 2vw, 36px)',
@@ -99,7 +99,7 @@ const HomepageHeader = ({
               {t.joinUs}
             </a>
             <a 
-              href="#" 
+              href="/our-story" 
               className="text-white hover:opacity-80 transition-opacity whitespace-nowrap flex-shrink font-light"
               style={{ 
                 fontSize: 'clamp(16px, 2vw, 36px)',
@@ -110,7 +110,7 @@ const HomepageHeader = ({
               {t.ourStory}
             </a>
             <a 
-              href="#" 
+              href="/marketplace" 
               className="text-white hover:opacity-80 transition-opacity whitespace-nowrap flex-shrink font-light"
               style={{ 
                 fontSize: 'clamp(16px, 2vw, 36px)',
@@ -121,7 +121,7 @@ const HomepageHeader = ({
               {t.marketplace}
             </a>
             <a 
-              href="#" 
+              href="/support" 
               className="text-white hover:opacity-80 transition-opacity whitespace-nowrap flex-shrink font-light"
               style={{ 
                 fontSize: 'clamp(16px, 2vw, 36px)',
@@ -132,7 +132,7 @@ const HomepageHeader = ({
               {t.support}
             </a>
             <a 
-              href="#" 
+              href="/blog" 
               className="text-white hover:opacity-80 transition-opacity whitespace-nowrap flex-shrink font-light"
               style={{ 
                 fontSize: 'clamp(16px, 2vw, 36px)',
@@ -143,7 +143,7 @@ const HomepageHeader = ({
               {t.blog}
             </a>
             <a 
-              href="#" 
+              href="/account" 
               className="text-white hover:opacity-80 transition-opacity whitespace-nowrap flex-shrink font-light"
               style={{ 
                 fontSize: 'clamp(16px, 2vw, 36px)',
@@ -223,7 +223,7 @@ const HomepageHeader = ({
           <div className="min-[769px]:hidden mt-4 pb-4 border-t border-white/20">
             <div className="flex flex-col gap-4 pt-4">
               <a 
-                href="#" 
+                href="/join-us" 
                 className="text-white hover:opacity-80 transition-opacity font-light text-lg"
                 onClick={() => setIsMobileMenuOpen(false)}
                 style={{
@@ -234,7 +234,7 @@ const HomepageHeader = ({
                 {t.joinUs}
               </a>
               <a 
-                href="#" 
+                href="/our-story" 
                 className="text-white hover:opacity-80 transition-opacity font-light text-lg"
                 onClick={() => setIsMobileMenuOpen(false)}
                 style={{
@@ -245,7 +245,7 @@ const HomepageHeader = ({
                 {t.ourStory}
               </a>
               <a 
-                href="#" 
+                href="/marketplace" 
                 className="text-white hover:opacity-80 transition-opacity font-light text-lg"
                 onClick={() => setIsMobileMenuOpen(false)}
                 style={{
@@ -256,7 +256,7 @@ const HomepageHeader = ({
                 {t.marketplace}
               </a>
               <a 
-                href="#" 
+                href="/support" 
                 className="text-white hover:opacity-80 transition-opacity font-light text-lg"
                 onClick={() => setIsMobileMenuOpen(false)}
                 style={{
@@ -267,7 +267,7 @@ const HomepageHeader = ({
                 {t.support}
               </a>
               <a 
-                href="#" 
+                href="/blog" 
                 className="text-white hover:opacity-80 transition-opacity font-light text-lg"
                 onClick={() => setIsMobileMenuOpen(false)}
                 style={{
@@ -278,7 +278,7 @@ const HomepageHeader = ({
                 {t.blog}
               </a>
               <a 
-                href="#" 
+                href="/account" 
                 className="text-white hover:opacity-80 transition-opacity font-light text-lg"
                 onClick={() => setIsMobileMenuOpen(false)}
                 style={{

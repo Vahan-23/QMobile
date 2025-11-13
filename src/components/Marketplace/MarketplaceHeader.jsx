@@ -50,7 +50,7 @@ const MarketplaceHeader = ({
           {/* Navigation Links */}
           <div className="flex items-center gap-4 sm:gap-6 md:gap-8 lg:gap-10 xl:gap-12 2xl:gap-14 flex-nowrap justify-center flex-1 min-w-0">
             <a 
-              href="#" 
+              href="/join-us" 
               className="text-white hover:opacity-80 transition-opacity whitespace-nowrap flex-shrink font-light"
               style={{ 
                 fontSize: 'clamp(16px, 2vw, 36px)',
@@ -61,7 +61,7 @@ const MarketplaceHeader = ({
               {t.joinUs}
             </a>
             <a 
-              href="#" 
+              href="/our-story" 
               className="text-white hover:opacity-80 transition-opacity whitespace-nowrap flex-shrink font-light"
               style={{ 
                 fontSize: 'clamp(16px, 2vw, 36px)',
@@ -72,7 +72,7 @@ const MarketplaceHeader = ({
               {t.ourStory}
             </a>
             <a 
-              href="#" 
+              href="/marketplace" 
               className="text-white hover:opacity-80 transition-opacity whitespace-nowrap flex-shrink font-light"
               style={{ 
                 fontSize: 'clamp(16px, 2vw, 36px)',
@@ -83,7 +83,7 @@ const MarketplaceHeader = ({
               {t.marketplace}
             </a>
             <a 
-              href="#" 
+              href="/support" 
               className="text-white hover:opacity-80 transition-opacity whitespace-nowrap flex-shrink font-light"
               style={{ 
                 fontSize: 'clamp(16px, 2vw, 36px)',
@@ -94,7 +94,7 @@ const MarketplaceHeader = ({
               {t.support}
             </a>
             <a 
-              href="#" 
+              href="/blog" 
               className="text-white hover:opacity-80 transition-opacity whitespace-nowrap flex-shrink font-light"
               style={{ 
                 fontSize: 'clamp(16px, 2vw, 36px)',
@@ -105,7 +105,7 @@ const MarketplaceHeader = ({
               {t.blog}
             </a>
             <a 
-              href="#" 
+              href="/account" 
               className="text-white hover:opacity-80 transition-opacity whitespace-nowrap flex-shrink font-light"
               style={{ 
                 fontSize: 'clamp(16px, 2vw, 36px)',
@@ -190,7 +190,7 @@ const MarketplaceHeader = ({
           <div className="md:hidden mt-4 pb-4 border-t border-white/20">
             <div className="flex flex-col gap-4 pt-4">
               <a 
-                href="#" 
+                href="/join-us" 
                 className="text-white hover:opacity-80 transition-opacity font-light text-lg"
                 onClick={() => setIsMobileMenuOpen(false)}
                 style={{
@@ -201,7 +201,7 @@ const MarketplaceHeader = ({
                 {t.joinUs}
               </a>
               <a 
-                href="#" 
+                href="/our-story" 
                 className="text-white hover:opacity-80 transition-opacity font-light text-lg"
                 onClick={() => setIsMobileMenuOpen(false)}
                 style={{
@@ -212,7 +212,7 @@ const MarketplaceHeader = ({
                 {t.ourStory}
               </a>
               <a 
-                href="#" 
+                href="/marketplace" 
                 className="text-white hover:opacity-80 transition-opacity font-light text-lg"
                 onClick={() => setIsMobileMenuOpen(false)}
                 style={{
@@ -223,7 +223,7 @@ const MarketplaceHeader = ({
                 {t.marketplace}
               </a>
               <a 
-                href="#" 
+                href="/support" 
                 className="text-white hover:opacity-80 transition-opacity font-light text-lg"
                 onClick={() => setIsMobileMenuOpen(false)}
                 style={{
@@ -234,7 +234,7 @@ const MarketplaceHeader = ({
                 {t.support}
               </a>
               <a 
-                href="#" 
+                href="/blog" 
                 className="text-white hover:opacity-80 transition-opacity font-light text-lg"
                 onClick={() => setIsMobileMenuOpen(false)}
                 style={{
@@ -245,7 +245,7 @@ const MarketplaceHeader = ({
                 {t.blog}
               </a>
               <a 
-                href="#" 
+                href="/account" 
                 className="text-white hover:opacity-80 transition-opacity font-light text-lg"
                 onClick={() => setIsMobileMenuOpen(false)}
                 style={{

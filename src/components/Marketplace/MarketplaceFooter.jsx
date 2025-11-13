@@ -52,8 +52,8 @@ const MarketplaceFooter = () => {
           </h3>
           <ul className="list-none" style={{ padding: 0, margin: 0 }}>
             <li style={{ marginBottom: 'clamp(5px, 1vw, 50px)' }}>
-              <a 
-                href="#" 
+                <a 
+                  href="/marketplace" 
                 className="text-white opacity-90 hover:opacity-100 transition-opacity no-underline" 
                 style={{ 
                   fontSize: 'clamp(10px, 1.3vw, 36px)',
@@ -64,8 +64,8 @@ const MarketplaceFooter = () => {
               </a>
             </li>
             <li style={{ marginBottom: 'clamp(5px, 1vw, 50px)' }}>
-              <a 
-                href="#" 
+                <a 
+                  href="/blog" 
                 className="text-white opacity-90 hover:opacity-100 transition-opacity no-underline" 
                 style={{ 
                   fontSize: 'clamp(10px, 1.3vw, 36px)',
@@ -98,8 +98,8 @@ const MarketplaceFooter = () => {
           </h3>
           <ul className="list-none" style={{ padding: 0, margin: 0 }}>
             <li style={{ marginBottom: 'clamp(5px, 1vw, 50px)' }}>
-              <a 
-                href="#" 
+                <a 
+                  href="/faqs" 
                 className="text-white opacity-90 hover:opacity-100 transition-opacity no-underline" 
                 style={{ 
                   fontSize: 'clamp(10px, 1.3vw, 36px)',
@@ -110,8 +110,8 @@ const MarketplaceFooter = () => {
               </a>
             </li>
             <li style={{ marginBottom: 'clamp(5px, 1vw, 50px)' }}>
-              <a 
-                href="#" 
+                <a 
+                  href="/contact-us" 
                 className="text-white opacity-90 hover:opacity-100 transition-opacity no-underline" 
                 style={{ 
                   fontSize: 'clamp(10px, 1.3vw, 36px)',
@@ -144,8 +144,8 @@ const MarketplaceFooter = () => {
           </h3>
           <ul className="list-none" style={{ padding: 0, margin: 0 }}>
             <li style={{ marginBottom: 'clamp(5px, 1vw, 50px)' }}>
-              <a 
-                href="#" 
+                <a 
+                  href="/privacy-policy" 
                 className="text-white opacity-90 hover:opacity-100 transition-opacity no-underline" 
                 style={{ 
                   fontSize: 'clamp(10px, 1.3vw, 36px)',
@@ -156,8 +156,8 @@ const MarketplaceFooter = () => {
               </a>
             </li>
             <li style={{ marginBottom: 'clamp(5px, 1vw, 50px)' }}>
-              <a 
-                href="#" 
+                <a 
+                  href="/cookies-policy" 
                 className="text-white opacity-90 hover:opacity-100 transition-opacity no-underline" 
                 style={{ 
                   fontSize: 'clamp(10px, 1.3vw, 36px)',
