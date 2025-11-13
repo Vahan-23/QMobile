@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { translations } from '../../translations';
-import { pxToPosition, pxToResponsive } from './utils/responsive';
+import { pxToPosition } from './utils/responsive';
 
 const MobileFooter = () => {
   const { language, isRTL } = useLanguage();
@@ -59,7 +59,7 @@ const MobileFooter = () => {
             <ul className="list-none" style={{ padding: 0, margin: 0 }}>
               <li style={{ marginBottom: 'clamp(5px, 1vw, 50px)' }}>
                 <a 
-                  href="#" 
+                  href="/marketplace" 
                   className="opacity-90 hover:opacity-100 transition-opacity no-underline" 
                   style={{ 
                     fontSize: '23px',
@@ -72,7 +72,7 @@ const MobileFooter = () => {
               </li>
               <li style={{ marginBottom: 'clamp(5px, 1vw, 50px)' }}>
                 <a 
-                  href="#" 
+                  href="/blog" 
                   className="opacity-90 hover:opacity-100 transition-opacity no-underline" 
                   style={{ 
                     fontSize: '23px',
@@ -106,7 +106,7 @@ const MobileFooter = () => {
             <ul className="list-none" style={{ padding: 0, margin: 0 }}>
               <li style={{ marginBottom: 'clamp(5px, 1vw, 50px)' }}>
                 <a 
-                  href="#" 
+                  href="/faqs" 
                   className="opacity-90 hover:opacity-100 transition-opacity no-underline" 
                   style={{ 
                     fontSize: '23px',
@@ -119,7 +119,7 @@ const MobileFooter = () => {
               </li>
               <li style={{ marginBottom: 'clamp(5px, 1vw, 50px)' }}>
                 <a 
-                  href="#" 
+                  href="/contact-us" 
                   className="opacity-90 hover:opacity-100 transition-opacity no-underline" 
                   style={{ 
                     fontSize: '23px',
@@ -153,7 +153,7 @@ const MobileFooter = () => {
             <ul className="list-none" style={{ padding: 0, margin: 0 }}>
               <li style={{ marginBottom: 'clamp(5px, 1vw, 50px)' }}>
                 <a 
-                  href="#" 
+                  href="/privacy-policy" 
                   className="opacity-90 hover:opacity-100 transition-opacity no-underline" 
                   style={{ 
                     fontSize: '23px',
@@ -166,7 +166,7 @@ const MobileFooter = () => {
               </li>
               <li style={{ marginBottom: 'clamp(5px, 1vw, 50px)' }}>
                 <a 
-                  href="#" 
+                  href="/cookies-policy" 
                   className="opacity-90 hover:opacity-100 transition-opacity no-underline" 
                   style={{ 
                     fontSize: '23px',

@@ -2,7 +2,7 @@ import React from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { translations } from '../../translations';
 import CountrySelection from './CountrySelection';
-import { pxToPosition, pxToResponsive, adaptivePercent } from './utils/responsive';
+import { pxToPosition } from './utils/responsive';
 
 const WelcomeHero = () => {
   const { language, isRTL, toggleLanguage } = useLanguage();

@@ -2,7 +2,6 @@ import React from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import WelcomeHeader from './WelcomeHeader';
 import WelcomeHero from './WelcomeHero';
-import CountrySelection from './CountrySelection';
 import WelcomeFooter from './WelcomeFooter';
 
 const WelcomePage = () => {

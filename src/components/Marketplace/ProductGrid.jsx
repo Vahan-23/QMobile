@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { translations } from '../../translations';
 import ProductCard from './ProductCard';
@@ -41,16 +41,16 @@ const ProductGrid = ({ selectedCategory, setSelectedCategory }) => {
     ]
   };
 
-  const getNormalizedScroll = (container) => {
+  const getNormalizedScroll = useCallback((container) => {
     if (!container) return { current: 0, max: 0 };
     const max = container.scrollWidth - container.clientWidth;
     const raw = container.scrollLeft;
     const current = Math.min(Math.abs(raw), Math.max(max, 0));
     return { current, max: Math.max(max, 0) };
-  };
+  }, []);
 
   // Check scroll position
-  const checkScrollPosition = () => {
+  const checkScrollPosition = useCallback(() => {
     // Check both desktop and mobile containers, use the visible one
     const desktopContainer = desktopScrollRef.current;
     const mobileContainer = mobileScrollRef.current;
@@ -64,7 +64,7 @@ const ProductGrid = ({ selectedCategory, setSelectedCategory }) => {
       setShowScrollButton(current < max - 10);
       setShowLeftScrollButton(current > 10);
     }
-  };
+  }, [getNormalizedScroll]);
 
   useEffect(() => {
     const desktopContainer = desktopScrollRef.current;
@@ -102,7 +102,7 @@ const ProductGrid = ({ selectedCategory, setSelectedCategory }) => {
       }
       window.removeEventListener('resize', checkScrollPosition);
     };
-  }, [isRTL]);
+  }, [isRTL, checkScrollPosition]);
 
   const scrollRight = () => {
     const desktopContainer = desktopScrollRef.current;

@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { translations } from '../../translations';
 
-const MarketplaceHeader = () => {
+const MarketplaceHeader = ({
+  showTitle = true,
+  titleKey = 'marketplace',
+  children
+}) => {
   const { language, isRTL, toggleLanguage } = useLanguage();
   const t = translations[language];
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -46,7 +50,7 @@ const MarketplaceHeader = () => {
           {/* Navigation Links */}
           <div className="flex items-center gap-4 sm:gap-6 md:gap-8 lg:gap-10 xl:gap-12 2xl:gap-14 flex-nowrap justify-center flex-1 min-w-0">
             <a 
-              href="#" 
+              href="/join-us" 
               className="text-white hover:opacity-80 transition-opacity whitespace-nowrap flex-shrink font-light"
               style={{ 
                 fontSize: 'clamp(16px, 2vw, 36px)',
@@ -57,7 +61,7 @@ const MarketplaceHeader = () => {
               {t.joinUs}
             </a>
             <a 
-              href="#" 
+              href="/our-story" 
               className="text-white hover:opacity-80 transition-opacity whitespace-nowrap flex-shrink font-light"
               style={{ 
                 fontSize: 'clamp(16px, 2vw, 36px)',
@@ -68,7 +72,7 @@ const MarketplaceHeader = () => {
               {t.ourStory}
             </a>
             <a 
-              href="#" 
+              href="/marketplace" 
               className="text-white hover:opacity-80 transition-opacity whitespace-nowrap flex-shrink font-light"
               style={{ 
                 fontSize: 'clamp(16px, 2vw, 36px)',
@@ -79,7 +83,7 @@ const MarketplaceHeader = () => {
               {t.marketplace}
             </a>
             <a 
-              href="#" 
+              href="/support" 
               className="text-white hover:opacity-80 transition-opacity whitespace-nowrap flex-shrink font-light"
               style={{ 
                 fontSize: 'clamp(16px, 2vw, 36px)',
@@ -90,7 +94,7 @@ const MarketplaceHeader = () => {
               {t.support}
             </a>
             <a 
-              href="#" 
+              href="/blog" 
               className="text-white hover:opacity-80 transition-opacity whitespace-nowrap flex-shrink font-light"
               style={{ 
                 fontSize: 'clamp(16px, 2vw, 36px)',
@@ -101,7 +105,7 @@ const MarketplaceHeader = () => {
               {t.blog}
             </a>
             <a 
-              href="#" 
+              href="/account" 
               className="text-white hover:opacity-80 transition-opacity whitespace-nowrap flex-shrink font-light"
               style={{ 
                 fontSize: 'clamp(16px, 2vw, 36px)',
@@ -186,7 +190,7 @@ const MarketplaceHeader = () => {
           <div className="md:hidden mt-4 pb-4 border-t border-white/20">
             <div className="flex flex-col gap-4 pt-4">
               <a 
-                href="#" 
+                href="/join-us" 
                 className="text-white hover:opacity-80 transition-opacity font-light text-lg"
                 onClick={() => setIsMobileMenuOpen(false)}
                 style={{
@@ -197,7 +201,7 @@ const MarketplaceHeader = () => {
                 {t.joinUs}
               </a>
               <a 
-                href="#" 
+                href="/our-story" 
                 className="text-white hover:opacity-80 transition-opacity font-light text-lg"
                 onClick={() => setIsMobileMenuOpen(false)}
                 style={{
@@ -208,7 +212,7 @@ const MarketplaceHeader = () => {
                 {t.ourStory}
               </a>
               <a 
-                href="#" 
+                href="/marketplace" 
                 className="text-white hover:opacity-80 transition-opacity font-light text-lg"
                 onClick={() => setIsMobileMenuOpen(false)}
                 style={{
@@ -219,7 +223,7 @@ const MarketplaceHeader = () => {
                 {t.marketplace}
               </a>
               <a 
-                href="#" 
+                href="/support" 
                 className="text-white hover:opacity-80 transition-opacity font-light text-lg"
                 onClick={() => setIsMobileMenuOpen(false)}
                 style={{
@@ -230,7 +234,7 @@ const MarketplaceHeader = () => {
                 {t.support}
               </a>
               <a 
-                href="#" 
+                href="/blog" 
                 className="text-white hover:opacity-80 transition-opacity font-light text-lg"
                 onClick={() => setIsMobileMenuOpen(false)}
                 style={{
@@ -241,7 +245,7 @@ const MarketplaceHeader = () => {
                 {t.blog}
               </a>
               <a 
-                href="#" 
+                href="/account" 
                 className="text-white hover:opacity-80 transition-opacity font-light text-lg"
                 onClick={() => setIsMobileMenuOpen(false)}
                 style={{
@@ -255,20 +259,23 @@ const MarketplaceHeader = () => {
           </div>
         )}
 
-                                                                       {/* MARKETPLACE Title */}
-           <div className="w-full" style={{ marginTop: 'clamp(40px, 8vw, 96px)' }}>
-             <h1 
-               className="text-center font-bold uppercase"
-               style={{ 
-                 marginBottom: 'clamp(15px, 2vw, 30px)', 
-                 fontSize: 'clamp(2rem, 5vw, 4.7rem)',
-                 direction: isRTL ? 'rtl' : 'ltr',
-                 fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-               }}
-             >
-               {t.marketplace.toUpperCase()}
-             </h1>
-           </div>
+        {showTitle && (
+          <div className="w-full" style={{ marginTop: 'clamp(40px, 8vw, 96px)' }}>
+            <h1 
+              className="text-center font-bold uppercase"
+              style={{ 
+                marginBottom: 'clamp(15px, 2vw, 30px)', 
+                fontSize: 'clamp(2rem, 5vw, 4.7rem)',
+                direction: isRTL ? 'rtl' : 'ltr',
+                fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+              }}
+            >
+              {t[titleKey]?.toUpperCase?.() || ''}
+            </h1>
+          </div>
+        )}
+
+        {children}
       </div>
     </header>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { translations } from '../../translations';
@@ -14,7 +14,7 @@ const CountrySelection = () => {
   const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0, width: 0 });
 
   // Update dropdown position for Portal
-  const updateDropdownPosition = () => {
+  const updateDropdownPosition = useCallback(() => {
     if (isDropdownOpen && dropdownRef.current) {
       const rect = dropdownRef.current.getBoundingClientRect();
       setDropdownPosition({
@@ -23,7 +23,7 @@ const CountrySelection = () => {
         width: rect.width
       });
     }
-  };
+  }, [isDropdownOpen, isRTL]);
 
   useEffect(() => {
     if (isDropdownOpen) {
@@ -37,7 +37,7 @@ const CountrySelection = () => {
         window.removeEventListener('resize', handleResize);
       };
     }
-  }, [isDropdownOpen, isRTL]);
+  }, [isDropdownOpen, updateDropdownPosition]);
 
   // Mapping countries to ISO codes for flags
   const countryCodeMap = {
@@ -186,7 +186,9 @@ const CountrySelection = () => {
                 style={{
                   width: pxToResponsive(65, 5), // Responsive flag size, base 65px
                   height: pxToResponsive(65, 5), // Responsive flag size, base 65px
-                  marginBottom: pxToPosition(4, { minPx: 2, maxPx: 4 }) // Gap between flag and text
+                  marginBottom: pxToPosition(4, { minPx: 2, maxPx: 4 }), // Gap between flag and text
+                  outline: selectedCountry === country.name ? '3px solid #66c8d5' : 'none',
+                  outlineOffset: '4px'
                 }}
               >
                 <img 
