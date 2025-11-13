@@ -44,6 +44,14 @@ const Homepage = () => {
       : (constrainedWidth - 290) / (768 - 290);
   const lerp = (min, max) => min + (max - min) * interpolationProgress;
   const mobileWelcomeFontSize = `${lerp(21, 46)}px`;
+  const productsHeadingFontSize = isMobile ? `${lerp(25, 63)}px` : '63px';
+  const productTitleFontSizeMobile = `${lerp(13, 36)}px`;
+  const productPriceFontSizeMobile = `${lerp(14, 28.8)}px`;
+  const productTotalFontSizeMobile = `${lerp(12, 20.4)}px`;
+  const addToCartFontSizeMobile = `${lerp(9.6, 22.4)}px`;
+  const productImageWidthMobile = `${lerp(110, 88)}%`;
+  const productImageMarginMobile = `${lerp(-5, 0)}%`;
+  const productCardMarginTopMobile = `${lerp(15, 60)}px`;
 
   const testimonialSlides = useMemo(() => {
     const countries = t.countries || {};
@@ -421,7 +429,7 @@ const Homepage = () => {
               <h2
                 className="font-bold uppercase text-[#03355c]"
                 style={{
-                  fontSize: '63px',
+                  fontSize: productsHeadingFontSize,
                   textAlign: isRTL ? 'right' : 'left'
                 }}
                 dangerouslySetInnerHTML={{
@@ -497,11 +505,29 @@ const Homepage = () => {
                 transform: scale(1);
               }
             `}</style>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
+            <div
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10"
+              style={{
+                gridTemplateColumns: isMobile
+                  ? 'repeat(2, minmax(0, 1fr))'
+                  : undefined
+              }}
+            >
               {displayedProductPresets.map(product => (
-                <div key={product.id} style={{ marginTop: '60px' }}>
+                <div
+                  key={product.id}
+                  style={{
+                    marginTop: isMobile ? productCardMarginTopMobile : '60px'
+                  }}
+                >
                   <div className="bg-white homepage-product-card" style={{ cursor: 'pointer' }}>
-                    <div className="w-[88%] mx-auto aspect-square mb-4 overflow-hidden">
+                    <div
+                      className="mx-auto aspect-square mb-4 overflow-hidden"
+                      style={{
+                        width: isMobile ? productImageWidthMobile : '88%',
+                        marginInline: isMobile ? productImageMarginMobile : 'auto'
+                      }}
+                    >
                       {product.image ? (
                         <img src={product.image} alt={t.productTitle} className="w-full h-full object-cover" />
                       ) : (
@@ -516,7 +542,7 @@ const Homepage = () => {
                       <h3
                         className="font-bold"
                         style={{
-                          fontSize: '36px',
+                          fontSize: isMobile ? productTitleFontSizeMobile : '36px',
                           color: '#000000',
                           direction: isRTL ? 'rtl' : 'ltr',
                           fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
@@ -526,7 +552,7 @@ const Homepage = () => {
                       </h3>
                       <p
                         style={{
-                          fontSize: '1.8rem',
+                          fontSize: isMobile ? productPriceFontSizeMobile : '1.8rem',
                           color: '#000000',
                           marginTop: '20px',
                           direction: isRTL ? 'rtl' : 'ltr',
@@ -537,7 +563,7 @@ const Homepage = () => {
                       </p>
                       <p
                         style={{
-                          fontSize: '1.275rem',
+                          fontSize: isMobile ? productTotalFontSizeMobile : '1.275rem',
                           color: '#767676',
                           direction: isRTL ? 'rtl' : 'ltr',
                           fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
@@ -549,7 +575,8 @@ const Homepage = () => {
                         className="mx-auto text-white py-1 md:py-1.5 px-8 md:px-10 rounded-full font-medium hover:opacity-90 transition-opacity mt-4"
                         style={{
                           backgroundColor: '#005291',
-                          fontSize: '1.4rem',
+                          fontSize: isMobile ? addToCartFontSizeMobile : '1.4rem',
+                          paddingInline: isMobile ? '1rem' : undefined,
                           direction: isRTL ? 'rtl' : 'ltr',
                           fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
                         }}
