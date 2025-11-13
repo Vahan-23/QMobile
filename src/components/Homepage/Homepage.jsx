@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import HomepageHeader from './HomepageHeader';
 import homepageDesktopHero from './HomePageHero.png';
 import homepageMobileHero from './homePageMobilehero.png';
+import homepageMobileBanner from './Assets/homepage_mobile_banner.png';
 import { ReactComponent as QKeepingText } from './q_IS_keeping.svg';
 import MarketplaceFooter from '../Marketplace/MarketplaceFooter';
 import { useLanguage } from '../../contexts/LanguageContext';
@@ -9,7 +10,8 @@ import { translations } from '../../translations';
 const productPresets = [
   { id: 1, pricePerUnit: 320, quantity: 10, total: 3200, image: null },
   { id: 2, pricePerUnit: 320, quantity: 10, total: 3200, image: null },
-  { id: 3, pricePerUnit: 320, quantity: 10, total: 3200, image: null }
+  { id: 3, pricePerUnit: 320, quantity: 10, total: 3200, image: null },
+  { id: 4, pricePerUnit: 420, quantity: 12, total: 5040, image: null }
 ];
 
 const Homepage = () => {
@@ -70,6 +72,11 @@ const Homepage = () => {
 
   const currentTestimonial =
     testimonialSlides[activeTestimonial] ?? testimonialSlides[0];
+
+  const displayedProductPresets = useMemo(
+    () => (isMobile ? productPresets : productPresets.slice(0, 3)),
+    [isMobile]
+  );
 
   const goToPreviousTestimonial = () => {
     setActiveTestimonial(prev => {
@@ -333,53 +340,55 @@ const Homepage = () => {
         </div>
       </div>
 
-      <section
-        className="w-full text-[#04365d]"
-        style={{
-          padding: 'clamp(30px, 4vw, 150px) clamp(24px, 7vw, 90px)',
-          background: '#67cad7'
-        }}
-      >
-        <div
-          className="mx-auto flex flex-col gap-6 text-center"
-          style={{ alignItems: 'center' }}
+      {!isMobile && (
+        <section
+          className="w-full text-[#04365d]"
+          style={{
+            padding: 'clamp(30px, 4vw, 150px) clamp(24px, 7vw, 90px)',
+            background: '#67cad7'
+          }}
         >
-          <p
-            style={{
-              fontSize: 'clamp(21px, 3vw, 54px)',
-              whiteSpace: 'pre-line',
-              padding: 0,
-              direction: 'ltr',
-              textAlign: 'center'
-            }}
+          <div
+            className="mx-auto flex flex-col gap-6 text-center"
+            style={{ alignItems: 'center' }}
           >
-            {t.homeSupportBody}
-          </p>
-          <button
-            type="button"
-            className="uppercase inline-flex items-center gap-4 font-semibold text-[#04365d] bg-transparent border-0 px-0 py-0 hover:opacity-80 transition"
-            style={{
-              fontSize: 'clamp(0.95rem, 1.5vw, 1.4rem)'
-            }}
-          >
-            <span
+            <p
               style={{
-                fontSize: 'clamp(15px, 1.8vw, 40px)'
+                fontSize: 'clamp(21px, 3vw, 54px)',
+                whiteSpace: 'pre-line',
+                padding: 0,
+                direction: 'ltr',
+                textAlign: 'center'
               }}
             >
-              {t.homeSupportLearnMore}
-            </span>
-            <img
-              src="/Images/SVG/Q__.svg"
-              alt="Q logo"
-              className="h-auto"
+              {t.homeSupportBody}
+            </p>
+            <button
+              type="button"
+              className="uppercase inline-flex items-center gap-4 font-semibold text-[#04365d] bg-transparent border-0 px-0 py-0 hover:opacity-80 transition"
               style={{
-                width: 'clamp(40px, 8vw, 133px)'
+                fontSize: 'clamp(0.95rem, 1.5vw, 1.4rem)'
               }}
-            />
-          </button>
-        </div>
-      </section>
+            >
+              <span
+                style={{
+                  fontSize: 'clamp(15px, 1.8vw, 40px)'
+                }}
+              >
+                {t.homeSupportLearnMore}
+              </span>
+              <img
+                src="/Images/SVG/Q__.svg"
+                alt="Q logo"
+                className="h-auto"
+                style={{
+                  width: 'clamp(40px, 8vw, 133px)'
+                }}
+              />
+            </button>
+          </div>
+        </section>
+      )}
 
       <main className="bg-white text-[#03355c]">
         <section
@@ -407,52 +416,56 @@ const Homepage = () => {
               <h2
                 className="font-bold uppercase text-[#03355c]"
                 style={{
-                  fontSize: '70px',
+                  fontSize: '63px',
                   textAlign: isRTL ? 'right' : 'left'
                 }}
                 dangerouslySetInnerHTML={{
-                  __html: t.homeProductsHeading
+                  __html: isMobile
+                    ? t.homeProductsHeading
+                    : t.homeProductsHeadingDesktop || t.homeProductsHeading
                 }}
               />
-              <a
-                href="/marketplace"
-                className="flex items-center gap-4"
-                style={{
-                  flexDirection: isRTL ? 'row-reverse' : 'row',
-                  textDecoration: 'none',
-                  color: 'inherit',
-                  cursor: 'pointer',
-                  transition: 'opacity 0.2s ease'
-                }}
-                onMouseEnter={event => {
-                  event.currentTarget.style.opacity = '0.7';
-                }}
-                onMouseLeave={event => {
-                  event.currentTarget.style.opacity = '1';
-                }}
-              >
-                <p
-                  className="uppercase text-[#04365d]"
+              {!isMobile && (
+                <a
+                  href="/marketplace"
+                  className="flex items-center gap-4"
                   style={{
-                    fontSize: '30px',
-                    fontWeight: 700,
-                    letterSpacing: '0.1em',
-                    textAlign: isRTL ? 'right' : 'left',
-                    margin: 0
+                    flexDirection: isRTL ? 'row-reverse' : 'row',
+                    textDecoration: 'none',
+                    color: 'inherit',
+                    cursor: 'pointer',
+                    transition: 'opacity 0.2s ease'
+                  }}
+                  onMouseEnter={event => {
+                    event.currentTarget.style.opacity = '0.7';
+                  }}
+                  onMouseLeave={event => {
+                    event.currentTarget.style.opacity = '1';
                   }}
                 >
-                  {t.homeProductsSubheading}
-                </p>
-                <img
-                  src="/Images/2x/underline@2x.png"
-                  alt=""
-                  style={{
-                    width: '59px',
-                    height: 'auto',
-                    marginTop: '20px'
-                  }}
-                />
-              </a>
+                  <p
+                    className="uppercase text-[#04365d]"
+                    style={{
+                      fontSize: '30px',
+                      fontWeight: 700,
+                      letterSpacing: '0.1em',
+                      textAlign: isRTL ? 'right' : 'left',
+                      margin: 0
+                    }}
+                  >
+                    {t.homeProductsSubheading}
+                  </p>
+                  <img
+                    src="/Images/2x/underline@2x.png"
+                    alt=""
+                    style={{
+                      width: '59px',
+                      height: 'auto',
+                      marginTop: '20px'
+                    }}
+                  />
+                </a>
+              )}
             </div>
           </div>
         </section>
@@ -480,7 +493,7 @@ const Homepage = () => {
               }
             `}</style>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
-              {productPresets.map(product => (
+              {displayedProductPresets.map(product => (
                 <div key={product.id} style={{ marginTop: '60px' }}>
                   <div className="bg-white homepage-product-card" style={{ cursor: 'pointer' }}>
                     <div className="w-[88%] mx-auto aspect-square mb-4 overflow-hidden">
@@ -546,18 +559,143 @@ const Homepage = () => {
           </div>
         </section>
 
+        {isMobile && (
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              marginBottom: 'clamp(40px, 10vw, 120px)'
+            }}
+          >
+            <a
+              href="/marketplace"
+              className="flex items-center gap-4"
+              style={{
+                flexDirection: isRTL ? 'row-reverse' : 'row',
+                textDecoration: 'none',
+                color: 'inherit',
+                cursor: 'pointer',
+                transition: 'opacity 0.2s ease'
+              }}
+              onMouseEnter={event => {
+                event.currentTarget.style.opacity = '0.7';
+              }}
+              onMouseLeave={event => {
+                event.currentTarget.style.opacity = '1';
+              }}
+            >
+              <p
+                className="uppercase text-[#04365d]"
+                style={{
+                  fontSize: '36px',
+                  fontWeight: 700,
+                  textAlign: 'center',
+                  margin: 0
+                }}
+              >
+                {t.homeProductsSubheading}
+              </p>
+              <img
+                src="/Images/2x/underline@2x.png"
+                alt=""
+                style={{
+                  width: '59px',
+                  height: 'auto',
+                  marginTop: '20px'
+                }}
+              />
+            </a>
+          </div>
+        )}
+
         <section className="relative w-full overflow-hidden">
           <img
-            src={t.homeHeroWave}
+            src={isMobile ? homepageMobileBanner : t.homeHeroWave}
             alt=""
             className="w-full h-auto object-cover"
           />
         </section>
 
+        {isMobile && (
+          <section
+            className="w-full flex justify-center"
+            style={{
+              padding: 'clamp(24px, 5vw, 60px) clamp(20px, 6vw, 80px)'
+            }}
+          >
+            <div
+              className="flex flex-row items-center justify-center gap-6 sm:gap-8 w-full max-w-[960px]"
+              style={{
+                flexDirection: isRTL ? 'row-reverse' : 'row',
+                flexWrap: 'wrap'
+              }}
+            >
+              <a
+                href="/join-us"
+                className="uppercase text-[#03355c] font-semibold transition"
+                style={{
+                  backgroundColor: '#67c9d6',
+                  color: '#000000',
+                  paddingBlock: 'clamp(14px, 2.8vw, 20px)',
+                  paddingInline: '20px',
+                  borderRadius: '9999px',
+                  letterSpacing: '0.12em',
+                  fontSize: '33px',
+                  fontWeight: 100,
+                  textDecoration: 'none',
+                  boxShadow: '0 10px 30px rgba(3, 53, 92, 0.12)',
+                  textAlign: 'center',
+                  flex: '1 1 320px',
+                  maxWidth: 'calc(50% - 12px)'
+                }}
+                onMouseEnter={event => {
+                  event.currentTarget.style.backgroundColor = '#8ddbe3';
+                }}
+                onMouseLeave={event => {
+                  event.currentTarget.style.backgroundColor = '#67c9d6';
+                }}
+              >
+                {t.joinUs.toUpperCase()}
+              </a>
+              <a
+                href="/support"
+                className="uppercase text-[#03355c] font-semibold transition"
+                style={{
+                  border: '2px solid rgba(3, 53, 92, 0.3)',
+                  paddingBlock: 'clamp(14px, 2.8vw, 20px)',
+                  paddingInline: '20px',
+                  borderRadius: '9999px',
+                  letterSpacing: '0.12em',
+                  fontSize: '33px',
+                  fontWeight: 100,
+                  textDecoration: 'none',
+                  textAlign: 'center',
+                  flex: '1 1 320px',
+                  maxWidth: 'calc(50% - 12px)',
+                  backgroundColor: '#005392',
+                  color: '#ffffff'
+                }}
+                onMouseEnter={event => {
+                  event.currentTarget.style.backgroundColor = '#03355c';
+                  event.currentTarget.style.color = '#ffffff';
+                }}
+                onMouseLeave={event => {
+                  event.currentTarget.style.backgroundColor = '#005392';
+                  event.currentTarget.style.color = '#ffffff';
+                }}
+              >
+                {t.support.toUpperCase()}
+              </a>
+            </div>
+          </section>
+        )}
+
         <section
           className="relative overflow-hidden"
           style={{
-            background: 'linear-gradient(135deg, #e3f5ff 0%, #ffffff 55%, #f0f9ff 100%)',
+            background: isMobile
+              ? '#ffffff'
+              : 'linear-gradient(135deg, #e3f5ff 0%, #ffffff 55%, #f0f9ff 100%)',
             padding: 'clamp(60px, 8vw, 120px) 0'
           }}
         >
@@ -567,13 +705,15 @@ const Homepage = () => {
               gap: '0.1rem',
               maxWidth: '1260px',
               width: '100%',
-              paddingInline: 'clamp(20px, 6vw, 80px)'
+              paddingInline: isMobile
+                ? 'clamp(20px, 9vw, 80px)'
+                : 'clamp(20px, 6vw, 80px)'
             }}
           >
             <p
               className="text-center font-bold"
               style={{
-                fontSize: '40px',
+                fontSize: isMobile ? '33px' : '40px',
                 color: '#005392'
               }}
             >
@@ -628,7 +768,9 @@ const Homepage = () => {
                 gap: '0.1rem',
                 maxWidth: '1260px',
                 width: '100%',
-                paddingInline: 'clamp(20px, 6vw, 80px)'
+                paddingInline: isMobile
+                  ? 'clamp(20px, 9vw, 80px)'
+                  : 'clamp(20px, 6vw, 80px)'
               }}
             >
                 <h4

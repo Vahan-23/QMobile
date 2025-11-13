@@ -25,6 +25,8 @@ export const translations = {
     homeSupportBody: "We're dedicated to making your transition smooth and your stay comfortable, while keeping you connected to what matter most. Stay close to your family, friends, and loved ones with our daily communication solutions.",
     homeSupportLearnMore: 'LEARN MORE ABOUT',
     homeProductsHeading:
+      'GET IT <span style="color:#67cad7;">NOW</span>,<br />PAY WITH <span style="color:#67cad7;">CREDITS</span>',
+    homeProductsHeadingDesktop:
       'GET IT <span style="color:#67cad7;">NOW</span>, PAY WITH <span style="color:#67cad7;">CREDITS</span>',
     homeProductsSubheading: 'BROWSE MARKETPLACE',
     homeTestimonialDistance: '2115 MILES AWAY',
@@ -106,7 +108,10 @@ export const translations = {
     homeSupportSubheading: 'أينما كنت',
     homeSupportBody: 'نحن ملتزمون بجعل انتقالك سلساً وإقامتك مريحة، مع إبقائك على اتصال بما يهمك. ابق قريباً من عائلتك وأصدقائك وأحبائك مع حلولنا اليومية للاتصالات.',
     homeSupportLearnMore: 'تعرّف أكثر على Q',
-    homeProductsHeading: 'احصل عليه الآن، وادفع بالرصيد',
+    homeProductsHeading:
+      'احصل عليه الآن،<br />ادفع بالرصيد',
+    homeProductsHeadingDesktop:
+      'احصل عليه الآن، ادفع بالرصيد',
     homeProductsSubheading: 'تصفّح السوق',
     homeTestimonialDistance: '2115 ميلاً بعيداً',
     homeTestimonialHighlight: 'لم أشعر بهذا القرب من قبل',
