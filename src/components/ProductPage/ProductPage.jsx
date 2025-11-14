@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState, useRef } from 'react';
 import HomepageHeader from '../Homepage/HomepageHeader';
 import MarketplaceFooter from '../Marketplace/MarketplaceFooter';
 import ProductCard from '../Marketplace/ProductCard';
@@ -7,6 +7,9 @@ import { translations } from '../../translations';
 import mainProductImage from './Assets/phoneImage.jpg';
 import previewImage1 from './Assets/2.jpg';
 import previewImage2 from './Assets/4.jpg';
+import visaLogo from './Assets/visa.png';
+import masterLogo from './Assets/master.png';
+import americanExpLogo from './Assets/americanexp.png';
 
 const ProductPage = () => {
   const { language, isRTL } = useLanguage();
@@ -57,6 +60,10 @@ const ProductPage = () => {
     storageOptions[0]?.id ?? ''
   );
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [creditsInput, setCreditsInput] = useState(product.credits.toString());
+  const inputRef = useRef(null);
+  const [creditsPosition, setCreditsPosition] = useState(20);
+  const [inputWidth, setInputWidth] = useState(200);
 
   useEffect(() => {
     setSelectedColor(colorOptions[0]?.id ?? '');
@@ -66,6 +73,60 @@ const ProductPage = () => {
     setSelectedStorage(storageOptions[0]?.id ?? '');
   }, [storageOptions]);
 
+  useEffect(() => {
+    const updateInputWidthAndCreditsPosition = () => {
+      if (inputRef.current) {
+        const input = inputRef.current;
+        // Создаем временный элемент для измерения ширины текста
+        const measureElement = document.createElement('span');
+        measureElement.style.visibility = 'hidden';
+        measureElement.style.position = 'absolute';
+        measureElement.style.whiteSpace = 'nowrap';
+        measureElement.style.fontSize = '40px';
+        measureElement.style.fontFamily = isRTL ? 'Arial, sans-serif' : getComputedStyle(input).fontFamily;
+        measureElement.style.fontWeight = '600';
+        measureElement.textContent = creditsInput || '0';
+        document.body.appendChild(measureElement);
+        const textWidth = measureElement.offsetWidth;
+        document.body.removeChild(measureElement);
+        
+        const inputPaddingLeft = parseInt(getComputedStyle(input).paddingLeft) || 10;
+        const inputPaddingRight = parseInt(getComputedStyle(input).paddingRight) || 10;
+        const creditsWidth = 120; // примерная ширина слова "Credits" (29px шрифт)
+        const minSpace = 20; // минимальный отступ между цифрами и Credits
+        const minInputWidth = 200; // минимальная ширина input
+        
+        // Вычисляем необходимую ширину input
+        // Текст + padding слева + padding справа + Credits + отступ
+        const requiredWidth = textWidth + inputPaddingLeft + inputPaddingRight + creditsWidth + minSpace;
+        const newInputWidth = Math.max(minInputWidth, requiredWidth);
+        setInputWidth(newInputWidth);
+        
+        // Вычисляем позицию Credits
+        const textStartPosition = inputPaddingLeft;
+        const textEndPosition = textStartPosition + textWidth;
+        const creditsStartPosition = textEndPosition + minSpace;
+        
+        // Для LTR используем left позиционирование от левого края input
+        // Для RTL используем right позиционирование от правого края input
+        if (isRTL) {
+          const rightPosition = newInputWidth - creditsStartPosition - creditsWidth;
+          setCreditsPosition(Math.max(minSpace, rightPosition));
+        } else {
+          setCreditsPosition(creditsStartPosition);
+        }
+      }
+    };
+    
+    // Небольшая задержка для того, чтобы DOM обновился
+    const timeoutId = setTimeout(updateInputWidthAndCreditsPosition, 0);
+    window.addEventListener('resize', updateInputWidthAndCreditsPosition);
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener('resize', updateInputWidthAndCreditsPosition);
+    };
+  }, [creditsInput, isRTL]);
+
   const recommendedProducts = useMemo(
     () =>
       Array.from({ length: 4 }).map((_, index) => ({
@@ -73,7 +134,7 @@ const ProductPage = () => {
         pricePerUnit: 320,
         quantity: 10,
         total: 3200,
-        image: mainProductImage,
+        image: '/Images/2x/product_placeholder@2x.png',
         name: t.productTitle
       })),
     [t]
@@ -123,8 +184,8 @@ const ProductPage = () => {
         />
       </div>
 
-      <main className="w-full px-5 py-10 space-y-16">
-        <section className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
+      <main className="w-full px-5 pt-10 space-y-16" style={{ paddingBottom: 0 }}>
+        <section className="flex flex-row gap-10 items-start justify-between">
           {/* Product details */}
           <div className="flex-1 space-y-6 px-6 py-7 lg:px-8 lg:py-9">
             <div className="space-y-2">
@@ -211,9 +272,9 @@ const ProductPage = () => {
                           fontSize: '30px',
                           borderRadius: '20px',
                           backgroundColor: isSelected ? '#66c8d5' : '#ffffff',
-                          color: isSelected ? '#03355c' : '#2c3a4b',
-                          borderColor: isSelected ? '#03355c' : '#03355c',
-                          fontWeight: 400
+                          color: '#03355c',
+                          borderColor: '#03355c',
+                          fontWeight: 'bold'
                         }}
                         type="button"
                       >
@@ -251,9 +312,9 @@ const ProductPage = () => {
                           fontSize: '30px',
                           borderRadius: '20px',
                           backgroundColor: isSelected ? '#66c8d5' : '#ffffff',
-                          color: isSelected ? '#03355c' : '#2c3a4b',
-                          borderColor: isSelected ? '#03355c' : '#03355c',
-                          fontWeight: 400
+                          color: '#03355c',
+                          borderColor: '#03355c',
+                          fontWeight: 'bold'
                         }}
                         type="button"
                       >
@@ -263,70 +324,6 @@ const ProductPage = () => {
                   })}
                 </div>
               </div>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-3 text-base text-[#2c3a4b]">
-              <span className="font-semibold uppercase tracking-wide">
-                {t.total}
-              </span>
-              <span className="text-[#005490] font-bold">
-                {product.totalPrice} {product.currency}
-              </span>
-              <span>/</span>
-              <span className="font-semibold uppercase tracking-wide">
-                {product.credits} {t.productPageSummaryCredits}
-              </span>
-              <span>=</span>
-              <span>
-                {product.pricePerInstallment} {formattedPerMonth}
-              </span>
-            </div>
-
-            <div className="space-y-3 text-sm text-[#4f6076] leading-relaxed">
-              <p
-                className="font-semibold uppercase text-[#0a2c4a] tracking-wide"
-                style={{
-                  direction: isRTL ? 'rtl' : 'ltr',
-                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-                }}
-              >
-                {t.productPagePaymentSupport}
-              </p>
-              <div className="flex flex-wrap items-center gap-3">
-                {['VISA', 'Mastercard', 'American Express'].map(card => (
-                  <span
-                    key={card}
-                    className="px-4 py-2 rounded-full border border-[#d3d9e3] bg-white text-[#0a2c4a] text-sm font-semibold uppercase tracking-wide shadow-sm"
-                    style={{
-                      letterSpacing: '0.08em',
-                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-                    }}
-                  >
-                    {card}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-3">
-              <p
-                className="font-semibold text-[#0a2c4a] uppercase tracking-wide"
-                style={{
-                  direction: isRTL ? 'rtl' : 'ltr',
-                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-                }}
-              >
-                {t.productPageDescriptionHeading}
-              </p>
-              <p
-                className="text-base text-[#4f6076] leading-relaxed"
-                style={{
-                  direction: isRTL ? 'rtl' : 'ltr',
-                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-                }}
-              >
-                {t.productPageDescriptionText}
-              </p>
             </div>
           </div>
 
@@ -461,26 +458,209 @@ const ProductPage = () => {
           </div>
         </section>
 
-        <section className="space-y-8">
-          <div className="flex items-center justify-between flex-wrap gap-3">
+        {/* Total Block */}
+        <section className="w-full" style={{ backgroundColor: '#f0f0f0', marginLeft: '-20px', marginRight: '-20px', width: 'calc(100% + 40px)', marginTop: '-30px' }}>
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4" style={{ maxWidth: '1895px', margin: '0 auto', padding: '20px clamp(16px, 2.6vw, 50px)' }}>
+            <div className="flex flex-wrap items-center text-base text-[#2c3a4b]" style={{ gap: '1.75rem' }}>
+              <span
+                className="font-semibold"
+                style={{
+                  direction: isRTL ? 'rtl' : 'ltr',
+                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                  fontSize: '37px',
+                  color: '#03355c'
+                }}
+              >
+                {t.total}:
+              </span>
+              <span 
+                style={{
+                  color: '#03355c',
+                  fontWeight: 600,
+                  fontFamily: 'inherit',
+                  fontSize: '31px',
+                  paddingLeft: '73px'
+                }}
+              >
+                {product.totalPrice} ILS
+              </span>
+              <span
+                style={{
+                  fontSize: '30px',
+                  fontWeight: 700,
+                  color: '#03355c'
+                }}
+              >
+                /
+              </span>
+              <div className="relative inline-flex items-center">
+                <input
+                  ref={inputRef}
+                  type="number"
+                  value={creditsInput}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    // Ограничиваем до 14 цифр
+                    if (value === '' || (value.length <= 14 && /^\d+$/.test(value))) {
+                      setCreditsInput(value);
+                    }
+                  }}
+                  maxLength={14}
+                  className="px-3 text-left font-semibold no-spinner"
+                  style={{
+                    width: `${inputWidth}px`,
+                    height: '80px',
+                    fontSize: '40px',
+                    color: '#03355c',
+                    border: '1px solid #03355c',
+                    direction: isRTL ? 'rtl' : 'ltr',
+                    fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                    paddingRight: isRTL ? '10px' : '10px',
+                    paddingLeft: isRTL ? '10px' : '10px',
+                    paddingTop: '15px',
+                    paddingBottom: '15px',
+                    WebkitAppearance: 'none',
+                    MozAppearance: 'textfield',
+                    borderRadius: '20px'
+                  }}
+                />
+                <style>{`
+                  .no-spinner::-webkit-inner-spin-button,
+                  .no-spinner::-webkit-outer-spin-button {
+                    -webkit-appearance: none;
+                    margin: 0;
+                  }
+                `}</style>
+                <span
+                  className="absolute font-semibold pointer-events-none"
+                  style={{
+                    fontSize: '29px',
+                    color: '#919191',
+                    direction: isRTL ? 'rtl' : 'ltr',
+                    fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                    left: isRTL ? 'auto' : `${creditsPosition}px`,
+                    right: isRTL ? `${creditsPosition}px` : 'auto'
+                  }}
+                >
+                  {t.productPageSummaryCredits || 'Credits'}
+                </span>
+              </div>
+              <span
+                style={{
+                  fontWeight: 600,
+                  fontSize: '29px',
+                  color: '#03355c'
+                }}
+              >
+                =
+              </span>
+              <span
+                style={{
+                  fontWeight: 600,
+                  fontSize: '29px',
+                  color: '#03355c'
+                }}
+              >
+                {product.pricePerInstallment} {formattedPerMonth}
+              </span>
+            </div>
+            <button
+              className="inline-flex items-center justify-center shadow hover:opacity-90 transition-opacity"
+              style={{
+                fontWeight: 100,
+                fontSize: '40px',
+                borderRadius: '20px',
+                backgroundColor: 'rgb(0, 82, 145)',
+                color: 'rgb(255, 255, 255)',
+                direction: 'ltr',
+                fontFamily: 'inherit',
+                padding: '10px 60px',
+                height: 'auto'
+              }}
+            >
+              {t.addToCart}
+            </button>
+          </div>
+        </section>
+
+        {/* Payment Support and Description Block */}
+        <section className="w-full px-6 pb-7 lg:px-8 lg:pb-9" style={{ paddingTop: 0 }}>
+          <div className="space-y-8 max-w-[1895px] mx-auto">
+            <div className="space-y-3 text-sm text-[#4f6076] leading-relaxed">
+              <div className="flex flex-wrap items-center gap-3">
+                <p
+                  style={{
+                    fontWeight: 100,
+                    direction: 'ltr',
+                    fontFamily: 'inherit',
+                    fontSize: '28px',
+                    color: '#000000',
+                    margin: 0
+                  }}
+                >
+                  {t.productPagePaymentSupport}
+                </p>
+                {[
+                  { name: 'VISA', logo: visaLogo },
+                  { name: 'Mastercard', logo: masterLogo },
+                  { name: 'American Express', logo: americanExpLogo }
+                ].map(card => (
+                  <img
+                    key={card.name}
+                    src={card.logo}
+                    alt={card.name}
+                    style={{
+                      height: '100px',
+                      width: 'auto',
+                      objectFit: 'contain'
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <p
+                className="font-semibold text-[#0a2c4a] tracking-wide"
+                style={{
+                  direction: isRTL ? 'rtl' : 'ltr',
+                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                  fontSize: '40px'
+                }}
+              >
+                {t.productPageDescriptionHeading}
+              </p>
+              <p
+                style={{
+                  fontWeight: 100,
+                  direction: 'ltr',
+                  fontFamily: 'inherit',
+                  fontSize: '28px',
+                  color: '#000000',
+                  margin: 0
+                }}
+              >
+                {t.productPageDescriptionText}
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="space-y-8" style={{ backgroundColor: '#f0f0f0', paddingBottom: '40px', paddingLeft: 0, paddingRight: 0, marginLeft: '-20px', marginRight: '-20px', width: 'calc(100% + 40px)' }}>
+          <div className="flex items-center justify-between flex-wrap gap-3" style={{ paddingTop: '50px', paddingLeft: '50px' }}>
             <h3
-              className="text-2xl font-bold text-[#0a2c4a]"
+              className="font-bold text-[#0a2c4a]"
               style={{
                 direction: isRTL ? 'rtl' : 'ltr',
-                fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                fontSize: '50px'
               }}
             >
               {t.productPageInterestHeading}
             </h3>
-            <button
-              className="text-[#005490] font-semibold hover:underline"
-              type="button"
-            >
-              {t.marketplace}
-            </button>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" style={{ paddingLeft: 0, paddingRight: 0, paddingBottom: 0 }}>
             {recommendedProducts.map(productItem => (
               <ProductCard key={productItem.id} product={productItem} />
             ))}

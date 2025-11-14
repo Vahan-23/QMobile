@@ -24,11 +24,11 @@ const ProductCard = ({ product }) => {
         }
       `}</style>
       <div 
-        className="bg-white product-card"
-        style={{ cursor: 'pointer' }}
+        className="product-card"
+        style={{ cursor: 'pointer', backgroundColor: 'transparent' }}
       >
       {/* Product Image */}
-      <div className="w-[88%] mx-auto aspect-square mb-4 overflow-hidden">
+      <div className="w-[75%] mx-auto aspect-square mb-3 overflow-hidden">
         {/* Если есть изображение продукта, используйте его, иначе показывайте placeholder */}
         {product.image ? (
           <img
@@ -51,7 +51,7 @@ const ProductCard = ({ product }) => {
         <h3 
           className="font-bold"
           style={{ 
-            fontSize: '1.625rem', 
+            fontSize: '1.4rem', 
             color: '#000000',
             direction: isRTL ? 'rtl' : 'ltr',
             fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
@@ -63,9 +63,9 @@ const ProductCard = ({ product }) => {
         {/* Price per unit */}
         <p 
           style={{ 
-            fontSize: '1.8rem', 
+            fontSize: '1.5rem', 
             color: '#000000', 
-            marginTop: '20px',
+            marginTop: '15px',
             direction: isRTL ? 'rtl' : 'ltr',
             fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
           }}
@@ -76,7 +76,7 @@ const ProductCard = ({ product }) => {
         {/* Total Price */}
         <p 
           style={{ 
-            fontSize: '1.275rem', 
+            fontSize: '1.1rem', 
             color: '#767676',
             direction: isRTL ? 'rtl' : 'ltr',
             fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
@@ -87,10 +87,10 @@ const ProductCard = ({ product }) => {
 
         {/* Add to Cart Button */}
         <button 
-          className="mx-auto text-white py-1 md:py-1.5 px-8 md:px-10 rounded-full font-medium hover:opacity-90 transition-opacity mt-4" 
+          className="mx-auto text-white py-1 md:py-1.5 px-6 md:px-8 rounded-full font-medium hover:opacity-90 transition-opacity mt-3" 
           style={{ 
             backgroundColor: '#005291', 
-            fontSize: '1.4rem',
+            fontSize: '1.2rem',
             direction: isRTL ? 'rtl' : 'ltr',
             fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
           }}>
