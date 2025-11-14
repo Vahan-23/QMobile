@@ -4,7 +4,9 @@ import MarketplaceFooter from '../Marketplace/MarketplaceFooter';
 import ProductCard from '../Marketplace/ProductCard';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { translations } from '../../translations';
-import productPrimaryImage from '../Marketplace/Assets/prd1.png';
+import mainProductImage from './Assets/phoneImage.jpg';
+import previewImage1 from './Assets/2.jpg';
+import previewImage2 from './Assets/4.jpg';
 
 const ProductPage = () => {
   const { language, isRTL } = useLanguage();
@@ -28,7 +30,7 @@ const ProductPage = () => {
   );
 
   const galleryImages = useMemo(
-    () => [productPrimaryImage, productPrimaryImage, productPrimaryImage],
+    () => [mainProductImage, previewImage1, previewImage2],
     []
   );
 
@@ -71,7 +73,7 @@ const ProductPage = () => {
         pricePerUnit: 320,
         quantity: 10,
         total: 3200,
-        image: productPrimaryImage,
+        image: mainProductImage,
         name: t.productTitle
       })),
     [t]
@@ -330,54 +332,131 @@ const ProductPage = () => {
 
           {/* Product gallery */}
           <div className="w-full lg:flex-1 flex flex-col gap-4 lg:items-end px-6 py-7 lg:px-8 lg:py-9">
-            <div className="relative flex items-center justify-center">
-              <button
-                type="button"
-                onClick={goToPreviousImage}
-                className="absolute left-6 top-1/2 -translate-y-1/2 bg-white/80 text-[#005490] rounded-full w-10 h-10 flex items-center justify-center shadow hover:bg-white"
-                aria-label="Previous image"
+            <div className="w-full text-center mb-6">
+              <span
+                className="font-bold uppercase"
+                style={{
+                  color: '#005291',
+                  fontSize: '33px',
+                  marginRight: '0.4em'
+                }}
               >
-                ‹
-              </button>
-
-              <img
-                src={galleryImages[activeImageIndex]}
-                alt={product.name}
-                className="w-full h-auto max-h-[420px] object-contain"
-              />
-
-              <button
-                type="button"
-                onClick={goToNextImage}
-                className="absolute right-6 top-1/2 -translate-y-1/2 bg-white/80 text-[#005490] rounded-full w-10 h-10 flex items-center justify-center shadow hover:bg-white"
-                aria-label="Next image"
+                GET IT
+              </span>
+              <span
+                className="font-bold uppercase"
+                style={{
+                  color: '#03355c',
+                  fontSize: '33px',
+                  marginRight: '0.4em'
+                }}
               >
-                ›
-              </button>
+                NOW PAY WITH
+              </span>
+              <span
+                className="font-bold uppercase"
+                style={{
+                  color: '#005291',
+                  fontSize: '33px'
+                }}
+              >
+                CREDITS
+              </span>
             </div>
+            <div
+              className="relative mx-auto mb-6 bg-white rounded-3xl flex flex-col items-center justify-start"
+              style={{
+                width: '712px',
+                height: '755px',
+                padding: '0 0 32px',
+                gap: '32px'
+              }}
+            >
+              <div
+                className="relative flex items-center justify-center w-full"
+                style={{ height: '520px' }}
+              >
+                <img
+                  src={galleryImages[activeImageIndex]}
+                  alt={product.name}
+                  className="max-w-[80%] max-h-[95%] object-contain"
+                />
 
-            <div className="flex items-center justify-center gap-3">
-              {galleryImages.map((image, index) => {
-                const isActive = index === activeImageIndex;
-                return (
-                  <button
-                    key={image + index}
-                    type="button"
-                    onClick={() => setActiveImageIndex(index)}
-                    className={`rounded-2xl border p-2 bg-white transition-all ${
-                      isActive
-                        ? 'border-[#005490] shadow-lg'
-                        : 'border-transparent opacity-70 hover:opacity-100'
-                    }`}
-                  >
-                    <img
-                      src={image}
-                      alt={`${product.name} thumbnail ${index + 1}`}
-                      className="w-20 h-20 object-contain"
-                    />
-                  </button>
-                );
-              })}
+                <button
+                  type="button"
+                  onClick={goToPreviousImage}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 flex items-center justify-center"
+                  aria-label="Previous image"
+                >
+                  <img
+                    src="/Images/2x/arrow_left@2x.png"
+                    alt="Previous"
+                    className="w-16 h-16 object-contain"
+                  />
+                </button>
+
+                <button
+                  type="button"
+                  onClick={goToNextImage}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center justify-center"
+                  aria-label="Next image"
+                >
+                  <img
+                    src="/Images/2x/arrow_right@2x.png"
+                    alt="Next"
+                    className="w-16 h-16 object-contain"
+                  />
+                </button>
+              </div>
+
+              <div className="flex items-center justify-center gap-5">
+                {[0, 1, 2].map(index => {
+                  const isActive = index === activeImageIndex;
+                  return (
+                    <button
+                      key={`preview-${index}`}
+                      type="button"
+                      onClick={() => setActiveImageIndex(index)}
+                      className="overflow-hidden rounded-2xl transition-transform"
+                      style={{
+                        width: '100px',
+                        height: '100px',
+                        transform: isActive ? 'scale(1.05)' : 'scale(1)',
+                        backgroundColor: isActive ? '#e2f7fb' : '#f5f7fb'
+                      }}
+                    >
+                      <img
+                        src={galleryImages[index] || galleryImages[0]}
+                        alt={`${product.name} preview ${index + 1}`}
+                        className="w-full h-full object-contain"
+                      />
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="flex items-center justify-center gap-3">
+                {[0, 1, 2].map(index => {
+                  const isActive = index === activeImageIndex;
+                  return (
+                    <button
+                      key={`indicator-${index}`}
+                      type="button"
+                      onClick={() => setActiveImageIndex(index)}
+                      className="transition-transform"
+                      style={{
+                        width: '15px',
+                        height: '15px',
+                        borderRadius: '50%',
+                        backgroundColor: isActive ? '#66c8d5' : '#d3d9e3',
+                        transform: isActive ? 'scale(1.1)' : 'scale(1)',
+                        border: 'none'
+                      }}
+                    >
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </section>
