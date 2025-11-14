@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { translations } from '../../translations';
 import ProductCard from './ProductCard';
@@ -381,7 +382,12 @@ const ProductGrid = ({ selectedCategory, setSelectedCategory }) => {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-3">
                 {products.map(product => (
                   <div key={product.id} style={{ marginTop: '60px' }}>
-                    <ProductCard product={product} />
+                    <Link
+                      to="/product/mx1"
+                      style={{ textDecoration: 'none', color: 'inherit' }}
+                    >
+                      <ProductCard product={product} />
+                    </Link>
                   </div>
                 ))}
               </div>
