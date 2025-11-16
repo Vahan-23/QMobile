@@ -55,6 +55,71 @@
     font-size: clamp(15px, 1.9vw, 37px) !important;
   }
 
+  /* Лейбл "Total:" в блоке Total — такой же адаптивный размер, как Color / Storage */
+  .product-total-label-769 {
+    font-size: clamp(15px, 1.9vw, 37px) !important;
+  }
+
+  /* Значение Total (например, "3200 ILS"):
+     font-size от 14px на 769px до исходных 31px на широком экране,
+     padding-left плавно уменьшается до 0 */
+  .product-total-amount-769 {
+    font-size: clamp(14px, 1.6vw, 31px) !important;
+    padding-left: clamp(0px, 3.8vw, 73px) !important;
+  }
+
+  /* Символ "/" в блоке Total */
+  .product-total-divider-769 {
+    font-size: clamp(14px, 1.6vw, 30px) !important;
+  }
+
+  /* Символ "=" и текст "320 NIS x 10 months" в блоке Total */
+  .product-total-equals-769,
+  .product-total-permonth-769 {
+    font-size: clamp(14px, 1.6vw, 29px) !important;
+  }
+
+  /* Инпут Credits в блоке Total */
+  .product-total-input-769 {
+    /* уменьшаем коэффициент vw, чтобы к 769px размер действительно доходил до 14px */
+    font-size: clamp(14px, 1.2vw, 40px) !important;
+    /* высота от 35px на 769px до ~80px на широком экране */
+    height: clamp(35px, 4.2vw, 80px) !important;
+    /* ширина от 80px на 769px до ~195px на широком экране */
+    width: clamp(80px, 11vw, 195px) !important;
+    /* радиус от 10px на 769px до исходных 20px на широком экране */
+    border-radius: clamp(10px, 1.2vw, 20px) !important;
+  }
+
+  /* Текст "Credits" внутри инпута */
+  .product-total-input-label-769 {
+    /* то же самое для подписи — минимальное значение 14px на 769px */
+    font-size: clamp(14px, 1.2vw, 29px) !important;
+  }
+
+  /* Кнопка "ADD TO CART" в блоке Total */
+  .product-total-button-769 {
+    /* размер шрифта от 12px на 769px до ~40px на широком экране */
+    font-size: clamp(12px, 2vw, 40px) !important;
+    /* паддинги от 8px 35px на 769px до исходных ~10px 60px на широком экране */
+    padding-block: clamp(8px, 1vw, 10px) !important;
+    padding-inline: clamp(35px, 3.2vw, 60px) !important;
+    /* радиус от 10px на 769px до исходных 20px на широком экране */
+    border-radius: clamp(10px, 1.2vw, 20px) !important;
+  }
+
+  /* Ряд внутри Total (Total:, сумма, /, инпут, =, 320 NIS x 10 months):
+     общий gap от 0.75rem на 769px до исходных ~1.75rem на широком экране */
+  .product-total-row-769 {
+    gap: clamp(0.75rem, 1.4vw, 1.75rem) !important;
+  }
+
+  /* Контейнер блока Total:
+     padding-left/right от 40px на 769px до исходных ~50px на широком экране */
+  .product-total-section-769 {
+    padding-inline: clamp(40px, 2.6vw, 50px) !important;
+  }
+
   /* Кнопки Black / White / Silver и Storage:
      - font-size от 13px до исходных 30px
      - border-radius от 11px до исходных 20px

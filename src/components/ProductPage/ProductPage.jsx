@@ -93,9 +93,9 @@ const ProductPage = () => {
         
         const inputPaddingLeft = parseInt(getComputedStyle(input).paddingLeft) || 10;
         const inputPaddingRight = parseInt(getComputedStyle(input).paddingRight) || 10;
-        const creditsWidth = 120; // примерная ширина слова "Credits" (29px шрифт)
-        const minSpace = 20; // минимальный отступ между цифрами и Credits
-        const minInputWidth = 200; // минимальная ширина input
+        const creditsWidth = 80; // примерная ширина слова "Credits" (уменьшаем для более узкого инпута)
+        const minSpace = 8; // минимальный отступ между цифрами и Credits (делаем ближе друг к другу)
+        const minInputWidth = 80; // минимальная ширина input (уменьшаем до 80px для адаптива)
         
         // Вычисляем необходимую ширину input
         // Текст + padding слева + padding справа + Credits + отступ
@@ -106,8 +106,16 @@ const ProductPage = () => {
         // Вычисляем позицию Credits
         const textStartPosition = inputPaddingLeft;
         const textEndPosition = textStartPosition + textWidth;
-        const creditsStartPosition = textEndPosition + minSpace;
-        
+        let creditsStartPosition = textEndPosition + minSpace;
+
+        // Чтобы "Credits" не выходило из инпута, ограничиваем максимальную позицию
+        const maxCreditsStart =
+          newInputWidth - creditsWidth - minSpace; // правая граница с учётом отступа
+        creditsStartPosition = Math.min(
+          Math.max(minSpace, creditsStartPosition),
+          maxCreditsStart
+        );
+
         // Для LTR используем left позиционирование от левого края input
         // Для RTL используем right позиционирование от правого края input
         if (isRTL) {
@@ -461,33 +469,34 @@ const ProductPage = () => {
 
         {/* Total Block */}
         <section className="w-full" style={{ backgroundColor: '#f0f0f0', marginLeft: '-20px', marginRight: '-20px', width: 'calc(100% + 40px)', marginTop: '-30px' }}>
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4" style={{ maxWidth: '1895px', margin: '0 auto', padding: '20px clamp(16px, 2.6vw, 50px)' }}>
-            <div className="flex flex-wrap items-center text-base text-[#2c3a4b]" style={{ gap: '1.75rem' }}>
+          <div
+            className="flex flex-col md:flex-row items-center justify-between gap-4 product-total-section-769"
+            style={{ maxWidth: '1895px', margin: '0 auto', padding: '20px clamp(16px, 2.6vw, 50px)' }}
+          >
+            <div className="flex flex-wrap items-center text-base text-[#2c3a4b] product-total-row-769" style={{ gap: '1.75rem' }}>
               <span
-                className="font-semibold"
+                className="font-semibold product-total-label-769"
                 style={{
                   direction: isRTL ? 'rtl' : 'ltr',
                   fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-                  fontSize: '37px',
                   color: '#03355c'
                 }}
               >
                 {t.total}:
               </span>
               <span 
+                className="product-total-amount-769"
                 style={{
                   color: '#03355c',
                   fontWeight: 600,
-                  fontFamily: 'inherit',
-                  fontSize: '31px',
-                  paddingLeft: '73px'
+                  fontFamily: 'inherit'
                 }}
               >
                 {product.totalPrice} ILS
               </span>
               <span
+                className="product-total-divider-769"
                 style={{
-                  fontSize: '30px',
                   fontWeight: 700,
                   color: '#03355c'
                 }}
@@ -497,6 +506,7 @@ const ProductPage = () => {
               <div className="relative inline-flex items-center">
                 <input
                   ref={inputRef}
+                  className="px-3 text-left font-semibold no-spinner product-total-input-769"
                   type="number"
                   value={creditsInput}
                   onChange={(e) => {
@@ -507,7 +517,6 @@ const ProductPage = () => {
                     }
                   }}
                   maxLength={14}
-                  className="px-3 text-left font-semibold no-spinner"
                   style={{
                     width: `${inputWidth}px`,
                     height: '80px',
@@ -532,33 +541,34 @@ const ProductPage = () => {
                     margin: 0;
                   }
                 `}</style>
-                <span
-                  className="absolute font-semibold pointer-events-none"
-                  style={{
-                    fontSize: '29px',
-                    color: '#919191',
-                    direction: isRTL ? 'rtl' : 'ltr',
-                    fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-                    left: isRTL ? 'auto' : `${creditsPosition}px`,
-                    right: isRTL ? `${creditsPosition}px` : 'auto'
-                  }}
-                >
-                  {t.productPageSummaryCredits || 'Credits'}
-                </span>
+                {creditsInput === '' && (
+                  <span
+                    className="absolute font-semibold pointer-events-none product-total-input-label-769"
+                    style={{
+                      color: '#919191',
+                      direction: isRTL ? 'rtl' : 'ltr',
+                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                      left: isRTL ? 'auto' : `${creditsPosition}px`,
+                      right: isRTL ? `${creditsPosition}px` : 'auto'
+                    }}
+                  >
+                    {t.productPageSummaryCredits || 'Credits'}
+                  </span>
+                )}
               </div>
               <span
+                className="product-total-equals-769"
                 style={{
                   fontWeight: 600,
-                  fontSize: '29px',
                   color: '#03355c'
                 }}
               >
                 =
               </span>
               <span
+                className="product-total-permonth-769"
                 style={{
                   fontWeight: 600,
-                  fontSize: '29px',
                   color: '#03355c'
                 }}
               >
@@ -566,10 +576,9 @@ const ProductPage = () => {
               </span>
             </div>
             <button
-              className="inline-flex items-center justify-center shadow hover:opacity-90 transition-opacity"
+              className="inline-flex items-center justify-center shadow hover:opacity-90 transition-opacity product-total-button-769"
               style={{
                 fontWeight: 100,
-                fontSize: '40px',
                 borderRadius: '20px',
                 backgroundColor: 'rgb(0, 82, 145)',
                 color: 'rgb(255, 255, 255)',
