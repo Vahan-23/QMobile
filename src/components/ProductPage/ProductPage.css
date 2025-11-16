@@ -219,6 +219,71 @@
     width: clamp(8px, 0.8vw, 15px) !important;
     height: clamp(8px, 0.8vw, 15px) !important;
   }
+
+  /* Текст "We support secure payment..." (productPagePaymentSupport):
+     от 14px на 769px до исходных ~28px на широком экране */
+  .product-payment-support-769 {
+    font-size: clamp(14px, 1.8vw, 28px) !important;
+  }
+
+  /* Секция "Payment Support and Description":
+     margin-top уменьшается с ~20px на широких экранах до почти 0 на 769px (адаптивно) */
+  .product-payment-section-769 {
+    margin-top: clamp(0px, 0.8vw, 20px) !important;
+  }
+
+  /* Логотипы VISA / MasterCard / American Express:
+     высота от 60px на 769px до 100px на широком экране */
+  .product-payment-logo-769 {
+    height: clamp(60px, 5vw, 100px) !important;
+  }
+
+  /* Заголовок "Product description:" */
+  .product-description-heading-769 {
+    font-size: clamp(18px, 2.2vw, 40px) !important;
+  }
+
+  /* Текст "Sed ut perspiciatis..." */
+  .product-description-text-769 {
+    font-size: clamp(12px, 1.6vw, 28px) !important;
+  }
+
+  /* Заголовок "Also might interest you" */
+  .product-interest-heading-769 {
+    font-size: clamp(23px, 2.6vw, 50px) !important;
+  }
+
+  /* Грид карточек "Also might interest you":
+     принудительно 4 колонки на вебе (>=769px), gap уходит к 0 на 769px
+     и есть адаптивный padding слева/справа */
+  .product-interest-grid-769 {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: clamp(0px, 1vw, 1.5rem) !important;
+    padding-inline: clamp(30px, 3vw, 60px) !important;
+  }
+}
+
+@media (min-width: 769px) {
+  /* Карточки в блоке "Also might interest you" (через общий класс ProductCard):
+     уменьшаем шрифты и кнопки, чтобы 4 карты комфортно помещались в линию при 769px */
+  .product-interest-grid-769 .product-card-769 h3 {
+    font-size: clamp(14px, 1.5vw, 22px) !important;
+  }
+
+  .product-interest-grid-769 .product-card-769 p:nth-of-type(1) {
+    font-size: clamp(14px, 1.6vw, 24px) !important;
+    margin-top: clamp(8px, 1.2vw, 15px) !important;
+  }
+
+  .product-interest-grid-769 .product-card-769 p:nth-of-type(2) {
+    font-size: clamp(12px, 1.4vw, 18px) !important;
+  }
+
+  .product-interest-grid-769 .product-card-769 button {
+    font-size: clamp(12px, 1.4vw, 20px) !important;
+    padding-block: clamp(4px, 0.6vw, 8px) !important;
+    padding-inline: clamp(16px, 2.2vw, 24px) !important;
+  }
 }
 
 

@@ -594,16 +594,19 @@ const ProductPage = () => {
         </section>
 
         {/* Payment Support and Description Block */}
-        <section className="w-full px-6 pb-7 lg:px-8 lg:pb-9" style={{ paddingTop: 0 }}>
+        <section
+          className="w-full px-6 pb-7 lg:px-8 lg:pb-9 product-payment-section-769"
+          style={{ paddingTop: 0 }}
+        >
           <div className="space-y-8 max-w-[1895px] mx-auto">
             <div className="space-y-3 text-sm text-[#4f6076] leading-relaxed">
               <div className="flex flex-wrap items-center gap-3">
                 <p
+                  className="product-payment-support-769"
                   style={{
                     fontWeight: 100,
                     direction: 'ltr',
                     fontFamily: 'inherit',
-                    fontSize: '28px',
                     color: '#000000',
                     margin: 0
                   }}
@@ -619,8 +622,8 @@ const ProductPage = () => {
                     key={card.name}
                     src={card.logo}
                     alt={card.name}
+                    className="product-payment-logo-769"
                     style={{
-                      height: '100px',
                       width: 'auto',
                       objectFit: 'contain'
                     }}
@@ -631,21 +634,20 @@ const ProductPage = () => {
 
             <div className="space-y-3">
               <p
-                className="font-semibold text-[#0a2c4a] tracking-wide"
+                className="font-semibold text-[#0a2c4a] tracking-wide product-description-heading-769"
                 style={{
                   direction: isRTL ? 'rtl' : 'ltr',
                   fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-                  fontSize: '40px'
                 }}
               >
                 {t.productPageDescriptionHeading}
               </p>
               <p
+                className="product-description-text-769"
                 style={{
                   fontWeight: 100,
                   direction: 'ltr',
                   fontFamily: 'inherit',
-                  fontSize: '28px',
                   color: '#000000',
                   margin: 0
                 }}
@@ -659,18 +661,20 @@ const ProductPage = () => {
         <section className="space-y-8" style={{ backgroundColor: '#f0f0f0', paddingBottom: '40px', paddingLeft: 0, paddingRight: 0, marginLeft: '-20px', marginRight: '-20px', width: 'calc(100% + 40px)' }}>
           <div className="flex items-center justify-between flex-wrap gap-3" style={{ paddingTop: '50px', paddingLeft: '50px' }}>
             <h3
-              className="font-bold text-[#0a2c4a]"
+              className="font-bold text-[#0a2c4a] product-interest-heading-769"
               style={{
                 direction: isRTL ? 'rtl' : 'ltr',
                 fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-                fontSize: '50px'
               }}
             >
               {t.productPageInterestHeading}
             </h3>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" style={{ paddingLeft: 0, paddingRight: 0, paddingBottom: 0 }}>
+          <div
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 product-interest-grid-769"
+            style={{ paddingLeft: 0, paddingRight: 0, paddingBottom: 0 }}
+          >
             {recommendedProducts.map(productItem => (
               <ProductCard key={productItem.id} product={productItem} />
             ))}

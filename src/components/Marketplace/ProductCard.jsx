@@ -24,7 +24,7 @@ const ProductCard = ({ product }) => {
         }
       `}</style>
       <div 
-        className="product-card"
+        className="product-card product-card-769"
         style={{ cursor: 'pointer', backgroundColor: 'transparent' }}
       >
       {/* Product Image */}
