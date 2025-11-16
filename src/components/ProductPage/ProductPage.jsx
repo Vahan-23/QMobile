@@ -334,10 +334,10 @@ const ProductPage = () => {
           </div>
 
           {/* Product gallery */}
-          <div className="w-full lg:flex-1 flex flex-col gap-4 lg:items-end px-6 py-7 lg:px-8 lg:py-9">
-            <div className="w-full text-center mb-6">
+          <div className="w-full lg:flex-1 flex flex-col gap-4 lg:items-end px-6 py-7 lg:px-8 lg:py-9 product-gallery-block-769">
+            <div className="w-full text-center mb-6 product-banner-wrapper-769">
               <span
-                className="font-bold uppercase"
+                className="font-bold uppercase product-banner-text-769"
                 style={{
                   color: '#005291',
                   fontSize: '33px',
@@ -347,7 +347,7 @@ const ProductPage = () => {
                 GET IT
               </span>
               <span
-                className="font-bold uppercase"
+                className="font-bold uppercase product-banner-text-769"
                 style={{
                   color: '#03355c',
                   fontSize: '33px',
@@ -357,7 +357,7 @@ const ProductPage = () => {
                 NOW PAY WITH
               </span>
               <span
-                className="font-bold uppercase"
+                className="font-bold uppercase product-banner-text-769"
                 style={{
                   color: '#005291',
                   fontSize: '33px'
@@ -367,16 +367,15 @@ const ProductPage = () => {
               </span>
             </div>
             <div
-              className="relative mx-auto mb-6 bg-white rounded-3xl flex flex-col items-center justify-start"
+              className="relative mx-auto mb-6 bg-white rounded-3xl flex flex-col items-center justify-start product-gallery-container-769"
               style={{
-                width: '712px',
-                height: '755px',
-                padding: '0 0 32px',
-                gap: '32px'
+                width: '100%',
+                maxWidth: '712px',
+                padding: '0 0 32px'
               }}
             >
               <div
-                className="relative flex items-center justify-center w-full"
+                className="relative flex items-center justify-center w-full product-gallery-main-769"
                 style={{ height: '520px' }}
               >
                 <img
@@ -394,7 +393,7 @@ const ProductPage = () => {
                   <img
                     src="/Images/2x/arrow_left@2x.png"
                     alt="Previous"
-                    className="w-16 h-16 object-contain"
+                    className="w-16 h-16 object-contain product-gallery-arrow-769"
                   />
                 </button>
 
@@ -407,12 +406,12 @@ const ProductPage = () => {
                   <img
                     src="/Images/2x/arrow_right@2x.png"
                     alt="Next"
-                    className="w-16 h-16 object-contain"
+                    className="w-16 h-16 object-contain product-gallery-arrow-769"
                   />
                 </button>
               </div>
 
-              <div className="flex items-center justify-center gap-5">
+              <div className="flex items-center justify-center gap-5 product-preview-row-769">
                 {[0, 1, 2].map(index => {
                   const isActive = index === activeImageIndex;
                   return (
@@ -420,10 +419,8 @@ const ProductPage = () => {
                       key={`preview-${index}`}
                       type="button"
                       onClick={() => setActiveImageIndex(index)}
-                      className="overflow-hidden rounded-2xl transition-transform"
+                      className="overflow-hidden rounded-2xl transition-transform product-preview-769"
                       style={{
-                        width: '100px',
-                        height: '100px',
                         transform: isActive ? 'scale(1.05)' : 'scale(1)',
                         backgroundColor: isActive ? '#e2f7fb' : '#f5f7fb'
                       }}
@@ -446,10 +443,8 @@ const ProductPage = () => {
                       key={`indicator-${index}`}
                       type="button"
                       onClick={() => setActiveImageIndex(index)}
-                      className="transition-transform"
+                      className="transition-transform product-indicator-769"
                       style={{
-                        width: '15px',
-                        height: '15px',
                         borderRadius: '50%',
                         backgroundColor: isActive ? '#66c8d5' : '#d3d9e3',
                         transform: isActive ? 'scale(1.1)' : 'scale(1)',

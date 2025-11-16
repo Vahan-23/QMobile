@@ -98,10 +98,61 @@
     font-size: clamp(30px, 3.9vw, 4.7rem) !important;
   }
 
-  /* Отступ сверху для блока с заголовком на ProductPage:
-     от 70px на широком экране до 20px при 769px */
-  .product-page-769 .homepage-title-wrapper {
-    margin-top: clamp(20px, 4vw, 70px) !important;
+  /* Текст "GET IT NOW PAY WITH CREDITS" над галереей:
+     от целевых 16px на 769px до исходных ~33px на широком экране */
+  .product-banner-text-769 {
+    font-size: clamp(16px, 1.7vw, 33px) !important;
+  }
+
+  /* Блок показа телефона (галерея справа):
+     padding-top плавно уменьшается до 0 к 769px */
+  .product-gallery-block-769 {
+    padding-top: clamp(0px, 1.5vw, 2.25rem) !important; /* lg:py-9 ≈ 2.25rem */
+  }
+
+  /* Текст "GET IT NOW PAY WITH CREDITS" над галереей:
+     от целевых 16px на 769px до исходных ~33px на широком экране */
+  .product-banner-text-769 {
+    font-size: clamp(16px, 1.7vw, 33px) !important;
+  }
+
+  /* Стрелки переключения фото:
+     от ~1.8rem на 769px до ~4rem (как раньше ~64px) на широком экране */
+  .product-gallery-arrow-769 {
+    width: clamp(1.8rem, 3vw, 4rem) !important;
+    height: clamp(1.8rem, 3vw, 4rem) !important;
+  }
+
+  /* Основное окно фото: высота от 270px на 769px до ~520px на широком экране */
+  .product-gallery-main-769 {
+    height: clamp(270px, 27vw, 520px) !important;
+  }
+
+  /* Превью-карточки под главным фото:
+     немного меньше и адаптивные по ширине/высоте */
+  .product-preview-769 {
+    width: clamp(70px, 7vw, 100px) !important;
+    height: clamp(70px, 7vw, 100px) !important;
+  }
+
+  /* Ряд превью: gap плавно идёт к 0 на 769px */
+  .product-preview-row-769 {
+    gap: clamp(0px, 0.8vw, 1.25rem) !important; /* gap-5 ≈ 1.25rem */
+  }
+
+  /* Контейнер главного фото + превью:
+     вертикальный gap между ними плавно идёт к 0 на 769px
+     и padding-bottom от 32px до 0 */
+  .product-gallery-container-769 {
+    gap: clamp(0px, 1.5vw, 2rem) !important; /* исходно 32px ≈ 2rem */
+    padding-bottom: clamp(0px, 2vw, 32px) !important;
+  }
+
+  /* Индикаторы под превью:
+     от 8px на 769px до 15px на широком экране */
+  .product-indicator-769 {
+    width: clamp(8px, 0.8vw, 15px) !important;
+    height: clamp(8px, 0.8vw, 15px) !important;
   }
 }
 
