@@ -10,6 +10,7 @@ import previewImage2 from './Assets/4.jpg';
 import visaLogo from './Assets/visa.png';
 import masterLogo from './Assets/master.png';
 import americanExpLogo from './Assets/americanexp.png';
+import './ProductPage.css';
 
 const ProductPage = () => {
   const { language, isRTL } = useLanguage();
@@ -167,7 +168,7 @@ const ProductPage = () => {
 
   return (
     <div
-      className="font-['Rubik',_sans-serif] text-[#03355c] bg-white min-h-screen overflow-x-hidden"
+      className="font-['Rubik',_sans-serif] text-[#03355c] bg-white min-h-screen overflow-x-hidden product-page-769"
       style={{
         fontFamily: "'Rubik', sans-serif"
       }}
@@ -184,13 +185,16 @@ const ProductPage = () => {
         />
       </div>
 
-      <main className="w-full px-5 pt-10 space-y-16" style={{ paddingBottom: 0 }}>
+      <main
+        className="w-full px-5 pt-10 space-y-16 product-main-769"
+        style={{ paddingBottom: 0 }}
+      >
         <section className="flex flex-row gap-10 items-start justify-between">
           {/* Product details */}
-          <div className="flex-1 space-y-6 px-6 py-7 lg:px-8 lg:py-9">
+          <div className="flex-1 space-y-6 px-6 py-7 lg:px-8 lg:py-9 product-main-block-769">
             <div className="space-y-2">
               <h2
-                className="font-bold"
+                className="font-bold product-title-769"
                 style={{
                   direction: isRTL ? 'rtl' : 'ltr',
                   fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
@@ -201,6 +205,7 @@ const ProductPage = () => {
                 {product.name}
               </h2>
               <p
+                className="product-installments-769"
                 style={{
                   marginTop: '20px',
                   color: '#000000',
@@ -214,6 +219,7 @@ const ProductPage = () => {
                 {product.installments}
               </p>
               <p
+                className="product-total-769"
                 style={{
                   marginTop: '10px',
                   direction: isRTL ? 'rtl' : 'ltr',
@@ -227,7 +233,7 @@ const ProductPage = () => {
             </div>
 
             <button
-              className="w-full md:w-auto inline-flex items-center justify-center font-semibold uppercase tracking-wide py-3 px-8 shadow hover:opacity-90 transition-opacity"
+              className="w-full md:w-auto inline-flex items-center justify-center font-semibold uppercase tracking-wide py-3 px-8 shadow hover:opacity-90 transition-opacity product-pay-credits-769"
               style={{
                 fontSize: '2rem',
                 borderRadius: '20px',
@@ -240,14 +246,14 @@ const ProductPage = () => {
               {formattedPayWithCredits}
             </button>
 
-            <div className="space-y-6 rounded-3xl pr-5 pl-0 py-6 lg:pr-6 lg:pl-0 lg:py-7"
+            <div className="space-y-6 rounded-3xl pr-5 pl-0 py-6 lg:pr-6 lg:pl-0 lg:py-7 product-options-block-769"
               style={{
                 marginTop: '30px'
               }}
             >
               <div className="space-y-3">
                 <p
-                  className="font-semibold text-[#4f6076]"
+                  className="font-semibold text-[#4f6076] product-color-label-769"
                   style={{
                     direction: isRTL ? 'rtl' : 'ltr',
                     fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
@@ -258,14 +264,14 @@ const ProductPage = () => {
                 >
                   {t.productPageColorLabel}:
                 </p>
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap gap-3 product-options-row-769">
                   {colorOptions.map(option => {
                     const isSelected = option.id === selectedColor;
                     return (
                       <button
                         key={option.id}
                         onClick={() => setSelectedColor(option.id)}
-                        className="px-14 py-3 border transition-all font-semibold"
+                        className="px-14 py-3 border transition-all font-semibold product-option-btn-769"
                         style={{
                           direction: isRTL ? 'rtl' : 'ltr',
                           fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
@@ -287,7 +293,7 @@ const ProductPage = () => {
 
               <div className="space-y-3">
                 <p
-                  className="font-semibold text-[#4f6076]"
+                  className="font-semibold text-[#4f6076] product-storage-label-769"
                   style={{
                     direction: isRTL ? 'rtl' : 'ltr',
                     fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
@@ -298,14 +304,14 @@ const ProductPage = () => {
                 >
                   {t.productPageStorageLabel}:
                 </p>
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap gap-3 product-options-row-769">
                   {storageOptions.map(option => {
                     const isSelected = option.id === selectedStorage;
                     return (
                       <button
                         key={option.id}
                         onClick={() => setSelectedStorage(option.id)}
-                        className="px-14 py-3 border transition-all font-semibold"
+                        className="px-14 py-3 border transition-all font-semibold product-option-btn-769"
                         style={{
                           direction: isRTL ? 'rtl' : 'ltr',
                           fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',

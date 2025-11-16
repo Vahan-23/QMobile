@@ -1,0 +1,109 @@
+@media (min-width: 769px) {
+  /* Заголовок MX1 PHONE:
+     от целевых ~21px на 769px до исходных ~52px на широком экране (1895px) */
+  .product-title-769 {
+    font-size: clamp(21px, 2.6vw, 52px) !important;
+  }
+
+  /* 320 NIS x 10:
+     от целевых ~19px на 769px до ~46px на широком экране */
+  .product-installments-769 {
+    font-size: clamp(19px, 2.3vw, 46px) !important;
+    /* margin-top как было, но плавно уменьшается до 0 */
+    margin-top: clamp(0px, 1.1vw, 20px) !important;
+  }
+
+  /* (Total 3200 NIS):
+     от целевых ~18px на 769px до исходных 46px на широком экране (1895px) */
+  .product-total-769 {
+    font-size: clamp(18px, 2.3vw, 46px) !important;
+    /* margin-top как было (10px), но плавно уменьшается до 0 */
+    margin-top: clamp(0px, 0.6vw, 10px) !important;
+  }
+
+  /* PAY WITH 10 CREDITS:
+     от целевых ~13px на 769px до ~32px на широком экране */
+  .product-pay-credits-769 {
+    font-size: clamp(13px, 1.6vw, 32px) !important;
+    border-radius: clamp(10px, 1vw, 20px) !important;
+    /* Плавное уменьшение внутреннего отступа до 0 при сужении экрана */
+    padding-block: clamp(0px, 0.9vw, 12px) !important;  /* верх/низ */
+    padding-inline: clamp(0px, 3vw, 32px) !important;   /* слева/справа */
+    /* отступ сверху относительно текста над кнопкой */
+    margin-top: clamp(0.75rem, 1.4vw, 1.5rem) !important;
+  }
+
+  /* Основной блок (где заголовок, цены и кнопка):
+     общий padding всех сторон плавно уменьшается до 0,
+     c более плавной кривой (до 1vw) */
+  .product-main-block-769 {
+    padding: clamp(0px, 1vw, 2.5rem) !important;
+  }
+
+  /* Основная секция main:
+     padding-top плавно уменьшается с 2.5rem до 1.5rem
+     и padding-left идёт к 0 */
+  .product-main-769 {
+    padding-top: clamp(1.5rem, 2vw, 2.5rem) !important;
+    padding-left: clamp(0px, 1.5vw, 1.25rem) !important; /* px-5 ≈ 1.25rem */
+  }
+
+  /* Подпись Color / Storage:
+     от целевого 15px на 769px до исходных 37px на 1895px */
+  .product-color-label-769,
+  .product-storage-label-769 {
+    font-size: clamp(15px, 1.9vw, 37px) !important;
+  }
+
+  /* Кнопки Black / White / Silver и Storage:
+     - font-size от 13px до исходных 30px
+     - border-radius от 11px до исходных 20px
+     - padding от заданных 1.5rem/0.45rem до текущих значений */
+  .product-option-btn-769 {
+    font-size: clamp(13px, 1.5vw, 30px) !important;
+    border-radius: clamp(11px, 1.1vw, 20px) !important;
+    /* толщина рамки адаптивно: тоньше к 769px, нормальная на широком экране */
+    border-width: clamp(0.5px, 0.08vw, 1px) !important;
+    /* уменьшаем визуальную ширину на 3px с каждой стороны */
+    padding-left: calc(clamp(1.5rem, 2.5vw, 3.5rem) - 3px) !important;
+    padding-right: calc(clamp(1.5rem, 2.5vw, 3.5rem) - 3px) !important;
+    padding-top: clamp(0.45rem, 0.8vw, 0.75rem) !important;
+    padding-bottom: clamp(0.45rem, 0.8vw, 0.75rem) !important;
+  }
+
+  /* Контейнер с кнопками Color / Storage:
+     всегда остаётся в один ряд на вебе (>=769px)
+     и уменьшает gap до ~0.35rem на 769px */
+  .product-options-row-769 {
+    flex-wrap: nowrap !important;
+    gap: clamp(0.35rem, 0.7vw, 0.75rem) !important;
+  }
+
+  /* Блок с Color / Storage опциями:
+     padding-top и margin-top плавно уменьшаются до 0 */
+  .product-options-block-769 {
+    padding-top: clamp(0px, 1.2vw, 24px) !important; /* py-6 ≈ 24px */
+    margin-top: clamp(0px, 1.9vw, 30px) !important;
+  }
+
+  /* Заголовок MARKETPLACE в хедере на ProductPage:
+     смещаем вверх и задаём фиксированный размер текста 31px */
+  .product-page-769 .homepage-title-wrapper {
+    margin-top: 0 !important;
+  }
+
+  /* Заголовок MARKETPLACE:
+     от исходного большого размера (как в header) до ~30px к 769px */
+  .product-page-769 .homepage-title-main {
+    font-size: clamp(30px, 3.9vw, 4.7rem) !important;
+  }
+
+  /* Отступ сверху для блока с заголовком на ProductPage:
+     от 70px на широком экране до 20px при 769px */
+  .product-page-769 .homepage-title-wrapper {
+    margin-top: clamp(20px, 4vw, 70px) !important;
+  }
+}
+
+
+
