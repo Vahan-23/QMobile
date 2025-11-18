@@ -31,6 +31,21 @@
     padding-inline: clamp(0px, 3vw, 32px) !important;   /* слева/справа */
     /* отступ сверху относительно текста над кнопкой */
     margin-top: clamp(0.75rem, 1.4vw, 1.5rem) !important;
+    flex-direction: row !important;
+  }
+
+  /* На desktop показываем desktop версию, скрываем mobile */
+  .product-pay-credits-desktop {
+    display: inline !important;
+  }
+
+  .product-pay-credits-mobile {
+    display: none !important;
+  }
+
+  /* Скрываем мобильную версию блока Color/Storage на desktop */
+  .product-options-section-mobile-769 {
+    display: none !important;
   }
 
   /* Основной блок (где заголовок, цены и кнопка):
@@ -260,10 +275,20 @@
     grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
     gap: clamp(0px, 1vw, 1.5rem) !important;
     padding-inline: clamp(30px, 3vw, 60px) !important;
+    display: grid !important;
   }
 }
 
 @media (min-width: 769px) {
+  /* На desktop показываем grid, скрываем мобильную версию */
+  .product-interest-grid-769 {
+    display: grid !important;
+  }
+
+  .product-interest-mobile-769 {
+    display: none !important;
+  }
+
   /* Карточки в блоке "Also might interest you" (через общий класс ProductCard):
      уменьшаем шрифты и кнопки, чтобы 4 карты комфортно помещались в линию при 769px */
   .product-interest-grid-769 .product-card-769 h3 {
@@ -283,6 +308,372 @@
     font-size: clamp(12px, 1.4vw, 20px) !important;
     padding-block: clamp(4px, 0.6vw, 8px) !important;
     padding-inline: clamp(16px, 2.2vw, 24px) !important;
+  }
+}
+
+/* Mobile styles for phones (max-width: 768px) */
+@media (max-width: 768px) {
+  /* Основная секция: меняем flex-direction на column, чтобы галерея была внизу */
+  .product-page-769 main > section:first-of-type {
+    flex-direction: column !important;
+    display: flex !important;
+    position: relative !important;
+  }
+
+  /* Блок с деталями продукта: используем display: contents чтобы дочерние элементы стали прямыми детьми секции */
+  .product-main-block-769 {
+    display: contents !important;
+  }
+
+  /* Контейнер с заголовком, ценой и total: делаем flex-column */
+  .product-main-block-769 > div:first-of-type {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.25rem !important;
+    margin-bottom: 0 !important;
+    flex: 1 1 auto !important;
+    min-width: 200px !important;
+  }
+
+  /* Заголовок MX1 PHONE: на всю ширину, отдельная строка */
+  .product-main-block-769 > div:first-of-type > h2 {
+    width: 100% !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  /* Обертка для цены и total: делаем их inline */
+  .product-main-block-769 > div:first-of-type > p.product-installments-769,
+  .product-main-block-769 > div:first-of-type > p.product-total-769 {
+    display: inline-block !important;
+  }
+
+  /* 320 NIS x 10: увеличиваем размер еще немного больше */
+  .product-installments-769 {
+    font-size: 36px !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    margin-right: 0.5rem !important;
+  }
+
+  /* (Total 3200 NIS): увеличиваем размер еще немного больше */
+  .product-total-769 {
+    font-size: 32px !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    margin-right: 0.5rem !important;
+  }
+
+  /* PAY WITH 10 CREDITS: увеличиваем размер, увеличиваем padding сверху/снизу, убираем margin-top */
+  .product-pay-credits-769 {
+    font-size: 35px !important;
+    padding: 27px 56px !important;
+    white-space: normal !important;
+    width: auto !important;
+    display: inline-flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    align-self: flex-start !important;
+    flex: 0 0 auto !important;
+    margin-left: 0.5rem !important;
+    margin-top: 0 !important;
+    line-height: 1.2 !important;
+  }
+
+  /* Скрываем desktop версию на мобильной */
+  .product-pay-credits-desktop {
+    display: none !important;
+  }
+
+  /* Показываем mobile версию на мобильной */
+  .product-pay-credits-mobile {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 0.25rem !important;
+  }
+
+  .product-pay-credits-mobile > span {
+    display: block !important;
+  }
+
+  /* Блок с деталями продукта: используем flex-row с wrap для размещения элементов */
+  .product-main-block-769 {
+    order: 1 !important;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: flex-start !important;
+    gap: 0.5rem !important;
+  }
+
+  /* Скрываем блок Color/Storage внутри product-main-block-769 на мобильной версии */
+  .product-main-block-769 > .product-options-block-769 {
+    display: none !important;
+  }
+
+  /* Галерея: делаем отдельным блоком, перемещаем после заголовка/цены/кнопки */
+  .product-gallery-block-769 {
+    order: 2 !important;
+    width: 100% !important;
+  }
+
+  /* Показываем блок Color/Storage после галереи только на мобильной версии */
+  .product-options-section-mobile-769 {
+    display: block !important;
+    order: 3 !important;
+    width: 100% !important;
+  }
+
+  /* Убираем margin-top, padding-left и padding-top из блока Color/Storage на мобильной версии */
+  .product-options-block-mobile-769 {
+    margin-top: 0 !important;
+    padding-left: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 3.5rem !important;
+  }
+
+  /* Стили для кнопок Color/Storage (Black, White, Silver и т.д.) на мобильной версии */
+  .product-option-btn-769 {
+    padding-left: 3rem !important;
+    padding-right: 3rem !important;
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+    font-size: 22px !important;
+    border-radius: 30px !important;
+    min-width: 180px !important;
+    width: auto !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* Центрируем кнопки Color/Storage на мобильной версии */
+  .product-options-row-769 {
+    justify-content: center !important;
+  }
+
+  /* Размер шрифта для текста Color и Storage на мобильной версии */
+  .product-color-label-769,
+  .product-storage-label-769 {
+    font-size: 30px !important;
+    text-align: left !important;
+    padding-left: 75px !important;
+  }
+
+  /* Размер шрифта для текста Total */
+  .product-total-label-769 {
+    font-size: 37px !important;
+  }
+
+  /* Размер шрифта и вес для всех текстов в блоке Total (3200 ILS и остальные) */
+  .product-total-amount-769,
+  .product-total-divider-769,
+  .product-total-equals-769,
+  .product-total-permonth-769 {
+    font-size: 32px !important;
+    font-weight: 500 !important;
+  }
+
+  /* Flex-direction column для блока Total на мобильной версии, чтобы кнопка ADD TO CART была внизу */
+  .product-total-section-769 {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 1.5rem !important;
+    padding-left: 70px !important;
+    padding-right: 70px !important;
+  }
+
+  .product-total-row-769 {
+    width: 100% !important;
+    justify-content: center !important;
+    gap: 2.5rem !important;
+  }
+
+  /* Стили для кнопки ADD TO CART на мобильной версии */
+  .product-total-button-769 {
+    padding: 20px 200px !important;
+    font-size: 35px !important;
+  }
+
+  /* Ширина инпута Credits в блоке Total на мобильной версии */
+  .product-total-input-769 {
+    width: 200px !important;
+  }
+
+  /* Размер шрифта для текста "We support secure payment..." на мобильной версии */
+  .product-payment-support-769 {
+    font-size: 30px !important;
+  }
+
+  /* Увеличиваем размер логотипов карт (VISA, Mastercard, American Express) на мобильной версии */
+  .product-payment-logo-769 {
+    height: 80px !important;
+  }
+
+  /* Размещаем логотипы карт рядом с текстом на мобильной версии - продолжение текста */
+  .product-payment-section-769 > div > div {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+  }
+
+  /* Текст и логотипы на одной строке - выравнивание по центру */
+  .product-payment-support-769 {
+    display: inline-block !important;
+    margin: 0 !important;
+    margin-right: 0.5rem !important;
+    vertical-align: middle !important;
+    line-height: normal !important;
+  }
+
+  .product-payment-logo-769 {
+    display: inline-block !important;
+    vertical-align: middle !important;
+    margin: 0 !important;
+    margin-left: 2rem !important;
+  }
+
+  .product-payment-logo-769:first-of-type {
+    margin-left: 0.75rem !important;
+  }
+
+  /* Добавляем линию после текста "We support secure payment..." как после "GET IT NOW PAY WITH CREDITS" */
+  .product-payment-support-769::after {
+    content: '' !important;
+    display: block !important;
+    width: 100% !important;
+    height: 2px !important;
+    background-color: #3f7dac !important;
+    margin: 1rem auto 0 !important;
+  }
+
+  /* Размер шрифта для заголовка "Product description:" на мобильной версии */
+  .product-description-heading-769 {
+    font-size: 38px !important;
+  }
+
+  /* Размер шрифта для текста описания продукта "Sed ut perspiciatis..." на мобильной версии */
+  .product-description-text-769 {
+    font-size: 30px !important;
+  }
+
+  /* Размер шрифта и центрирование для заголовка "Also might interest you" на мобильной версии */
+  .product-interest-heading-769 {
+    font-size: 38px !important;
+    text-align: center !important;
+  }
+
+  /* Контейнер заголовка "Also might interest you": убираем padding-left и центрируем на мобильной версии */
+  .product-page-769 section:last-of-type > div:first-of-type {
+    padding-left: 0 !important;
+    justify-content: center !important;
+  }
+
+  /* Размер шрифта для заголовка MARKETPLACE в header на мобильной версии */
+  .product-page-769 .homepage-title-main {
+    font-size: 50px !important;
+  }
+
+  /* Мобильная версия блока "Also might interest you": скрываем grid, показываем одну карточку со стрелками */
+  .product-interest-grid-769 {
+    display: none !important;
+  }
+
+  .product-interest-mobile-769 {
+    display: flex !important;
+    min-height: 400px !important;
+  }
+
+  .product-interest-main-card-769 {
+    width: 100% !important;
+    max-width: 600px !important;
+  }
+
+  .product-interest-arrow-769 {
+    z-index: 10 !important;
+  }
+
+  /* Размер шрифта для заголовка продукта в карточке на мобильной версии */
+  .product-interest-main-card-769 .product-card-769 h3 {
+    font-size: 40px !important;
+  }
+
+  /* Размер шрифта для цены "320 NIS x 10" в карточке на мобильной версии */
+  .product-interest-main-card-769 .product-card-769 p:nth-of-type(1) {
+    font-size: 37px !important;
+  }
+
+  /* Размер шрифта для "(Total 3200 NIS)" в карточке на мобильной версии */
+  .product-interest-main-card-769 .product-card-769 p:nth-of-type(2) {
+    font-size: 32px !important;
+  }
+
+  /* Размер шрифта для кнопки "ADD TO CART" в карточке на мобильной версии */
+  .product-interest-main-card-769 .product-card-769 button {
+    font-size: 32px !important;
+  }
+
+  /* Основное окно фото: высота 380px только для мобильной версии */
+  .product-gallery-main-769 {
+    height: 380px !important;
+  }
+
+  /* Перемещаем текст "GET IT NOW PAY WITH CREDITS" вниз галереи только на мобильной версии */
+  .product-gallery-block-769 {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+  }
+
+  /* Убираем margin-bottom из контейнера галереи */
+  .product-gallery-container-769 {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  /* Перемещаем текст в конец через order */
+  .product-gallery-block-769 > .product-banner-wrapper-769 {
+    order: 999 !important;
+    margin-top: 1rem !important;
+    margin-bottom: 0 !important;
+    position: relative !important;
+  }
+
+  /* Добавляем линию после текста GET IT NOW PAY WITH CREDITS */
+  .product-gallery-block-769 > .product-banner-wrapper-769::after {
+    content: '' !important;
+    display: block !important;
+    width: 90% !important;
+    height: 2px !important;
+    background-color: #3f7dac !important;
+    margin: 1rem auto 0 !important;
+  }
+
+  /* Превью-карточки: делаем меньше для мобильной версии */
+  .product-preview-769 {
+    width: 75px !important;
+    height: 75px !important;
+  }
+
+  /* Увеличиваем gap между превью-карточками */
+  .product-preview-row-769 {
+    gap: 1.5rem !important;
+  }
+
+  /* Индикаторы: увеличиваем размер и gap для мобильной версии */
+  .product-indicator-769 {
+    width: 15px !important;
+    height: 15px !important;
+  }
+
+  /* Gap между индикаторами и отступ сверху, чтобы были ниже превью */
+  .product-gallery-container-769 > div:last-of-type {
+    gap: 0.75rem !important;
+    margin-top: 1.5rem !important;
   }
 }
 

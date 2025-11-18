@@ -8,19 +8,8 @@ const ProductCard = ({ product }) => {
   return (
     <>
       <style>{`
-        @keyframes bubble {
-          0% { transform: scale(0.98); }
-          40% { transform: scale(0.96); }
-          100% { transform: scale(1.05); }
-        }
-        .product-card:hover {
-          animation: bubble 0.4s ease-out forwards;
-        }
         .product-card {
-          transition: transform 0.3s ease-out;
-        }
-        .product-card:not(:hover) {
-          transform: scale(1);
+          /* Эффекты убраны */
         }
       `}</style>
       <div 
@@ -87,7 +76,7 @@ const ProductCard = ({ product }) => {
 
         {/* Add to Cart Button */}
         <button 
-          className="mx-auto text-white py-1 md:py-1.5 px-6 md:px-8 rounded-full font-medium hover:opacity-90 transition-opacity mt-3" 
+          className="mx-auto text-white py-1 md:py-1.5 px-6 md:px-8 rounded-full font-medium mt-3" 
           style={{ 
             backgroundColor: '#005291', 
             fontSize: '1.2rem',

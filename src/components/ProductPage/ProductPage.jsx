@@ -61,6 +61,7 @@ const ProductPage = () => {
     storageOptions[0]?.id ?? ''
   );
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [currentProductIndex, setCurrentProductIndex] = useState(0);
   const [creditsInput, setCreditsInput] = useState(product.credits.toString());
   const inputRef = useRef(null);
   const [creditsPosition, setCreditsPosition] = useState(20);
@@ -154,6 +155,46 @@ const ProductPage = () => {
     return template.replace('{credits}', product.credits);
   }, [product.credits, t]);
 
+  // Для мобильной версии: разделяем текст на две строки
+  const formattedPayWithCreditsMobile = useMemo(() => {
+    const template = t.productPagePayWithCredits || '';
+    const fullText = template.replace('{credits}', product.credits);
+    // Разделяем на "PAY WITH" и "10 CREDITS!"
+    // Ищем паттерн "PAY WITH" и все что после
+    if (fullText.toUpperCase().includes('PAY WITH')) {
+      const upperText = fullText.toUpperCase();
+      const payWithIndex = upperText.indexOf('PAY WITH');
+      const beforePayWith = fullText.substring(0, payWithIndex).trim();
+      const afterPayWith = fullText.substring(payWithIndex + 'PAY WITH'.length).trim();
+      
+      if (afterPayWith) {
+        return (
+          <>
+            <span>PAY WITH</span>
+            <span>{afterPayWith}</span>
+          </>
+        );
+      }
+    }
+    // Альтернативный вариант: разделяем по числу и "CREDITS"
+    const creditsMatch = fullText.match(/(\d+)\s*CREDITS?/i);
+    if (creditsMatch) {
+      const creditsIndex = fullText.indexOf(creditsMatch[0]);
+      const beforeCredits = fullText.substring(0, creditsIndex).trim();
+      const creditsPart = fullText.substring(creditsIndex).trim();
+      if (beforeCredits && creditsPart) {
+        return (
+          <>
+            <span>{beforeCredits}</span>
+            <span>{creditsPart}</span>
+          </>
+        );
+      }
+    }
+    // Если ничего не подошло, возвращаем как есть
+    return <span>{fullText}</span>;
+  }, [product.credits, t]);
+
   const formattedPerMonth = useMemo(() => {
     const template = t.productPagePerMonthLabel || '';
     return template.replace('{count}', product.installments);
@@ -170,6 +211,21 @@ const ProductPage = () => {
   const goToNextImage = () => {
     setActiveImageIndex(prevIndex => {
       const nextIndex = (prevIndex + 1) % galleryImages.length;
+      return nextIndex;
+    });
+  };
+
+  const goToPreviousProduct = () => {
+    setCurrentProductIndex(prevIndex => {
+      const nextIndex =
+        (prevIndex - 1 + recommendedProducts.length) % recommendedProducts.length;
+      return nextIndex;
+    });
+  };
+
+  const goToNextProduct = () => {
+    setCurrentProductIndex(prevIndex => {
+      const nextIndex = (prevIndex + 1) % recommendedProducts.length;
       return nextIndex;
     });
   };
@@ -251,7 +307,8 @@ const ProductPage = () => {
                 fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
               }}
             >
-              {formattedPayWithCredits}
+              <span className="product-pay-credits-desktop">{formattedPayWithCredits}</span>
+              <span className="product-pay-credits-mobile">{formattedPayWithCreditsMobile}</span>
             </button>
 
             <div className="space-y-6 rounded-3xl pr-5 pl-0 py-6 lg:pr-6 lg:pl-0 lg:py-7 product-options-block-769"
@@ -467,6 +524,95 @@ const ProductPage = () => {
           </div>
         </section>
 
+        {/* Color and Storage Options Block - Mobile Only */}
+        <section className="w-full product-options-section-mobile-769">
+          <div className="space-y-6 rounded-3xl pr-5 pl-0 py-6 lg:pr-6 lg:pl-0 lg:py-7 product-options-block-mobile-769 px-6 lg:px-8"
+            style={{
+              marginTop: '30px'
+            }}
+          >
+            <div className="space-y-3">
+              <p
+                className="font-semibold text-[#4f6076] product-color-label-769"
+                style={{
+                  direction: isRTL ? 'rtl' : 'ltr',
+                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                  fontSize: '37px',
+                  marginBottom: '18px',
+                  color: '#03355c'
+                }}
+              >
+                {t.productPageColorLabel}:
+              </p>
+              <div className="flex flex-wrap gap-3 product-options-row-769">
+                {colorOptions.map(option => {
+                  const isSelected = option.id === selectedColor;
+                  return (
+                    <button
+                      key={option.id}
+                      onClick={() => setSelectedColor(option.id)}
+                      className="px-14 py-3 border transition-all font-semibold product-option-btn-769"
+                      style={{
+                        direction: isRTL ? 'rtl' : 'ltr',
+                        fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                        fontSize: '30px',
+                        borderRadius: '20px',
+                        backgroundColor: isSelected ? '#66c8d5' : '#ffffff',
+                        color: '#03355c',
+                        borderColor: '#03355c',
+                        fontWeight: 'bold'
+                      }}
+                      type="button"
+                    >
+                      {option.label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <p
+                className="font-semibold text-[#4f6076] product-storage-label-769"
+                style={{
+                  direction: isRTL ? 'rtl' : 'ltr',
+                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                  fontSize: '37px',
+                  marginBottom: '18px',
+                  color: '#03355c'
+                }}
+              >
+                {t.productPageStorageLabel}:
+              </p>
+              <div className="flex flex-wrap gap-3 product-options-row-769">
+                {storageOptions.map(option => {
+                  const isSelected = option.id === selectedStorage;
+                  return (
+                    <button
+                      key={option.id}
+                      onClick={() => setSelectedStorage(option.id)}
+                      className="px-14 py-3 border transition-all font-semibold product-option-btn-769"
+                      style={{
+                        direction: isRTL ? 'rtl' : 'ltr',
+                        fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                        fontSize: '30px',
+                        borderRadius: '20px',
+                        backgroundColor: isSelected ? '#66c8d5' : '#ffffff',
+                        color: '#03355c',
+                        borderColor: '#03355c',
+                        fontWeight: 'bold'
+                      }}
+                      type="button"
+                    >
+                      {option.label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Total Block */}
         <section className="w-full" style={{ backgroundColor: '#f0f0f0', marginLeft: '-20px', marginRight: '-20px', width: 'calc(100% + 40px)', marginTop: '-30px' }}>
           <div
@@ -612,23 +758,26 @@ const ProductPage = () => {
                   }}
                 >
                   {t.productPagePaymentSupport}
+                  {[
+                    { name: 'VISA', logo: visaLogo },
+                    { name: 'Mastercard', logo: masterLogo },
+                    { name: 'American Express', logo: americanExpLogo }
+                  ].map(card => (
+                    <img
+                      key={card.name}
+                      src={card.logo}
+                      alt={card.name}
+                      className="product-payment-logo-769"
+                      style={{
+                        width: 'auto',
+                        objectFit: 'contain',
+                        display: 'inline-block',
+                        verticalAlign: 'middle',
+                        marginLeft: '0.75rem'
+                      }}
+                    />
+                  ))}
                 </p>
-                {[
-                  { name: 'VISA', logo: visaLogo },
-                  { name: 'Mastercard', logo: masterLogo },
-                  { name: 'American Express', logo: americanExpLogo }
-                ].map(card => (
-                  <img
-                    key={card.name}
-                    src={card.logo}
-                    alt={card.name}
-                    className="product-payment-logo-769"
-                    style={{
-                      width: 'auto',
-                      objectFit: 'contain'
-                    }}
-                  />
-                ))}
               </div>
             </div>
 
@@ -671,6 +820,7 @@ const ProductPage = () => {
             </h3>
           </div>
 
+          {/* Desktop version: grid with all cards */}
           <div
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 product-interest-grid-769"
             style={{ paddingLeft: 0, paddingRight: 0, paddingBottom: 0 }}
@@ -678,6 +828,45 @@ const ProductPage = () => {
             {recommendedProducts.map(productItem => (
               <ProductCard key={productItem.id} product={productItem} />
             ))}
+          </div>
+
+          {/* Mobile version: single card with arrows */}
+          <div
+            className="relative flex items-center justify-center product-interest-mobile-769"
+            style={{ paddingLeft: 0, paddingRight: 0, paddingBottom: 0 }}
+          >
+            <button
+              type="button"
+              onClick={goToPreviousProduct}
+              className="absolute left-4 top-1/2 -translate-y-1/2 flex items-center justify-center z-10 product-interest-arrow-769"
+              aria-label="Previous product"
+            >
+              <img
+                src="/Images/2x/arrow_left@2x.png"
+                alt="Previous"
+                className="w-16 h-16 object-contain"
+              />
+            </button>
+
+            <div className="w-full max-w-[600px] product-interest-main-card-769">
+              <ProductCard
+                key={recommendedProducts[currentProductIndex].id}
+                product={recommendedProducts[currentProductIndex]}
+              />
+            </div>
+
+            <button
+              type="button"
+              onClick={goToNextProduct}
+              className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center justify-center z-10 product-interest-arrow-769"
+              aria-label="Next product"
+            >
+              <img
+                src="/Images/2x/arrow_right@2x.png"
+                alt="Next"
+                className="w-16 h-16 object-contain"
+              />
+            </button>
           </div>
         </section>
       </main>
