@@ -425,31 +425,37 @@
     width: 100% !important;
   }
 
-  /* Убираем margin-top, padding-left и padding-top из блока Color/Storage на мобильной версии */
+  /* Убираем margin-top, padding-left, padding-right и padding-top из блока Color/Storage на мобильной версии */
   .product-options-block-mobile-769 {
     margin-top: 0 !important;
     padding-left: 0 !important;
+    padding-right: 0 !important;
     padding-top: 0 !important;
     padding-bottom: 3.5rem !important;
   }
 
   /* Стили для кнопок Color/Storage (Black, White, Silver и т.д.) на мобильной версии */
   .product-option-btn-769 {
-    padding-left: 3rem !important;
-    padding-right: 3rem !important;
-    padding-top: 1rem !important;
-    padding-bottom: 1rem !important;
-    font-size: 22px !important;
-    border-radius: 30px !important;
-    min-width: 180px !important;
-    width: auto !important;
+    /* На 768px: 22px, padding 3rem/1rem, border-radius 30px, min-width 180px */
+    /* На 290px: 16px, padding 0.5rem/0.25rem, border-radius 12px, min-width 0px */
+    /* Используем простую формулу: min + (max - min) * ((vw - minVw) / (maxVw - minVw)) */
+    font-size: clamp(10px, calc(10px + 8 * ((100vw - 290px) / 478)), 18px) !important;
+    padding-left: clamp(12px, calc(12px + 36 * ((100vw - 290px) / 478)), 48px) !important;
+    padding-right: clamp(12px, calc(12px + 36 * ((100vw - 290px) / 478)), 48px) !important;
+    padding-top: clamp(8px, calc(8px + 8 * ((100vw - 290px) / 478)), 16px) !important;
+    padding-bottom: clamp(8px, calc(8px + 8 * ((100vw - 290px) / 478)), 16px) !important;
+    border-radius: clamp(15px, calc(15px + 15 * ((100vw - 290px) / 478)), 30px) !important;
+    min-width: clamp(80px, calc(80px + 100 * ((100vw - 290px) / 478)), 180px) !important;
+    width: clamp(80px, calc(80px + 100 * ((100vw - 290px) / 478)), 180px) !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
   }
 
-  /* Центрируем кнопки Color/Storage на мобильной версии */
+  /* Кнопки Color/Storage в ряд на мобильной версии */
   .product-options-row-769 {
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
     justify-content: center !important;
   }
 
@@ -487,7 +493,6 @@
   .product-total-row-769 {
     width: 100% !important;
     justify-content: center !important;
-    gap: 2.5rem !important;
   }
 
   /* Стили для кнопки ADD TO CART на мобильной версии */
@@ -571,6 +576,11 @@
     padding-left: 0 !important;
     justify-content: center !important;
   }
+  
+  /* Margin-top для секции "Also might interest you": от исходного на 768px до 0 на 290px */
+  .product-page-769 section:last-of-type {
+    margin-top: clamp(0px, calc(0px + 40 * ((100vw - 290px) / (768 - 290))), 40px) !important;
+  }
 
   /* Размер шрифта для заголовка MARKETPLACE в header на мобильной версии */
   .product-page-769 .homepage-title-main {
@@ -594,6 +604,10 @@
 
   .product-interest-arrow-769 {
     z-index: 10 !important;
+    /* Позиционируем стрелки по центру изображения в карточке, еще ниже на 290px */
+    /* Изображение квадратное (aspect-square) и занимает 75% ширины, центрируем стрелки по его вертикальному центру */
+    top: clamp(28%, calc(28% + 2 * ((100vw - 290px) / (768 - 290))), 30%) !important;
+    transform: translateY(0) !important;
   }
 
   /* Размер шрифта для заголовка продукта в карточке на мобильной версии */
@@ -701,19 +715,6 @@
     padding-right: clamp(20px, calc(20px + (56 - 20) * ((100vw - 290px) / (768 - 290))), 56px) !important;
   }
 
-  /* Кнопки Color/Storage: от 22px на 768px до ~10px на 290px */
-  .product-option-btn-769 {
-    font-size: clamp(10px, calc(10px + (22 - 10) * ((100vw - 290px) / (768 - 290))), 22px) !important;
-    /* Padding: от 3rem 1rem на 768px до ~1rem 0.5rem на 290px */
-    padding-left: clamp(1rem, calc(1rem + (3 - 1) * ((100vw - 290px) / (768 - 290)) * 1rem), 3rem) !important;
-    padding-right: clamp(1rem, calc(1rem + (3 - 1) * ((100vw - 290px) / (768 - 290)) * 1rem), 3rem) !important;
-    padding-top: clamp(0.5rem, calc(0.5rem + (1 - 0.5) * ((100vw - 290px) / (768 - 290)) * 1rem), 1rem) !important;
-    padding-bottom: clamp(0.5rem, calc(0.5rem + (1 - 0.5) * ((100vw - 290px) / (768 - 290)) * 1rem), 1rem) !important;
-    /* Border-radius: от 30px на 768px до ~15px на 290px */
-    border-radius: clamp(15px, calc(15px + (30 - 15) * ((100vw - 290px) / (768 - 290))), 30px) !important;
-    /* Min-width: от 180px на 768px до ~100px на 290px */
-    min-width: clamp(100px, calc(100px + (180 - 100) * ((100vw - 290px) / (768 - 290))), 180px) !important;
-  }
 
   /* Размер шрифта для текста Color и Storage: от 30px на 768px до ~12px на 290px */
   .product-color-label-769,
@@ -746,13 +747,15 @@
     padding-right: clamp(60px, calc(60px + (200 - 60) * ((100vw - 290px) / (768 - 290))), 200px) !important;
   }
 
-  /* Ширина инпута Credits: от 200px на 768px до ~120px на 290px */
+  /* Ширина инпута Credits: от 200px на 768px до 85px на 290px */
   .product-total-input-769 {
-    width: clamp(120px, calc(120px + (200 - 120) * ((100vw - 290px) / (768 - 290))), 200px) !important;
+    width: clamp(85px, calc(85px + (200 - 85) * ((100vw - 290px) / (768 - 290))), 200px) !important;
     /* Font-size: от 40px на 768px до ~16px на 290px (если есть в JSX) */
     font-size: clamp(16px, calc(16px + (40 - 16) * ((100vw - 290px) / (768 - 290))), 40px) !important;
-    /* Height: от 80px на 768px до ~40px на 290px */
-    height: clamp(40px, calc(40px + (80 - 40) * ((100vw - 290px) / (768 - 290))), 80px) !important;
+    /* Height: от 80px на 768px до 35px на 290px */
+    height: clamp(35px, calc(35px + (80 - 35) * ((100vw - 290px) / (768 - 290))), 80px) !important;
+    /* Border-radius: от 20px на 768px до 15px на 290px */
+    border-radius: clamp(15px, calc(15px + (20 - 15) * ((100vw - 290px) / (768 - 290))), 20px) !important;
   }
 
   /* Padding блока Total: от 70px на 768px до ~16px на 290px */
@@ -763,9 +766,20 @@
     gap: clamp(0.75rem, calc(0.75rem + (1.5 - 0.75) * ((100vw - 290px) / (768 - 290)) * 1rem), 1.5rem) !important;
   }
 
-  /* Gap в product-total-row: от 2.5rem на 768px до ~0.5rem на 290px */
+  /* Gap в product-total-row: от 2.5rem на 768px до 1.5rem на 290px */
   .product-total-row-769 {
-    gap: clamp(0.5rem, calc(0.5rem + (2.5 - 0.5) * ((100vw - 290px) / (768 - 290)) * 1rem), 2.5rem) !important;
+    gap: clamp(1.5rem, calc(1.5rem + (2.5 - 1.5) * ((100vw - 290px) / (768 - 290)) * 1rem), 2.5rem) !important;
+  }
+  
+  /* Line-height для текстов в блоке total: от нормального на 768px до 0rem на 290px */
+  .product-total-row-769 .product-total-label-769,
+  .product-total-row-769 .product-total-amount-769,
+  .product-total-row-769 .product-total-divider-769,
+  .product-total-row-769 .product-total-equals-769,
+  .product-total-row-769 .product-total-permonth-769,
+  .product-total-row-769 > span,
+  .product-total-row-769 > div {
+    line-height: clamp(0rem, calc(0rem + 1.5rem * ((100vw - 290px) / (768 - 290))), 1.5rem) !important;
   }
 
   /* Размер шрифта для текста "We support secure payment...": от 30px на 768px до ~12px на 290px */
@@ -814,6 +828,11 @@
   .product-interest-main-card-769 .product-card-769 button {
     font-size: clamp(12px, calc(12px + (32 - 12) * ((100vw - 290px) / (768 - 290))), 32px) !important;
   }
+  
+  /* Ширина изображения в карточке "Also might interest you": от 75% на 768px до 65% на 290px */
+  .product-interest-main-card-769 .product-card-769 .w-\[75\%\] {
+    width: clamp(65%, calc(65% + (75 - 65) * ((100vw - 290px) / (768 - 290))), 75%) !important;
+  }
 
   /* Высота основного окна фото: от 380px на 768px до ~200px на 290px */
   .product-gallery-main-769 {
@@ -844,8 +863,10 @@
   }
 
   /* Padding-bottom блока Color/Storage: от 3.5rem на 768px до ~1rem на 290px */
+  /* Margin-top: от 0 на 768px до -70px на 290px */
   .product-options-block-mobile-769 {
     padding-bottom: clamp(1rem, calc(1rem + (3.5 - 1) * ((100vw - 290px) / (768 - 290)) * 1rem), 3.5rem) !important;
+    margin-top: clamp(-70px, calc(-70px + 70 * ((100vw - 290px) / (768 - 290))), 0px) !important;
   }
 
   /* Gap в product-main-block: от 0.5rem на 768px до ~0.25rem на 290px */
@@ -902,6 +923,14 @@
   /* Gap в payment-section: от 0.75rem на 768px до ~0.25rem на 290px */
   .product-payment-section-769 > div > div {
     gap: clamp(0.25rem, calc(0.25rem + (0.75 - 0.25) * ((100vw - 290px) / (768 - 290)) * 1rem), 0.75rem) !important;
+  }
+  
+  /* Padding-left и padding-right для секции payment: от исходного на 768px до 0 на 290px */
+  /* Margin-top: от исходного на 768px до 20px на 290px */
+  .product-payment-section-769 {
+    padding-left: clamp(0px, calc(0px + 24 * ((100vw - 290px) / (768 - 290))), 24px) !important;
+    padding-right: clamp(0px, calc(0px + 24 * ((100vw - 290px) / (768 - 290))), 24px) !important;
+    margin-top: clamp(20px, calc(20px + (0 - 20) * ((100vw - 290px) / (768 - 290))), 0px) !important;
   }
 
   /* Заголовок продукта (MX1 PHONE): от 40px на 768px до ~16px на 290px */

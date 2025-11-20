@@ -544,19 +544,17 @@ const ProductPage = () => {
               >
                 {t.productPageColorLabel}:
               </p>
-              <div className="flex flex-wrap gap-3 product-options-row-769">
+              <div className="flex flex-row flex-nowrap gap-2 product-options-row-769">
                 {colorOptions.map(option => {
                   const isSelected = option.id === selectedColor;
                   return (
                     <button
                       key={option.id}
                       onClick={() => setSelectedColor(option.id)}
-                      className="px-14 py-3 border transition-all font-semibold product-option-btn-769"
+                      className="border transition-all font-semibold product-option-btn-769"
                       style={{
                         direction: isRTL ? 'rtl' : 'ltr',
                         fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-                        fontSize: '30px',
-                        borderRadius: '20px',
                         backgroundColor: isSelected ? '#66c8d5' : '#ffffff',
                         color: '#03355c',
                         borderColor: '#03355c',
