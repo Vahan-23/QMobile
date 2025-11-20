@@ -58,6 +58,25 @@ export const translations = {
     productTitle: 'Product title',
     addToCart: 'ADD TO CART',
     total: 'Total',
+    // Product page
+    productPageMainProductName: 'MX1 Phone',
+    productPagePayWithCredits: 'Pay with {credits} credits',
+    productPageColorLabel: 'Color',
+    productPageStorageLabel: 'Storage',
+    productPageColorBlack: 'Black',
+    productPageColorWhite: 'White',
+    productPageColorSilver: 'Silver',
+    productPageStorage128: '128GB',
+    productPageStorage256: '256GB',
+    productPageStorage512: '512GB',
+    productPageSummaryCredits: 'Credits',
+    productPagePerMonthLabel: 'NIS x {count} months',
+    productPagePaymentSupport:
+      'We support secure payment with the following credit cards:',
+    productPageDescriptionHeading: 'Product description:',
+    productPageDescriptionText:
+      'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
+    productPageInterestHeading: 'Also might interest you',
     // Images
     backgroundImage: '/Images/01 - Welcome page/welcome2 - Copy.jpg',
     whiteLayer: '/Images/whiteLayer.png',
@@ -141,6 +160,25 @@ export const translations = {
     productTitle: 'عنوان المنتج',
     addToCart: 'أضف إلى السلة',
     total: 'المجموع',
+    // Product page
+    productPageMainProductName: 'هاتف MX1',
+    productPagePayWithCredits: 'ادفع بـ {credits} رصيد',
+    productPageColorLabel: 'اللون',
+    productPageStorageLabel: 'سعة التخزين',
+    productPageColorBlack: 'أسود',
+    productPageColorWhite: 'أبيض',
+    productPageColorSilver: 'فضي',
+    productPageStorage128: '128 جيجابايت',
+    productPageStorage256: '256 جيجابايت',
+    productPageStorage512: '512 جيجابايت',
+    productPageSummaryCredits: 'أرصدة',
+    productPagePerMonthLabel: 'شيكل × {count} شهرًا',
+    productPagePaymentSupport:
+      'ندعم الدفع الآمن باستخدام بطاقات الائتمان التالية:',
+    productPageDescriptionHeading: 'وصف المنتج:',
+    productPageDescriptionText:
+      'هذا النص مثال لوصف المنتج. يمكن استبداله بمعلومات فعلية حول الجهاز وميزاته الرئيسية لتوضيح القيمة التي يقدمها للمستخدم.',
+    productPageInterestHeading: 'قد يهمك أيضًا',
     // Images - можно использовать то же изображение или другое для арабского
     backgroundImage: '/Images/01 - Welcome page/welcome2 - Copy.jpg',
     whiteLayer: '/Images/whiteLayer.png',

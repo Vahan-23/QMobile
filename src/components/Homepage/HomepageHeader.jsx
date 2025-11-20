@@ -71,7 +71,7 @@ const HomepageHeader = ({
         style={{
           padding: isMobile
             ? `${lerp(0, 20)}px ${lerp(8, 20)}px 0px`
-            : '30px'
+            : 'clamp(15px, 2vw, 30px)'
         }}
       >
         {/* Desktop Navigation Row */}
@@ -293,11 +293,14 @@ const HomepageHeader = ({
         )}
 
         {showTitle && (
-          <div className="w-full" style={{ marginTop: 'clamp(40px, 8vw, 96px)' }}>
-            <h1 
-              className="text-center font-bold uppercase"
-              style={{ 
-                marginBottom: 'clamp(15px, 2vw, 30px)', 
+          <div
+            className="w-full homepage-title-wrapper"
+            style={{ marginTop: 'clamp(40px, 8vw, 96px)' }}
+          >
+            <h1
+              className="text-center font-bold uppercase homepage-title-main"
+              style={{
+                marginBottom: 'clamp(15px, 2vw, 30px)',
                 fontSize: 'clamp(2rem, 5vw, 4.7rem)',
                 direction: isRTL ? 'rtl' : 'ltr',
                 fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
