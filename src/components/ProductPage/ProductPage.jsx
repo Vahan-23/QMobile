@@ -243,14 +243,16 @@ const ProductPage = () => {
           background: 'linear-gradient(to right, #005490 0%, #32b1d7 100%)'
         }}
       >
-        <HomepageHeader
-          titleKey="marketplace"
-          backgroundStyle="linear-gradient(to right, #005490 0%, #32b1d7 100%)"
-        />
+        <div className="max-w-[1895px] mx-auto w-full">
+          <HomepageHeader
+            titleKey="marketplace"
+            backgroundStyle="linear-gradient(to right, #005490 0%, #32b1d7 100%)"
+          />
+        </div>
       </div>
 
       <main
-        className="w-full px-5 pt-10 space-y-16 product-main-769"
+        className="w-full px-5 pt-10 space-y-16 product-main-769 max-w-[1895px] mx-auto"
         style={{ paddingBottom: 0 }}
       >
         <section className="flex flex-row gap-10 items-start justify-between">
@@ -869,7 +871,9 @@ const ProductPage = () => {
         </section>
       </main>
 
-      <MarketplaceFooter />
+      <div className="max-w-[1895px] mx-auto w-full">
+        <MarketplaceFooter />
+      </div>
     </div>
   );
 };
