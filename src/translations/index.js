@@ -77,6 +77,18 @@ export const translations = {
     productPageDescriptionText:
       'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
     productPageInterestHeading: 'Also might interest you',
+    // Cart page
+    cart: 'CART',
+    yourOrder: 'YOUR ORDER',
+    product: 'Product',
+    totalPrice: 'Total price',
+    quantity: 'Quantity',
+    credits: 'Credits',
+    monthlyPayment: 'Monthly payment',
+    proceedToPayment: 'PROCEED TO PAYMENT',
+    totalPriceForOrder: 'Total price for order',
+    totalItems: 'Total items',
+    amountXMonths: 'Amount x Months',
     // Images
     backgroundImage: '/Images/01 - Welcome page/welcome2 - Copy.jpg',
     whiteLayer: '/Images/whiteLayer.png',
@@ -179,6 +191,18 @@ export const translations = {
     productPageDescriptionText:
       'هذا النص مثال لوصف المنتج. يمكن استبداله بمعلومات فعلية حول الجهاز وميزاته الرئيسية لتوضيح القيمة التي يقدمها للمستخدم.',
     productPageInterestHeading: 'قد يهمك أيضًا',
+    // Cart page
+    cart: 'السلة',
+    yourOrder: 'طلبك',
+    product: 'المنتج',
+    totalPrice: 'السعر الإجمالي',
+    quantity: 'الكمية',
+    credits: 'الأرصدة',
+    monthlyPayment: 'الدفع الشهري',
+    proceedToPayment: 'المتابعة إلى الدفع',
+    totalPriceForOrder: 'إجمالي سعر الطلب',
+    totalItems: 'إجمالي العناصر',
+    amountXMonths: 'المبلغ × الأشهر',
     // Images - можно использовать то же изображение или другое для арабского
     backgroundImage: '/Images/01 - Welcome page/welcome2 - Copy.jpg',
     whiteLayer: '/Images/whiteLayer.png',

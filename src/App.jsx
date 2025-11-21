@@ -5,6 +5,7 @@ import WelcomePage from './components/WelcomePage';
 import Homepage from './components/Homepage';
 import Marketplace from './components/Marketplace';
 import ProductPage from './components/ProductPage';
+import CartPage from './components/CartPage';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route path="/welcome" element={<WelcomePage />} />
             <Route path="/marketplace" element={<Marketplace />} />
             <Route path="/product/mx1" element={<ProductPage />} />
+            <Route path="/cart" element={<CartPage />} />
           </Routes>
         </div>
       </Router>
