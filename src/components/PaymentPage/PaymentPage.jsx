@@ -186,53 +186,53 @@ const PaymentPage = () => {
       </div>
 
       {/* Main Content */}
-      <main className="w-full payment-main max-w-[1895px] mx-auto" style={{ paddingTop: '40px', paddingLeft: '3rem', paddingRight: '3rem', paddingBottom: 0 }}>
+      <main className="w-full payment-main max-w-[1895px] mx-auto" style={{ paddingTop: 'clamp(20px, 2.5vw, 40px)', paddingLeft: 'clamp(1rem, 2vw, 3rem)', paddingRight: 'clamp(1rem, 2vw, 3rem)', paddingBottom: 0 }}>
          {/* Shipping Address Section */}
-         <section className="w-full mb-10 payment-section" style={{ display: 'flex', flexDirection: 'column', minHeight: '400px' }}>
+         <section className="w-full mb-10 payment-section" style={{ display: 'flex', flexDirection: 'column' }}>
            <div>
-             <h2
-               className="font-bold payment-section-title"
-               style={{
-                 direction: isRTL ? 'rtl' : 'ltr',
-                 fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-                 fontSize: '55px',
-                 color: '#03355c',
-                 marginBottom: 0,
-                 paddingBottom: 0
-               }}
-             >
-               {t.shippingAddress || 'SHIPPING ADDRESS'}
-             </h2>
+            <h2
+              className="font-bold payment-section-title"
+              style={{
+                direction: isRTL ? 'rtl' : 'ltr',
+                fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                fontSize: 'clamp(24px, 3.5vw, 55px)',
+                color: '#03355c',
+                marginBottom: 0,
+                paddingBottom: 0
+              }}
+            >
+              {t.shippingAddress || 'SHIPPING ADDRESS'}
+            </h2>
              
-             <p
-               className="payment-subtitle"
-               style={{
-                 direction: isRTL ? 'rtl' : 'ltr',
-                 fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-                 fontSize: '32px',
-                 color: '#03355c',
-                 fontWeight: 'bold',
-                 marginBottom: 'clamp(10px, 1.5vw, 20px)'
-               }}
-             >
-               {t.yourRegisteredBillingAddress || 'Your registered billing address:'}
-             </p>
+            <p
+              className="payment-subtitle"
+              style={{
+                direction: isRTL ? 'rtl' : 'ltr',
+                fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                fontSize: 'clamp(18px, 2.5vw, 32px)',
+                color: '#03355c',
+                fontWeight: 'bold',
+                marginBottom: 'clamp(10px, 1.5vw, 20px)'
+              }}
+            >
+              {t.yourRegisteredBillingAddress || 'Your registered billing address:'}
+            </p>
 
-             <div
-               className="payment-address-box"
-               style={{
-                 direction: isRTL ? 'rtl' : 'ltr',
-                 fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-                 fontSize: '30px',
-                 color: '#03355c',
-                 backgroundColor: '#f0f0f0',
-                 padding: '20px',
-                 borderRadius: '20px',
-                 border: '1px solid #03355c',
-                 marginBottom: 'clamp(15px, 2vw, 25px)',
-                 width: '33.333%'
-               }}
-             >
+            <div
+              className="payment-address-box"
+              style={{
+                direction: isRTL ? 'rtl' : 'ltr',
+                fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                fontSize: 'clamp(16px, 2.5vw, 30px)',
+                color: '#03355c',
+                backgroundColor: '#f0f0f0',
+                padding: 'clamp(12px, 1.5vw, 20px)',
+                borderRadius: 'clamp(12px, 1.5vw, 20px)',
+                border: '1px solid #03355c',
+                marginBottom: 'clamp(15px, 2vw, 25px)',
+                width: 'clamp(200px, 33.333%, 33.333%)'
+              }}
+            >
                <div>{shippingAddress.street}</div>
                <div>{shippingAddress.floor}</div>
                <div>{shippingAddress.postalCode}</div>
@@ -255,7 +255,7 @@ const PaymentPage = () => {
             >
               <span
                 style={{
-                  fontSize: '28px',
+                  fontSize: 'clamp(18px, 2.2vw, 28px)',
                   fontWeight: 'bold',
                   color: '#03355c'
                 }}
@@ -299,7 +299,7 @@ const PaymentPage = () => {
               />
               <span
                 style={{
-                  fontSize: '28px',
+                  fontSize: 'clamp(18px, 2.2vw, 28px)',
                   fontWeight: 'bold',
                   color: '#03355c'
                 }}
@@ -327,8 +327,8 @@ const PaymentPage = () => {
             width: '100%',
             height: '1px',
             backgroundColor: '#7fa9c8',
-            marginBottom: 'clamp(15px, 2vw, 30px)',
-            marginTop: 'clamp(15px, 2vw, 30px)'
+            marginBottom: 'clamp(10px, 1.5vw, 30px)',
+            marginTop: 'clamp(10px, 1.5vw, 30px)'
           }}
         />
 
@@ -339,7 +339,7 @@ const PaymentPage = () => {
             style={{
               direction: isRTL ? 'rtl' : 'ltr',
               fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-              fontSize: '55px',
+              fontSize: 'clamp(24px, 3.5vw, 55px)',
               color: '#03355c',
               marginBottom: 'clamp(15px, 2vw, 30px)'
             }}
@@ -456,7 +456,7 @@ const PaymentPage = () => {
       {/* Total and Shipping rows outside main for full-width background */}
       <div className="w-full hidden min-[769px]:block">
         <div className="payment-total-row-full">
-          <div className="max-w-[1895px] mx-auto" style={{ paddingLeft: '3rem', paddingRight: '3rem' }}>
+          <div className="max-w-[1895px] mx-auto" style={{ paddingLeft: 'clamp(1rem, 2vw, 3rem)', paddingRight: 'clamp(1rem, 2vw, 3rem)' }}>
             <div className="payment-total-row-content">
               <div className="payment-table-cell font-bold">
                 {t.total || 'Total'}:
@@ -475,7 +475,7 @@ const PaymentPage = () => {
           </div>
         </div>
         <div className="payment-shipping-row-full">
-          <div className="max-w-[1895px] mx-auto" style={{ paddingLeft: '3rem', paddingRight: '3rem' }}>
+          <div className="max-w-[1895px] mx-auto" style={{ paddingLeft: 'clamp(1rem, 2vw, 3rem)', paddingRight: 'clamp(1rem, 2vw, 3rem)' }}>
             <div className="payment-shipping-row-content">
               <div className="payment-table-cell font-bold">
                 {t.shipping || 'Shipping'}:
@@ -491,8 +491,8 @@ const PaymentPage = () => {
         </div>
       </div>
 
-        {/* Your Credit Card Section */}
-        <main className="w-full payment-main max-w-[1895px] mx-auto" style={{ paddingTop: '20px', paddingLeft: '3rem', paddingRight: '3rem', paddingBottom: 0 }}>
+          {/* Your Credit Card Section */}
+        <main className="w-full payment-main max-w-[1895px] mx-auto" style={{ paddingTop: 'clamp(15px, 1.5vw, 20px)', paddingLeft: 'clamp(1rem, 2vw, 3rem)', paddingRight: 'clamp(1rem, 2vw, 3rem)', paddingBottom: 0 }}>
           <section className="w-full mb-10 payment-section">
             <div className="flex flex-col md:flex-row items-start md:items-start justify-between gap-4 payment-credit-card-section">
               <div className="flex flex-col">
@@ -501,7 +501,7 @@ const PaymentPage = () => {
                   style={{
                     direction: isRTL ? 'rtl' : 'ltr',
                     fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-                    fontSize: '33px',
+                    fontSize: 'clamp(20px, 2.5vw, 33px)',
                     color: '#03355c',
                     marginBottom: 'clamp(15px, 2vw, 25px)'
                   }}
@@ -524,7 +524,7 @@ const PaymentPage = () => {
                     style={{
                       direction: isRTL ? 'rtl' : 'ltr',
                       fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-                      fontSize: 'clamp(16px, 2vw, 32px)',
+                      fontSize: 'clamp(14px, 1.8vw, 32px)',
                       color: '#03355c',
                       fontWeight: 'bold',
                       textAlign: 'center'
@@ -541,7 +541,7 @@ const PaymentPage = () => {
                     style={{
                       direction: isRTL ? 'rtl' : 'ltr',
                       fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-                      fontSize: '30px',
+                      fontSize: 'clamp(18px, 2.2vw, 30px)',
                       fontWeight: 'bold',
                       color: '#03355c',
                       textDecoration: 'none',
@@ -570,18 +570,18 @@ const PaymentPage = () => {
                  style={{
                    direction: isRTL ? 'rtl' : 'ltr',
                    fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-                   fontSize: '36px',
+                   fontSize: 'clamp(20px, 2.8vw, 36px)',
                    fontWeight: 100,
                    textTransform: 'uppercase',
                    backgroundColor: '#005490',
                    color: '#ffffff',
                    border: 'none',
-                   padding: 'clamp(12px, 2vw, 20px) clamp(30px, 5vw, 60px)',
+                   padding: 'clamp(12px, 1.5vw, 20px) clamp(20px, 3.5vw, 60px)',
                    borderRadius: '8px',
                    cursor: 'pointer',
                    transition: 'opacity 0.3s',
                    whiteSpace: 'nowrap',
-                   width: '50%'
+                   width: 'clamp(200px, 50%, 50%)'
                  }}
                >
                  {t.payForMyOrder || 'PAY FOR MY ORDER'}
@@ -595,20 +595,20 @@ const PaymentPage = () => {
               width: '100%',
               height: '1px',
               backgroundColor: '#7fa9c8',
-              marginBottom: 'clamp(15px, 2vw, 30px)',
-              marginTop: 'clamp(15px, 2vw, 30px)'
-            }}
-          />
+              marginBottom: 'clamp(10px, 1.5vw, 30px)',
+              marginTop: 'clamp(10px, 1.5vw, 30px)'
+          }}
+        />
 
           {/* Payments Table Section */}
-          <section className="w-full payment-section" style={{ width: '50%' }}>
+          <section className="w-full payment-section" style={{ width: 'clamp(300px, 50%, 50%)' }}>
           <div className="flex items-center justify-between mb-4">
             <h2
               className="font-bold payment-section-title"
               style={{
                 direction: isRTL ? 'rtl' : 'ltr',
                 fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-                fontSize: '46px',
+                fontSize: 'clamp(24px, 3.5vw, 46px)',
                 color: '#03355c',
                 margin: 0
               }}
@@ -636,9 +636,9 @@ const PaymentPage = () => {
             <div 
               className="w-full overflow-x-auto"
               style={{
-                border: '4px solid #03355c',
-                borderRadius: '20px',
-                padding: 'clamp(15px, 2vw, 30px)'
+                border: 'clamp(2px, 0.3vw, 4px) solid #03355c',
+                borderRadius: 'clamp(12px, 1.5vw, 20px)',
+                padding: 'clamp(10px, 1.5vw, 30px)'
               }}
             >
               <table className="w-full payment-schedule-table">
