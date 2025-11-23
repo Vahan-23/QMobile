@@ -467,7 +467,7 @@ const PaymentPage = () => {
               <div className="payment-table-cell">
                 <div className="flex flex-col">
                   {totals.monthlyPayments.map((payment, index) => (
-                    <span key={index}>{payment.label}</span>
+                    <span key={index}>{payment.label} {t.months || 'months'}</span>
                   ))}
                 </div>
               </div>
@@ -491,88 +491,103 @@ const PaymentPage = () => {
         </div>
       </div>
 
-      {/* Your Credit Card Section */}
-      <main className="w-full payment-main max-w-[1895px] mx-auto" style={{ paddingTop: '20px', paddingLeft: '3rem', paddingRight: '3rem', paddingBottom: 0 }}>
-        <section className="w-full mb-10 payment-section">
-          <h3
-            className="payment-credit-card-title"
-            style={{
-              direction: isRTL ? 'rtl' : 'ltr',
-              fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-              fontSize: 'clamp(1.2rem, 2.5vw, 28px)',
-              color: '#03355c',
-              marginBottom: 'clamp(15px, 2vw, 25px)'
-            }}
-          >
-            {t.yourCreditCard || 'Your credit card:'}
-          </h3>
-
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 payment-credit-card-section">
-            <div className="flex items-center gap-4">
-              <img
-                src={creditCard.logo}
-                alt={creditCard.type}
-                className="payment-card-logo"
-                style={{
-                  width: 'clamp(40px, 5vw, 80px)',
-                  height: 'auto'
-                }}
-              />
-              <div>
-                <div
-                  className="payment-card-number"
+        {/* Your Credit Card Section */}
+        <main className="w-full payment-main max-w-[1895px] mx-auto" style={{ paddingTop: '20px', paddingLeft: '3rem', paddingRight: '3rem', paddingBottom: 0 }}>
+          <section className="w-full mb-10 payment-section">
+            <div className="flex flex-col md:flex-row items-start md:items-start justify-between gap-4 payment-credit-card-section">
+              <div className="flex flex-col">
+                <h3
+                  className="payment-credit-card-title"
                   style={{
                     direction: isRTL ? 'rtl' : 'ltr',
                     fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-                    fontSize: 'clamp(16px, 2vw, 32px)',
+                    fontSize: '33px',
                     color: '#03355c',
-                    fontWeight: 'bold',
-                    marginBottom: '5px'
+                    marginBottom: 'clamp(15px, 2vw, 25px)'
                   }}
                 >
-                  **{creditCard.lastFour} {creditCard.expiryMonth}/{creditCard.expiryYear}
+                  {t.yourCreditCard || 'Your credit card:'}
+                </h3>
+                
+                <div className="flex items-center gap-4" style={{ marginBottom: 'clamp(10px, 1.5vw, 20px)' }}>
+                  <img
+                    src={creditCard.logo}
+                    alt={creditCard.type}
+                    className="payment-card-logo"
+                    style={{
+                      width: 'clamp(40px, 5vw, 80px)',
+                      height: 'auto'
+                    }}
+                  />
+                  <div
+                    className="payment-card-number"
+                    style={{
+                      direction: isRTL ? 'rtl' : 'ltr',
+                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                      fontSize: 'clamp(16px, 2vw, 32px)',
+                      color: '#03355c',
+                      fontWeight: 'bold',
+                      textAlign: 'center'
+                    }}
+                  >
+                    **{creditCard.lastFour} {creditCard.expiryMonth}/{creditCard.expiryYear}
+                  </div>
                 </div>
-                <a
-                  href="#"
-                  className="payment-link"
-                  style={{
-                    direction: isRTL ? 'rtl' : 'ltr',
-                    fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-                    fontSize: 'clamp(12px, 1.5vw, 20px)',
-                    color: '#03355c',
-                    textDecoration: 'underline',
-                    textDecorationStyle: 'dashed',
-                    cursor: 'pointer'
-                  }}
-                >
-                  {t.addNewCreditCard || 'ADD NEW CREDIT CARD'}
-                </a>
+                
+                <div className="flex items-end gap-2" style={{ width: 'fit-content' }}>
+                  <a
+                    href="#"
+                    className="payment-link"
+                    style={{
+                      direction: isRTL ? 'rtl' : 'ltr',
+                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                      fontSize: 'clamp(14px, 1.7vw, 22px)',
+                      fontWeight: 'bold',
+                      color: '#03355c',
+                      textDecoration: 'none',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    {t.addNewCreditCard || 'ADD NEW CREDIT CARD'}
+                  </a>
+                  <img
+                    src="/Images/2x/underline@2x.png"
+                    alt="Underline"
+                    style={{
+                      width: 'auto',
+                      height: 'clamp(2px, 0.3vw, 4px)',
+                      objectFit: 'contain',
+                      alignSelf: 'flex-end',
+                      marginBottom: '8px'
+                    }}
+                  />
+                </div>
               </div>
+              
+               <button
+                 onClick={handlePayForOrder}
+                 className="payment-pay-button"
+                 style={{
+                   direction: isRTL ? 'rtl' : 'ltr',
+                   fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                   fontSize: '36px',
+                   fontWeight: 100,
+                   textTransform: 'uppercase',
+                   backgroundColor: '#005490',
+                   color: '#ffffff',
+                   border: 'none',
+                   padding: 'clamp(12px, 2vw, 20px) clamp(30px, 5vw, 60px)',
+                   borderRadius: '8px',
+                   cursor: 'pointer',
+                   transition: 'opacity 0.3s',
+                   whiteSpace: 'nowrap',
+                   width: '50%'
+                 }}
+               >
+                 {t.payForMyOrder || 'PAY FOR MY ORDER'}
+               </button>
             </div>
-            
-            <button
-              onClick={handlePayForOrder}
-              className="payment-pay-button"
-              style={{
-                direction: isRTL ? 'rtl' : 'ltr',
-                fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-                fontSize: 'clamp(14px, 2vw, 28px)',
-                fontWeight: 'bold',
-                textTransform: 'uppercase',
-                backgroundColor: '#005490',
-                color: '#ffffff',
-                border: 'none',
-                padding: 'clamp(12px, 2vw, 20px) clamp(30px, 5vw, 60px)',
-                borderRadius: '8px',
-                cursor: 'pointer',
-                transition: 'opacity 0.3s',
-                whiteSpace: 'nowrap'
-              }}
-            >
-              {t.payForMyOrder || 'PAY FOR MY ORDER'}
-            </button>
-          </div>
-        </section>
+          </section>
 
         {/* Payments Table Section */}
         <section className="w-full payment-section">
