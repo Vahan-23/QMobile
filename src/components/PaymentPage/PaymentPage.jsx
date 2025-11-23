@@ -515,7 +515,7 @@ const PaymentPage = () => {
                     alt={creditCard.type}
                     className="payment-card-logo"
                     style={{
-                      width: 'clamp(40px, 5vw, 80px)',
+                      width: 'clamp(60px, 7vw, 120px)',
                       height: 'auto'
                     }}
                   />
@@ -541,7 +541,7 @@ const PaymentPage = () => {
                     style={{
                       direction: isRTL ? 'rtl' : 'ltr',
                       fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-                      fontSize: 'clamp(14px, 1.7vw, 22px)',
+                      fontSize: '30px',
                       fontWeight: 'bold',
                       color: '#03355c',
                       textDecoration: 'none',
@@ -589,15 +589,26 @@ const PaymentPage = () => {
             </div>
           </section>
 
-        {/* Payments Table Section */}
-        <section className="w-full payment-section">
+          {/* Divider Line */}
+          <div
+            style={{
+              width: '100%',
+              height: '1px',
+              backgroundColor: '#7fa9c8',
+              marginBottom: 'clamp(15px, 2vw, 30px)',
+              marginTop: 'clamp(15px, 2vw, 30px)'
+            }}
+          />
+
+          {/* Payments Table Section */}
+          <section className="w-full payment-section" style={{ width: '50%' }}>
           <div className="flex items-center justify-between mb-4">
             <h2
               className="font-bold payment-section-title"
               style={{
                 direction: isRTL ? 'rtl' : 'ltr',
                 fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-                fontSize: 'clamp(1.5rem, 3vw, 36px)',
+                fontSize: '46px',
                 color: '#03355c',
                 margin: 0
               }}
@@ -612,6 +623,7 @@ const PaymentPage = () => {
                 border: 'none',
                 cursor: 'pointer',
                 fontSize: 'clamp(24px, 3vw, 48px)',
+                fontWeight: 900,
                 color: '#03355c',
                 padding: '5px'
               }}
@@ -621,7 +633,14 @@ const PaymentPage = () => {
           </div>
 
           {isPaymentsTableExpanded && (
-            <div className="w-full overflow-x-auto">
+            <div 
+              className="w-full overflow-x-auto"
+              style={{
+                border: '4px solid #03355c',
+                borderRadius: '20px',
+                padding: 'clamp(15px, 2vw, 30px)'
+              }}
+            >
               <table className="w-full payment-schedule-table">
                 <thead>
                   <tr className="payment-table-header">
