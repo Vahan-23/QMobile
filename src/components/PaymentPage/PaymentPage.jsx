@@ -186,7 +186,7 @@ const PaymentPage = () => {
       </div>
 
       {/* Main Content */}
-      <main className="w-full pb-20 payment-main max-w-[1895px] mx-auto" style={{ paddingTop: '40px', paddingLeft: '3rem', paddingRight: '3rem' }}>
+      <main className="w-full payment-main max-w-[1895px] mx-auto" style={{ paddingTop: '40px', paddingLeft: '3rem', paddingRight: '3rem', paddingBottom: 0 }}>
          {/* Shipping Address Section */}
          <section className="w-full mb-10 payment-section" style={{ display: 'flex', flexDirection: 'column', minHeight: '400px' }}>
            <div>
@@ -248,7 +248,9 @@ const PaymentPage = () => {
                 direction: isRTL ? 'rtl' : 'ltr',
                 fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
                 textDecoration: 'none',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                display: 'inline-flex',
+                width: 'fit-content'
               }}
             >
               <span
@@ -280,7 +282,9 @@ const PaymentPage = () => {
                 direction: isRTL ? 'rtl' : 'ltr',
                 fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
                 textDecoration: 'none',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                display: 'inline-flex',
+                width: 'fit-content'
               }}
             >
               <img
@@ -317,6 +321,17 @@ const PaymentPage = () => {
           </div>
         </section>
 
+        {/* Divider Line */}
+        <div
+          style={{
+            width: '100%',
+            height: '1px',
+            backgroundColor: '#7fa9c8',
+            marginBottom: 'clamp(15px, 2vw, 30px)',
+            marginTop: 'clamp(15px, 2vw, 30px)'
+          }}
+        />
+
         {/* Review Your Order Section */}
         <section className="w-full mb-10 payment-section">
           <h2
@@ -324,7 +339,7 @@ const PaymentPage = () => {
             style={{
               direction: isRTL ? 'rtl' : 'ltr',
               fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-              fontSize: 'clamp(1.5rem, 3vw, 36px)',
+              fontSize: '55px',
               color: '#03355c',
               marginBottom: 'clamp(15px, 2vw, 30px)'
             }}
@@ -371,37 +386,9 @@ const PaymentPage = () => {
                   </tr>
                 ))}
               </tbody>
-              <tfoot>
-                <tr className="payment-total-row">
-                  <td className="payment-table-cell font-bold">
-                    {t.total || 'Total'}:
-                  </td>
-                  <td className="payment-table-cell">{totals.totalPrice} NIS</td>
-                  <td className="payment-table-cell">{totals.totalQuantity}</td>
-                  <td className="payment-table-cell"></td>
-                  <td className="payment-table-cell">
-                    <div className="flex flex-col">
-                      {totals.monthlyPayments.map((payment, index) => (
-                        <span key={index}>{payment.label}</span>
-                      ))}
-                    </div>
-                  </td>
-                </tr>
-                <tr className="payment-shipping-row">
-                  <td className="payment-table-cell font-bold">
-                    {t.shipping || 'Shipping'}:
-                  </td>
-                  <td className="payment-table-cell">{totals.shippingCost} NIS</td>
-                  <td className="payment-table-cell"></td>
-                  <td className="payment-table-cell"></td>
-                  <td className="payment-table-cell">
-                    {t.doorToDoorCourier || 'Door to door courier'}
-                  </td>
-                </tr>
-              </tfoot>
             </table>
           </div>
-
+          
           {/* Mobile Order Cards */}
           <div className="w-full max-[768px]:block min-[769px]:hidden">
             {orderItems.map((item) => (
@@ -464,8 +451,48 @@ const PaymentPage = () => {
             </div>
           </div>
         </section>
+      </main>
+      
+      {/* Total and Shipping rows outside main for full-width background */}
+      <div className="w-full hidden min-[769px]:block">
+        <div className="payment-total-row-full">
+          <div className="max-w-[1895px] mx-auto" style={{ paddingLeft: '3rem', paddingRight: '3rem' }}>
+            <div className="payment-total-row-content">
+              <div className="payment-table-cell font-bold">
+                {t.total || 'Total'}:
+              </div>
+              <div className="payment-table-cell">{totals.totalPrice} NIS</div>
+              <div className="payment-table-cell">{totals.totalQuantity}</div>
+              <div className="payment-table-cell"></div>
+              <div className="payment-table-cell">
+                <div className="flex flex-col">
+                  {totals.monthlyPayments.map((payment, index) => (
+                    <span key={index}>{payment.label}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="payment-shipping-row-full">
+          <div className="max-w-[1895px] mx-auto" style={{ paddingLeft: '3rem', paddingRight: '3rem' }}>
+            <div className="payment-shipping-row-content">
+              <div className="payment-table-cell font-bold">
+                {t.shipping || 'Shipping'}:
+              </div>
+              <div className="payment-table-cell">{totals.shippingCost} NIS</div>
+              <div className="payment-table-cell" style={{ whiteSpace: 'nowrap' }}>
+                {t.doorToDoorCourier || 'Door to door courier'}
+              </div>
+              <div className="payment-table-cell"></div>
+              <div className="payment-table-cell"></div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-        {/* Your Credit Card Section */}
+      {/* Your Credit Card Section */}
+      <main className="w-full payment-main max-w-[1895px] mx-auto" style={{ paddingTop: '20px', paddingLeft: '3rem', paddingRight: '3rem', paddingBottom: 0 }}>
         <section className="w-full mb-10 payment-section">
           <h3
             className="payment-credit-card-title"
