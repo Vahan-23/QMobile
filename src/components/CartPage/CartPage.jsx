@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import HomepageHeader from '../Homepage/HomepageHeader';
 import MarketplaceFooter from '../Marketplace/MarketplaceFooter';
 import { useLanguage } from '../../contexts/LanguageContext';
@@ -12,6 +13,7 @@ import './CartPage.css';
 const CartPage = () => {
   const { language, isRTL } = useLanguage();
   const t = translations[language];
+  const navigate = useNavigate();
 
   // Mock cart items data
   const [cartItems, setCartItems] = useState([
@@ -569,6 +571,7 @@ const CartPage = () => {
               </div>
             </div>
             <button
+              onClick={() => navigate('/payment')}
               className="cart-proceed-button"
               style={{
                 direction: isRTL ? 'rtl' : 'ltr',
