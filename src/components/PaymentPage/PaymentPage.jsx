@@ -719,34 +719,39 @@ const PaymentPage = () => {
                   </div>
                 </div>
                 
-                <div className="flex items-end gap-2" style={{ width: 'fit-content' }}>
-                  <a
-                    href="#"
-                    className="payment-link"
+                <a
+                  href="#"
+                  className="flex items-end gap-2 payment-link"
+                  style={{
+                    direction: isRTL ? 'rtl' : 'ltr',
+                    fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                    textDecoration: 'none',
+                    cursor: 'pointer',
+                    display: 'inline-flex',
+                    width: 'fit-content'
+                  }}
+                >
+                  <span
                     style={{
-                      direction: isRTL ? 'rtl' : 'ltr',
-                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
                       fontSize: 'clamp(18px, 2.2vw, 30px)',
                       fontWeight: 'bold',
-                      color: '#03355c',
-                      textDecoration: 'none',
-                      cursor: 'pointer'
+                      color: '#03355c'
                     }}
                   >
                     {t.addNewCreditCard || 'ADD NEW CREDIT CARD'}
-                  </a>
+                  </span>
                   <img
                     src="/Images/2x/underline@2x.png"
                     alt="Underline"
+                    className="payment-underline-image"
                     style={{
                       width: 'auto',
-                      height: 'clamp(2px, 0.3vw, 4px)',
                       objectFit: 'contain',
                       alignSelf: 'flex-end',
                       marginBottom: '8px'
                     }}
                   />
-                </div>
+                </a>
               </div>
               
                <button
