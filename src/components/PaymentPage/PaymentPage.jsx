@@ -230,11 +230,10 @@ const PaymentPage = () => {
             </p>
 
             <div
-              className="payment-address-box max-[768px]:!w-full"
+              className="payment-address-box"
               style={{
                 direction: isRTL ? 'rtl' : 'ltr',
                 fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-                fontSize: 'clamp(16px, 2.5vw, 30px)',
                 color: '#03355c',
                 backgroundColor: '#f0f0f0',
                 padding: 'clamp(12px, 1.5vw, 20px)',

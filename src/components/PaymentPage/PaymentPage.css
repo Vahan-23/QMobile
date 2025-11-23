@@ -29,8 +29,47 @@
   padding: clamp(15px, 2vw, 30px);
   border-radius: 8px;
   margin-bottom: clamp(15px, 2vw, 25px);
-  font-size: clamp(14px, 1.5vw, 24px);
+  font-size: clamp(16px, 2.5vw, 30px);
   color: #03355c;
+}
+
+@media (max-width: 768px) {
+  .payment-address-box {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(4px, 0.8vw, 8px);
+    width: 70% !important;
+    font-size: clamp(16px, calc(16px + (30 - 16) * ((100vw - 320px) / (768 - 320))), 30px) !important;
+  }
+  
+  .payment-address-box > div {
+    font-size: inherit !important;
+  }
+  
+  .payment-subtitle {
+    font-size: clamp(18px, 4vw, 30px) !important;
+    font-weight: normal !important;
+    padding-top: clamp(10px, 2vw, 20px) !important;
+  }
+  
+  .payment-link {
+    padding-top: clamp(10px, 2vw, 20px) !important;
+  }
+  
+  .payment-link span {
+    font-size: clamp(18px, 4vw, 30px) !important;
+    font-weight: bold !important;
+  }
+  
+  .payment-location-icon {
+    width: clamp(28px, 6vw, 60px) !important;
+    height: clamp(28px, 6vw, 60px) !important;
+  }
+  
+  .payment-link img[alt="Underline"] {
+    width: auto !important;
+    height: clamp(2px, 0.5vw, 4px) !important;
+  }
 }
 
 .payment-link {
@@ -555,9 +594,12 @@
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+  .payment-section:first-of-type .payment-section-title {
+    font-size: clamp(20px, 4vw, 30px) !important;
+  }
   .payment-main {
-    padding-left: clamp(8px, calc(8px + (24 - 8) * ((100vw - 290px) / (768 - 290))), 24px);
-    padding-right: clamp(8px, calc(8px + (24 - 8) * ((100vw - 290px) / (768 - 290))), 24px);
+    padding-left: clamp(1rem, 3vw, 2rem) !important;
+    padding-right: clamp(1rem, 3vw, 2rem) !important;
     padding-top: clamp(10px, calc(10px + (40 - 10) * ((100vw - 290px) / (768 - 290))), 40px);
     padding-bottom: clamp(10px, calc(10px + (40 - 10) * ((100vw - 290px) / (768 - 290))), 40px);
   }
@@ -567,9 +609,6 @@
     margin-bottom: clamp(8px, calc(8px + (24 - 8) * ((100vw - 290px) / (768 - 290))), 24px);
   }
 
-  .payment-address-box {
-    width: 100% !important;
-  }
 
   .payment-credit-card-section {
     flex-direction: column !important;
