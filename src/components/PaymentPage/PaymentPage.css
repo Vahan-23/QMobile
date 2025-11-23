@@ -650,17 +650,23 @@
   
   .payment-pay-button {
     border-radius: 20px !important;
-    font-size: clamp(20px, 5vw, 36px) !important;
-  }
-
-  .payment-pay-button {
     width: 100% !important;
     padding: clamp(12px, 3vw, 18px) clamp(15px, 4vw, 30px) !important;
-    font-size: clamp(14px, 3.5vw, 24px) !important;
+    font-size: clamp(20px, calc(20px + (36 - 20) * ((100vw - 320px) / (768 - 320))), 36px) !important;
   }
 
   .payment-mobile-quantity-section {
     margin-top: 0;
+  }
+
+  .payment-table-cell,
+  .payment-table-header-cell {
+    font-size: clamp(14px, calc(14px + (25 - 14) * ((100vw - 320px) / (768 - 320))), 25px) !important;
+  }
+
+  .payment-schedule-table .payment-table-cell,
+  .payment-schedule-table .payment-table-header-cell {
+    font-size: clamp(14px, calc(14px + (25 - 14) * ((100vw - 320px) / (768 - 320))), 25px) !important;
   }
 }
 
