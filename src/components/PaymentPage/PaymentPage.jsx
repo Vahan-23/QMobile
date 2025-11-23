@@ -7,6 +7,7 @@ import masterLogo from '../ProductPage/Assets/master.png';
 import phoneImage from '../ProductPage/Assets/phoneImage.jpg';
 import locationIcon from './Assets/location_11080891.svg';
 import './PaymentPage.css';
+import '../CartPage/CartPage.css';
 
 const PaymentPage = () => {
   const { language, isRTL } = useLanguage();
@@ -14,7 +15,7 @@ const PaymentPage = () => {
   const [isPaymentsTableExpanded, setIsPaymentsTableExpanded] = useState(true);
 
   // Mock order data - in real app, this would come from cart/order context
-  const orderItems = useMemo(() => [
+  const [orderItems, setOrderItems] = useState([
     {
       id: 1,
       name: 'MX1 Phone',
@@ -51,7 +52,17 @@ const PaymentPage = () => {
       monthlyPayment: 1600,
       months: 2
     }
-  ], []);
+  ]);
+
+  // Update quantity function
+  const updateQuantity = (id, newQuantity) => {
+    if (newQuantity < 1) return;
+    setOrderItems(items =>
+      items.map(item =>
+        item.id === id ? { ...item, quantity: newQuantity } : item
+      )
+    );
+  };
 
   // Mock shipping address
   const shippingAddress = {
@@ -219,7 +230,7 @@ const PaymentPage = () => {
             </p>
 
             <div
-              className="payment-address-box"
+              className="payment-address-box max-[768px]:!w-full"
               style={{
                 direction: isRTL ? 'rtl' : 'ltr',
                 fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
@@ -388,43 +399,139 @@ const PaymentPage = () => {
               </tbody>
             </table>
           </div>
-          
-          {/* Mobile Order Cards */}
-          <div className="w-full max-[768px]:block min-[769px]:hidden">
+        </section>
+      </main>
+      
+      {/* Mobile Order Cards - Outside main for full-width background */}
+      <div className="w-full max-[768px]:block min-[769px]:hidden">
             {orderItems.map((item) => (
-              <div key={item.id} className="payment-mobile-card">
-                <div className="payment-mobile-card-content">
-                  <div className="payment-mobile-product-info">
+              <div key={item.id} className="cart-mobile-card">
+                <div className="cart-mobile-card-content">
+                  <div className="cart-mobile-product-info">
                     <img
                       src={item.image}
                       alt={item.name}
-                      className="payment-mobile-image"
+                      className="cart-mobile-image"
                     />
-                    <div className="payment-mobile-product-details">
-                      <div className="payment-mobile-product-name">{item.name}</div>
-                      <div className="payment-mobile-product-specs">
+                    <div className="cart-mobile-product-details">
+                      <div
+                        className="cart-mobile-product-name"
+                        style={{
+                          direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                        }}
+                      >
+                        {item.name}
+                      </div>
+                      <div
+                        className="cart-mobile-product-specs"
+                        style={{
+                          direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                        }}
+                      >
                         {item.color}, {item.storage}
                       </div>
                     </div>
                   </div>
-                  <div className="payment-mobile-details-grid">
-                    <div className="payment-mobile-detail-item">
-                      <span className="payment-mobile-detail-label">{t.totalPrice || 'Total price'}</span>
-                      <span className="payment-mobile-detail-value">{item.totalPrice} NIS</span>
-                    </div>
-                    <div className="payment-mobile-detail-item">
-                      <span className="payment-mobile-detail-label">{t.quantity || 'Quantity'}</span>
-                      <span className="payment-mobile-detail-value">{item.quantity}</span>
-                    </div>
-                    <div className="payment-mobile-detail-item">
-                      <span className="payment-mobile-detail-label">{t.credits || 'Credits'}</span>
-                      <span className="payment-mobile-detail-value">{item.credits}</span>
-                    </div>
-                    <div className="payment-mobile-detail-item">
-                      <span className="payment-mobile-detail-label">{t.monthlyPayment || 'Monthly payment'}</span>
-                      <span className="payment-mobile-detail-value">
-                        {item.monthlyPayment} NIS x {item.months}
+                  <div className="cart-mobile-quantity-section">
+                    <div className="cart-mobile-quantity-row">
+                      <div className="cart-mobile-quantity-controls">
+                        <button
+                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                          className="cart-mobile-quantity-btn"
+                          aria-label="Decrease quantity"
+                        >
+                          <span>-</span>
+                        </button>
+                        <span
+                          className="cart-mobile-quantity-value"
+                          style={{
+                            direction: isRTL ? 'rtl' : 'ltr',
+                            fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                          }}
+                        >
+                          {item.quantity}
+                        </span>
+                        <button
+                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          className="cart-mobile-quantity-btn"
+                          aria-label="Increase quantity"
+                        >
+                          <span>+</span>
+                        </button>
+                      </div>
+                      <span
+                        className="cart-mobile-quantity-label"
+                        style={{
+                          direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                        }}
+                      >
+                        {t.quantity || 'Quantity'}
                       </span>
+                    </div>
+                    <div className="cart-mobile-details-below-quantity">
+                      <div className="cart-mobile-detail-item-with-label">
+                        <span
+                          className="cart-mobile-detail-value"
+                          style={{
+                            direction: isRTL ? 'rtl' : 'ltr',
+                            fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                          }}
+                        >
+                          {item.totalPrice} NIS
+                        </span>
+                        <span
+                          className="cart-mobile-detail-label"
+                          style={{
+                            direction: isRTL ? 'rtl' : 'ltr',
+                            fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                          }}
+                        >
+                          {t.totalPrice || 'Total price'}
+                        </span>
+                      </div>
+                      <div className="cart-mobile-detail-item-with-label">
+                        <span
+                          className="cart-mobile-detail-value"
+                          style={{
+                            direction: isRTL ? 'rtl' : 'ltr',
+                            fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                          }}
+                        >
+                          {item.credits}
+                        </span>
+                        <span
+                          className="cart-mobile-detail-label"
+                          style={{
+                            direction: isRTL ? 'rtl' : 'ltr',
+                            fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                          }}
+                        >
+                          {t.credits || 'Credits'}
+                        </span>
+                      </div>
+                      <div className="cart-mobile-detail-item-with-label">
+                        <span
+                          className="cart-mobile-monthly-payment"
+                          style={{
+                            direction: isRTL ? 'rtl' : 'ltr',
+                            fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                          }}
+                        >
+                          {item.monthlyPayment} NIS x {item.months}
+                        </span>
+                        <span
+                          className="cart-mobile-detail-label"
+                          style={{
+                            direction: isRTL ? 'rtl' : 'ltr',
+                            fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                          }}
+                        >
+                          {t.monthlyPayment || 'Monthly payment'}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -432,28 +539,107 @@ const PaymentPage = () => {
             ))}
             
             {/* Mobile Total Summary */}
-            <div className="payment-mobile-total">
-              <div className="payment-mobile-total-item">
-                <span className="payment-mobile-total-label">{t.total || 'Total'}:</span>
-                <span className="payment-mobile-total-value">{totals.totalPrice} NIS</span>
+            <div className="cart-mobile-total">
+              <div className="cart-mobile-total-grid">
+                <div className="cart-mobile-total-item">
+                  <span
+                    className="cart-mobile-total-value"
+                    style={{
+                      direction: isRTL ? 'rtl' : 'ltr',
+                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                    }}
+                  >
+                    {totals.totalPrice} NIS
+                  </span>
+                  <span
+                    className="cart-mobile-total-label"
+                    style={{
+                      direction: isRTL ? 'rtl' : 'ltr',
+                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                    }}
+                  >
+                    {t.totalPriceForOrder || 'Total price for order'}
+                  </span>
+                </div>
+                <div className="cart-mobile-total-item">
+                  <span
+                    className="cart-mobile-total-value"
+                    style={{
+                      direction: isRTL ? 'rtl' : 'ltr',
+                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                    }}
+                  >
+                    {totals.totalQuantity}
+                  </span>
+                  <span
+                    className="cart-mobile-total-label"
+                    style={{
+                      direction: isRTL ? 'rtl' : 'ltr',
+                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                    }}
+                  >
+                    {t.totalItems || 'Total items'}
+                  </span>
+                </div>
+                <div className="cart-mobile-total-item">
+                  <div className="cart-mobile-total-payments">
+                    {totals.monthlyPayments.map((payment, index) => (
+                      <span
+                        key={index}
+                        className="cart-mobile-total-value"
+                        style={{
+                          direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                        }}
+                      >
+                        {payment.label}
+                      </span>
+                    ))}
+                  </div>
+                  <span
+                    className="cart-mobile-total-label"
+                    style={{
+                      direction: isRTL ? 'rtl' : 'ltr',
+                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                    }}
+                  >
+                    {t.amountXMonths || 'Amount x Months'}
+                  </span>
+                </div>
               </div>
-              <div className="payment-mobile-total-item">
-                <span className="payment-mobile-total-label">{t.quantity || 'Quantity'}:</span>
-                <span className="payment-mobile-total-value">{totals.totalQuantity}</span>
-              </div>
-              <div className="payment-mobile-shipping">
-                <span className="payment-mobile-total-label">{t.shipping || 'Shipping'}:</span>
-                <span className="payment-mobile-total-value">{totals.shippingCost} NIS</span>
-                <span className="payment-mobile-shipping-method">
+              <div className="cart-mobile-shipping">
+                <span
+                  className="cart-mobile-shipping-label"
+                  style={{
+                    direction: isRTL ? 'rtl' : 'ltr',
+                    fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                  }}
+                >
+                  {t.shipping || 'Shipping'}
+                </span>
+                <span
+                  className="cart-mobile-shipping-value"
+                  style={{
+                    direction: isRTL ? 'rtl' : 'ltr',
+                    fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                  }}
+                >
+                  {totals.shippingCost} NIS
+                </span>
+                <span
+                  className="cart-mobile-shipping-method"
+                  style={{
+                    direction: isRTL ? 'rtl' : 'ltr',
+                    fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                  }}
+                >
                   {t.doorToDoorCourier || 'Door to door courier'}
                 </span>
               </div>
             </div>
-          </div>
-        </section>
-      </main>
+      </div>
       
-      {/* Total and Shipping rows outside main for full-width background */}
+      {/* Total and Shipping rows outside main for full-width background - Desktop only */}
       <div className="w-full hidden min-[769px]:block">
         <div className="payment-total-row-full">
           <div className="max-w-[1895px] mx-auto" style={{ paddingLeft: 'clamp(1rem, 2vw, 3rem)', paddingRight: 'clamp(1rem, 2vw, 3rem)' }}>
@@ -491,8 +677,8 @@ const PaymentPage = () => {
         </div>
       </div>
 
-          {/* Your Credit Card Section */}
-        <main className="w-full payment-main max-w-[1895px] mx-auto" style={{ paddingTop: 'clamp(15px, 1.5vw, 20px)', paddingLeft: 'clamp(1rem, 2vw, 3rem)', paddingRight: 'clamp(1rem, 2vw, 3rem)', paddingBottom: 0 }}>
+      {/* Your Credit Card Section */}
+      <main className="w-full payment-main max-w-[1895px] mx-auto" style={{ paddingTop: 'clamp(15px, 1.5vw, 20px)', paddingLeft: 'clamp(1rem, 2vw, 3rem)', paddingRight: 'clamp(1rem, 2vw, 3rem)', paddingBottom: 0 }}>
           <section className="w-full mb-10 payment-section">
             <div className="flex flex-col md:flex-row items-start md:items-start justify-between gap-4 payment-credit-card-section">
               <div className="flex flex-col">
@@ -601,7 +787,7 @@ const PaymentPage = () => {
         />
 
           {/* Payments Table Section */}
-          <section className="w-full payment-section" style={{ width: 'clamp(300px, 50%, 50%)' }}>
+          <section className="w-full payment-section max-[768px]:!w-full" style={{ width: 'clamp(300px, 50%, 50%)' }}>
           <div className="flex items-center justify-between mb-4">
             <h2
               className="font-bold payment-section-title"
