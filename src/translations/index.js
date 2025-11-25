@@ -111,6 +111,14 @@ export const translations = {
     orderConfirmationSent: 'An order confirmation has been sent to your email.',
     findOrderDetails: 'You can also find your order details and invoice under',
     yourShippingAddress: 'Your shipping address:',
+    // Error page
+    errorPage: 'ERROR PAGE',
+    thereWasAProblem: 'THERE WAS A PROBLEM',
+    sorryThereWasAnIssue: 'SORRY, THERE WAS AN ISSUE PROCESSING YOUR ORDER',
+    pleaseContactSupport: 'Please contact our',
+    supportCenter: 'Support Center',
+    toHelpCompleteOrder: 'so we can help you complete your order',
+    contactSupport: 'CONTACT SUPPORT',
     // Images
     backgroundImage: '/Images/01 - Welcome page/welcome2 - Copy.jpg',
     whiteLayer: '/Images/whiteLayer.png',
@@ -247,6 +255,14 @@ export const translations = {
     orderConfirmationSent: 'تم إرسال تأكيد الطلب إلى بريدك الإلكتروني.',
     findOrderDetails: 'يمكنك أيضاً العثور على تفاصيل طلبك والفواتير في',
     yourShippingAddress: 'عنوان الشحن الخاص بك:',
+    // Error page
+    errorPage: 'صفحة الخطأ',
+    thereWasAProblem: 'كانت هناك مشكلة',
+    sorryThereWasAnIssue: 'عذراً، حدثت مشكلة أثناء معالجة طلبك',
+    pleaseContactSupport: 'يرجى الاتصال بـ',
+    supportCenter: 'مركز الدعم',
+    toHelpCompleteOrder: 'لمساعدتك في إكمال طلبك',
+    contactSupport: 'اتصل بالدعم',
     // Images - можно использовать то же изображение или другое для арабского
     backgroundImage: '/Images/01 - Welcome page/welcome2 - Copy.jpg',
     whiteLayer: '/Images/whiteLayer.png',
