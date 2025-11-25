@@ -105,6 +105,12 @@ export const translations = {
     paymentNumber: 'PAYMENT #',
     month: 'MONTH',
     months: 'months',
+    // Thank you page
+    thankYouForYourOrder: 'THANK YOU FOR YOUR ORDER',
+    orderNumber: 'ORDER #',
+    orderConfirmationSent: 'An order confirmation has been sent to your email.',
+    findOrderDetails: 'You can also find your order details and invoice under',
+    yourShippingAddress: 'Your shipping address:',
     // Images
     backgroundImage: '/Images/01 - Welcome page/welcome2 - Copy.jpg',
     whiteLayer: '/Images/whiteLayer.png',
@@ -235,6 +241,12 @@ export const translations = {
     paymentNumber: 'رقم الدفع',
     month: 'الشهر',
     months: 'أشهر',
+    // Thank you page
+    thankYouForYourOrder: 'شكراً لك على طلبك',
+    orderNumber: 'رقم الطلب',
+    orderConfirmationSent: 'تم إرسال تأكيد الطلب إلى بريدك الإلكتروني.',
+    findOrderDetails: 'يمكنك أيضاً العثور على تفاصيل طلبك والفواتير في',
+    yourShippingAddress: 'عنوان الشحن الخاص بك:',
     // Images - можно использовать то же изображение или другое для арабского
     backgroundImage: '/Images/01 - Welcome page/welcome2 - Copy.jpg',
     whiteLayer: '/Images/whiteLayer.png',
