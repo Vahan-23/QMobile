@@ -9,6 +9,7 @@ import CartPage from './components/CartPage';
 import PaymentPage from './components/PaymentPage';
 import ThankYouPage from './components/ThankYouPage';
 import ErrorPage from './components/ErrorPage';
+import JoinUs from './components/JoinUs';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path="/payment" element={<PaymentPage />} />
             <Route path="/thank-you" element={<ThankYouPage />} />
             <Route path="/error" element={<ErrorPage />} />
+            <Route path="/join-us" element={<JoinUs />} />
           </Routes>
         </div>
       </Router>
