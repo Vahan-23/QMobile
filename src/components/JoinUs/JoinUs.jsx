@@ -4,6 +4,11 @@ import MarketplaceFooter from '../Marketplace/MarketplaceFooter';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { translations } from '../../translations';
 import welcomeScreenImage from './Assets/welcomeScreen.png';
+import unlimitedCallsIcon from './Assets/Unlimited.png';
+import highSpeedIcon from './Assets/speed_internet.png';
+import simCardIcon from './Assets/sim_card.png';
+import smsIcon from './Assets/SMS_in_Israel.png';
+import supportIcon from './Assets/Support.png';
 
 const JoinUs = () => {
   const { language, isRTL } = useLanguage();
@@ -205,30 +210,53 @@ const JoinUs = () => {
        <section
          className="w-full"
          style={{
-           padding: 'clamp(60px, 10vw, 150px) clamp(20px, 6vw, 80px)',
+          paddingTop: 'clamp(10px, 10vw, 100px)',
+          paddingBottom: 'clamp(60px, 10vw, 150px)',
+          paddingLeft: 'clamp(20px, 6vw, 80px)',
+          paddingRight: 'clamp(20px, 6vw, 80px)',
            background: '#ffffff'
          }}
        >
          <div className="max-w-[1895px] mx-auto w-full">
-           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
              {/* Left side - CTA */}
              <div
                style={{
-                 textAlign: isRTL ? 'right' : 'left'
+                textAlign: isRTL ? 'right' : 'left',
+                marginLeft: isRTL ? '0' : '80px',
+                marginRight: isRTL ? '80px' : '0'
                }}
              >
-               <h2
-                 className="font-bold uppercase text-[#005490]"
-                 style={{
-                   fontSize: 'clamp(32px, 5vw, 72px)',
-                   marginBottom: 'clamp(20px, 4vw, 50px)',
-                   lineHeight: '1.2',
-                   direction: isRTL ? 'rtl' : 'ltr',
-                   fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-                 }}
-               >
-                 {t.joinUsStayConnected || 'STAY CONNECTED WITH FAMILY AND FRIENDS.'}
-               </h2>
+              <h2
+                className="font-bold uppercase text-[#005490]"
+                style={{
+                  fontSize: 'clamp(32px, 5vw, 72px)',
+                  marginBottom: 'clamp(20px, 4vw, 50px)',
+                  lineHeight: '1.2',
+                  direction: isRTL ? 'rtl' : 'ltr',
+                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                  color: '#005490'
+                }}
+              >
+                {(() => {
+                  const baseText = t.joinUsStayConnected || 'STAY CONNECTED WITH FAMILY AND FRIENDS.';
+                  const text = baseText.trim().endsWith('.') ? baseText.trim() : `${baseText.trim()}.`;
+                  const phrase = 'WITH FAMILY AND FRIENDS';
+                  const idx = text.indexOf(phrase);
+                  if (idx === -1) return text;
+                  const before = text.slice(0, idx);
+                  const after = text.slice(idx + phrase.length);
+                  return (
+                    <>
+                      {before}
+                      <span style={{ color: '#03355c', display: 'block' }}>
+                        {phrase}
+                        {after}
+                      </span>
+                    </>
+                  );
+                })()}
+              </h2>
                <h2
                  className="font-bold uppercase text-[#005490]"
                  style={{
@@ -236,19 +264,43 @@ const JoinUs = () => {
                    marginBottom: 'clamp(30px, 5vw, 60px)',
                    lineHeight: '1.2',
                    direction: isRTL ? 'rtl' : 'ltr',
-                   fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                  color: '#005490'
                  }}
                >
-                 {t.joinUsEverywhere || 'EVERYWHERE YOU GO.'}
+                {(() => {
+                  const baseText = t.joinUsEverywhere || 'EVERYWHERE YOU GO.';
+                  const text = baseText.trim().endsWith('.') ? baseText.trim() : `${baseText.trim()}.`;
+                  const phrase = 'YOU GO';
+                  const idx = text.indexOf(phrase);
+                  if (idx === -1) return text;
+                  const before = text.slice(0, idx).trimEnd();
+                  const phraseWithAfter = text.slice(idx).trim();
+                  return (
+                    <>
+                      <span>{before}</span>
+                      <span style={{ color: '#03355c', display: 'block' }}>
+                        {phraseWithAfter}
+                      </span>
+                    </>
+                  );
+                })()}
                </h2>
                <button
                  className="uppercase font-semibold text-white rounded-full transition hover:opacity-90"
                  style={{
                    backgroundColor: '#67c9d6',
-                   color: '#000000',
-                   padding: 'clamp(14px, 2.5vw, 24px) clamp(32px, 5vw, 80px)',
-                   fontSize: 'clamp(16px, 2.5vw, 32px)',
-                   border: 'none',
+                  color: '#03355c',
+                  padding: '0 clamp(32px, 5vw, 80px)',
+                  fontSize: '48px',
+                  minWidth: '700px',
+                  height: '95px',
+                  fontWeight: 700,
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  border: 'none',
+                  borderRadius: '40px',
                    cursor: 'pointer',
                    direction: isRTL ? 'rtl' : 'ltr',
                    fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
@@ -258,38 +310,48 @@ const JoinUs = () => {
                </button>
              </div>
 
-             {/* Right side - Service Offerings Card */}
-             <div
-               className="bg-white rounded-3xl shadow-lg"
-               style={{
-                 padding: 'clamp(30px, 5vw, 60px)',
-                 border: '1px solid #e0e0e0'
-               }}
-             >
+            {/* Right side - Service Offerings Card */}
+            <div
+              className="bg-white"
+              style={{
+                padding: 'clamp(30px, 5vw, 60px)',
+                border: '1px solid #e0e0e0',
+                width: '100%',
+                maxWidth: '665px',
+                background: '#f0f0f0',
+                borderRadius: '28px',
+                boxShadow: '0 -4px 10px rgba(0, 0, 0, 0.08), 0 14px 28px rgba(0, 0, 0, 0.14)',
+                marginLeft: isRTL ? '0' : '80px',
+                marginRight: isRTL ? '80px' : '0'
+              }}
+            >
                <div className="grid grid-cols-2 gap-6 lg:gap-8">
                  {/* Service Item 1 */}
                  <div className="flex flex-col items-center text-center">
                    <div
                      className="mb-4"
                      style={{
-                       width: 'clamp(40px, 6vw, 80px)',
-                       height: 'clamp(40px, 6vw, 80px)',
-                       background: '#f0f0f0',
-                       borderRadius: '12px',
-                       display: 'flex',
-                       alignItems: 'center',
-                       justifyContent: 'center'
+                      width: 'clamp(60px, 8vw, 110px)',
+                      height: 'clamp(60px, 8vw, 110px)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
                      }}
                    >
-                     <span style={{ fontSize: '24px' }}>📞</span>
+                    <img
+                      src={unlimitedCallsIcon}
+                      alt="Unlimited calls in Israel"
+                      style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                    />
                    </div>
                    <p
-                     style={{
-                       fontSize: 'clamp(14px, 1.8vw, 24px)',
-                       color: '#03355c',
-                       direction: isRTL ? 'rtl' : 'ltr',
-                       fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-                     }}
+                    style={{
+                      fontSize: '32px',
+                      fontWeight: 700,
+                      color: '#03355c',
+                      direction: isRTL ? 'rtl' : 'ltr',
+                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                    }}
                    >
                      {t.joinUsUnlimitedCalls || 'Unlimited calls in Israel'}
                    </p>
@@ -300,24 +362,27 @@ const JoinUs = () => {
                    <div
                      className="mb-4"
                      style={{
-                       width: 'clamp(40px, 6vw, 80px)',
-                       height: 'clamp(40px, 6vw, 80px)',
-                       background: '#f0f0f0',
-                       borderRadius: '12px',
-                       display: 'flex',
-                       alignItems: 'center',
-                       justifyContent: 'center'
+                      width: 'clamp(60px, 8vw, 110px)',
+                      height: 'clamp(60px, 8vw, 110px)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
                      }}
                    >
-                     <span style={{ fontSize: '24px' }}>📱</span>
+                    <img
+                      src={simCardIcon}
+                      alt="Free sim card"
+                      style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                    />
                    </div>
                    <p
-                     style={{
-                       fontSize: 'clamp(14px, 1.8vw, 24px)',
-                       color: '#03355c',
-                       direction: isRTL ? 'rtl' : 'ltr',
-                       fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-                     }}
+                    style={{
+                      fontSize: '32px',
+                      fontWeight: 700,
+                      color: '#03355c',
+                      direction: isRTL ? 'rtl' : 'ltr',
+                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                    }}
                    >
                      {t.joinUsFreeSim || 'Free sim card'}
                    </p>
@@ -328,24 +393,27 @@ const JoinUs = () => {
                    <div
                      className="mb-4"
                      style={{
-                       width: 'clamp(40px, 6vw, 80px)',
-                       height: 'clamp(40px, 6vw, 80px)',
-                       background: '#f0f0f0',
-                       borderRadius: '12px',
-                       display: 'flex',
-                       alignItems: 'center',
-                       justifyContent: 'center'
+                      width: 'clamp(60px, 8vw, 110px)',
+                      height: 'clamp(60px, 8vw, 110px)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
                      }}
                    >
-                     <span style={{ fontSize: '24px' }}>🌐</span>
+                    <img
+                      src={highSpeedIcon}
+                      alt="200GB High speed internet"
+                      style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                    />
                    </div>
                    <p
-                     style={{
-                       fontSize: 'clamp(14px, 1.8vw, 24px)',
-                       color: '#03355c',
-                       direction: isRTL ? 'rtl' : 'ltr',
-                       fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-                     }}
+                    style={{
+                      fontSize: '32px',
+                      fontWeight: 700,
+                      color: '#03355c',
+                      direction: isRTL ? 'rtl' : 'ltr',
+                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                    }}
                    >
                      {t.joinUsHighSpeedInternet || '200GB High speed internet'}
                    </p>
@@ -356,24 +424,27 @@ const JoinUs = () => {
                    <div
                      className="mb-4"
                      style={{
-                       width: 'clamp(40px, 6vw, 80px)',
-                       height: 'clamp(40px, 6vw, 80px)',
-                       background: '#f0f0f0',
-                       borderRadius: '12px',
-                       display: 'flex',
-                       alignItems: 'center',
-                       justifyContent: 'center'
+                      width: 'clamp(60px, 8vw, 110px)',
+                      height: 'clamp(60px, 8vw, 110px)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
                      }}
                    >
-                     <span style={{ fontSize: '24px' }}>💬</span>
+                    <img
+                      src={smsIcon}
+                      alt="Unlimited SMS in Israel"
+                      style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                    />
                    </div>
                    <p
-                     style={{
-                       fontSize: 'clamp(14px, 1.8vw, 24px)',
-                       color: '#03355c',
-                       direction: isRTL ? 'rtl' : 'ltr',
-                       fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-                     }}
+                    style={{
+                      fontSize: '32px',
+                      fontWeight: 700,
+                      color: '#03355c',
+                      direction: isRTL ? 'rtl' : 'ltr',
+                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                    }}
                    >
                      {t.joinUsUnlimitedSMS || 'Unlimited SMS in Israel'}
                    </p>
@@ -384,24 +455,27 @@ const JoinUs = () => {
                    <div
                      className="mb-4"
                      style={{
-                       width: 'clamp(40px, 6vw, 80px)',
-                       height: 'clamp(40px, 6vw, 80px)',
-                       background: '#f0f0f0',
-                       borderRadius: '12px',
-                       display: 'flex',
-                       alignItems: 'center',
-                       justifyContent: 'center'
+                      width: 'clamp(60px, 8vw, 110px)',
+                      height: 'clamp(60px, 8vw, 110px)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
                      }}
                    >
-                     <span style={{ fontSize: '24px' }}>🎧</span>
+                    <img
+                      src={supportIcon}
+                      alt="Support in your native language"
+                      style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                    />
                    </div>
                    <p
-                     style={{
-                       fontSize: 'clamp(14px, 1.8vw, 24px)',
-                       color: '#03355c',
-                       direction: isRTL ? 'rtl' : 'ltr',
-                       fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-                     }}
+                    style={{
+                      fontSize: '32px',
+                      fontWeight: 700,
+                      color: '#03355c',
+                      direction: isRTL ? 'rtl' : 'ltr',
+                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                    }}
                    >
                      {t.joinUsSupportNative || 'Support in your native language'}
                    </p>
@@ -412,7 +486,7 @@ const JoinUs = () => {
                    <p
                      className="font-bold"
                      style={{
-                       fontSize: 'clamp(16px, 2.2vw, 28px)',
+                      fontSize: '44px',
                        color: '#03355c',
                        direction: isRTL ? 'rtl' : 'ltr',
                        fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
