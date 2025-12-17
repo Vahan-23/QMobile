@@ -10,6 +10,7 @@ import simCardIcon from './Assets/sim_card.png';
 import smsIcon from './Assets/SMS_in_Israel.png';
 import supportIcon from './Assets/Support.png';
 import photoAir from './Assets/photoAir.jpeg';
+import qDarkBlue from './Assets/q_dark_blue@2x.png';
 
 const JoinUs = () => {
   const { language, isRTL } = useLanguage();
@@ -23,6 +24,7 @@ const JoinUs = () => {
     email: '',
     originCountry: 'Thailand'
   });
+  const [isCountryOpen, setIsCountryOpen] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -30,6 +32,19 @@ const JoinUs = () => {
       ...prev,
       [name]: value
     }));
+  };
+
+  const countryFlagMap = {
+    Thailand: 'th',
+    Philippines: 'ph',
+    India: 'in',
+    Nepal: 'np',
+    Other: 'un' // generic flag for "Other"
+  };
+
+  const getFlagUrl = (country) => {
+    const code = countryFlagMap[country];
+    return code ? `https://flagcdn.com/w40/${code}.png` : null;
   };
 
   const handleSubmit = (e) => {
@@ -293,7 +308,7 @@ const JoinUs = () => {
                    backgroundColor: '#67c9d6',
                   color: '#03355c',
                   padding: '0 clamp(32px, 5vw, 80px)',
-                  fontSize: 'clamp(19px, 2.5vw, 32px)',
+                  fontSize: '16px',
                   minWidth: 'clamp(280px, calc(-7px + 37.3vw), 700px)',
                   height: 'clamp(34px, calc(-7px + 5.5vw), 95px)',
                   fontWeight: 700,
@@ -534,255 +549,435 @@ const JoinUs = () => {
        <section
          className="w-full"
          style={{
-           padding: 'clamp(60px, 10vw, 120px) clamp(20px, 6vw, 80px)',
-           background: '#67c9d6'
+          paddingTop: 0,
+          paddingBottom: 'clamp(60px, 10vw, 120px)',
+          paddingLeft: 'clamp(40px, 4vw, 80px)',
+          paddingRight: 'clamp(40px, 4vw, 80px)',
+          background: 'transparent',
+          marginTop: 'clamp(-100px, -5vw, 0px)',
+          position: 'relative',
+          zIndex: 3
          }}
        >
-         <div className="max-w-[1895px] mx-auto w-full">
-           <div className="max-w-4xl mx-auto">
-             <div className="flex items-center gap-4 mb-6" style={{ justifyContent: isRTL ? 'flex-end' : 'flex-start' }}>
-               <img
-                 src={t.logo}
-                 alt="Q mobile"
-                 style={{
-                   height: 'clamp(30px, 4vw, 60px)',
-                   width: 'auto'
-                 }}
-               />
-               <h2
-                 className="font-bold uppercase text-[#005490]"
-                 style={{
-                   fontSize: 'clamp(32px, 5vw, 64px)',
-                   direction: isRTL ? 'rtl' : 'ltr',
-                   fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-                 }}
-               >
-                 {t.joinUsFamilyTitle || 'JOIN THE Q MOBILE FAMILY'}
-               </h2>
-             </div>
+        <div
+          className="max-w-[1895px] mx-auto w-full"
+          style={{
+            background: '#67c9d6',
+            paddingTop: 'clamp(25px, 6vw, 65px)',
+            paddingBottom: 'clamp(40px, 6vw, 80px)',
+            paddingLeft: 'clamp(10px, calc(10px + (100vw - 769px) * 0.062), 80px)',
+            paddingRight: 'clamp(10px, calc(10px + (100vw - 769px) * 0.062), 80px)',
+            borderRadius: '25px'
+          }}
+        >
+          <div className="w-full mx-auto">
+              <div className="flex items-center gap-4 mb-6" style={{ justifyContent: 'center' }}>
+                <h2
+                  className="font-bold uppercase text-[#03355c]"
+                  style={{
+                  fontSize: 'clamp(24px, calc(3px + 2.75vw), 55px)',
+                    direction: isRTL ? 'rtl' : 'ltr',
+                    fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    flexWrap: 'wrap'
+                  }}
+                >
+                  {(() => {
+                    const text = t.joinUsFamilyTitle || 'JOIN THE Q MOBILE FAMILY';
+                    const idx = text.indexOf('Q');
+                    if (idx === -1) return text;
+                    const before = text.slice(0, idx);
+                    const after = text.slice(idx + 1);
+                    return (
+                      <>
+                        <span>{before}</span>
+                        <img
+                          src={qDarkBlue}
+                          alt="Q"
+                          style={{
+                            height: 'clamp(46px, calc(23px + 3vw), 96px)',
+                            width: 'auto',
+                            display: 'inline-block'
+                          }}
+                        />
+                        <span>{after}</span>
+                      </>
+                    );
+                  })()}
+                </h2>
+              </div>
 
              <p
-               className="text-[#005490] mb-8"
+              className="mb-8"
                style={{
-                 fontSize: 'clamp(16px, 2.5vw, 28px)',
-                 direction: isRTL ? 'rtl' : 'ltr',
+                fontSize: 'clamp(18px, 2.34vw, 44px)',
+                width: '100%',
+                textAlign: 'center',
+                color: '#03355c',
+                direction: isRTL ? 'rtl' : 'ltr',
                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
                }}
              >
                {t.joinUsFormInstructions || 'Please submit your details, and one of our representatives will contact you in your native language.'}
              </p>
 
-             <form onSubmit={handleSubmit} className="bg-white rounded-3xl p-8 lg:p-12 shadow-lg">
-               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                 {/* First Name */}
-                 <div>
-                   <label
-                     className="block mb-2 font-semibold text-[#03355c]"
-                     style={{
-                       fontSize: 'clamp(14px, 1.8vw, 20px)',
-                       direction: isRTL ? 'rtl' : 'ltr',
-                       fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-                     }}
-                   >
-                     {t.joinUsFirstName || 'First name'} *
-                   </label>
-                   <input
-                     type="text"
-                     name="firstName"
-                     value={formData.firstName}
-                     onChange={handleInputChange}
-                     required
-                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#005490]"
-                     style={{
-                       fontSize: 'clamp(14px, 1.8vw, 18px)',
-                       direction: isRTL ? 'rtl' : 'ltr',
-                       fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-                     }}
-                   />
-                 </div>
+            <form
+              onSubmit={handleSubmit}
+              className="rounded-3xl"
+              style={{ padding: 0 }}
+            >
+              <div
+                className="grid grid-cols-1 md:grid-cols-2 gap-5"
+                style={{ gap: 'clamp(1rem, calc(1rem + (100vw - 769px) * 0.06), 5rem)' }}
+              >
+                {/* Left column */}
+                <div className="flex flex-col" style={{ paddingLeft: 0, paddingRight: 0, gap: '3.5rem' }}>
+                  {/* First Name */}
+                  <div
+                    className="flex items-center gap-4"
+                  style={{ flexDirection: isRTL ? 'row-reverse' : 'row', justifyContent: 'space-between' }}
+                  >
+                    <label
+                      className="font-semibold text-[#03355c]"
+                      style={{
+                        fontSize: 'clamp(13px, 1.7vw, 32px)',
+                        direction: isRTL ? 'rtl' : 'ltr',
+                        fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                        width: '200px',
+                        marginBottom: 0,
+                        textAlign: isRTL ? 'right' : 'left',
+                        whiteSpace: 'nowrap'
+                      }}
+                    >
+                      {t.joinUsFirstName || 'First name'} *
+                    </label>
+                    <input
+                      type="text"
+                      name="firstName"
+                      value={formData.firstName}
+                      onChange={handleInputChange}
+                      required
+                      className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#005490]"
+                      style={{
+                        fontSize: 'clamp(13px, 1.7vw, 32px)',
+                        direction: isRTL ? 'rtl' : 'ltr',
+                        fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                        width: 'clamp(165px, 21.45vw, 420px)',
+                        flex: '0 0 clamp(165px, 21.45vw, 420px)',
+                      paddingTop: 'clamp(0.25rem, 0.8vw, 0.75rem)',
+                      paddingBottom: 'clamp(0.25rem, 0.8vw, 0.75rem)'
+                      }}
+                    />
+                  </div>
 
-                 {/* Last Name */}
-                 <div>
-                   <label
-                     className="block mb-2 font-semibold text-[#03355c]"
-                     style={{
-                       fontSize: 'clamp(14px, 1.8vw, 20px)',
-                       direction: isRTL ? 'rtl' : 'ltr',
-                       fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-                     }}
-                   >
-                     {t.joinUsLastName || 'Last name'} *
-                   </label>
-                   <input
-                     type="text"
-                     name="lastName"
-                     value={formData.lastName}
-                     onChange={handleInputChange}
-                     required
-                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#005490]"
-                     style={{
-                       fontSize: 'clamp(14px, 1.8vw, 18px)',
-                       direction: isRTL ? 'rtl' : 'ltr',
-                       fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-                     }}
-                   />
-                 </div>
+                  {/* Employee Name */}
+                  <div
+                    className="flex items-center gap-4"
+                  style={{ flexDirection: isRTL ? 'row-reverse' : 'row', justifyContent: 'space-between' }}
+                  >
+                    <label
+                      className="font-semibold text-[#03355c]"
+                      style={{
+                        fontSize: 'clamp(13px, 1.7vw, 32px)',
+                        direction: isRTL ? 'rtl' : 'ltr',
+                        fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                        width: '200px',
+                        marginBottom: 0,
+                        textAlign: isRTL ? 'right' : 'left',
+                        whiteSpace: 'nowrap'
+                      }}
+                    >
+                      {t.joinUsEmployeeName || 'Employee name'} *
+                    </label>
+                    <input
+                      type="text"
+                      name="employeeName"
+                      value={formData.employeeName}
+                      onChange={handleInputChange}
+                      required
+                      className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#005490]"
+                      style={{
+                        fontSize: 'clamp(13px, 1.7vw, 32px)',
+                        direction: isRTL ? 'rtl' : 'ltr',
+                        fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                        width: 'clamp(165px, 21.45vw, 420px)',
+                        flex: '0 0 clamp(165px, 21.45vw, 420px)',
+                      paddingTop: 'clamp(0.25rem, 0.8vw, 0.75rem)',
+                      paddingBottom: 'clamp(0.25rem, 0.8vw, 0.75rem)'
+                      }}
+                    />
+                  </div>
 
-                 {/* Employee Name */}
-                 <div>
-                   <label
-                     className="block mb-2 font-semibold text-[#03355c]"
-                     style={{
-                       fontSize: 'clamp(14px, 1.8vw, 20px)',
-                       direction: isRTL ? 'rtl' : 'ltr',
-                       fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-                     }}
-                   >
-                     {t.joinUsEmployeeName || 'Employee name'} *
-                   </label>
-                   <input
-                     type="text"
-                     name="employeeName"
-                     value={formData.employeeName}
-                     onChange={handleInputChange}
-                     required
-                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#005490]"
-                     style={{
-                       fontSize: 'clamp(14px, 1.8vw, 18px)',
-                       direction: isRTL ? 'rtl' : 'ltr',
-                       fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-                     }}
-                   />
-                 </div>
+                  {/* Phone */}
+                  <div
+                    className="flex items-center gap-4"
+                  style={{ flexDirection: isRTL ? 'row-reverse' : 'row', justifyContent: 'space-between' }}
+                  >
+                    <label
+                      className="font-semibold text-[#03355c]"
+                      style={{
+                        fontSize: 'clamp(13px, 1.7vw, 32px)',
+                        direction: isRTL ? 'rtl' : 'ltr',
+                        fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                        width: '200px',
+                        marginBottom: 0,
+                        textAlign: isRTL ? 'right' : 'left',
+                        whiteSpace: 'nowrap'
+                      }}
+                    >
+                      {t.joinUsPhone || 'Phone'} *
+                    </label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      required
+                      className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#005490]"
+                      style={{
+                        fontSize: 'clamp(13px, 1.7vw, 32px)',
+                        direction: isRTL ? 'rtl' : 'ltr',
+                        fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                        width: 'clamp(165px, 21.45vw, 420px)',
+                        flex: '0 0 clamp(165px, 21.45vw, 420px)',
+                      paddingTop: 'clamp(0.25rem, 0.8vw, 0.75rem)',
+                      paddingBottom: 'clamp(0.25rem, 0.8vw, 0.75rem)'
+                      }}
+                    />
+                  </div>
 
-                 {/* Passport Number */}
-                 <div>
-                   <label
-                     className="block mb-2 font-semibold text-[#03355c]"
-                     style={{
-                       fontSize: 'clamp(14px, 1.8vw, 20px)',
-                       direction: isRTL ? 'rtl' : 'ltr',
-                       fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-                     }}
-                   >
-                     {t.joinUsPassportNumber || 'Passport number'} *
-                   </label>
-                   <input
-                     type="text"
-                     name="passportNumber"
-                     value={formData.passportNumber}
-                     onChange={handleInputChange}
-                     required
-                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#005490]"
-                     style={{
-                       fontSize: 'clamp(14px, 1.8vw, 18px)',
-                       direction: isRTL ? 'rtl' : 'ltr',
-                       fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-                     }}
-                   />
-                 </div>
+                  {/* Origin Country */}
+                  <div
+                    className="flex items-center gap-4"
+                  style={{ flexDirection: isRTL ? 'row-reverse' : 'row', justifyContent: 'space-between' }}
+                  >
+                    <label
+                      className="font-semibold text-[#03355c]"
+                      style={{
+                        fontSize: 'clamp(13px, 1.7vw, 32px)',
+                        direction: isRTL ? 'rtl' : 'ltr',
+                        fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                        width: '200px',
+                        marginBottom: 0,
+                        textAlign: isRTL ? 'right' : 'left',
+                        whiteSpace: 'nowrap'
+                      }}
+                    >
+                      {t.joinUsOriginCountry || 'Origin country'}
+                    </label>
+                  <div
+                    className="relative flex-1"
+                    style={{
+                      width: '100%',
+                      minWidth: '165px',
+                      maxWidth: '420px',
+                      flex: '1 1 165px'
+                    }}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => setIsCountryOpen(prev => !prev)}
+                      className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#005490] flex items-center justify-between bg-white"
+                      style={{
+                        fontSize: 'clamp(13px, 1.7vw, 32px)',
+                        direction: isRTL ? 'rtl' : 'ltr',
+                        fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                        background: '#ffffff',
+                        width: '100%',
+                        paddingTop: 'clamp(0.25rem, 0.8vw, 0.75rem)',
+                        paddingBottom: 'clamp(0.25rem, 0.8vw, 0.75rem)'
+                      }}
+                    >
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        {getFlagUrl(formData.originCountry) && (
+                          <img
+                            src={getFlagUrl(formData.originCountry)}
+                            alt={formData.originCountry}
+                            style={{ width: 'clamp(26px, 5vw, 36px)', height: 'clamp(26px, 5vw, 36px)', objectFit: 'cover', borderRadius: '50%' }}
+                          />
+                        )}
+                        {formData.originCountry}
+                      </span>
+                      <span style={{ fontSize: '20px' }}>▾</span>
+                    </button>
 
-                 {/* Phone */}
-                 <div>
-                   <label
-                     className="block mb-2 font-semibold text-[#03355c]"
-                     style={{
-                       fontSize: 'clamp(14px, 1.8vw, 20px)',
-                       direction: isRTL ? 'rtl' : 'ltr',
-                       fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-                     }}
-                   >
-                     {t.joinUsPhone || 'Phone'} *
-                   </label>
-                   <input
-                     type="tel"
-                     name="phone"
-                     value={formData.phone}
-                     onChange={handleInputChange}
-                     required
-                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#005490]"
-                     style={{
-                       fontSize: 'clamp(14px, 1.8vw, 18px)',
-                       direction: isRTL ? 'rtl' : 'ltr',
-                       fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-                     }}
-                   />
-                 </div>
+                    {isCountryOpen && (
+                      <div
+                        className="absolute left-0 right-0 mt-2 bg-white border border-gray-300 rounded-lg shadow-lg z-10"
+                        style={{ maxHeight: '240px', overflowY: 'auto' }}
+                      >
+                        {['Thailand', 'Philippines', 'India', 'Nepal', 'Other'].map((country) => (
+                          <button
+                            key={country}
+                            type="button"
+                            onClick={() => {
+                              setFormData(prev => ({ ...prev, originCountry: country }));
+                              setIsCountryOpen(false);
+                            }}
+                      className="w-full text-left px-4 py-3 hover:bg-gray-100 flex items-center gap-3 bg-white"
+                            style={{
+                              fontSize: 'clamp(13px, 1.7vw, 24px)',
+                              direction: isRTL ? 'rtl' : 'ltr',
+                        fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                        paddingTop: 'clamp(0.25rem, 0.8vw, 0.75rem)',
+                        paddingBottom: 'clamp(0.25rem, 0.8vw, 0.75rem)'
+                            }}
+                          >
+                            {getFlagUrl(country) && (
+                              <img
+                                src={getFlagUrl(country)}
+                                alt={country}
+                                style={{ width: 'clamp(22px, 4vw, 32px)', height: 'clamp(22px, 4vw, 32px)', objectFit: 'cover', borderRadius: '50%' }}
+                              />
+                            )}
+                            {country}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  </div>
+                </div>
 
-                 {/* Email */}
-                 <div>
-                   <label
-                     className="block mb-2 font-semibold text-[#03355c]"
-                     style={{
-                       fontSize: 'clamp(14px, 1.8vw, 20px)',
-                       direction: isRTL ? 'rtl' : 'ltr',
-                       fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-                     }}
-                   >
-                     {t.joinUsEmail || 'Email'} *
-                   </label>
-                   <input
-                     type="email"
-                     name="email"
-                     value={formData.email}
-                     onChange={handleInputChange}
-                     required
-                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#005490]"
-                     style={{
-                       fontSize: 'clamp(14px, 1.8vw, 18px)',
-                       direction: isRTL ? 'rtl' : 'ltr',
-                       fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-                     }}
-                   />
-                 </div>
+                {/* Right column */}
+                <div className="flex flex-col" style={{ paddingLeft: 0, paddingRight: 0, gap: '3.5rem' }}>
+                  {/* Last Name */}
+                  <div
+                    className="flex items-center gap-4"
+                  style={{ flexDirection: isRTL ? 'row-reverse' : 'row', justifyContent: 'space-between' }}
+                  >
+                    <label
+                      className="font-semibold text-[#03355c]"
+                      style={{
+                        fontSize: 'clamp(13px, 1.7vw, 32px)',
+                        direction: isRTL ? 'rtl' : 'ltr',
+                        fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                        width: '200px',
+                        marginBottom: 0,
+                        textAlign: isRTL ? 'right' : 'left',
+                        whiteSpace: 'nowrap'
+                      }}
+                    >
+                      {t.joinUsLastName || 'Last name'} *
+                    </label>
+                    <input
+                      type="text"
+                      name="lastName"
+                      value={formData.lastName}
+                      onChange={handleInputChange}
+                      required
+                      className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#005490]"
+                      style={{
+                        fontSize: 'clamp(13px, 1.7vw, 32px)',
+                        direction: isRTL ? 'rtl' : 'ltr',
+                        fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                        width: 'clamp(165px, 21.45vw, 420px)',
+                        flex: '0 0 clamp(165px, 21.45vw, 420px)',
+                        paddingTop: 'clamp(0.25rem, 0.8vw, 0.75rem)',
+                        paddingBottom: 'clamp(0.25rem, 0.8vw, 0.75rem)'
+                      }}
+                    />
+                  </div>
 
-                 {/* Origin Country */}
-                 <div className="md:col-span-2">
-                   <label
-                     className="block mb-2 font-semibold text-[#03355c]"
-                     style={{
-                       fontSize: 'clamp(14px, 1.8vw, 20px)',
-                       direction: isRTL ? 'rtl' : 'ltr',
-                       fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-                     }}
-                   >
-                     {t.joinUsOriginCountry || 'Origin country'}
-                   </label>
-                   <select
-                     name="originCountry"
-                     value={formData.originCountry}
-                     onChange={handleInputChange}
-                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#005490]"
-                     style={{
-                       fontSize: 'clamp(14px, 1.8vw, 18px)',
-                       direction: isRTL ? 'rtl' : 'ltr',
-                       fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-                     }}
-                   >
-                     <option value="Thailand">Thailand</option>
-                     <option value="Philippines">Philippines</option>
-                     <option value="India">India</option>
-                     <option value="Nepal">Nepal</option>
-                     <option value="Other">Other</option>
-                   </select>
-                 </div>
-               </div>
+                  {/* Passport Number */}
+                  <div
+                    className="flex items-center gap-4"
+                  style={{ flexDirection: isRTL ? 'row-reverse' : 'row', justifyContent: 'space-between' }}
+                  >
+                    <label
+                      className="font-semibold text-[#03355c]"
+                      style={{
+                        fontSize: 'clamp(13px, 1.7vw, 32px)',
+                        direction: isRTL ? 'rtl' : 'ltr',
+                        fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                        width: '200px',
+                        marginBottom: 0,
+                        textAlign: isRTL ? 'right' : 'left',
+                        whiteSpace: 'nowrap'
+                      }}
+                    >
+                      {t.joinUsPassportNumber || 'Passport number'} *
+                    </label>
+                    <input
+                      type="text"
+                      name="passportNumber"
+                      value={formData.passportNumber}
+                      onChange={handleInputChange}
+                      required
+                      className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#005490]"
+                      style={{
+                        fontSize: 'clamp(13px, 1.7vw, 32px)',
+                        direction: isRTL ? 'rtl' : 'ltr',
+                        fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                        width: 'clamp(165px, 21.45vw, 420px)',
+                        flex: '0 0 clamp(165px, 21.45vw, 420px)',
+                        paddingTop: 'clamp(0.25rem, 0.8vw, 0.75rem)',
+                        paddingBottom: 'clamp(0.25rem, 0.8vw, 0.75rem)'
+                      }}
+                    />
+                  </div>
 
-               <button
-                 type="submit"
-                 className="w-full mt-8 uppercase font-bold text-white rounded-full transition hover:opacity-90"
-                 style={{
-                   backgroundColor: '#005490',
-                   padding: 'clamp(16px, 2.5vw, 24px)',
-                   fontSize: 'clamp(16px, 2.5vw, 24px)',
-                   border: 'none',
-                   cursor: 'pointer',
-                   direction: isRTL ? 'rtl' : 'ltr',
-                   fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-                 }}
-               >
-                 {t.joinUsSubmitRegistration || 'SUBMIT REGISTRATION REQUEST'}
-               </button>
+                  {/* Email */}
+                  <div
+                    className="flex items-center gap-4"
+                  style={{ flexDirection: isRTL ? 'row-reverse' : 'row', justifyContent: 'space-between' }}
+                  >
+                    <label
+                      className="font-semibold text-[#03355c]"
+                      style={{
+                        fontSize: 'clamp(13px, 1.7vw, 32px)',
+                        direction: isRTL ? 'rtl' : 'ltr',
+                        fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                        width: '200px',
+                        marginBottom: 0,
+                        textAlign: isRTL ? 'right' : 'left',
+                        whiteSpace: 'nowrap'
+                      }}
+                    >
+                      {t.joinUsEmail || 'Email'} *
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      required
+                      className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#005490]"
+                      style={{
+                      fontSize: 'clamp(13px, 1.7vw, 32px)',
+                      direction: isRTL ? 'rtl' : 'ltr',
+                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                        width: 'clamp(165px, 21.45vw, 420px)',
+                        flex: '0 0 clamp(165px, 21.45vw, 420px)',
+                        paddingTop: 'clamp(0.25rem, 0.8vw, 0.75rem)',
+                        paddingBottom: 'clamp(0.25rem, 0.8vw, 0.75rem)'
+                      }}
+                    />
+                  </div>
+
+                  {/* Submit Button */}
+                  <div style={{ display: 'flex', justifyContent: isRTL ? 'flex-start' : 'flex-end' }}>
+                    <button
+                      type="submit"
+                      className="uppercase font-bold text-white rounded-full transition hover:opacity-90"
+                      style={{
+                        backgroundColor: '#005490',
+                        padding: 'clamp(16px, 2.5vw, 24px)',
+                        fontSize: 'clamp(16px, 2vw, 24px)',
+                        border: 'none',
+                        cursor: 'pointer',
+                        direction: isRTL ? 'rtl' : 'ltr',
+                        fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                        width: '100%'
+                      }}
+                    >
+                      {t.joinUsSubmitRegistration || 'SUBMIT REGISTRATION REQUEST'}
+                    </button>
+                  </div>
+                </div>
+              </div>
              </form>
            </div>
          </div>
@@ -797,7 +992,7 @@ const JoinUs = () => {
          }}
        >
          <div className="max-w-[1895px] mx-auto w-full">
-           <div className="max-w-4xl mx-auto text-center">
+          <div className="w-full mx-auto text-center">
              <h2
                className="font-bold uppercase text-[#005490] mb-8"
                style={{
