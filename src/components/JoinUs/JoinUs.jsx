@@ -9,6 +9,7 @@ import highSpeedIcon from './Assets/speed_internet.png';
 import simCardIcon from './Assets/sim_card.png';
 import smsIcon from './Assets/SMS_in_Israel.png';
 import supportIcon from './Assets/Support.png';
+import photoAir from './Assets/photoAir.jpeg';
 
 const JoinUs = () => {
   const { language, isRTL } = useLanguage();
@@ -202,7 +203,7 @@ const JoinUs = () => {
                  </div>
                </div>
              </div>
-           </section>
+      </section>
          </div>
        </div>
 
@@ -211,7 +212,7 @@ const JoinUs = () => {
          className="w-full"
          style={{
           paddingTop: 'clamp(0px, 8vw, 80px)',
-          paddingBottom: 'clamp(60px, 10vw, 150px)',
+          paddingBottom: 0,
           paddingLeft: 'clamp(20px, 6vw, 80px)',
           paddingRight: 'clamp(20px, 6vw, 80px)',
            background: '#ffffff'
@@ -322,7 +323,9 @@ const JoinUs = () => {
                 borderRadius: '28px',
                 boxShadow: '0 -4px 10px rgba(0, 0, 0, 0.08), 0 14px 28px rgba(0, 0, 0, 0.14)',
                 marginLeft: '0',
-                marginRight: '0'
+                marginRight: '0',
+                position: 'relative',
+                zIndex: 2
               }}
             >
                <div className="grid grid-cols-2 gap-6 lg:gap-8">
@@ -501,6 +504,31 @@ const JoinUs = () => {
            </div>
          </div>
        </section>
+
+      {/* Photo Section */}
+      <section
+        className="w-full"
+        style={{
+          padding: 0,
+          background: '#ffffff',
+          marginTop: 'clamp(-70px, -3.7vw, 0px)',
+          border: 'none'
+        }}
+      >
+        <div className="max-w-[1895px] mx-auto w-full">
+          <img
+            src={photoAir}
+            alt="Travel"
+            style={{
+              width: '100%',
+              height: 'auto',
+              border: 'none',
+              objectFit: 'cover',
+              display: 'block'
+            }}
+          />
+        </div>
+      </section>
 
        {/* Registration Form Section */}
        <section
