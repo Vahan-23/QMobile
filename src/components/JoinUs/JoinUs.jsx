@@ -210,7 +210,7 @@ const JoinUs = () => {
        <section
          className="w-full"
          style={{
-          paddingTop: 'clamp(10px, 10vw, 100px)',
+          paddingTop: 'clamp(0px, 8vw, 80px)',
           paddingBottom: 'clamp(60px, 10vw, 150px)',
           paddingLeft: 'clamp(20px, 6vw, 80px)',
           paddingRight: 'clamp(20px, 6vw, 80px)',
@@ -218,19 +218,19 @@ const JoinUs = () => {
          }}
        >
          <div className="max-w-[1895px] mx-auto w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-start">
              {/* Left side - CTA */}
-             <div
-               style={{
+            <div
+              style={{
                 textAlign: isRTL ? 'right' : 'left',
-                marginLeft: isRTL ? '0' : '80px',
-                marginRight: isRTL ? '80px' : '0'
-               }}
-             >
+                marginLeft: isRTL ? '0' : '0',
+                marginRight: isRTL ? '0' : '0'
+              }}
+            >
               <h2
                 className="font-bold uppercase text-[#005490]"
                 style={{
-                  fontSize: 'clamp(32px, 5vw, 72px)',
+                  fontSize: 'clamp(28px, 4.16vw, 72px)',
                   marginBottom: 'clamp(20px, 4vw, 50px)',
                   lineHeight: '1.2',
                   direction: isRTL ? 'rtl' : 'ltr',
@@ -260,7 +260,7 @@ const JoinUs = () => {
                <h2
                  className="font-bold uppercase text-[#005490]"
                  style={{
-                   fontSize: 'clamp(32px, 5vw, 72px)',
+                  fontSize: 'clamp(28px, 4.16vw, 72px)',
                    marginBottom: 'clamp(30px, 5vw, 60px)',
                    lineHeight: '1.2',
                    direction: isRTL ? 'rtl' : 'ltr',
@@ -292,9 +292,9 @@ const JoinUs = () => {
                    backgroundColor: '#67c9d6',
                   color: '#03355c',
                   padding: '0 clamp(32px, 5vw, 80px)',
-                  fontSize: '48px',
-                  minWidth: '700px',
-                  height: '95px',
+                  fontSize: 'clamp(19px, 2.5vw, 32px)',
+                  minWidth: 'clamp(280px, calc(-7px + 37.3vw), 700px)',
+                  height: 'clamp(34px, calc(-7px + 5.5vw), 95px)',
                   fontWeight: 700,
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -314,15 +314,15 @@ const JoinUs = () => {
             <div
               className="bg-white"
               style={{
-                padding: 'clamp(30px, 5vw, 60px)',
+                padding: 'clamp(13px, calc(-19px + 4.17vw), 60px)',
                 border: '1px solid #e0e0e0',
                 width: '100%',
                 maxWidth: '665px',
                 background: '#f0f0f0',
                 borderRadius: '28px',
                 boxShadow: '0 -4px 10px rgba(0, 0, 0, 0.08), 0 14px 28px rgba(0, 0, 0, 0.14)',
-                marginLeft: isRTL ? '0' : '80px',
-                marginRight: isRTL ? '80px' : '0'
+                marginLeft: '0',
+                marginRight: '0'
               }}
             >
                <div className="grid grid-cols-2 gap-6 lg:gap-8">
@@ -346,7 +346,7 @@ const JoinUs = () => {
                    </div>
                    <p
                     style={{
-                      fontSize: '32px',
+                      fontSize: 'clamp(15px, 2vw, 32px)',
                       fontWeight: 700,
                       color: '#03355c',
                       direction: isRTL ? 'rtl' : 'ltr',
@@ -377,7 +377,7 @@ const JoinUs = () => {
                    </div>
                    <p
                     style={{
-                      fontSize: '32px',
+                      fontSize: 'clamp(15px, 2vw, 32px)',
                       fontWeight: 700,
                       color: '#03355c',
                       direction: isRTL ? 'rtl' : 'ltr',
@@ -408,7 +408,7 @@ const JoinUs = () => {
                    </div>
                    <p
                     style={{
-                      fontSize: '32px',
+                      fontSize: 'clamp(15px, 2vw, 32px)',
                       fontWeight: 700,
                       color: '#03355c',
                       direction: isRTL ? 'rtl' : 'ltr',
@@ -439,7 +439,7 @@ const JoinUs = () => {
                    </div>
                    <p
                     style={{
-                      fontSize: '32px',
+                      fontSize: 'clamp(15px, 2vw, 32px)',
                       fontWeight: 700,
                       color: '#03355c',
                       direction: isRTL ? 'rtl' : 'ltr',
@@ -470,7 +470,7 @@ const JoinUs = () => {
                    </div>
                    <p
                     style={{
-                      fontSize: '32px',
+                      fontSize: 'clamp(15px, 2vw, 32px)',
                       fontWeight: 700,
                       color: '#03355c',
                       direction: isRTL ? 'rtl' : 'ltr',
@@ -486,7 +486,7 @@ const JoinUs = () => {
                    <p
                      className="font-bold"
                      style={{
-                      fontSize: '44px',
+                      fontSize: 'clamp(21px, calc(5.3px + 2.04vw), 44px)',
                        color: '#03355c',
                        direction: isRTL ? 'rtl' : 'ltr',
                        fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
