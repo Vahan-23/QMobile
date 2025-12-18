@@ -1021,11 +1021,12 @@ const JoinUs = () => {
                 <h2
                   className="font-bold uppercase text-[#03355c]"
                   style={{
-                  fontSize: 'clamp(24px, calc(3px + 2.75vw), 55px)',
+                  fontSize: isMobile ? 'clamp(24px, 8.2vw, 63px)' : 'clamp(24px, calc(3px + 2.75vw), 55px)', // При ширине 768px = 63px для мобильной версии
                     direction: isRTL ? 'rtl' : 'ltr',
                     fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
                     display: 'flex',
                     alignItems: 'center',
+                    justifyContent: 'center',
                     gap: '8px',
                     flexWrap: 'wrap'
                   }}
@@ -1043,7 +1044,7 @@ const JoinUs = () => {
                           src={qDarkBlue}
                           alt="Q"
                           style={{
-                            height: 'clamp(46px, calc(23px + 3vw), 96px)',
+                            height: isMobile ? 'clamp(46px, 11.72vw, 90px)' : 'clamp(46px, calc(23px + 3vw), 96px)', // При ширине 768px = 90px для мобильной версии
                             width: 'auto',
                             display: 'inline-block'
                           }}
@@ -1058,7 +1059,7 @@ const JoinUs = () => {
              <p
               className="mb-8"
                style={{
-                fontSize: 'clamp(18px, 2.34vw, 44px)',
+                fontSize: isMobile ? 'clamp(18px, 4.95vw, 38px)' : 'clamp(18px, 2.34vw, 44px)', // При ширине 768px = 38px для мобильной версии
                 width: '100%',
                 textAlign: 'center',
                 color: '#03355c',
@@ -1074,25 +1075,26 @@ const JoinUs = () => {
               className="rounded-3xl"
               style={{ padding: 0 }}
             >
-              <div
-                className="grid grid-cols-1 md:grid-cols-2 gap-5"
-                style={{ gap: 'clamp(1rem, calc(1rem + (100vw - 769px) * 0.06), 5rem)' }}
-              >
-                {/* Left column */}
-                <div className="flex flex-col" style={{ paddingLeft: 0, paddingRight: 0, gap: 'clamp(1rem, calc(-11px + 3.55vw), 3.5rem)' }}> {/* При ширине 769px = 1rem, при 1895px = 3.5rem */}
+              {isMobile ? (
+                /* Мобильная версия: все инпуты в одной колонке в правильном порядке */
+                <div className="flex flex-col" style={{ gap: 'clamp(1rem, calc(-11px + 3.55vw), 3.5rem)' }}>
                   {/* First Name */}
                   <div
-                    className="flex items-center gap-4"
-                  style={{ flexDirection: isRTL ? 'row-reverse' : 'row', justifyContent: 'space-between' }}
+                    className="flex gap-4"
+                  style={{ 
+                    flexDirection: isMobile ? 'column' : (isRTL ? 'row-reverse' : 'row'), 
+                    alignItems: isMobile ? 'stretch' : 'center',
+                    justifyContent: isMobile ? 'flex-start' : 'space-between'
+                  }}
                   >
                     <label
                       className="font-semibold text-[#03355c]"
                       style={{
-                        fontSize: 'clamp(13px, 1.7vw, 32px)',
+                        fontSize: isMobile ? 'clamp(13px, calc(-13px + 6.38vw), 36px)' : 'clamp(13px, 1.7vw, 32px)', // При ширине 768px = 36px для мобильной версии
                         direction: isRTL ? 'rtl' : 'ltr',
                         fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-                        width: '200px',
-                        marginBottom: 0,
+                        width: isMobile ? '100%' : '200px',
+                        marginBottom: isMobile ? '0.5rem' : 0,
                         textAlign: isRTL ? 'right' : 'left',
                         whiteSpace: 'nowrap'
                       }}
@@ -1107,30 +1109,76 @@ const JoinUs = () => {
                       required
                       className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#005490]"
                       style={{
-                        fontSize: 'clamp(13px, 1.7vw, 32px)',
+                        fontSize: isMobile ? 'clamp(13px, calc(-13px + 6.9vw), 40px)' : 'clamp(13px, 1.7vw, 32px)', // При ширине 768px = 40px для мобильной версии
                         direction: isRTL ? 'rtl' : 'ltr',
                         fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-                        width: 'clamp(165px, 21.45vw, 420px)',
-                        flex: '0 0 clamp(165px, 21.45vw, 420px)',
+                        width: isMobile ? '100%' : 'clamp(165px, 21.45vw, 420px)',
+                        flex: isMobile ? 'none' : '0 0 clamp(165px, 21.45vw, 420px)',
                       paddingTop: 'clamp(0.25rem, 0.8vw, 0.75rem)',
                       paddingBottom: 'clamp(0.25rem, 0.8vw, 0.75rem)'
                       }}
                     />
                   </div>
 
-                  {/* Employee Name */}
+                  {/* Last Name - для мобильной версии идет вторым */}
                   <div
-                    className="flex items-center gap-4"
-                  style={{ flexDirection: isRTL ? 'row-reverse' : 'row', justifyContent: 'space-between' }}
+                    className="flex gap-4"
+                  style={{ 
+                    flexDirection: isMobile ? 'column' : (isRTL ? 'row-reverse' : 'row'), 
+                    alignItems: isMobile ? 'stretch' : 'center',
+                    justifyContent: isMobile ? 'flex-start' : 'space-between'
+                  }}
                   >
                     <label
                       className="font-semibold text-[#03355c]"
                       style={{
-                        fontSize: 'clamp(13px, 1.7vw, 32px)',
+                        fontSize: isMobile ? 'clamp(13px, calc(-13px + 6.38vw), 36px)' : 'clamp(13px, 1.7vw, 32px)', // При ширине 768px = 36px для мобильной версии
                         direction: isRTL ? 'rtl' : 'ltr',
                         fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-                        width: '200px',
-                        marginBottom: 0,
+                        width: isMobile ? '100%' : '200px',
+                        marginBottom: isMobile ? '0.5rem' : 0,
+                        textAlign: isRTL ? 'right' : 'left',
+                        whiteSpace: 'nowrap'
+                      }}
+                    >
+                      {t.joinUsLastName || 'Last name'} *
+                    </label>
+                    <input
+                      type="text"
+                      name="lastName"
+                      value={formData.lastName}
+                      onChange={handleInputChange}
+                      required
+                      className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#005490]"
+                      style={{
+                        fontSize: isMobile ? 'clamp(13px, calc(-13px + 6.9vw), 40px)' : 'clamp(13px, 1.7vw, 32px)', // При ширине 768px = 40px для мобильной версии
+                        direction: isRTL ? 'rtl' : 'ltr',
+                        fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                        width: isMobile ? '100%' : 'clamp(165px, 21.45vw, 420px)',
+                        flex: isMobile ? 'none' : '0 0 clamp(165px, 21.45vw, 420px)',
+                        paddingTop: 'clamp(0.25rem, 0.8vw, 0.75rem)',
+                        paddingBottom: 'clamp(0.25rem, 0.8vw, 0.75rem)'
+                      }}
+                    />
+                  </div>
+
+                  {/* Employee Name - для мобильной версии идет третьим */}
+                  <div
+                    className="flex gap-4"
+                  style={{ 
+                    flexDirection: isMobile ? 'column' : (isRTL ? 'row-reverse' : 'row'), 
+                    alignItems: isMobile ? 'stretch' : 'center',
+                    justifyContent: isMobile ? 'flex-start' : 'space-between'
+                  }}
+                  >
+                    <label
+                      className="font-semibold text-[#03355c]"
+                      style={{
+                        fontSize: isMobile ? 'clamp(13px, calc(-13px + 6.38vw), 36px)' : 'clamp(13px, 1.7vw, 32px)', // При ширине 768px = 36px для мобильной версии
+                        direction: isRTL ? 'rtl' : 'ltr',
+                        fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                        width: isMobile ? '100%' : '200px',
+                        marginBottom: isMobile ? '0.5rem' : 0,
                         textAlign: isRTL ? 'right' : 'left',
                         whiteSpace: 'nowrap'
                       }}
@@ -1145,30 +1193,76 @@ const JoinUs = () => {
                       required
                       className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#005490]"
                       style={{
-                        fontSize: 'clamp(13px, 1.7vw, 32px)',
+                        fontSize: isMobile ? 'clamp(13px, calc(-13px + 6.9vw), 40px)' : 'clamp(13px, 1.7vw, 32px)', // При ширине 768px = 40px для мобильной версии
                         direction: isRTL ? 'rtl' : 'ltr',
                         fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-                        width: 'clamp(165px, 21.45vw, 420px)',
-                        flex: '0 0 clamp(165px, 21.45vw, 420px)',
+                        width: isMobile ? '100%' : 'clamp(165px, 21.45vw, 420px)',
+                        flex: isMobile ? 'none' : '0 0 clamp(165px, 21.45vw, 420px)',
                       paddingTop: 'clamp(0.25rem, 0.8vw, 0.75rem)',
                       paddingBottom: 'clamp(0.25rem, 0.8vw, 0.75rem)'
                       }}
                     />
                   </div>
 
-                  {/* Phone */}
+                  {/* Passport Number - для мобильной версии идет четвертым */}
                   <div
-                    className="flex items-center gap-4"
-                  style={{ flexDirection: isRTL ? 'row-reverse' : 'row', justifyContent: 'space-between' }}
+                    className="flex gap-4"
+                  style={{ 
+                    flexDirection: isMobile ? 'column' : (isRTL ? 'row-reverse' : 'row'), 
+                    alignItems: isMobile ? 'stretch' : 'center',
+                    justifyContent: isMobile ? 'flex-start' : 'space-between'
+                  }}
                   >
                     <label
                       className="font-semibold text-[#03355c]"
                       style={{
-                        fontSize: 'clamp(13px, 1.7vw, 32px)',
+                        fontSize: isMobile ? 'clamp(13px, calc(-13px + 6.38vw), 36px)' : 'clamp(13px, 1.7vw, 32px)', // При ширине 768px = 36px для мобильной версии
                         direction: isRTL ? 'rtl' : 'ltr',
                         fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-                        width: '200px',
-                        marginBottom: 0,
+                        width: isMobile ? '100%' : '200px',
+                        marginBottom: isMobile ? '0.5rem' : 0,
+                        textAlign: isRTL ? 'right' : 'left',
+                        whiteSpace: 'nowrap'
+                      }}
+                    >
+                      {t.joinUsPassportNumber || 'Passport number'} *
+                    </label>
+                    <input
+                      type="text"
+                      name="passportNumber"
+                      value={formData.passportNumber}
+                      onChange={handleInputChange}
+                      required
+                      className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#005490]"
+                      style={{
+                        fontSize: isMobile ? 'clamp(13px, calc(-13px + 6.9vw), 40px)' : 'clamp(13px, 1.7vw, 32px)', // При ширине 768px = 40px для мобильной версии
+                        direction: isRTL ? 'rtl' : 'ltr',
+                        fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                        width: isMobile ? '100%' : 'clamp(165px, 21.45vw, 420px)',
+                        flex: isMobile ? 'none' : '0 0 clamp(165px, 21.45vw, 420px)',
+                        paddingTop: 'clamp(0.25rem, 0.8vw, 0.75rem)',
+                        paddingBottom: 'clamp(0.25rem, 0.8vw, 0.75rem)'
+                      }}
+                    />
+                  </div>
+
+                  {/* Phone - для мобильной версии идет пятым */}
+                  <div
+                    className="flex gap-4"
+                  style={{ 
+                    flexDirection: isMobile ? 'column' : (isRTL ? 'row-reverse' : 'row'), 
+                    alignItems: isMobile ? 'stretch' : 'center',
+                    justifyContent: isMobile ? 'flex-start' : 'space-between'
+                  }}
+                  >
+                    <label
+                      className="font-semibold text-[#03355c]"
+                      style={{
+                        fontSize: isMobile ? 'clamp(13px, calc(-13px + 6.38vw), 36px)' : 'clamp(13px, 1.7vw, 32px)', // При ширине 768px = 36px для мобильной версии
+                        direction: isRTL ? 'rtl' : 'ltr',
+                        fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                        width: isMobile ? '100%' : '200px',
+                        marginBottom: isMobile ? '0.5rem' : 0,
                         textAlign: isRTL ? 'right' : 'left',
                         whiteSpace: 'nowrap'
                       }}
@@ -1183,30 +1277,76 @@ const JoinUs = () => {
                       required
                       className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#005490]"
                       style={{
-                        fontSize: 'clamp(13px, 1.7vw, 32px)',
+                        fontSize: isMobile ? 'clamp(13px, calc(-13px + 6.9vw), 40px)' : 'clamp(13px, 1.7vw, 32px)', // При ширине 768px = 40px для мобильной версии
                         direction: isRTL ? 'rtl' : 'ltr',
                         fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-                        width: 'clamp(165px, 21.45vw, 420px)',
-                        flex: '0 0 clamp(165px, 21.45vw, 420px)',
+                        width: isMobile ? '100%' : 'clamp(165px, 21.45vw, 420px)',
+                        flex: isMobile ? 'none' : '0 0 clamp(165px, 21.45vw, 420px)',
                       paddingTop: 'clamp(0.25rem, 0.8vw, 0.75rem)',
                       paddingBottom: 'clamp(0.25rem, 0.8vw, 0.75rem)'
                       }}
                     />
                   </div>
 
-                  {/* Origin Country */}
+                  {/* Email - для мобильной версии идет шестым */}
                   <div
-                    className="flex items-center gap-4"
-                  style={{ flexDirection: isRTL ? 'row-reverse' : 'row', justifyContent: 'space-between' }}
+                    className="flex gap-4"
+                  style={{ 
+                    flexDirection: isMobile ? 'column' : (isRTL ? 'row-reverse' : 'row'), 
+                    alignItems: isMobile ? 'stretch' : 'center',
+                    justifyContent: isMobile ? 'flex-start' : 'space-between'
+                  }}
                   >
                     <label
                       className="font-semibold text-[#03355c]"
                       style={{
-                        fontSize: 'clamp(13px, 1.7vw, 32px)',
+                        fontSize: isMobile ? 'clamp(13px, calc(-13px + 6.38vw), 36px)' : 'clamp(13px, 1.7vw, 32px)', // При ширине 768px = 36px для мобильной версии
                         direction: isRTL ? 'rtl' : 'ltr',
                         fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-                        width: '200px',
-                        marginBottom: 0,
+                        width: isMobile ? '100%' : '200px',
+                        marginBottom: isMobile ? '0.5rem' : 0,
+                        textAlign: isRTL ? 'right' : 'left',
+                        whiteSpace: 'nowrap'
+                      }}
+                    >
+                      {t.joinUsEmail || 'Email'} *
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      required
+                      className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#005490]"
+                      style={{
+                      fontSize: isMobile ? 'clamp(13px, calc(-13px + 8.2vw), 50px)' : 'clamp(13px, 1.7vw, 32px)', // При ширине 768px = 50px для мобильной версии
+                      direction: isRTL ? 'rtl' : 'ltr',
+                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                        width: isMobile ? '100%' : 'clamp(165px, 21.45vw, 420px)',
+                        flex: isMobile ? 'none' : '0 0 clamp(165px, 21.45vw, 420px)',
+                        paddingTop: 'clamp(0.25rem, 0.8vw, 0.75rem)',
+                        paddingBottom: 'clamp(0.25rem, 0.8vw, 0.75rem)'
+                      }}
+                    />
+                  </div>
+
+                  {/* Origin Country - для мобильной версии идет седьмым */}
+                  <div
+                    className="flex gap-4"
+                  style={{ 
+                    flexDirection: isMobile ? 'column' : (isRTL ? 'row-reverse' : 'row'), 
+                    alignItems: isMobile ? 'stretch' : 'center',
+                    justifyContent: isMobile ? 'flex-start' : 'space-between'
+                  }}
+                  >
+                    <label
+                      className="font-semibold text-[#03355c]"
+                      style={{
+                        fontSize: isMobile ? 'clamp(13px, calc(-13px + 6.38vw), 36px)' : 'clamp(13px, 1.7vw, 32px)', // При ширине 768px = 36px для мобильной версии
+                        direction: isRTL ? 'rtl' : 'ltr',
+                        fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                        width: isMobile ? '100%' : '200px',
+                        marginBottom: isMobile ? '0.5rem' : 0,
                         textAlign: isRTL ? 'right' : 'left',
                         whiteSpace: 'nowrap'
                       }}
@@ -1216,10 +1356,10 @@ const JoinUs = () => {
                   <div
                     className="relative flex-1"
                     style={{
-                      width: '100%',
-                      minWidth: '165px',
-                      maxWidth: '420px',
-                      flex: '1 1 165px'
+                      width: isMobile ? '100%' : '100%',
+                      minWidth: isMobile ? 'auto' : '165px',
+                      maxWidth: isMobile ? '100%' : '420px',
+                      flex: isMobile ? 'none' : '1 1 165px'
                     }}
                   >
                     <button
@@ -1227,7 +1367,7 @@ const JoinUs = () => {
                       onClick={() => setIsCountryOpen(prev => !prev)}
                       className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#005490] flex items-center justify-between bg-white"
                       style={{
-                        fontSize: 'clamp(13px, 1.7vw, 32px)',
+                        fontSize: isMobile ? 'clamp(13px, calc(-13px + 6.9vw), 40px)' : 'clamp(13px, 1.7vw, 32px)', // При ширине 768px = 40px для мобильной версии
                         direction: isRTL ? 'rtl' : 'ltr',
                         fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
                         background: '#ffffff',
@@ -1285,133 +1425,16 @@ const JoinUs = () => {
                     )}
                   </div>
                   </div>
-                </div>
 
-                {/* Right column */}
-                <div className="flex flex-col" style={{ paddingLeft: 0, paddingRight: 0, gap: 'clamp(1rem, calc(-11px + 3.55vw), 3.5rem)' }}> {/* При ширине 769px = 1rem, при 1895px = 3.5rem */}
-                  {/* Last Name */}
-                  <div
-                    className="flex items-center gap-4"
-                  style={{ flexDirection: isRTL ? 'row-reverse' : 'row', justifyContent: 'space-between' }}
-                  >
-                    <label
-                      className="font-semibold text-[#03355c]"
-                      style={{
-                        fontSize: 'clamp(13px, 1.7vw, 32px)',
-                        direction: isRTL ? 'rtl' : 'ltr',
-                        fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-                        width: '200px',
-                        marginBottom: 0,
-                        textAlign: isRTL ? 'right' : 'left',
-                        whiteSpace: 'nowrap'
-                      }}
-                    >
-                      {t.joinUsLastName || 'Last name'} *
-                    </label>
-                    <input
-                      type="text"
-                      name="lastName"
-                      value={formData.lastName}
-                      onChange={handleInputChange}
-                      required
-                      className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#005490]"
-                      style={{
-                        fontSize: 'clamp(13px, 1.7vw, 32px)',
-                        direction: isRTL ? 'rtl' : 'ltr',
-                        fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-                        width: 'clamp(165px, 21.45vw, 420px)',
-                        flex: '0 0 clamp(165px, 21.45vw, 420px)',
-                        paddingTop: 'clamp(0.25rem, 0.8vw, 0.75rem)',
-                        paddingBottom: 'clamp(0.25rem, 0.8vw, 0.75rem)'
-                      }}
-                    />
-                  </div>
-
-                  {/* Passport Number */}
-                  <div
-                    className="flex items-center gap-4"
-                  style={{ flexDirection: isRTL ? 'row-reverse' : 'row', justifyContent: 'space-between' }}
-                  >
-                    <label
-                      className="font-semibold text-[#03355c]"
-                      style={{
-                        fontSize: 'clamp(13px, 1.7vw, 32px)',
-                        direction: isRTL ? 'rtl' : 'ltr',
-                        fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-                        width: '200px',
-                        marginBottom: 0,
-                        textAlign: isRTL ? 'right' : 'left',
-                        whiteSpace: 'nowrap'
-                      }}
-                    >
-                      {t.joinUsPassportNumber || 'Passport number'} *
-                    </label>
-                    <input
-                      type="text"
-                      name="passportNumber"
-                      value={formData.passportNumber}
-                      onChange={handleInputChange}
-                      required
-                      className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#005490]"
-                      style={{
-                        fontSize: 'clamp(13px, 1.7vw, 32px)',
-                        direction: isRTL ? 'rtl' : 'ltr',
-                        fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-                        width: 'clamp(165px, 21.45vw, 420px)',
-                        flex: '0 0 clamp(165px, 21.45vw, 420px)',
-                        paddingTop: 'clamp(0.25rem, 0.8vw, 0.75rem)',
-                        paddingBottom: 'clamp(0.25rem, 0.8vw, 0.75rem)'
-                      }}
-                    />
-                  </div>
-
-                  {/* Email */}
-                  <div
-                    className="flex items-center gap-4"
-                  style={{ flexDirection: isRTL ? 'row-reverse' : 'row', justifyContent: 'space-between' }}
-                  >
-                    <label
-                      className="font-semibold text-[#03355c]"
-                      style={{
-                        fontSize: 'clamp(13px, 1.7vw, 32px)',
-                        direction: isRTL ? 'rtl' : 'ltr',
-                        fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-                        width: '200px',
-                        marginBottom: 0,
-                        textAlign: isRTL ? 'right' : 'left',
-                        whiteSpace: 'nowrap'
-                      }}
-                    >
-                      {t.joinUsEmail || 'Email'} *
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      required
-                      className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#005490]"
-                      style={{
-                      fontSize: 'clamp(13px, 1.7vw, 32px)',
-                      direction: isRTL ? 'rtl' : 'ltr',
-                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-                        width: 'clamp(165px, 21.45vw, 420px)',
-                        flex: '0 0 clamp(165px, 21.45vw, 420px)',
-                        paddingTop: 'clamp(0.25rem, 0.8vw, 0.75rem)',
-                        paddingBottom: 'clamp(0.25rem, 0.8vw, 0.75rem)'
-                      }}
-                    />
-                  </div>
-
-                  {/* Submit Button */}
-                  <div style={{ display: 'flex', justifyContent: isRTL ? 'flex-start' : 'flex-end' }}>
+                  {/* Submit Button - для мобильной версии идет последним */}
+                  <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
                     <button
                       type="submit"
                       className="uppercase font-bold text-white rounded-full transition hover:opacity-90"
                       style={{
                         backgroundColor: '#005490',
                         padding: 'clamp(16px, 2.5vw, 24px)',
-                        fontSize: 'clamp(16px, 2vw, 24px)',
+                        fontSize: 'clamp(13px, calc(-13px + 6.13vw), 34px)', // При ширине 768px = 34px для мобильной версии, минимум 13px
                         border: 'none',
                         cursor: 'pointer',
                         direction: isRTL ? 'rtl' : 'ltr',
@@ -1423,7 +1446,387 @@ const JoinUs = () => {
                     </button>
                   </div>
                 </div>
-              </div>
+              ) : (
+                /* Десктоп версия: две колонки */
+                <div
+                  className="grid grid-cols-1 md:grid-cols-2 gap-5"
+                  style={{ gap: 'clamp(1rem, calc(1rem + (100vw - 769px) * 0.06), 5rem)' }}
+                >
+                  {/* Left column */}
+                  <div className="flex flex-col" style={{ paddingLeft: 0, paddingRight: 0, gap: 'clamp(1rem, calc(-11px + 3.55vw), 3.5rem)' }}> {/* При ширине 769px = 1rem, при 1895px = 3.5rem */}
+                    {/* First Name */}
+                    <div
+                      className="flex gap-4"
+                    style={{ 
+                      flexDirection: isRTL ? 'row-reverse' : 'row', 
+                      alignItems: 'center',
+                      justifyContent: 'space-between'
+                    }}
+                    >
+                      <label
+                        className="font-semibold text-[#03355c]"
+                        style={{
+                          fontSize: 'clamp(13px, 1.7vw, 32px)',
+                          direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                          width: '200px',
+                          marginBottom: 0,
+                          textAlign: isRTL ? 'right' : 'left',
+                          whiteSpace: 'nowrap'
+                        }}
+                      >
+                        {t.joinUsFirstName || 'First name'} *
+                      </label>
+                      <input
+                        type="text"
+                        name="firstName"
+                        value={formData.firstName}
+                        onChange={handleInputChange}
+                        required
+                        className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#005490]"
+                        style={{
+                          fontSize: 'clamp(13px, 1.7vw, 32px)',
+                          direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                          width: 'clamp(165px, 21.45vw, 420px)',
+                          flex: '0 0 clamp(165px, 21.45vw, 420px)',
+                        paddingTop: 'clamp(0.25rem, 0.8vw, 0.75rem)',
+                        paddingBottom: 'clamp(0.25rem, 0.8vw, 0.75rem)'
+                        }}
+                      />
+                    </div>
+
+                    {/* Employee Name */}
+                    <div
+                      className="flex gap-4"
+                    style={{ 
+                      flexDirection: isRTL ? 'row-reverse' : 'row', 
+                      alignItems: 'center',
+                      justifyContent: 'space-between'
+                    }}
+                    >
+                      <label
+                        className="font-semibold text-[#03355c]"
+                        style={{
+                          fontSize: 'clamp(13px, 1.7vw, 32px)',
+                          direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                          width: '200px',
+                          marginBottom: 0,
+                          textAlign: isRTL ? 'right' : 'left',
+                          whiteSpace: 'nowrap'
+                        }}
+                      >
+                        {t.joinUsEmployeeName || 'Employee name'} *
+                      </label>
+                      <input
+                        type="text"
+                        name="employeeName"
+                        value={formData.employeeName}
+                        onChange={handleInputChange}
+                        required
+                        className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#005490]"
+                        style={{
+                          fontSize: 'clamp(13px, 1.7vw, 32px)',
+                          direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                          width: 'clamp(165px, 21.45vw, 420px)',
+                          flex: '0 0 clamp(165px, 21.45vw, 420px)',
+                        paddingTop: 'clamp(0.25rem, 0.8vw, 0.75rem)',
+                        paddingBottom: 'clamp(0.25rem, 0.8vw, 0.75rem)'
+                        }}
+                      />
+                    </div>
+
+                    {/* Phone */}
+                    <div
+                      className="flex gap-4"
+                    style={{ 
+                      flexDirection: isRTL ? 'row-reverse' : 'row', 
+                      alignItems: 'center',
+                      justifyContent: 'space-between'
+                    }}
+                    >
+                      <label
+                        className="font-semibold text-[#03355c]"
+                        style={{
+                          fontSize: 'clamp(13px, 1.7vw, 32px)',
+                          direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                          width: '200px',
+                          marginBottom: 0,
+                          textAlign: isRTL ? 'right' : 'left',
+                          whiteSpace: 'nowrap'
+                        }}
+                      >
+                        {t.joinUsPhone || 'Phone'} *
+                      </label>
+                      <input
+                        type="tel"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        required
+                        className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#005490]"
+                        style={{
+                          fontSize: 'clamp(13px, 1.7vw, 32px)',
+                          direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                          width: 'clamp(165px, 21.45vw, 420px)',
+                          flex: '0 0 clamp(165px, 21.45vw, 420px)',
+                        paddingTop: 'clamp(0.25rem, 0.8vw, 0.75rem)',
+                        paddingBottom: 'clamp(0.25rem, 0.8vw, 0.75rem)'
+                        }}
+                      />
+                    </div>
+
+                    {/* Origin Country */}
+                    <div
+                      className="flex gap-4"
+                    style={{ 
+                      flexDirection: isRTL ? 'row-reverse' : 'row', 
+                      alignItems: 'center',
+                      justifyContent: 'space-between'
+                    }}
+                    >
+                      <label
+                        className="font-semibold text-[#03355c]"
+                        style={{
+                          fontSize: 'clamp(13px, 1.7vw, 32px)',
+                          direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                          width: '200px',
+                          marginBottom: 0,
+                          textAlign: isRTL ? 'right' : 'left',
+                          whiteSpace: 'nowrap'
+                        }}
+                      >
+                        {t.joinUsOriginCountry || 'Origin country'}
+                      </label>
+                    <div
+                      className="relative flex-1"
+                      style={{
+                        width: '100%',
+                        minWidth: '165px',
+                        maxWidth: '420px',
+                        flex: '1 1 165px'
+                      }}
+                    >
+                      <button
+                        type="button"
+                        onClick={() => setIsCountryOpen(prev => !prev)}
+                        className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#005490] flex items-center justify-between bg-white"
+                        style={{
+                          fontSize: 'clamp(13px, 1.7vw, 32px)',
+                          direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                          background: '#ffffff',
+                          width: '100%',
+                          paddingTop: 'clamp(0.25rem, 0.8vw, 0.75rem)',
+                          paddingBottom: 'clamp(0.25rem, 0.8vw, 0.75rem)'
+                        }}
+                      >
+                        <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                          {getFlagUrl(formData.originCountry) && (
+                            <img
+                              src={getFlagUrl(formData.originCountry)}
+                              alt={formData.originCountry}
+                              style={{ width: 'clamp(26px, 5vw, 36px)', height: 'clamp(26px, 5vw, 36px)', objectFit: 'cover', borderRadius: '50%' }}
+                            />
+                          )}
+                          {formData.originCountry}
+                        </span>
+                        <span style={{ fontSize: '20px' }}>▾</span>
+                      </button>
+
+                      {isCountryOpen && (
+                        <div
+                          className="absolute left-0 right-0 mt-2 bg-white border border-gray-300 rounded-lg shadow-lg z-10"
+                          style={{ maxHeight: '240px', overflowY: 'auto' }}
+                        >
+                          {['Thailand', 'Philippines', 'India', 'Nepal', 'Other'].map((country) => (
+                            <button
+                              key={country}
+                              type="button"
+                              onClick={() => {
+                                setFormData(prev => ({ ...prev, originCountry: country }));
+                                setIsCountryOpen(false);
+                              }}
+                        className="w-full text-left px-4 py-3 hover:bg-gray-100 flex items-center gap-3 bg-white"
+                              style={{
+                                fontSize: 'clamp(13px, 1.7vw, 24px)',
+                                direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                          paddingTop: 'clamp(0.25rem, 0.8vw, 0.75rem)',
+                          paddingBottom: 'clamp(0.25rem, 0.8vw, 0.75rem)'
+                              }}
+                            >
+                              {getFlagUrl(country) && (
+                                <img
+                                  src={getFlagUrl(country)}
+                                  alt={country}
+                                  style={{ width: 'clamp(22px, 4vw, 32px)', height: 'clamp(22px, 4vw, 32px)', objectFit: 'cover', borderRadius: '50%' }}
+                                />
+                              )}
+                              {country}
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                    </div>
+                  </div>
+
+                  {/* Right column */}
+                  <div className="flex flex-col" style={{ paddingLeft: 0, paddingRight: 0, gap: 'clamp(1rem, calc(-11px + 3.55vw), 3.5rem)' }}> {/* При ширине 769px = 1rem, при 1895px = 3.5rem */}
+                    {/* Last Name */}
+                    <div
+                      className="flex gap-4"
+                    style={{ 
+                      flexDirection: isRTL ? 'row-reverse' : 'row', 
+                      alignItems: 'center',
+                      justifyContent: 'space-between'
+                    }}
+                    >
+                      <label
+                        className="font-semibold text-[#03355c]"
+                        style={{
+                          fontSize: 'clamp(13px, 1.7vw, 32px)',
+                          direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                          width: '200px',
+                          marginBottom: 0,
+                          textAlign: isRTL ? 'right' : 'left',
+                          whiteSpace: 'nowrap'
+                        }}
+                      >
+                        {t.joinUsLastName || 'Last name'} *
+                      </label>
+                      <input
+                        type="text"
+                        name="lastName"
+                        value={formData.lastName}
+                        onChange={handleInputChange}
+                        required
+                        className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#005490]"
+                        style={{
+                          fontSize: 'clamp(13px, 1.7vw, 32px)',
+                          direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                          width: 'clamp(165px, 21.45vw, 420px)',
+                          flex: '0 0 clamp(165px, 21.45vw, 420px)',
+                          paddingTop: 'clamp(0.25rem, 0.8vw, 0.75rem)',
+                          paddingBottom: 'clamp(0.25rem, 0.8vw, 0.75rem)'
+                        }}
+                      />
+                    </div>
+
+                    {/* Passport Number */}
+                    <div
+                      className="flex gap-4"
+                    style={{ 
+                      flexDirection: isRTL ? 'row-reverse' : 'row', 
+                      alignItems: 'center',
+                      justifyContent: 'space-between'
+                    }}
+                    >
+                      <label
+                        className="font-semibold text-[#03355c]"
+                        style={{
+                          fontSize: 'clamp(13px, 1.7vw, 32px)',
+                          direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                          width: '200px',
+                          marginBottom: 0,
+                          textAlign: isRTL ? 'right' : 'left',
+                          whiteSpace: 'nowrap'
+                        }}
+                      >
+                        {t.joinUsPassportNumber || 'Passport number'} *
+                      </label>
+                      <input
+                        type="text"
+                        name="passportNumber"
+                        value={formData.passportNumber}
+                        onChange={handleInputChange}
+                        required
+                        className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#005490]"
+                        style={{
+                          fontSize: 'clamp(13px, 1.7vw, 32px)',
+                          direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                          width: 'clamp(165px, 21.45vw, 420px)',
+                          flex: '0 0 clamp(165px, 21.45vw, 420px)',
+                          paddingTop: 'clamp(0.25rem, 0.8vw, 0.75rem)',
+                          paddingBottom: 'clamp(0.25rem, 0.8vw, 0.75rem)'
+                        }}
+                      />
+                    </div>
+
+                    {/* Email */}
+                    <div
+                      className="flex gap-4"
+                    style={{ 
+                      flexDirection: isRTL ? 'row-reverse' : 'row', 
+                      alignItems: 'center',
+                      justifyContent: 'space-between'
+                    }}
+                    >
+                      <label
+                        className="font-semibold text-[#03355c]"
+                        style={{
+                          fontSize: 'clamp(13px, 1.7vw, 32px)',
+                          direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                          width: '200px',
+                          marginBottom: 0,
+                          textAlign: isRTL ? 'right' : 'left',
+                          whiteSpace: 'nowrap'
+                        }}
+                      >
+                        {t.joinUsEmail || 'Email'} *
+                      </label>
+                      <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        required
+                        className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#005490]"
+                        style={{
+                        fontSize: 'clamp(13px, 1.7vw, 32px)',
+                        direction: isRTL ? 'rtl' : 'ltr',
+                        fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                          width: 'clamp(165px, 21.45vw, 420px)',
+                          flex: '0 0 clamp(165px, 21.45vw, 420px)',
+                          paddingTop: 'clamp(0.25rem, 0.8vw, 0.75rem)',
+                          paddingBottom: 'clamp(0.25rem, 0.8vw, 0.75rem)'
+                        }}
+                      />
+                    </div>
+
+                    {/* Submit Button */}
+                    <div style={{ display: 'flex', justifyContent: isRTL ? 'flex-start' : 'flex-end' }}>
+                      <button
+                        type="submit"
+                        className="uppercase font-bold text-white rounded-full transition hover:opacity-90"
+                        style={{
+                          backgroundColor: '#005490',
+                          padding: 'clamp(16px, 2.5vw, 24px)',
+                          fontSize: 'clamp(16px, 2vw, 24px)',
+                          border: 'none',
+                          cursor: 'pointer',
+                          direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                          width: '100%'
+                        }}
+                      >
+                        {t.joinUsSubmitRegistration || 'SUBMIT REGISTRATION REQUEST'}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
              </form>
            </div>
          </div>
