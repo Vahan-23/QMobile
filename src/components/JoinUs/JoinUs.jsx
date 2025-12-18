@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import HomepageHeader from '../Homepage/HomepageHeader';
 import MarketplaceFooter from '../Marketplace/MarketplaceFooter';
 import { useLanguage } from '../../contexts/LanguageContext';
@@ -25,6 +25,49 @@ const JoinUs = () => {
     originCountry: 'Thailand'
   });
   const [isCountryOpen, setIsCountryOpen] = useState(false);
+  const [activeTestimonial, setActiveTestimonial] = useState(0);
+
+  const testimonialSlides = useMemo(() => {
+    const countries = t.countries || {};
+
+    return [
+      {
+        body: t.joinUsTestimonialText || "Staying connected with my family back home means everything. This mobile plan made it easy and affordable to call and video chat without worrying about the cost. It's been a lifeline.",
+        name: t.joinUsTestimonialName || 'Nok Supansa',
+        origin: t.joinUsTestimonialOrigin || 'Originally from Thailand | Lives in Israel',
+        flags: [
+          { code: 'th', label: countries.thailand || 'Thailand' },
+          { code: 'il', label: countries.israel || 'Israel' }
+        ]
+      },
+      {
+        body: t.joinUsTestimonialText2 || t.joinUsTestimonialText || "Staying connected with my family back home means everything. This mobile plan made it easy and affordable to call and video chat without worrying about the cost. It's been a lifeline.",
+        name: t.joinUsTestimonialName2 || t.joinUsTestimonialName || 'Nok Supansa',
+        origin: t.joinUsTestimonialOrigin2 || t.joinUsTestimonialOrigin || 'Originally from Thailand | Lives in Israel',
+        flags: [
+          { code: 'il', label: countries.israel || 'Israel' },
+          { code: 'th', label: countries.thailand || 'Thailand' }
+        ]
+      }
+    ];
+  }, [t]);
+
+  const currentTestimonial =
+    testimonialSlides[activeTestimonial] ?? testimonialSlides[0];
+
+  const goToPreviousTestimonial = () => {
+    setActiveTestimonial(prev => {
+      const nextIndex = (prev - 1 + testimonialSlides.length) % testimonialSlides.length;
+      return nextIndex;
+    });
+  };
+
+  const goToNextTestimonial = () => {
+    setActiveTestimonial(prev => {
+      const nextIndex = (prev + 1) % testimonialSlides.length;
+      return nextIndex;
+    });
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -308,9 +351,9 @@ const JoinUs = () => {
                    backgroundColor: '#67c9d6',
                   color: '#03355c',
                   padding: '0 clamp(32px, 5vw, 80px)',
-                  fontSize: '16px',
-                  minWidth: 'clamp(280px, calc(-7px + 37.3vw), 700px)',
-                  height: 'clamp(34px, calc(-7px + 5.5vw), 95px)',
+                  fontSize: 'clamp(16px, calc(5px + 1.42vw), 32px)', // При ширине 769px = 16px, при 1895px = 32px
+                  minWidth: 'clamp(280px, calc(-7px + 37.3vw), 700px)', // При ширине 769px = 280px, при 1895px = 700px
+                  height: 'clamp(34px, calc(-8px + 5.42vw), 95px)', // При ширине 769px = 34px, при 1895px = 95px
                   fontWeight: 700,
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -633,7 +676,7 @@ const JoinUs = () => {
                 style={{ gap: 'clamp(1rem, calc(1rem + (100vw - 769px) * 0.06), 5rem)' }}
               >
                 {/* Left column */}
-                <div className="flex flex-col" style={{ paddingLeft: 0, paddingRight: 0, gap: '3.5rem' }}>
+                <div className="flex flex-col" style={{ paddingLeft: 0, paddingRight: 0, gap: 'clamp(1rem, calc(-11px + 3.55vw), 3.5rem)' }}> {/* При ширине 769px = 1rem, при 1895px = 3.5rem */}
                   {/* First Name */}
                   <div
                     className="flex items-center gap-4"
@@ -842,7 +885,7 @@ const JoinUs = () => {
                 </div>
 
                 {/* Right column */}
-                <div className="flex flex-col" style={{ paddingLeft: 0, paddingRight: 0, gap: '3.5rem' }}>
+                <div className="flex flex-col" style={{ paddingLeft: 0, paddingRight: 0, gap: 'clamp(1rem, calc(-11px + 3.55vw), 3.5rem)' }}> {/* При ширине 769px = 1rem, при 1895px = 3.5rem */}
                   {/* Last Name */}
                   <div
                     className="flex items-center gap-4"
@@ -985,93 +1028,145 @@ const JoinUs = () => {
 
        {/* Testimonial Section */}
        <section
-         className="w-full"
+         className="relative overflow-hidden"
          style={{
-           padding: 'clamp(60px, 10vw, 120px) clamp(20px, 6vw, 80px)',
-           background: '#ffffff'
+           background: 'transparent',
+           paddingTop: 0,
+           paddingBottom: 'clamp(60px, 8vw, 120px)'
          }}
        >
          <div className="max-w-[1895px] mx-auto w-full">
-          <div className="w-full mx-auto text-center">
+           <div className="w-full mx-auto text-center mb-8">
              <h2
-               className="font-bold uppercase text-[#005490] mb-8"
+               className="font-bold uppercase"
                style={{
-                 fontSize: 'clamp(32px, 5vw, 64px)',
+                 fontSize: 'clamp(20px, calc(4px + 2.13vw), 44px)', // При ширине 769px = 20px, при 1895px = 44px
+                 color: '#03355c',
                  direction: isRTL ? 'rtl' : 'ltr',
                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
                }}
              >
                {t.joinUsTestimonialTitle || 'WE BRING HEARTS CLOSER, EVEN WHEN MILES APART'}
              </h2>
+           </div>
 
-             <div className="relative">
-               {/* Navigation Arrows */}
-               <button
-                 type="button"
-                 className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-transparent border-none cursor-pointer"
+           <div
+             className="flex flex-col items-center mx-auto"
+             style={{
+               gap: '0.1rem',
+               maxWidth: '1260px',
+               width: '100%',
+               paddingInline: 'clamp(20px, 6vw, 80px)'
+             }}
+           >
+             <p
+               className="text-center font-bold"
+               style={{
+                 fontSize: 'clamp(18px, 2.5vw, 40px)',
+                 color: '#005392',
+                 direction: isRTL ? 'rtl' : 'ltr',
+                 fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+               }}
+             >
+               {currentTestimonial.body}
+             </p>
+           </div>
+
+           <div
+             className="relative w-full"
+             style={{
+               marginTop: '20px'
+             }}
+           >
+             <button
+               type="button"
+               onClick={goToPreviousTestimonial}
+               onKeyDown={event => {
+                 if (event.key === 'Enter' || event.key === ' ') {
+                   event.preventDefault();
+                   goToPreviousTestimonial();
+                 }
+               }}
+               aria-label={t.homeTestimonialPrevLabel || 'Previous testimonial'}
+               style={{
+                 position: 'absolute',
+                 left: '30px',
+                 top: '50%',
+                 transform: 'translateY(-50%)',
+                 width: 'clamp(17px, 2.11vw, 40px)',
+                 height: 'clamp(17px, 2.11vw, 40px)',
+                 padding: 0,
+                 border: 'none',
+                 background: 'transparent',
+                 cursor: 'pointer',
+                 display: 'flex',
+                 alignItems: 'center',
+                 justifyContent: 'center'
+               }}
+             >
+               <img
+                 src="/Images/2x/arrow_left@2x.png"
+                 alt=""
                  style={{
-                   left: 'clamp(-40px, -5vw, -60px)'
+                   width: 'clamp(17px, 2.11vw, 40px)',
+                   height: 'auto'
                  }}
-                 aria-label="Previous testimonial"
+               />
+             </button>
+             <div
+               className="flex flex-col items-center mx-auto"
+               style={{
+                 gap: '0.1rem',
+                 maxWidth: '1260px',
+                 width: '100%',
+                 paddingInline: 'clamp(20px, 6vw, 80px)'
+               }}
+             >
+               <h4
+                 className="text-center"
+                 style={{
+                   fontSize: 'clamp(16px, 1.9vw, 36px)',
+                   color: '#04365d',
+                   letterSpacing: '0.1em',
+                   direction: isRTL ? 'rtl' : 'ltr',
+                   fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                 }}
                >
-                 <img
-                   src="/Images/2x/arrow_left@2x.png"
-                   alt="Previous"
-                   style={{
-                     width: 'clamp(30px, 4vw, 50px)',
-                     height: 'auto'
-                   }}
-                 />
-               </button>
-
-               <div className="px-12">
-                 <p
-                   className="text-[#005490] mb-6"
-                   style={{
-                     fontSize: 'clamp(18px, 2.5vw, 32px)',
-                     lineHeight: '1.6',
-                     direction: isRTL ? 'rtl' : 'ltr',
-                     fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-                   }}
-                 >
-                   {t.joinUsTestimonialText || "Staying connected with my family back home means everything. This mobile plan made it easy and affordable to call and video chat without worrying about the cost. It's been a lifeline."}
-                 </p>
-
-                 <p
-                   className="font-bold text-[#005490] mb-2"
-                   style={{
-                     fontSize: 'clamp(20px, 3vw, 36px)',
-                     direction: isRTL ? 'rtl' : 'ltr',
-                     fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-                   }}
-                 >
-                   {t.joinUsTestimonialName || 'Nok Supansa'}
-                 </p>
-
-                 <p
-                   className="text-[#005490] mb-4"
-                   style={{
-                     fontSize: 'clamp(14px, 2vw, 20px)',
-                     direction: isRTL ? 'rtl' : 'ltr',
-                     fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-                   }}
-                 >
-                   {t.joinUsTestimonialOrigin || 'Originally from Thailand | Lives in Israel'}
-                 </p>
-
-                 {/* Flags */}
-                 <div className="flex justify-center gap-4">
+                 {currentTestimonial.name}
+               </h4>
+               <p
+                 className="text-center"
+                 style={{
+                   fontSize: 'clamp(14px, 1.06vw, 20px)',
+                   color: '#04365d',
+                   letterSpacing: '0.03em',
+                   direction: isRTL ? 'rtl' : 'ltr',
+                   fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                 }}
+               >
+                 {currentTestimonial.origin}
+               </p>
+               <div
+                 className="flex items-center justify-center"
+                 style={{
+                   gap: '1.75rem',
+                   marginTop: '20px'
+                 }}
+               >
+                 {currentTestimonial.flags.map(flag => (
                    <div
+                     key={flag.code}
                      className="rounded-full overflow-hidden"
                      style={{
-                       width: 'clamp(40px, 5vw, 60px)',
-                       height: 'clamp(40px, 5vw, 60px)',
-                       border: '1px solid #000000'
+                       width: 'clamp(44px, 4.22vw, 80px)',
+                       height: 'clamp(44px, 4.22vw, 80px)',
+                       border: '0.5px solid #000000',
+                       boxShadow: '0 8px 20px rgba(3, 53, 92, 0.15)'
                      }}
                    >
                      <img
-                       src="https://flagcdn.com/w80/th.png"
-                       alt="Thailand"
+                       src={`https://flagcdn.com/w80/${flag.code.toLowerCase()}.png`}
+                       alt={flag.label}
                        style={{
                          width: '100%',
                          height: '100%',
@@ -1079,45 +1174,44 @@ const JoinUs = () => {
                        }}
                      />
                    </div>
-                   <div
-                     className="rounded-full overflow-hidden"
-                     style={{
-                       width: 'clamp(40px, 5vw, 60px)',
-                       height: 'clamp(40px, 5vw, 60px)',
-                       border: '1px solid #000000'
-                     }}
-                   >
-                     <img
-                       src="https://flagcdn.com/w80/il.png"
-                       alt="Israel"
-                       style={{
-                         width: '100%',
-                         height: '100%',
-                         objectFit: 'cover'
-                       }}
-                     />
-                   </div>
-                 </div>
+                 ))}
                </div>
-
-               <button
-                 type="button"
-                 className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-transparent border-none cursor-pointer"
-                 style={{
-                   right: 'clamp(-40px, -5vw, -60px)'
-                 }}
-                 aria-label="Next testimonial"
-               >
-                 <img
-                   src="/Images/2x/arrow_right@2x.png"
-                   alt="Next"
-                   style={{
-                     width: 'clamp(30px, 4vw, 50px)',
-                     height: 'auto'
-                   }}
-                 />
-               </button>
              </div>
+             <button
+               type="button"
+               onClick={goToNextTestimonial}
+               onKeyDown={event => {
+                 if (event.key === 'Enter' || event.key === ' ') {
+                   event.preventDefault();
+                   goToNextTestimonial();
+                 }
+               }}
+               aria-label={t.homeTestimonialNextLabel || 'Next testimonial'}
+               style={{
+                 position: 'absolute',
+                 right: '30px',
+                 top: '50%',
+                 transform: 'translateY(-50%)',
+                 width: 'clamp(17px, 2.11vw, 40px)',
+                 height: 'clamp(17px, 2.11vw, 40px)',
+                 padding: 0,
+                 border: 'none',
+                 background: 'transparent',
+                 cursor: 'pointer',
+                 display: 'flex',
+                 alignItems: 'center',
+                 justifyContent: 'center'
+               }}
+             >
+               <img
+                 src="/Images/2x/arrow_right@2x.png"
+                 alt=""
+                 style={{
+                   width: 'clamp(17px, 2.11vw, 40px)',
+                   height: 'auto'
+                 }}
+               />
+             </button>
            </div>
          </div>
        </section>
@@ -1131,12 +1225,14 @@ const JoinUs = () => {
          }}
        >
          <button
-           className="uppercase font-semibold text-white rounded-full transition hover:opacity-90"
+           className="uppercase font-semibold transition hover:opacity-90"
            style={{
              backgroundColor: '#67c9d6',
-             color: '#000000',
+             color: '#03355c',
              padding: 'clamp(16px, 2.5vw, 24px) clamp(48px, 8vw, 120px)',
-             fontSize: 'clamp(18px, 2.5vw, 32px)',
+             fontSize: 'clamp(19px, calc(2px + 2.22vw), 44px)', // При ширине 769px = 19px, при 1895px = 44px
+             minWidth: 'clamp(280px, calc(-10px + 37.74vw), 705px)', // При ширине 769px = 280px, при 1895px = 705px
+             borderRadius: 'clamp(25px, 2.22vw, 50px)', // При ширине 769px = 25px, при 1895px = 50px
              border: 'none',
              cursor: 'pointer',
              direction: isRTL ? 'rtl' : 'ltr',
