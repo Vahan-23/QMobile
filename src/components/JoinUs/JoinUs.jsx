@@ -43,6 +43,20 @@ const JoinUs = () => {
     return () => window.removeEventListener('resize', updateIsMobile);
   }, []);
 
+  const constrainedWidth = Math.min(Math.max(viewportWidth, 290), 768);
+  const interpolationProgress =
+    constrainedWidth <= 290
+      ? 0
+      : constrainedWidth >= 768
+      ? 1
+      : (constrainedWidth - 290) / (768 - 290);
+  const lerp = (min, max) => min + (max - min) * interpolationProgress;
+  const testimonialBodyFontSizeMobile = `${lerp(14, 40)}px`;
+  const testimonialNameFontSizeMobile = `${lerp(16, 36)}px`;
+  const testimonialOriginFontSizeMobile = `${lerp(9, 20)}px`;
+  const testimonialFlagSizeMobile = `${lerp(44, 80)}px`;
+  const testimonialArrowSizeMobile = `${lerp(17, 40)}px`;
+
   const testimonialSlides = useMemo(() => {
     const countries = t.countries || {};
 
@@ -1843,17 +1857,17 @@ const JoinUs = () => {
        >
          <div className="max-w-[1895px] mx-auto w-full">
            <div className="w-full mx-auto text-center mb-8">
-             <h2
-               className="font-bold uppercase"
-               style={{
-                 fontSize: 'clamp(20px, calc(4px + 2.13vw), 44px)', // При ширине 769px = 20px, при 1895px = 44px
-                 color: '#03355c',
-                 direction: isRTL ? 'rtl' : 'ltr',
-                 fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-               }}
-             >
-               {t.joinUsTestimonialTitle || 'WE BRING HEARTS CLOSER, EVEN WHEN MILES APART'}
-             </h2>
+            <h2
+              className="font-bold uppercase"
+              style={{
+                fontSize: isMobile ? 'clamp(20px, calc(-20px + 8.85vw), 48px)' : 'clamp(20px, calc(4px + 2.13vw), 44px)', // При ширине 768px = 48px для мобильной версии, при 769px = 20px, при 1895px = 44px для десктоп
+                color: '#03355c',
+                direction: isRTL ? 'rtl' : 'ltr',
+                fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+              }}
+            >
+              {t.joinUsTestimonialTitle || 'WE BRING HEARTS CLOSER, EVEN WHEN MILES APART'}
+            </h2>
            </div>
 
            <div
@@ -1862,20 +1876,20 @@ const JoinUs = () => {
                gap: '0.1rem',
                maxWidth: '1260px',
                width: '100%',
-               paddingInline: 'clamp(20px, 6vw, 80px)'
+               paddingInline: isMobile
+                 ? 'clamp(20px, 9vw, 80px)'
+                 : 'clamp(20px, 6vw, 80px)'
              }}
            >
-             <p
-               className="text-center font-bold"
-               style={{
-                 fontSize: 'clamp(18px, 2.5vw, 40px)',
-                 color: '#005392',
-                 direction: isRTL ? 'rtl' : 'ltr',
-                 fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-               }}
-             >
-               {currentTestimonial.body}
-             </p>
+            <p
+              className="text-center font-bold"
+              style={{
+                fontSize: isMobile ? testimonialBodyFontSizeMobile : '40px',
+                color: '#005392'
+              }}
+            >
+              {currentTestimonial.body}
+            </p>
            </div>
 
            <div
@@ -1899,8 +1913,8 @@ const JoinUs = () => {
                  left: '30px',
                  top: '50%',
                  transform: 'translateY(-50%)',
-                 width: 'clamp(17px, 2.11vw, 40px)',
-                 height: 'clamp(17px, 2.11vw, 40px)',
+                 width: isMobile ? testimonialArrowSizeMobile : '40px',
+                 height: isMobile ? testimonialArrowSizeMobile : '40px',
                  padding: 0,
                  border: 'none',
                  background: 'transparent',
@@ -1914,7 +1928,7 @@ const JoinUs = () => {
                  src="/Images/2x/arrow_left@2x.png"
                  alt=""
                  style={{
-                   width: 'clamp(17px, 2.11vw, 40px)',
+                   width: isMobile ? testimonialArrowSizeMobile : '40px',
                    height: 'auto'
                  }}
                />
@@ -1925,17 +1939,17 @@ const JoinUs = () => {
                  gap: '0.1rem',
                  maxWidth: '1260px',
                  width: '100%',
-                 paddingInline: 'clamp(20px, 6vw, 80px)'
+                 paddingInline: isMobile
+                   ? 'clamp(20px, 9vw, 80px)'
+                   : 'clamp(20px, 6vw, 80px)'
                }}
              >
                <h4
                  className="text-center"
                  style={{
-                   fontSize: 'clamp(16px, 1.9vw, 36px)',
+                   fontSize: isMobile ? testimonialNameFontSizeMobile : '36px',
                    color: '#04365d',
-                   letterSpacing: '0.1em',
-                   direction: isRTL ? 'rtl' : 'ltr',
-                   fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                   letterSpacing: '0.1em'
                  }}
                >
                  {currentTestimonial.name}
@@ -1943,11 +1957,9 @@ const JoinUs = () => {
                <p
                  className="text-center"
                  style={{
-                   fontSize: 'clamp(14px, 1.06vw, 20px)',
+                   fontSize: isMobile ? testimonialOriginFontSizeMobile : '20px',
                    color: '#04365d',
-                   letterSpacing: '0.03em',
-                   direction: isRTL ? 'rtl' : 'ltr',
-                   fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                   letterSpacing: '0.03em'
                  }}
                >
                  {currentTestimonial.origin}
@@ -1964,8 +1976,8 @@ const JoinUs = () => {
                      key={flag.code}
                      className="rounded-full overflow-hidden"
                      style={{
-                       width: 'clamp(44px, 4.22vw, 80px)',
-                       height: 'clamp(44px, 4.22vw, 80px)',
+                       width: isMobile ? testimonialFlagSizeMobile : '80px',
+                       height: isMobile ? testimonialFlagSizeMobile : '80px',
                        border: '0.5px solid #000000',
                        boxShadow: '0 8px 20px rgba(3, 53, 92, 0.15)'
                      }}
@@ -1998,8 +2010,8 @@ const JoinUs = () => {
                  right: '30px',
                  top: '50%',
                  transform: 'translateY(-50%)',
-                 width: 'clamp(17px, 2.11vw, 40px)',
-                 height: 'clamp(17px, 2.11vw, 40px)',
+                 width: isMobile ? testimonialArrowSizeMobile : '40px',
+                 height: isMobile ? testimonialArrowSizeMobile : '40px',
                  padding: 0,
                  border: 'none',
                  background: 'transparent',
@@ -2013,7 +2025,7 @@ const JoinUs = () => {
                  src="/Images/2x/arrow_right@2x.png"
                  alt=""
                  style={{
-                   width: 'clamp(17px, 2.11vw, 40px)',
+                   width: isMobile ? testimonialArrowSizeMobile : '40px',
                    height: 'auto'
                  }}
                />
