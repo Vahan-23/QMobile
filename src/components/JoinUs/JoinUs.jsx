@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import HomepageHeader from '../Homepage/HomepageHeader';
 import MarketplaceFooter from '../Marketplace/MarketplaceFooter';
 import { useLanguage } from '../../contexts/LanguageContext';
@@ -15,6 +15,10 @@ import qDarkBlue from './Assets/q_dark_blue@2x.png';
 const JoinUs = () => {
   const { language, isRTL } = useLanguage();
   const t = translations[language];
+  const [isMobile, setIsMobile] = useState(false);
+  const [viewportWidth, setViewportWidth] = useState(
+    typeof window !== 'undefined' ? window.innerWidth : 768
+  );
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -26,6 +30,18 @@ const JoinUs = () => {
   });
   const [isCountryOpen, setIsCountryOpen] = useState(false);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
+
+  useEffect(() => {
+    const updateIsMobile = () => {
+      const width = window.innerWidth;
+      setViewportWidth(width);
+      setIsMobile(width <= 768);
+    };
+
+    updateIsMobile();
+    window.addEventListener('resize', updateIsMobile);
+    return () => window.removeEventListener('resize', updateIsMobile);
+  }, []);
 
   const testimonialSlides = useMemo(() => {
     const countries = t.countries || {};
@@ -126,90 +142,56 @@ const JoinUs = () => {
              className="relative w-full"
              style={{
                paddingTop: 'clamp(20px, 4vw, 60px)',
-               paddingBottom: '0',
+               paddingBottom: isMobile ? 'clamp(40px, 8vw, 80px)' : '0',
                paddingLeft: 'clamp(20px, 6vw, 80px)',
                paddingRight: 'clamp(20px, 6vw, 80px)',
-               minHeight: 'clamp(400px, 50vw, 800px)',
-               height: 'clamp(477px, 62.03vw, 1152px)' // При ширине 769px высота = 477px (477/769 = 62.03vw)
+               minHeight: isMobile ? 'auto' : 'clamp(400px, 50vw, 800px)',
+               height: isMobile ? 'auto' : 'clamp(477px, 62.03vw, 1152px)' // При ширине 769px высота = 477px (477/769 = 62.03vw)
              }}
            >
              <div className="max-w-[1895px] mx-auto w-full relative">
-               {/* Welcome Screen Image - абсолютно позиционирован, не влияет на текст */}
-               <div
-                 style={{
-                   position: 'absolute',
-                   left: '50%',
-                   transform: 'translate(-50%, 0)',
-                   zIndex: 1,
-                   width: 'clamp(600px, 85vw, 1600px)',
-                   pointerEvents: 'none'
-                 }}
-               >
-                 <img
-                   src={welcomeScreenImage}
-                   alt="Welcome screen"
-                   style={{
-                     width: '100%',
-                     height: 'auto',
-                     objectFit: 'contain',
-                     display: 'block'
-                   }}
-                 />
-               </div>
-
-               {/* Flex контейнер: всегда row для предотвращения скачков */}
-               <div className="flex flex-row items-start gap-8 lg:gap-16 relative z-10" style={{ minHeight: 0 }}>
-                 {/* Left side - Text */}
-                 <div
-                   className="flex-1"
-                   style={{
-                     textAlign: isRTL ? 'right' : 'left',
-                     color: '#ffffff',
-                     marginLeft: isRTL ? '0' : 'clamp(40px, 8vw, 120px)',
-                     marginRight: isRTL ? 'clamp(40px, 8vw, 120px)' : '0',
-                     flexShrink: 0,
-                     minWidth: 0
-                   }}
-                 >
+               {isMobile ? (
+                 /* Мобильная версия: колонка с выравниванием по левому краю */
+                 <div className="flex flex-col items-start gap-6 relative z-10">
+                   {/* JOIN US */}
                    <h1
-                     className="font-bold uppercase"
+                     className="font-bold uppercase text-white self-center"
                      style={{
-                       fontSize: 'clamp(28px, 5.46vw, 120px)', // При ширине 769px = 42px (42/769 = 5.46vw)
-                       marginBottom: 'clamp(20px, 4vw, 60px)',
+                       fontSize: 'clamp(28px, 10.42vw, 80px)', // При ширине 768px = 80px (максимальное значение)
                        lineHeight: '1.1',
+                       textAlign: 'center',
                        direction: isRTL ? 'rtl' : 'ltr',
                        fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
                      }}
                    >
                      {t.joinUsTitle || 'JOIN US'}
                    </h1>
-                 </div>
 
-                 {/* Right side - Text */}
-                 {/* Wrapper для стабильного позиционирования независимо от flex-direction */}
-                 <div 
-                   className="flex-1"
-                   style={{
-                     position: 'relative',
-                     // Применяем сдвиг к wrapper, а не к внутреннему контенту
-                     left: isRTL 
-                       ? 'clamp(0px, calc(22.96vw - 235.2px), 0px)' 
-                       : 'clamp(-200px, calc(-22.96vw + 235.2px), 0px)'
-                   }}
-                 >
+                   {/* Картинка */}
                    <div
                      style={{
-                       display: 'flex',
-                       flexDirection: 'column',
-                       alignItems: isRTL ? 'flex-end' : 'flex-start',
-                       gap: 'clamp(20px, 4vw, 40px)',
-                       marginTop: 'clamp(200px, 34.3vw, 650px)'
+                       width: '100%',
+                       maxWidth: 'clamp(300px, 85vw, 600px)',
+                       margin: '0 auto'
                      }}
                    >
+                     <img
+                       src={welcomeScreenImage}
+                       alt="Welcome screen"
+                       style={{
+                         width: '100%',
+                         height: 'auto',
+                         objectFit: 'contain',
+                         display: 'block'
+                       }}
+                     />
+                   </div>
+
+                   {/* 2453 MILES NEVER FELT SO CLOSE */}
                    <h2
                      className="font-bold uppercase text-white"
                      style={{
-                       fontSize: 'clamp(28px, 4.75vw, 90px)',
+                       fontSize: 'clamp(28px, 9.11vw, 70px)', // При ширине 768px = 70px (максимальное значение)
                        textAlign: isRTL ? 'right' : 'left',
                        lineHeight: '1.2',
                        direction: isRTL ? 'rtl' : 'ltr',
@@ -237,29 +219,157 @@ const JoinUs = () => {
                      )}
                    </h2>
 
+                   {/* Stay truly connected... */}
                    <p
                      className="text-white"
                      style={{
-                       fontSize: 'clamp(16px, 2.5vw, 32px)',
+                       fontSize: 'clamp(16px, 5.99vw, 46px)', // При ширине 768px = 46px (максимальное значение)
                        textAlign: isRTL ? 'right' : 'left',
                        lineHeight: '1.5',
-                       maxWidth: 'clamp(300px, 31.66vw, 600px)',
                        direction: isRTL ? 'rtl' : 'ltr',
                        fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
                      }}
                    >
-                     <>
-                       <span style={{ whiteSpace: 'nowrap', display: 'block' }}>
-                         Stay truly connected with your loved ones,
-                       </span>
-                       <span style={{ whiteSpace: 'nowrap', display: 'block' }}>
-                         as if you were right there.
-                       </span>
-                     </>
+                     <span style={{ display: 'block' }}>
+                       Stay truly connected with your loved ones,
+                     </span>
+                     <span style={{ display: 'block' }}>
+                       as if you were right there.
+                     </span>
                    </p>
-                   </div>
                  </div>
-               </div>
+               ) : (
+                 /* Десктоп версия: оригинальная структура */
+                 <>
+                   {/* Welcome Screen Image - абсолютно позиционирован, не влияет на текст */}
+                   <div
+                     style={{
+                       position: 'absolute',
+                       left: '50%',
+                       transform: 'translate(-50%, 0)',
+                       zIndex: 1,
+                       width: 'clamp(600px, 85vw, 1600px)',
+                       pointerEvents: 'none'
+                     }}
+                   >
+                     <img
+                       src={welcomeScreenImage}
+                       alt="Welcome screen"
+                       style={{
+                         width: '100%',
+                         height: 'auto',
+                         objectFit: 'contain',
+                         display: 'block'
+                       }}
+                     />
+                   </div>
+
+                   {/* Flex контейнер: row для десктопа */}
+                   <div 
+                     className="flex flex-row items-start gap-8 lg:gap-16 relative z-10" 
+                     style={{ minHeight: 0 }}
+                   >
+                     {/* Left side - Text */}
+                     <div
+                       className="flex-1"
+                       style={{
+                         textAlign: isRTL ? 'right' : 'left',
+                         color: '#ffffff',
+                         marginLeft: isRTL ? '0' : 'clamp(40px, 8vw, 120px)',
+                         marginRight: isRTL ? 'clamp(40px, 8vw, 120px)' : '0',
+                         flexShrink: 0,
+                         minWidth: 0
+                       }}
+                     >
+                       <h1
+                         className="font-bold uppercase"
+                         style={{
+                           fontSize: 'clamp(28px, 5.46vw, 120px)', // При ширине 769px = 42px (42/769 = 5.46vw)
+                           marginBottom: 'clamp(20px, 4vw, 60px)',
+                           lineHeight: '1.1',
+                           direction: isRTL ? 'rtl' : 'ltr',
+                           fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                         }}
+                       >
+                         {t.joinUsTitle || 'JOIN US'}
+                       </h1>
+                     </div>
+
+                     {/* Right side - Text */}
+                     <div 
+                       className="flex-1"
+                       style={{
+                         position: 'relative',
+                         left: isRTL 
+                           ? 'clamp(0px, calc(22.96vw - 235.2px), 0px)' 
+                           : 'clamp(-200px, calc(-22.96vw + 235.2px), 0px)'
+                       }}
+                     >
+                       <div
+                         style={{
+                           display: 'flex',
+                           flexDirection: 'column',
+                           alignItems: isRTL ? 'flex-end' : 'flex-start',
+                           gap: 'clamp(20px, 4vw, 40px)',
+                           marginTop: 'clamp(200px, 34.3vw, 650px)'
+                         }}
+                       >
+                         <h2
+                           className="font-bold uppercase text-white"
+                           style={{
+                             fontSize: 'clamp(28px, 4.75vw, 90px)',
+                             textAlign: isRTL ? 'right' : 'left',
+                             lineHeight: '1.2',
+                             direction: isRTL ? 'rtl' : 'ltr',
+                             fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                           }}
+                         >
+                           {t.joinUsHeroDistance ? (
+                             <>
+                               <span style={{ whiteSpace: 'nowrap', display: 'block' }}>
+                                 {t.joinUsHeroDistance.split(' FELT SO CLOSE')[0]}
+                               </span>
+                               <span style={{ whiteSpace: 'nowrap', display: 'block' }}>
+                                 FELT SO <span style={{ color: '#66c8d5' }}>CLOSE</span>
+                               </span>
+                             </>
+                           ) : (
+                             <>
+                               <span style={{ whiteSpace: 'nowrap', display: 'block' }}>
+                                 2453 MILES NEVER
+                               </span>
+                               <span style={{ whiteSpace: 'nowrap', display: 'block' }}>
+                                 FELT SO <span style={{ color: '#66c8d5' }}>CLOSE</span>
+                               </span>
+                             </>
+                           )}
+                         </h2>
+
+                         <p
+                           className="text-white"
+                           style={{
+                             fontSize: 'clamp(16px, 2.5vw, 32px)',
+                             textAlign: isRTL ? 'right' : 'left',
+                             lineHeight: '1.5',
+                             maxWidth: 'clamp(300px, 31.66vw, 600px)',
+                             direction: isRTL ? 'rtl' : 'ltr',
+                             fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                           }}
+                         >
+                           <>
+                             <span style={{ whiteSpace: 'nowrap', display: 'block' }}>
+                               Stay truly connected with your loved ones,
+                             </span>
+                             <span style={{ whiteSpace: 'nowrap', display: 'block' }}>
+                               as if you were right there.
+                             </span>
+                           </>
+                         </p>
+                       </div>
+                     </div>
+                   </div>
+                 </>
+               )}
              </div>
       </section>
          </div>
