@@ -142,7 +142,7 @@ const JoinUs = () => {
              className="relative w-full"
              style={{
                paddingTop: 'clamp(20px, 4vw, 60px)',
-               paddingBottom: isMobile ? 'clamp(40px, 8vw, 80px)' : '0',
+               paddingBottom: isMobile ? 'clamp(240px, calc(40px + 8vw + 200px), 280px)' : '0', // +200px для мобильной версии
                paddingLeft: 'clamp(20px, 6vw, 80px)',
                paddingRight: 'clamp(20px, 6vw, 80px)',
                minHeight: isMobile ? 'auto' : 'clamp(400px, 50vw, 800px)',
@@ -379,23 +379,314 @@ const JoinUs = () => {
        <section
          className="w-full"
          style={{
-          paddingTop: 'clamp(0px, 8vw, 80px)',
-          paddingBottom: 0,
+          paddingTop: isMobile ? 0 : 'clamp(0px, 8vw, 80px)',
+          marginTop: isMobile ? '-200px' : 0, // На мобильной версии поднимаем выше, чтобы выйти на первую секцию
+          paddingBottom: isMobile ? '60px' : 0,
           paddingLeft: 'clamp(20px, 6vw, 80px)',
           paddingRight: 'clamp(20px, 6vw, 80px)',
-           background: '#ffffff'
+           background: 'transparent',
+           position: isMobile ? 'relative' : 'static',
+           zIndex: isMobile ? 3 : 'auto'
          }}
        >
          <div className="max-w-[1895px] mx-auto w-full">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-start">
-             {/* Left side - CTA */}
-            <div
-              style={{
-                textAlign: isRTL ? 'right' : 'left',
-                marginLeft: isRTL ? '0' : '0',
-                marginRight: isRTL ? '0' : '0'
-              }}
-            >
+          <div className={isMobile ? "flex flex-col gap-12 items-center" : "grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-start"}>
+             {isMobile ? (
+               <>
+                 {/* Мобильная версия: сначала блок с услугами - по центру */}
+                 <div
+                   style={{
+                     background: '#f0f0f0',
+                     padding: 'clamp(13px, calc(-19px + 4.17vw), 60px)',
+                     border: '1px solid #e0e0e0',
+                     width: '100%',
+                     maxWidth: '100%',
+                     borderRadius: '28px',
+                     boxShadow: '0 -4px 10px rgba(0, 0, 0, 0.08), 0 14px 28px rgba(0, 0, 0, 0.14)',
+                     margin: '0 auto',
+                     marginTop: 'clamp(-40px, -5vw, -20px)', // Поднимаем блок выше
+                     position: 'relative',
+                     zIndex: 2
+                   }}
+                 >
+                   <div className="grid grid-cols-2 gap-6 lg:gap-8">
+                     {/* Service Item 1 */}
+                     <div className="flex flex-col items-center text-center">
+                       <div
+                         className="mb-4"
+                         style={{
+                          width: 'clamp(80px, 15.63vw, 120px)', // При ширине 768px = 120px (максимальное значение)
+                          height: 'clamp(80px, 15.63vw, 120px)', // При ширине 768px = 120px (максимальное значение)
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center'
+                         }}
+                       >
+                        <img
+                          src={unlimitedCallsIcon}
+                          alt="Unlimited calls in Israel"
+                          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                        />
+                       </div>
+                       <p
+                        style={{
+                          fontSize: 'clamp(15px, 4.43vw, 34px)', // При ширине 768px = 34px (максимальное значение)
+                          fontWeight: 700,
+                          color: '#03355c',
+                          direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                        }}
+                       >
+                         {t.joinUsUnlimitedCalls || 'Unlimited calls in Israel'}
+                       </p>
+                     </div>
+
+                     {/* Service Item 2 */}
+                     <div className="flex flex-col items-center text-center">
+                       <div
+                         className="mb-4"
+                         style={{
+                          width: 'clamp(80px, 15.63vw, 120px)', // При ширине 768px = 120px (максимальное значение)
+                          height: 'clamp(80px, 15.63vw, 120px)', // При ширине 768px = 120px (максимальное значение)
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center'
+                         }}
+                       >
+                        <img
+                          src={simCardIcon}
+                          alt="Free sim card"
+                          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                        />
+                       </div>
+                       <p
+                        style={{
+                          fontSize: 'clamp(15px, 4.43vw, 34px)', // При ширине 768px = 34px (максимальное значение)
+                          fontWeight: 700,
+                          color: '#03355c',
+                          direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                        }}
+                       >
+                         {t.joinUsFreeSim || 'Free sim card'}
+                       </p>
+                     </div>
+
+                     {/* Service Item 3 */}
+                     <div className="flex flex-col items-center text-center">
+                       <div
+                         className="mb-4"
+                         style={{
+                          width: 'clamp(80px, 15.63vw, 120px)', // При ширине 768px = 120px (максимальное значение)
+                          height: 'clamp(80px, 15.63vw, 120px)', // При ширине 768px = 120px (максимальное значение)
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center'
+                         }}
+                       >
+                        <img
+                          src={highSpeedIcon}
+                          alt="200GB High speed internet"
+                          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                        />
+                       </div>
+                       <p
+                        style={{
+                          fontSize: 'clamp(15px, 4.43vw, 34px)', // При ширине 768px = 34px (максимальное значение)
+                          fontWeight: 700,
+                          color: '#03355c',
+                          direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                        }}
+                       >
+                         {t.joinUsHighSpeedInternet || '200GB High speed internet'}
+                       </p>
+                     </div>
+
+                     {/* Service Item 4 */}
+                     <div className="flex flex-col items-center text-center">
+                       <div
+                         className="mb-4"
+                         style={{
+                          width: 'clamp(80px, 15.63vw, 120px)', // При ширине 768px = 120px (максимальное значение)
+                          height: 'clamp(80px, 15.63vw, 120px)', // При ширине 768px = 120px (максимальное значение)
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center'
+                         }}
+                       >
+                        <img
+                          src={smsIcon}
+                          alt="Unlimited SMS in Israel"
+                          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                        />
+                       </div>
+                       <p
+                        style={{
+                          fontSize: 'clamp(15px, 4.43vw, 34px)', // При ширине 768px = 34px (максимальное значение)
+                          fontWeight: 700,
+                          color: '#03355c',
+                          direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                        }}
+                       >
+                         {t.joinUsUnlimitedSMS || 'Unlimited SMS in Israel'}
+                       </p>
+                     </div>
+
+                     {/* Service Item 5 */}
+                     <div className="flex flex-col items-center text-center">
+                       <div
+                         className="mb-4"
+                         style={{
+                          width: 'clamp(80px, 15.63vw, 120px)', // При ширине 768px = 120px (максимальное значение)
+                          height: 'clamp(80px, 15.63vw, 120px)', // При ширине 768px = 120px (максимальное значение)
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center'
+                         }}
+                       >
+                        <img
+                          src={supportIcon}
+                          alt="Support in your native language"
+                          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                        />
+                       </div>
+                       <p
+                        style={{
+                          fontSize: 'clamp(15px, 4.43vw, 34px)', // При ширине 768px = 34px (максимальное значение)
+                          fontWeight: 700,
+                          color: '#03355c',
+                          direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                        }}
+                       >
+                         {t.joinUsSupportNative || 'Support in your native language'}
+                       </p>
+                     </div>
+
+                     {/* Service Item 6 - Price */}
+                     <div className="flex flex-col items-center text-center">
+                       <p
+                         className="font-bold"
+                         style={{
+                          fontSize: 'clamp(21px, 5.73vw, 44px)', // При ширине 768px = 44px (максимальное значение)
+                           color: '#03355c',
+                           direction: isRTL ? 'rtl' : 'ltr',
+                           fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                           marginTop: 'clamp(20px, 3vw, 40px)'
+                         }}
+                       >
+                         {t.joinUsStartingFrom || 'Starting from 69 ILS / Month'}
+                       </p>
+                     </div>
+                   </div>
+                 </div>
+
+                 {/* Мобильная версия: потом текст - по центру */}
+                 <div
+                   style={{
+                     textAlign: 'center'
+                   }}
+                 >
+                   <h2
+                     className="font-bold uppercase text-[#005490]"
+                     style={{
+                       fontSize: 'clamp(28px, 7.16vw, 55px)', // При ширине 768px = 55px (максимальное значение)
+                       marginBottom: 'clamp(20px, 4vw, 50px)',
+                       lineHeight: '1.2',
+                       textAlign: 'center',
+                       direction: isRTL ? 'rtl' : 'ltr',
+                       fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                       color: '#005490'
+                     }}
+                   >
+                     {(() => {
+                       const baseText = t.joinUsStayConnected || 'STAY CONNECTED WITH FAMILY AND FRIENDS.';
+                       const text = baseText.trim().endsWith('.') ? baseText.trim() : `${baseText.trim()}.`;
+                       const phrase = 'WITH FAMILY AND FRIENDS';
+                       const idx = text.indexOf(phrase);
+                       if (idx === -1) return text;
+                       const before = text.slice(0, idx);
+                       const after = text.slice(idx + phrase.length);
+                       return (
+                         <>
+                           {before}
+                           <span style={{ color: '#03355c', display: 'block' }}>
+                             {phrase}
+                             {after}
+                           </span>
+                         </>
+                       );
+                     })()}
+                   </h2>
+                   <h2
+                     className="font-bold uppercase text-[#005490]"
+                     style={{
+                      fontSize: 'clamp(28px, 7.16vw, 55px)', // При ширине 768px = 55px (максимальное значение)
+                       marginBottom: 'clamp(30px, 5vw, 60px)',
+                       lineHeight: '1.2',
+                       textAlign: 'center',
+                       direction: isRTL ? 'rtl' : 'ltr',
+                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                      color: '#005490'
+                     }}
+                   >
+                    {(() => {
+                      const baseText = t.joinUsEverywhere || 'EVERYWHERE YOU GO.';
+                      const text = baseText.trim().endsWith('.') ? baseText.trim() : `${baseText.trim()}.`;
+                      const phrase = 'YOU GO';
+                      const idx = text.indexOf(phrase);
+                      if (idx === -1) return text;
+                      const before = text.slice(0, idx).trimEnd();
+                      const phraseWithAfter = text.slice(idx).trim();
+                      return (
+                        <>
+                          <span>{before}</span>
+                          <span style={{ color: '#03355c', display: 'block' }}>
+                            {phraseWithAfter}
+                          </span>
+                        </>
+                      );
+                    })()}
+                   </h2>
+                   {/* Мобильная версия: кнопка - по центру внизу */}
+                   <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+                     <button
+                       className="uppercase font-semibold text-white rounded-full transition hover:opacity-90"
+                       style={{
+                         backgroundColor: '#67c9d6',
+                        color: '#03355c',
+                        padding: '0 clamp(32px, 5vw, 80px)',
+                        fontSize: 'clamp(16px, 5.21vw, 40px)', // При ширине 768px = 40px (максимальное значение)
+                        minWidth: 'clamp(280px, calc(-7px + 37.3vw), 700px)', // При ширине 769px = 280px, при 1895px = 700px
+                        height: 'clamp(50px, 11.72vw, 90px)', // При ширине 768px = 90px (максимальное значение)
+                        fontWeight: 700,
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        border: 'none',
+                        borderRadius: '40px',
+                         cursor: 'pointer',
+                         direction: isRTL ? 'rtl' : 'ltr',
+                         fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                       }}
+                     >
+                       {t.joinUsDiscoverPlans || 'DISCOVER OUR PLANS'}
+                     </button>
+                   </div>
+                 </div>
+               </>
+             ) : (
+               <>
+                 {/* Десктоп версия: сначала текст и кнопка (левая колонка) */}
+                 <div
+                   style={{
+                     textAlign: isRTL ? 'right' : 'left',
+                     marginLeft: isRTL ? '0' : '0',
+                     marginRight: isRTL ? '0' : '0'
+                   }}
+                 >
               <h2
                 className="font-bold uppercase text-[#005490]"
                 style={{
@@ -477,198 +768,200 @@ const JoinUs = () => {
                >
                  {t.joinUsDiscoverPlans || 'DISCOVER OUR PLANS'}
                </button>
-             </div>
+                 </div>
 
-            {/* Right side - Service Offerings Card */}
-            <div
-              className="bg-white"
-              style={{
-                padding: 'clamp(13px, calc(-19px + 4.17vw), 60px)',
-                border: '1px solid #e0e0e0',
-                width: '100%',
-                maxWidth: '665px',
-                background: '#f0f0f0',
-                borderRadius: '28px',
-                boxShadow: '0 -4px 10px rgba(0, 0, 0, 0.08), 0 14px 28px rgba(0, 0, 0, 0.14)',
-                marginLeft: '0',
-                marginRight: '0',
-                position: 'relative',
-                zIndex: 2
-              }}
-            >
-               <div className="grid grid-cols-2 gap-6 lg:gap-8">
-                 {/* Service Item 1 */}
-                 <div className="flex flex-col items-center text-center">
-                   <div
-                     className="mb-4"
-                     style={{
-                      width: 'clamp(60px, 8vw, 110px)',
-                      height: 'clamp(60px, 8vw, 110px)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center'
-                     }}
-                   >
-                    <img
-                      src={unlimitedCallsIcon}
-                      alt="Unlimited calls in Israel"
-                      style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                    />
+                 {/* Десктоп версия: потом блок с услугами (правая колонка) */}
+                 <div
+                   className="bg-white"
+                   style={{
+                     padding: 'clamp(13px, calc(-19px + 4.17vw), 60px)',
+                     border: '1px solid #e0e0e0',
+                     width: '100%',
+                     maxWidth: '665px',
+                     background: '#f0f0f0',
+                     borderRadius: '28px',
+                     boxShadow: '0 -4px 10px rgba(0, 0, 0, 0.08), 0 14px 28px rgba(0, 0, 0, 0.14)',
+                     marginLeft: '0',
+                     marginRight: '0',
+                     position: 'relative',
+                     zIndex: 2
+                   }}
+                 >
+                   <div className="grid grid-cols-2 gap-6 lg:gap-8">
+                     {/* Service Item 1 */}
+                     <div className="flex flex-col items-center text-center">
+                       <div
+                         className="mb-4"
+                         style={{
+                          width: 'clamp(60px, 8vw, 110px)',
+                          height: 'clamp(60px, 8vw, 110px)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center'
+                         }}
+                       >
+                        <img
+                          src={unlimitedCallsIcon}
+                          alt="Unlimited calls in Israel"
+                          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                        />
+                       </div>
+                       <p
+                        style={{
+                          fontSize: 'clamp(15px, 2vw, 32px)',
+                          fontWeight: 700,
+                          color: '#03355c',
+                          direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                        }}
+                       >
+                         {t.joinUsUnlimitedCalls || 'Unlimited calls in Israel'}
+                       </p>
+                     </div>
+
+                     {/* Service Item 2 */}
+                     <div className="flex flex-col items-center text-center">
+                       <div
+                         className="mb-4"
+                         style={{
+                          width: 'clamp(60px, 8vw, 110px)',
+                          height: 'clamp(60px, 8vw, 110px)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center'
+                         }}
+                       >
+                        <img
+                          src={simCardIcon}
+                          alt="Free sim card"
+                          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                        />
+                       </div>
+                       <p
+                        style={{
+                          fontSize: 'clamp(15px, 2vw, 32px)',
+                          fontWeight: 700,
+                          color: '#03355c',
+                          direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                        }}
+                       >
+                         {t.joinUsFreeSim || 'Free sim card'}
+                       </p>
+                     </div>
+
+                     {/* Service Item 3 */}
+                     <div className="flex flex-col items-center text-center">
+                       <div
+                         className="mb-4"
+                         style={{
+                          width: 'clamp(60px, 8vw, 110px)',
+                          height: 'clamp(60px, 8vw, 110px)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center'
+                         }}
+                       >
+                        <img
+                          src={highSpeedIcon}
+                          alt="200GB High speed internet"
+                          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                        />
+                       </div>
+                       <p
+                        style={{
+                          fontSize: 'clamp(15px, 2vw, 32px)',
+                          fontWeight: 700,
+                          color: '#03355c',
+                          direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                        }}
+                       >
+                         {t.joinUsHighSpeedInternet || '200GB High speed internet'}
+                       </p>
+                     </div>
+
+                     {/* Service Item 4 */}
+                     <div className="flex flex-col items-center text-center">
+                       <div
+                         className="mb-4"
+                         style={{
+                          width: 'clamp(60px, 8vw, 110px)',
+                          height: 'clamp(60px, 8vw, 110px)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center'
+                         }}
+                       >
+                        <img
+                          src={smsIcon}
+                          alt="Unlimited SMS in Israel"
+                          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                        />
+                       </div>
+                       <p
+                        style={{
+                          fontSize: 'clamp(15px, 2vw, 32px)',
+                          fontWeight: 700,
+                          color: '#03355c',
+                          direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                        }}
+                       >
+                         {t.joinUsUnlimitedSMS || 'Unlimited SMS in Israel'}
+                       </p>
+                     </div>
+
+                     {/* Service Item 5 */}
+                     <div className="flex flex-col items-center text-center">
+                       <div
+                         className="mb-4"
+                         style={{
+                          width: 'clamp(60px, 8vw, 110px)',
+                          height: 'clamp(60px, 8vw, 110px)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center'
+                         }}
+                       >
+                        <img
+                          src={supportIcon}
+                          alt="Support in your native language"
+                          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                        />
+                       </div>
+                       <p
+                        style={{
+                          fontSize: 'clamp(15px, 2vw, 32px)',
+                          fontWeight: 700,
+                          color: '#03355c',
+                          direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                        }}
+                       >
+                         {t.joinUsSupportNative || 'Support in your native language'}
+                       </p>
+                     </div>
+
+                     {/* Service Item 6 - Price */}
+                     <div className="flex flex-col items-center text-center">
+                       <p
+                         className="font-bold"
+                         style={{
+                          fontSize: 'clamp(21px, calc(5.3px + 2.04vw), 44px)',
+                           color: '#03355c',
+                           direction: isRTL ? 'rtl' : 'ltr',
+                           fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                           marginTop: 'clamp(20px, 3vw, 40px)'
+                         }}
+                       >
+                         {t.joinUsStartingFrom || 'Starting from 69 ILS / Month'}
+                       </p>
+                     </div>
                    </div>
-                   <p
-                    style={{
-                      fontSize: 'clamp(15px, 2vw, 32px)',
-                      fontWeight: 700,
-                      color: '#03355c',
-                      direction: isRTL ? 'rtl' : 'ltr',
-                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-                    }}
-                   >
-                     {t.joinUsUnlimitedCalls || 'Unlimited calls in Israel'}
-                   </p>
                  </div>
-
-                 {/* Service Item 2 */}
-                 <div className="flex flex-col items-center text-center">
-                   <div
-                     className="mb-4"
-                     style={{
-                      width: 'clamp(60px, 8vw, 110px)',
-                      height: 'clamp(60px, 8vw, 110px)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center'
-                     }}
-                   >
-                    <img
-                      src={simCardIcon}
-                      alt="Free sim card"
-                      style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                    />
-                   </div>
-                   <p
-                    style={{
-                      fontSize: 'clamp(15px, 2vw, 32px)',
-                      fontWeight: 700,
-                      color: '#03355c',
-                      direction: isRTL ? 'rtl' : 'ltr',
-                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-                    }}
-                   >
-                     {t.joinUsFreeSim || 'Free sim card'}
-                   </p>
-                 </div>
-
-                 {/* Service Item 3 */}
-                 <div className="flex flex-col items-center text-center">
-                   <div
-                     className="mb-4"
-                     style={{
-                      width: 'clamp(60px, 8vw, 110px)',
-                      height: 'clamp(60px, 8vw, 110px)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center'
-                     }}
-                   >
-                    <img
-                      src={highSpeedIcon}
-                      alt="200GB High speed internet"
-                      style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                    />
-                   </div>
-                   <p
-                    style={{
-                      fontSize: 'clamp(15px, 2vw, 32px)',
-                      fontWeight: 700,
-                      color: '#03355c',
-                      direction: isRTL ? 'rtl' : 'ltr',
-                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-                    }}
-                   >
-                     {t.joinUsHighSpeedInternet || '200GB High speed internet'}
-                   </p>
-                 </div>
-
-                 {/* Service Item 4 */}
-                 <div className="flex flex-col items-center text-center">
-                   <div
-                     className="mb-4"
-                     style={{
-                      width: 'clamp(60px, 8vw, 110px)',
-                      height: 'clamp(60px, 8vw, 110px)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center'
-                     }}
-                   >
-                    <img
-                      src={smsIcon}
-                      alt="Unlimited SMS in Israel"
-                      style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                    />
-                   </div>
-                   <p
-                    style={{
-                      fontSize: 'clamp(15px, 2vw, 32px)',
-                      fontWeight: 700,
-                      color: '#03355c',
-                      direction: isRTL ? 'rtl' : 'ltr',
-                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-                    }}
-                   >
-                     {t.joinUsUnlimitedSMS || 'Unlimited SMS in Israel'}
-                   </p>
-                 </div>
-
-                 {/* Service Item 5 */}
-                 <div className="flex flex-col items-center text-center">
-                   <div
-                     className="mb-4"
-                     style={{
-                      width: 'clamp(60px, 8vw, 110px)',
-                      height: 'clamp(60px, 8vw, 110px)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center'
-                     }}
-                   >
-                    <img
-                      src={supportIcon}
-                      alt="Support in your native language"
-                      style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                    />
-                   </div>
-                   <p
-                    style={{
-                      fontSize: 'clamp(15px, 2vw, 32px)',
-                      fontWeight: 700,
-                      color: '#03355c',
-                      direction: isRTL ? 'rtl' : 'ltr',
-                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-                    }}
-                   >
-                     {t.joinUsSupportNative || 'Support in your native language'}
-                   </p>
-                 </div>
-
-                 {/* Service Item 6 - Price */}
-                 <div className="flex flex-col items-center text-center">
-                   <p
-                     className="font-bold"
-                     style={{
-                      fontSize: 'clamp(21px, calc(5.3px + 2.04vw), 44px)',
-                       color: '#03355c',
-                       direction: isRTL ? 'rtl' : 'ltr',
-                       fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-                       marginTop: 'clamp(20px, 3vw, 40px)'
-                     }}
-                   >
-                     {t.joinUsStartingFrom || 'Starting from 69 ILS / Month'}
-                   </p>
-                 </div>
-               </div>
-             </div>
+               </>
+             )}
            </div>
          </div>
        </section>
