@@ -173,7 +173,23 @@ export const translations = {
       spain: 'Spain',
       japan: 'Japan',
       australia: 'Australia'
-    }
+    },
+    // General page
+    generalInformation: 'GENERAL INFORMATION',
+    yourPackage: 'YOUR PACKAGE',
+    personalDetails: 'PERSONAL DETAILS',
+    shippingAddress: 'SHIPPING ADDRESS',
+    fullName: 'Full name',
+    originCountry: 'Origin country',
+    preferredLanguage: 'Preferred language',
+    streetName: 'Street name',
+    city: 'City',
+    country: 'Country',
+    notesForCourier: 'Notes for courier',
+    edit: 'EDIT',
+    billingInformation: 'BILLING INFORMATION',
+    orderHistory: 'ORDER HISTORY',
+    accountSettings: 'ACCOUNT SETTINGS'
   },
   ar: {
     welcomeText: 'مرحباً بك في المنزل',
@@ -349,7 +365,23 @@ export const translations = {
       spain: 'إسبانيا',
       japan: 'اليابان',
       australia: 'أستراليا'
-    }
+    },
+    // General page
+    generalInformation: 'المعلومات العامة',
+    yourPackage: 'حزمتك',
+    personalDetails: 'التفاصيل الشخصية',
+    shippingAddress: 'عنوان الشحن',
+    fullName: 'الاسم الكامل',
+    originCountry: 'البلد الأصلي',
+    preferredLanguage: 'اللغة المفضلة',
+    streetName: 'اسم الشارع',
+    city: 'المدينة',
+    country: 'البلد',
+    notesForCourier: 'ملاحظات للبريد',
+    edit: 'تعديل',
+    billingInformation: 'معلومات الفوترة',
+    orderHistory: 'سجل الطلبات',
+    accountSettings: 'إعدادات الحساب'
   }
 };
 
