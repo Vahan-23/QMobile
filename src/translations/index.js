@@ -189,7 +189,15 @@ export const translations = {
     edit: 'EDIT',
     billingInformation: 'BILLING INFORMATION',
     orderHistory: 'ORDER HISTORY',
-    accountSettings: 'ACCOUNT SETTINGS'
+    accountSettings: 'ACCOUNT SETTINGS',
+    billingAlertText: 'Please contact our service team about your payment to continue receiving communication and internet services.',
+    contactOurTeam: 'CONTACT OUR TEAM',
+    yourPaymentMethods: 'YOUR PAYMENT METHODS',
+    invoices: 'INVOICES',
+    invoiceNumber: 'Invoice number',
+    date: 'Date',
+    downloadInvoice: 'Download invoice',
+    change: 'Change'
   },
   ar: {
     welcomeText: 'مرحباً بك في المنزل',
@@ -381,7 +389,15 @@ export const translations = {
     edit: 'تعديل',
     billingInformation: 'معلومات الفوترة',
     orderHistory: 'سجل الطلبات',
-    accountSettings: 'إعدادات الحساب'
+    accountSettings: 'إعدادات الحساب',
+    billingAlertText: 'يرجى الاتصال بفريق الخدمة لدينا بخصوص الدفع لمواصلة تلقي خدمات الاتصال والإنترنت.',
+    contactOurTeam: 'اتصل بفريقنا',
+    yourPaymentMethods: 'طرق الدفع الخاصة بك',
+    invoices: 'الفواتير',
+    invoiceNumber: 'رقم الفاتورة',
+    date: 'التاريخ',
+    downloadInvoice: 'تحميل الفاتورة',
+    change: 'تغيير'
   }
 };
 

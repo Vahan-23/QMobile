@@ -10,6 +10,7 @@ const General = () => {
   const { language, isRTL } = useLanguage();
   const t = translations[language];
   const [isMobile, setIsMobile] = useState(false);
+  const [activeSection, setActiveSection] = useState('general');
 
   useEffect(() => {
     const updateIsMobile = () => {
@@ -38,7 +39,15 @@ const General = () => {
     streetName: 'Rothchild 12',
     city: 'Tel Aviv',
     country: 'Israel',
-    notesForCourier: ''
+    notesForCourier: '',
+    creditCard: '5326********2222',
+    creditCardExp: '5/29',
+    invoices: [
+      { number: '#2532', date: '01/02/2025', total: '150 NIS' },
+      { number: '#2522', date: '01/01/2025', total: '150 NIS' },
+      { number: '#2518', date: '01/12/2024', total: '150 NIS' },
+      { number: '#2505', date: '01/11/2024', total: '150 NIS' }
+    ]
   };
 
   const countryFlagMap = {
@@ -135,12 +144,15 @@ const General = () => {
             <div style={{ marginBottom: isMobile ? 'clamp(40px, 8vw, 60px)' : 'clamp(60px, 5vw, 80px)' }}>
               <h2
                 className="font-bold uppercase"
+                onClick={() => setActiveSection('general')}
                 style={{
                   fontSize: isMobile ? 'clamp(24px, 7vw, 40px)' : 'clamp(32px, 3vw, 55px)',
-                  color: '#03355c',
+                  color: activeSection === 'general' ? '#03355c' : '#666666',
                   marginBottom: isMobile ? 'clamp(25px, 6vw, 40px)' : 'clamp(40px, 3vw, 60px)',
                   direction: isRTL ? 'rtl' : 'ltr',
-                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                  cursor: 'pointer',
+                  transition: 'color 0.3s ease'
                 }}
               >
                 {t.generalInformation || 'GENERAL INFORMATION'}
@@ -149,16 +161,19 @@ const General = () => {
           </div>
 
           {/* Gray background container for all subsections - full width */}
-          <div
-            style={{
-              backgroundColor: '#ededed',
-              padding: isMobile ? 'clamp(20px, 5vw, 30px)' : 'clamp(25px, 3vw, 40px)',
-              marginLeft: isMobile ? `calc(-1 * clamp(15px, 3vw, 25px))` : `calc(-1 * clamp(30px, 3vw, 50px))`,
-              marginRight: isMobile ? `calc(-1 * clamp(15px, 3vw, 25px))` : `calc(-1 * clamp(30px, 3vw, 50px))`,
-              paddingLeft: isMobile ? 'clamp(15px, 3vw, 25px)' : 'clamp(30px, 3vw, 50px)',
-              paddingRight: isMobile ? 'clamp(15px, 3vw, 25px)' : 'clamp(30px, 3vw, 50px)'
-            }}
-          >
+          {activeSection === 'general' && (
+            <div
+              style={{
+                backgroundColor: '#ededed',
+                padding: isMobile ? 'clamp(20px, 5vw, 30px)' : 'clamp(25px, 3vw, 40px)',
+                marginLeft: isMobile ? `calc(-1 * clamp(15px, 3vw, 25px))` : `calc(-1 * clamp(30px, 3vw, 50px))`,
+                marginRight: isMobile ? `calc(-1 * clamp(15px, 3vw, 25px))` : `calc(-1 * clamp(30px, 3vw, 50px))`,
+                paddingLeft: isMobile ? 'clamp(15px, 3vw, 25px)' : 'clamp(30px, 3vw, 50px)',
+                paddingRight: isMobile ? 'clamp(15px, 3vw, 25px)' : 'clamp(30px, 3vw, 50px)',
+                animation: 'fadeIn 0.5s ease-in',
+                overflow: 'hidden'
+              }}
+            >
             {/* Content inside gray block */}
             <div>
                 {/* YOUR PACKAGE Subsection */}
@@ -520,6 +535,7 @@ const General = () => {
               </div>
             </div>
             </div>
+          )}
 
           {/* Content Container for other sections */}
           <div
@@ -532,27 +548,350 @@ const General = () => {
             <div style={{ marginTop: isMobile ? 'clamp(40px, 8vw, 60px)' : 'clamp(60px, 5vw, 80px)' }}>
               <h2
                 className="font-bold uppercase"
+                onClick={() => setActiveSection('billing')}
                 style={{
                   fontSize: isMobile ? 'clamp(24px, 7vw, 40px)' : 'clamp(32px, 3vw, 55px)',
-                  color: '#666666',
+                  color: activeSection === 'billing' ? '#03355c' : '#666666',
                   marginBottom: isMobile ? 'clamp(25px, 6vw, 40px)' : 'clamp(40px, 3vw, 60px)',
                   direction: isRTL ? 'rtl' : 'ltr',
-                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                  cursor: 'pointer',
+                  transition: 'color 0.3s ease'
                 }}
               >
                 {t.billingInformation || 'BILLING INFORMATION'}
               </h2>
             </div>
+          </div>
+
+          {/* BILLING INFORMATION Content - full width */}
+          {activeSection === 'billing' && (
+            <div
+              style={{
+                backgroundColor: '#ededed',
+                padding: isMobile ? 'clamp(20px, 5vw, 30px)' : 'clamp(25px, 3vw, 40px)',
+                marginLeft: isMobile ? `calc(-1 * clamp(15px, 3vw, 25px))` : `calc(-1 * clamp(30px, 3vw, 50px))`,
+                marginRight: isMobile ? `calc(-1 * clamp(15px, 3vw, 25px))` : `calc(-1 * clamp(30px, 3vw, 50px))`,
+                paddingLeft: isMobile ? 'clamp(15px, 3vw, 25px)' : 'clamp(30px, 3vw, 50px)',
+                paddingRight: isMobile ? 'clamp(15px, 3vw, 25px)' : 'clamp(30px, 3vw, 50px)',
+                animation: 'fadeIn 0.5s ease-in',
+                overflow: 'hidden'
+              }}
+            >
+              {/* Red Alert Box - full width */}
+              <div
+                style={{
+                  backgroundColor: '#f44444',
+                  borderRadius: '10px',
+                  padding: isMobile ? 'clamp(15px, 4vw, 20px)' : 'clamp(20px, 2.5vw, 25px)',
+                  marginBottom: isMobile ? 'clamp(25px, 6vw, 40px)' : 'clamp(35px, 4vw, 50px)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 'clamp(12px, 2vw, 20px)',
+                  flexDirection: isRTL ? 'row-reverse' : 'row'
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: isMobile ? 'clamp(24px, 6vw, 32px)' : 'clamp(28px, 3vw, 36px)',
+                    color: '#ffffff'
+                  }}
+                >
+                  🔔
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div
+                    style={{
+                      fontSize: isMobile ? 'clamp(14px, 3.5vw, 18px)' : '32px',
+                      color: '#ffffff',
+                      marginBottom: 'clamp(8px, 1vw, 12px)',
+                      direction: isRTL ? 'rtl' : 'ltr',
+                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                    }}
+                  >
+                    {t.billingAlertText || 'Please contact our service team about your payment to continue receiving communication and internet services.'}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: isMobile ? 'clamp(14px, 3.5vw, 18px)' : '32px',
+                      color: '#ffffff',
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      textDecoration: 'underline',
+                      direction: isRTL ? 'rtl' : 'ltr',
+                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                    }}
+                  >
+                    {t.contactOurTeam || 'CONTACT OUR TEAM'}
+                  </div>
+                </div>
+              </div>
+
+              {/* Content inside gray block */}
+              <div
+                style={{
+                  maxWidth: isMobile ? '100%' : '1200px'
+                }}
+              >
+                {/* YOUR PAYMENT METHODS */}
+                <div style={{ marginBottom: isMobile ? 'clamp(30px, 7vw, 50px)' : 'clamp(40px, 4vw, 60px)' }}>
+                  <h3
+                    className="font-bold uppercase"
+                    style={{
+                      fontSize: isMobile ? 'clamp(18px, 5vw, 28px)' : 'clamp(24px, 2.5vw, 46px)',
+                      color: '#03355c',
+                      marginBottom: isMobile ? 'clamp(20px, 5vw, 30px)' : 'clamp(25px, 3vw, 35px)',
+                      direction: isRTL ? 'rtl' : 'ltr',
+                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                    }}
+                  >
+                    {t.yourPaymentMethods || 'YOUR PAYMENT METHODS'}
+                  </h3>
+                  <div
+                    style={{
+                      fontSize: isMobile ? 'clamp(14px, 3.5vw, 20px)' : 'clamp(16px, 1.5vw, 30px)',
+                      color: '#03355c',
+                      marginBottom: 'clamp(12px, 2vw, 20px)',
+                      direction: isRTL ? 'rtl' : 'ltr',
+                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                    }}
+                  >
+                    <div style={{ marginBottom: 'clamp(8px, 1vw, 12px)' }}>
+                      <strong>{t.yourCreditCard || 'Your credit card:'}</strong>
+                    </div>
+                    <div>
+                      {accountData.creditCard} <span style={{ marginLeft: 'clamp(15px, 2vw, 25px)' }}>EXP: {accountData.creditCardExp}</span>
+                      <span
+                        style={{
+                          marginLeft: 'clamp(15px, 2vw, 25px)',
+                          color: '#03355c',
+                          cursor: 'pointer',
+                          textDecoration: 'underline',
+                          fontWeight: 600
+                        }}
+                      >
+                        {t.change || 'Change'}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Divider line - full width */}
+              <div
+                style={{
+                  height: '2px',
+                  backgroundColor: '#87d1db',
+                  marginBottom: isMobile ? 'clamp(25px, 6vw, 40px)' : 'clamp(35px, 4vw, 50px)',
+                  marginTop: isMobile ? 'clamp(25px, 6vw, 40px)' : 'clamp(35px, 4vw, 50px)',
+                  marginLeft: isMobile ? `calc(-1 * clamp(15px, 3vw, 25px) - clamp(15px, 3vw, 25px))` : `calc(-1 * clamp(30px, 3vw, 50px) - clamp(30px, 3vw, 50px))`,
+                  marginRight: isMobile ? `calc(-1 * clamp(15px, 3vw, 25px) - clamp(15px, 3vw, 25px))` : `calc(-1 * clamp(30px, 3vw, 50px) - clamp(30px, 3vw, 50px))`,
+                  width: `calc(100% + ${isMobile ? 'clamp(60px, 12vw, 100px)' : 'clamp(120px, 12vw, 200px)'})`
+                }}
+              />
+
+              {/* Content inside gray block */}
+              <div
+                style={{
+                  maxWidth: isMobile ? '100%' : '1200px'
+                }}
+              >
+                {/* INVOICES */}
+                <div>
+                  <h3
+                    className="font-bold uppercase"
+                    style={{
+                      fontSize: isMobile ? 'clamp(18px, 5vw, 28px)' : 'clamp(24px, 2.5vw, 46px)',
+                      color: '#03355c',
+                      marginBottom: isMobile ? 'clamp(20px, 5vw, 30px)' : 'clamp(25px, 3vw, 35px)',
+                      direction: isRTL ? 'rtl' : 'ltr',
+                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                    }}
+                  >
+                    {t.invoices || 'INVOICES'}
+                  </h3>
+                  
+                  {/* Desktop Table */}
+                  {!isMobile && (
+                    <div style={{ overflowX: 'auto' }}>
+                      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                        <thead>
+                          <tr style={{ borderBottom: '2px solid #e0e0e0' }}>
+                            <th
+                              style={{
+                                textAlign: 'left',
+                                padding: 'clamp(12px, 1.5vw, 20px)',
+                                fontSize: 'clamp(16px, 1.8vw, 24px)',
+                                color: '#03355c',
+                                fontWeight: 600,
+                                direction: isRTL ? 'rtl' : 'ltr',
+                                fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                              }}
+                            >
+                              {t.invoiceNumber || 'Invoice number'}
+                            </th>
+                            <th
+                              style={{
+                                textAlign: 'left',
+                                padding: 'clamp(12px, 1.5vw, 20px)',
+                                fontSize: 'clamp(16px, 1.8vw, 24px)',
+                                color: '#03355c',
+                                fontWeight: 600,
+                                direction: isRTL ? 'rtl' : 'ltr',
+                                fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                              }}
+                            >
+                              {t.date || 'Date'}
+                            </th>
+                            <th
+                              style={{
+                                textAlign: 'left',
+                                padding: 'clamp(12px, 1.5vw, 20px)',
+                                fontSize: 'clamp(16px, 1.8vw, 24px)',
+                                color: '#03355c',
+                                fontWeight: 600,
+                                direction: isRTL ? 'rtl' : 'ltr',
+                                fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                              }}
+                            >
+                              {t.total || 'Total'}
+                            </th>
+                            <th
+                              style={{
+                                textAlign: 'left',
+                                padding: 'clamp(12px, 1.5vw, 20px)',
+                                fontSize: 'clamp(16px, 1.8vw, 24px)',
+                                color: '#03355c',
+                                fontWeight: 600,
+                                direction: isRTL ? 'rtl' : 'ltr',
+                                fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                              }}
+                            >
+                              {t.downloadInvoice || 'Download invoice'}
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {accountData.invoices.map((invoice, index) => (
+                            <tr key={index} style={{ borderBottom: '1px solid #e0e0e0' }}>
+                              <td
+                                style={{
+                                  padding: 'clamp(12px, 1.5vw, 20px)',
+                                  fontSize: 'clamp(16px, 1.8vw, 22px)',
+                                  color: '#03355c',
+                                  direction: isRTL ? 'rtl' : 'ltr',
+                                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                                }}
+                              >
+                                {invoice.number}
+                              </td>
+                              <td
+                                style={{
+                                  padding: 'clamp(12px, 1.5vw, 20px)',
+                                  fontSize: 'clamp(16px, 1.8vw, 22px)',
+                                  color: '#03355c',
+                                  direction: isRTL ? 'rtl' : 'ltr',
+                                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                                }}
+                              >
+                                {invoice.date}
+                              </td>
+                              <td
+                                style={{
+                                  padding: 'clamp(12px, 1.5vw, 20px)',
+                                  fontSize: 'clamp(16px, 1.8vw, 22px)',
+                                  color: '#03355c',
+                                  direction: isRTL ? 'rtl' : 'ltr',
+                                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                                }}
+                              >
+                                {invoice.total}
+                              </td>
+                              <td
+                                style={{
+                                  padding: 'clamp(12px, 1.5vw, 20px)',
+                                  direction: isRTL ? 'rtl' : 'ltr',
+                                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                                }}
+                              >
+                                <span style={{ fontSize: 'clamp(18px, 2vw, 24px)', cursor: 'pointer' }}>📄</span>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+
+                  {/* Mobile List */}
+                  {isMobile && (
+                    <div>
+                      {accountData.invoices.map((invoice, index) => (
+                        <div
+                          key={index}
+                          style={{
+                            borderBottom: '1px solid #e0e0e0',
+                            padding: 'clamp(15px, 4vw, 20px) 0',
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            flexDirection: isRTL ? 'row-reverse' : 'row'
+                          }}
+                        >
+                          <div>
+                            <div
+                              style={{
+                                fontSize: 'clamp(16px, 4vw, 22px)',
+                                color: '#03355c',
+                                fontWeight: 600,
+                                marginBottom: 'clamp(4px, 1vw, 8px)',
+                                direction: isRTL ? 'rtl' : 'ltr',
+                                fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                              }}
+                            >
+                              {invoice.number}
+                            </div>
+                            <div
+                              style={{
+                                fontSize: 'clamp(14px, 3.5vw, 20px)',
+                                color: '#03355c',
+                                direction: isRTL ? 'rtl' : 'ltr',
+                                fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                              }}
+                            >
+                              {invoice.date} • {invoice.total}
+                            </div>
+                          </div>
+                          <span style={{ fontSize: 'clamp(20px, 5vw, 28px)', cursor: 'pointer' }}>📄</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+              </div>
+            )}
+
+          {/* Content Container for other sections */}
+          <div
+            style={{
+              maxWidth: isMobile ? '100%' : '1200px',
+              margin: 0
+            }}
+          >
 
             <div style={{ marginTop: isMobile ? 'clamp(40px, 8vw, 60px)' : 'clamp(60px, 5vw, 80px)' }}>
               <h2
                 className="font-bold uppercase"
+                onClick={() => setActiveSection('order-history')}
                 style={{
                   fontSize: isMobile ? 'clamp(24px, 7vw, 40px)' : 'clamp(32px, 3vw, 55px)',
-                  color: '#666666',
+                  color: activeSection === 'order-history' ? '#03355c' : '#666666',
                   marginBottom: isMobile ? 'clamp(25px, 6vw, 40px)' : 'clamp(40px, 3vw, 60px)',
                   direction: isRTL ? 'rtl' : 'ltr',
-                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                  cursor: 'pointer',
+                  transition: 'color 0.3s ease'
                 }}
               >
                 {t.orderHistory || 'ORDER HISTORY'}
@@ -562,12 +901,15 @@ const General = () => {
             <div style={{ marginTop: isMobile ? 'clamp(40px, 8vw, 60px)' : 'clamp(60px, 5vw, 80px)' }}>
               <h2
                 className="font-bold uppercase"
+                onClick={() => setActiveSection('account-settings')}
                 style={{
                   fontSize: isMobile ? 'clamp(24px, 7vw, 40px)' : 'clamp(32px, 3vw, 55px)',
-                  color: '#666666',
+                  color: activeSection === 'account-settings' ? '#03355c' : '#666666',
                   marginBottom: isMobile ? 'clamp(25px, 6vw, 40px)' : 'clamp(40px, 3vw, 60px)',
                   direction: isRTL ? 'rtl' : 'ltr',
-                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                  cursor: 'pointer',
+                  transition: 'color 0.3s ease'
                 }}
               >
                 {t.accountSettings || 'ACCOUNT SETTINGS'}
@@ -581,6 +923,19 @@ const General = () => {
       <div className="max-w-[1895px] mx-auto w-full">
         <MarketplaceFooter />
       </div>
+
+      <style>{`
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </div>
   );
 };
