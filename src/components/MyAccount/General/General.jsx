@@ -4,6 +4,7 @@ import MarketplaceFooter from '../../Marketplace/MarketplaceFooter';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import { translations } from '../../../translations';
 import qLogo from './Assets/Q.png';
+import underlineImage from './Assets/underline@2x.png';
 
 const General = () => {
   const { language, isRTL } = useLanguage();
@@ -287,7 +288,8 @@ const General = () => {
                   style={{
                     display: 'grid',
                     gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
-                    gap: isMobile ? 'clamp(15px, 4vw, 25px)' : 'clamp(30px, 4vw, 60px)'
+                    gap: isMobile ? 'clamp(15px, 4vw, 25px)' : 'clamp(30px, 4vw, 60px)',
+                    maxWidth: isMobile ? '100%' : '1200px'
                   }}
                 >
                   {/* Left Column */}
@@ -413,27 +415,38 @@ const General = () => {
                   >
                     {t.shippingAddress || 'SHIPPING ADDRESS'}
                   </h3>
-                  <button
-                    style={{
-                      fontSize: isMobile ? 'clamp(14px, 3.5vw, 18px)' : 'clamp(16px, 1.5vw, 22px)',
-                      color: '#005490',
-                      backgroundColor: 'transparent',
-                      border: 'none',
-                      cursor: 'pointer',
-                      textDecoration: 'underline',
-                      direction: isRTL ? 'rtl' : 'ltr',
-                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-                      fontWeight: 400
-                    }}
-                  >
-                    {t.edit || 'EDIT'}
-                  </button>
+                  <div style={{ display: 'flex', alignItems: 'flex-end', gap: '8px', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
+                    <button
+                      style={{
+                        fontSize: isMobile ? 'clamp(14px, 3.5vw, 18px)' : 'clamp(16px, 1.5vw, 30px)',
+                        color: '#03355c',
+                        backgroundColor: 'transparent',
+                        border: 'none',
+                        cursor: 'pointer',
+                        direction: isRTL ? 'rtl' : 'ltr',
+                        fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                        fontWeight: 600
+                      }}
+                    >
+                      {t.edit || 'EDIT'}
+                    </button>
+                    <img
+                      src={underlineImage}
+                      alt="underline"
+                      style={{
+                        width: isMobile ? 'clamp(30px, 6vw, 40px)' : 'clamp(35px, 3vw, 40px)',
+                        height: 'auto',
+                        objectFit: 'contain'
+                      }}
+                    />
+                  </div>
                 </div>
                 <div
                   style={{
                     display: 'grid',
                     gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
-                    gap: isMobile ? 'clamp(15px, 4vw, 25px)' : 'clamp(30px, 4vw, 60px)'
+                    gap: isMobile ? 'clamp(15px, 4vw, 25px)' : 'clamp(30px, 4vw, 60px)',
+                    maxWidth: isMobile ? '100%' : '1200px'
                   }}
                 >
                   {/* Left Column */}
@@ -521,7 +534,7 @@ const General = () => {
                 className="font-bold uppercase"
                 style={{
                   fontSize: isMobile ? 'clamp(24px, 7vw, 40px)' : 'clamp(32px, 3vw, 55px)',
-                  color: '#03355c',
+                  color: '#666666',
                   marginBottom: isMobile ? 'clamp(25px, 6vw, 40px)' : 'clamp(40px, 3vw, 60px)',
                   direction: isRTL ? 'rtl' : 'ltr',
                   fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
@@ -536,7 +549,7 @@ const General = () => {
                 className="font-bold uppercase"
                 style={{
                   fontSize: isMobile ? 'clamp(24px, 7vw, 40px)' : 'clamp(32px, 3vw, 55px)',
-                  color: '#03355c',
+                  color: '#666666',
                   marginBottom: isMobile ? 'clamp(25px, 6vw, 40px)' : 'clamp(40px, 3vw, 60px)',
                   direction: isRTL ? 'rtl' : 'ltr',
                   fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
@@ -551,7 +564,7 @@ const General = () => {
                 className="font-bold uppercase"
                 style={{
                   fontSize: isMobile ? 'clamp(24px, 7vw, 40px)' : 'clamp(32px, 3vw, 55px)',
-                  color: '#03355c',
+                  color: '#666666',
                   marginBottom: isMobile ? 'clamp(25px, 6vw, 40px)' : 'clamp(40px, 3vw, 60px)',
                   direction: isRTL ? 'rtl' : 'ltr',
                   fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
