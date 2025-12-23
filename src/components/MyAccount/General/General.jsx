@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import HomepageHeader from '../../Homepage/HomepageHeader';
 import MarketplaceFooter from '../../Marketplace/MarketplaceFooter';
 import { useLanguage } from '../../../contexts/LanguageContext';
@@ -6,15 +6,111 @@ import { translations } from '../../../translations';
 import qLogo from './Assets/Q.png';
 import underlineImage from './Assets/underline@2x.png';
 import productPlaceholder from './Assets/product_placeholder@2x.png';
+import calendarIcon from './Assets/calendar.png';
 
 const General = () => {
   const { language, isRTL } = useLanguage();
   const t = translations[language];
   const [isMobile, setIsMobile] = useState(false);
+  const [showCalendar, setShowCalendar] = useState(false);
   const [activeSection, setActiveSection] = useState('general');
   const [expandedOrder, setExpandedOrder] = useState(null);
-  const [freezeStartDate, setFreezeStartDate] = useState('07/19/2025');
-  const [freezeEndDate, setFreezeEndDate] = useState('07/23/2025');
+  const [freezeStartDate, setFreezeStartDate] = useState('2025-07-19');
+  const [freezeEndDate, setFreezeEndDate] = useState('2025-07-23');
+  const startDateInputRef = useRef(null);
+  const endDateInputRef = useRef(null);
+  
+  const handleStartDateChange = (e) => {
+    setFreezeStartDate(e.target.value);
+  };
+  
+  const handleEndDateChange = (e) => {
+    setFreezeEndDate(e.target.value);
+  };
+  
+  const handleStartDateIconClick = () => {
+    if (startDateInputRef.current) {
+      startDateInputRef.current.showPicker();
+    }
+  };
+  
+  const handleEndDateIconClick = () => {
+    if (endDateInputRef.current) {
+      endDateInputRef.current.showPicker();
+    }
+  };
+  
+  const handleCalendarDayClick = (day) => {
+    const dayStr = day.toISOString().split('T')[0];
+    const dayDate = new Date(dayStr);
+    const startDate = freezeStartDate ? new Date(freezeStartDate) : null;
+    const endDate = freezeEndDate ? new Date(freezeEndDate) : null;
+    
+    // Если обе даты выбраны или ни одна не выбрана, начинаем новый выбор
+    if (!startDate || (startDate && endDate)) {
+      setFreezeStartDate(dayStr);
+      setFreezeEndDate('');
+    } 
+    // Если выбрана только начальная дата
+    else if (startDate && !endDate) {
+      // Если выбранная дата раньше начальной, делаем ее новой начальной
+      if (dayDate < startDate) {
+        setFreezeStartDate(dayStr);
+        setFreezeEndDate('');
+      } 
+      // Иначе устанавливаем конечную дату
+      else {
+        setFreezeEndDate(dayStr);
+      }
+    }
+  };
+  
+  // Get month name from date
+  const getMonthName = (dateString) => {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    return date.toLocaleDateString(language === 'ar' ? 'ar' : 'en', { month: 'long', year: 'numeric' });
+  };
+  
+  // Get all dates in range
+  const getDatesInRange = (startDate, endDate) => {
+    if (!startDate || !endDate) return [];
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const dates = [];
+    const currentDate = new Date(start);
+    while (currentDate <= end) {
+      dates.push(new Date(currentDate));
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+    return dates;
+  };
+  
+  // Get days in month
+  const getDaysInMonth = (dateString) => {
+    if (!dateString) return [];
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+    const daysInMonth = lastDay.getDate();
+    const startingDayOfWeek = firstDay.getDay();
+    
+    const days = [];
+    // Add empty cells for days before the first day of the month
+    for (let i = 0; i < startingDayOfWeek; i++) {
+      days.push(null);
+    }
+    // Add all days of the month
+    for (let i = 1; i <= daysInMonth; i++) {
+      days.push(new Date(year, month, i));
+    }
+    return days;
+  };
+  
+  const selectedDates = getDatesInRange(freezeStartDate, freezeEndDate);
+  const monthDays = getDaysInMonth(freezeStartDate || freezeEndDate);
   const [freezeTermsAccepted, setFreezeTermsAccepted] = useState(false);
   const [deleteTermsAccepted, setDeleteTermsAccepted] = useState(false);
 
@@ -22,6 +118,7 @@ const General = () => {
     const updateIsMobile = () => {
       const width = window.innerWidth;
       setIsMobile(width <= 768);
+      setShowCalendar(width > 1024);
     };
 
     updateIsMobile();
@@ -1539,26 +1636,47 @@ const General = () => {
                     </div>
                   </div>
                 </div>
+              </div>
 
-                {/* Divider line */}
-                <div
+              {/* Divider line - full width */}
+              <div
+                style={{
+                  height: '2px',
+                  backgroundColor: '#87d1db',
+                  marginBottom: isMobile ? 'clamp(25px, 6vw, 40px)' : 'clamp(35px, 4vw, 50px)',
+                  marginTop: isMobile ? 'clamp(25px, 6vw, 40px)' : 'clamp(35px, 4vw, 50px)',
+                  marginLeft: isMobile ? `calc(-1 * clamp(15px, 3vw, 25px) - clamp(15px, 3vw, 25px))` : `calc(-1 * clamp(30px, 3vw, 50px) - clamp(30px, 3vw, 50px))`,
+                  marginRight: isMobile ? `calc(-1 * clamp(15px, 3vw, 25px) - clamp(15px, 3vw, 25px))` : `calc(-1 * clamp(30px, 3vw, 50px) - clamp(30px, 3vw, 50px))`,
+                  width: `calc(100% + ${isMobile ? 'clamp(60px, 12vw, 100px)' : 'clamp(120px, 12vw, 200px)'})`
+                }}
+              />
+
+              {/* Content inside gray block */}
+              <div
+                style={{
+                  maxWidth: isMobile ? '100%' : '1200px'
+                }}
+              >
+                {/* ADDITIONAL SETTINGS */}
+                <h2
+                  className="font-bold uppercase"
                   style={{
-                    height: '2px',
-                    backgroundColor: '#87d1db',
-                    marginBottom: isMobile ? 'clamp(25px, 6vw, 40px)' : 'clamp(35px, 4vw, 50px)',
-                    marginTop: isMobile ? 'clamp(25px, 6vw, 40px)' : 'clamp(35px, 4vw, 50px)',
-                    marginLeft: isMobile ? `calc(-1 * clamp(15px, 3vw, 25px))` : `calc(-1 * clamp(30px, 3vw, 50px))`,
-                    marginRight: isMobile ? `calc(-1 * clamp(15px, 3vw, 25px))` : `calc(-1 * clamp(30px, 3vw, 50px))`,
-                    width: `calc(100% + ${isMobile ? 'clamp(30px, 6vw, 50px)' : 'clamp(60px, 6vw, 100px)'})`
+                    fontSize: isMobile ? 'clamp(18px, 5vw, 28px)' : 'clamp(24px, 2.5vw, 46px)',
+                    color: '#03355c',
+                    marginBottom: isMobile ? 'clamp(15px, 4vw, 25px)' : 'clamp(20px, 2vw, 30px)',
+                    direction: isRTL ? 'rtl' : 'ltr',
+                    fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
                   }}
-                />
+                >
+                  {t.additionalSettings || 'ADDITIONAL SETTINGS'}
+                </h2>
 
                 {/* FREEZE SUBSCRIPTION */}
                 <div style={{ marginBottom: isMobile ? 'clamp(30px, 7vw, 50px)' : 'clamp(40px, 4vw, 60px)' }}>
                   <h3
                     className="font-bold uppercase"
                     style={{
-                      fontSize: isMobile ? 'clamp(18px, 5vw, 28px)' : 'clamp(24px, 2.5vw, 46px)',
+                      fontSize: isMobile ? 'clamp(14px, 3.5vw, 20px)' : 'clamp(18px, 1.8vw, 30px)',
                       color: '#03355c',
                       marginBottom: isMobile ? 'clamp(20px, 5vw, 30px)' : 'clamp(25px, 3vw, 35px)',
                       direction: isRTL ? 'rtl' : 'ltr',
@@ -1570,7 +1688,7 @@ const General = () => {
                   
                   <div
                     style={{
-                      fontSize: isMobile ? 'clamp(14px, 3.5vw, 20px)' : 'clamp(16px, 1.5vw, 30px)',
+                      fontSize: isMobile ? 'clamp(12px, 3vw, 18px)' : 'clamp(14px, 1.3vw, 24px)',
                       color: '#03355c',
                       marginBottom: isMobile ? 'clamp(15px, 4vw, 25px)' : 'clamp(20px, 3vw, 30px)',
                       direction: isRTL ? 'rtl' : 'ltr',
@@ -1583,9 +1701,10 @@ const General = () => {
                   <div
                     style={{
                       display: 'grid',
-                      gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
-                      gap: isMobile ? 'clamp(15px, 4vw, 25px)' : 'clamp(20px, 3vw, 40px)',
-                      marginBottom: isMobile ? 'clamp(20px, 5vw, 30px)' : 'clamp(25px, 3vw, 40px)'
+                      gridTemplateColumns: isMobile ? '1fr' : showCalendar ? '0fr 0fr 330px' : '0fr 0fr',
+                      gap: isMobile ? 'clamp(15px, 4vw, 25px)' : 'clamp(15px, 2vw, 25px)',
+                      marginBottom: isMobile ? 'clamp(20px, 5vw, 30px)' : 'clamp(25px, 3vw, 40px)',
+                      alignItems: 'end'
                     }}
                   >
                     {/* Start date */}
@@ -1602,11 +1721,12 @@ const General = () => {
                       >
                         {t.startDate || 'Start date'}:
                       </label>
-                      <div style={{ position: 'relative' }}>
+                      <div style={{ position: 'relative', width: '330px' }}>
                         <input
-                          type="text"
+                          ref={startDateInputRef}
+                          type="date"
                           value={freezeStartDate}
-                          readOnly
+                          onChange={handleStartDateChange}
                           style={{
                             width: '100%',
                             padding: 'clamp(10px, 2vw, 15px)',
@@ -1619,10 +1739,37 @@ const General = () => {
                             color: '#03355c',
                             direction: isRTL ? 'rtl' : 'ltr',
                             fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-                            cursor: 'pointer'
+                            cursor: 'pointer',
+                            appearance: 'none',
+                            WebkitAppearance: 'none'
                           }}
                         />
-                        <span style={{ fontSize: 'clamp(18px, 2vw, 24px)', position: 'absolute', [isRTL ? 'left' : 'right']: 'clamp(12px, 1.5vw, 18px)', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }}>📅</span>
+                        <style>{`
+                          input[type="date"]::-webkit-calendar-picker-indicator {
+                            display: none;
+                            -webkit-appearance: none;
+                          }
+                          input[type="date"]::-webkit-inner-spin-button,
+                          input[type="date"]::-webkit-clear-button {
+                            display: none;
+                            -webkit-appearance: none;
+                          }
+                        `}</style>
+                        <img
+                          src={calendarIcon}
+                          alt="Calendar"
+                          onClick={handleStartDateIconClick}
+                          style={{
+                            width: isMobile ? 'clamp(18px, 4vw, 24px)' : 'clamp(20px, 2vw, 28px)',
+                            height: isMobile ? 'clamp(18px, 4vw, 24px)' : 'clamp(20px, 2vw, 28px)',
+                            position: 'absolute',
+                            [isRTL ? 'left' : 'right']: 'clamp(10px, 1.5vw, 15px)',
+                            top: '50%',
+                            transform: 'translateY(-50%)',
+                            cursor: 'pointer',
+                            zIndex: 1
+                          }}
+                        />
                       </div>
                     </div>
 
@@ -1640,11 +1787,12 @@ const General = () => {
                       >
                         {t.endDate || 'End date'}:
                       </label>
-                      <div style={{ position: 'relative' }}>
+                      <div style={{ position: 'relative', width: '330px' }}>
                         <input
-                          type="text"
+                          ref={endDateInputRef}
+                          type="date"
                           value={freezeEndDate}
-                          readOnly
+                          onChange={handleEndDateChange}
                           style={{
                             width: '100%',
                             padding: 'clamp(10px, 2vw, 15px)',
@@ -1657,12 +1805,117 @@ const General = () => {
                             color: '#03355c',
                             direction: isRTL ? 'rtl' : 'ltr',
                             fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-                            cursor: 'pointer'
+                            cursor: 'pointer',
+                            appearance: 'none',
+                            WebkitAppearance: 'none'
                           }}
                         />
-                        <span style={{ fontSize: 'clamp(18px, 2vw, 24px)', position: 'absolute', [isRTL ? 'left' : 'right']: 'clamp(12px, 1.5vw, 18px)', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }}>📅</span>
+                        <img
+                          src={calendarIcon}
+                          alt="Calendar"
+                          onClick={handleEndDateIconClick}
+                          style={{
+                            width: isMobile ? 'clamp(18px, 4vw, 24px)' : 'clamp(20px, 2vw, 28px)',
+                            height: isMobile ? 'clamp(18px, 4vw, 24px)' : 'clamp(20px, 2vw, 28px)',
+                            position: 'absolute',
+                            [isRTL ? 'left' : 'right']: 'clamp(10px, 1.5vw, 15px)',
+                            top: '50%',
+                            transform: 'translateY(-50%)',
+                            cursor: 'pointer',
+                            zIndex: 1
+                          }}
+                        />
                       </div>
                     </div>
+                    
+                    {/* Calendar preview block */}
+                    {showCalendar && (
+                      <div
+                        style={{
+                          width: '100%',
+                          height: '330px',
+                          border: '1px solid #e0e0e0',
+                          borderRadius: '10px',
+                          padding: 'clamp(15px, 2vw, 20px)',
+                          backgroundColor: '#005291',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignSelf: 'start',
+                          marginTop: '-210px'
+                        }}
+                      >
+                        <div
+                          style={{
+                            fontSize: 'clamp(16px, 1.5vw, 20px)',
+                            fontWeight: 600,
+                            color: '#ffffff',
+                            marginBottom: 'clamp(15px, 2vw, 20px)',
+                            textAlign: 'center',
+                            direction: isRTL ? 'rtl' : 'ltr',
+                            fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                          }}
+                        >
+                          {getMonthName(freezeStartDate || freezeEndDate)}
+                        </div>
+                        <div
+                          style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(7, 1fr)',
+                            gap: '4px',
+                            flex: 1
+                          }}
+                        >
+                          {/* Day headers */}
+                          {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day, index) => (
+                            <div
+                              key={index}
+                              style={{
+                                fontSize: 'clamp(10px, 1.2vw, 12px)',
+                                fontWeight: 600,
+                                color: '#ffffff',
+                                textAlign: 'center',
+                                padding: '4px'
+                              }}
+                            >
+                              {day}
+                            </div>
+                          ))}
+                          {/* Calendar days */}
+                          {monthDays.map((day, index) => {
+                            if (!day) {
+                              return <div key={index} />;
+                            }
+                            const dayStr = day.toISOString().split('T')[0];
+                            const isSelected = selectedDates.some(d => d.toISOString().split('T')[0] === dayStr);
+                            const isStart = dayStr === freezeStartDate;
+                            const isEnd = dayStr === freezeEndDate;
+                            const isInRange = isSelected && !isStart && !isEnd;
+                            
+                            return (
+                              <div
+                                key={index}
+                                onClick={() => handleCalendarDayClick(day)}
+                                style={{
+                                  aspectRatio: '1',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  fontSize: 'clamp(10px, 1.2vw, 14px)',
+                                  backgroundColor: isStart || isEnd ? '#69d3e4' : isInRange ? '#03355c' : 'transparent',
+                                  color: '#ffffff',
+                                  borderRadius: isStart ? '50% 0 0 50%' : isEnd ? '0 50% 50% 0' : isInRange ? '0' : '50%',
+                                  fontWeight: isStart || isEnd ? 600 : 400,
+                                  cursor: 'pointer',
+                                  transition: 'background-color 0.2s ease'
+                                }}
+                              >
+                                {day.getDate()}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   {/* Terms and checkbox for freeze */}
