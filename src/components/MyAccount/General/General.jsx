@@ -13,6 +13,10 @@ const General = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [activeSection, setActiveSection] = useState('general');
   const [expandedOrder, setExpandedOrder] = useState(null);
+  const [freezeStartDate, setFreezeStartDate] = useState('07/19/2025');
+  const [freezeEndDate, setFreezeEndDate] = useState('07/23/2025');
+  const [freezeTermsAccepted, setFreezeTermsAccepted] = useState(false);
+  const [deleteTermsAccepted, setDeleteTermsAccepted] = useState(false);
 
   useEffect(() => {
     const updateIsMobile = () => {
@@ -1376,6 +1380,480 @@ const General = () => {
               </h2>
             </div>
           </div>
+
+          {/* ACCOUNT SETTINGS Content - full width */}
+          {activeSection === 'account-settings' && (
+            <div
+              style={{
+                backgroundColor: '#ededed',
+                padding: isMobile ? 'clamp(20px, 5vw, 30px)' : 'clamp(25px, 3vw, 40px)',
+                marginLeft: isMobile ? `calc(-1 * clamp(15px, 3vw, 25px))` : `calc(-1 * clamp(30px, 3vw, 50px))`,
+                marginRight: isMobile ? `calc(-1 * clamp(15px, 3vw, 25px))` : `calc(-1 * clamp(30px, 3vw, 50px))`,
+                paddingLeft: isMobile ? 'clamp(15px, 3vw, 25px)' : 'clamp(30px, 3vw, 50px)',
+                paddingRight: isMobile ? 'clamp(15px, 3vw, 25px)' : 'clamp(30px, 3vw, 50px)',
+                animation: 'fadeIn 0.5s ease-in',
+                overflow: 'hidden'
+              }}
+            >
+              {/* Content inside gray block */}
+              <div
+                style={{
+                  maxWidth: isMobile ? '100%' : '1200px'
+                }}
+              >
+                {/* COUNTRY AND LANGUAGE PREFERENCES */}
+                <div style={{ marginBottom: isMobile ? 'clamp(30px, 7vw, 50px)' : 'clamp(40px, 4vw, 60px)' }}>
+                  <h3
+                    className="font-bold uppercase"
+                    style={{
+                      fontSize: isMobile ? 'clamp(18px, 5vw, 28px)' : 'clamp(24px, 2.5vw, 46px)',
+                      color: '#03355c',
+                      marginBottom: isMobile ? 'clamp(20px, 5vw, 30px)' : 'clamp(25px, 3vw, 35px)',
+                      direction: isRTL ? 'rtl' : 'ltr',
+                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                    }}
+                  >
+                    {t.countryAndLanguagePreferences || 'COUNTRY AND LANGUAGE PREFERENCES'}
+                  </h3>
+                  
+                  <div
+                    style={{
+                      width: '640px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: 'clamp(20px, 5vw, 30px)',
+                      marginBottom: isMobile ? 'clamp(20px, 5vw, 30px)' : 'clamp(30px, 4vw, 50px)'
+                    }}
+                  >
+                    {/* Left block - Origin country */}
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 'clamp(12px, 2vw, 20px)',
+                        flexDirection: isRTL ? 'row-reverse' : 'row',
+                        justifyContent: 'space-between'
+                      }}
+                    >
+                      <label
+                        style={{
+                          fontSize: isMobile ? 'clamp(14px, 3.5vw, 20px)' : 'clamp(16px, 1.5vw, 27px)',
+                          fontWeight: 600,
+                          color: '#03355c',
+                          whiteSpace: 'nowrap',
+                          direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                        }}
+                      >
+                        {t.originCountry || 'Origin country'}:
+                      </label>
+                      <div
+                        style={{
+                          position: 'relative'
+                        }}
+                      >
+                        <select
+                          style={{
+                            width: '340px',
+                            padding: 'clamp(10px, 2vw, 15px)',
+                            paddingRight: isRTL ? 'clamp(10px, 2vw, 15px)' : 'clamp(70px, 6vw, 80px)',
+                            paddingLeft: isRTL ? 'clamp(70px, 6vw, 80px)' : 'clamp(10px, 2vw, 15px)',
+                            fontSize: isMobile ? 'clamp(14px, 3.5vw, 18px)' : 'clamp(16px, 1.5vw, 20px)',
+                            border: '1px solid #e0e0e0',
+                            borderRadius: '10px',
+                            backgroundColor: '#ffffff',
+                            color: '#03355c',
+                            direction: isRTL ? 'rtl' : 'ltr',
+                            fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                            cursor: 'pointer',
+                            appearance: 'none'
+                          }}
+                        >
+                          <option value="Thailand">Thailand</option>
+                        </select>
+                        {getFlagUrl(accountData.originCountry) && (
+                          <img
+                            src={getFlagUrl(accountData.originCountry)}
+                            alt={accountData.originCountry}
+                            style={{
+                              width: isMobile ? 'clamp(24px, 4vw, 32px)' : 'clamp(28px, 2vw, 36px)',
+                              height: isMobile ? 'clamp(24px, 4vw, 32px)' : 'clamp(28px, 2vw, 36px)',
+                              borderRadius: '50%',
+                              objectFit: 'cover',
+                              position: 'absolute',
+                              [isRTL ? 'left' : 'right']: 'clamp(45px, 5vw, 55px)',
+                              top: '50%',
+                              transform: 'translateY(-50%)',
+                              pointerEvents: 'none'
+                            }}
+                          />
+                        )}
+                        <span style={{ fontSize: 'clamp(16px, 2vw, 20px)', color: '#666666', position: 'absolute', [isRTL ? 'left' : 'right']: 'clamp(12px, 1.5vw, 18px)', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }}>▼</span>
+                      </div>
+                    </div>
+
+                    {/* Right block - Preferred language */}
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 'clamp(12px, 2vw, 20px)',
+                        flexDirection: isRTL ? 'row-reverse' : 'row',
+                        justifyContent: 'space-between'
+                      }}
+                    >
+                      <label
+                        style={{
+                          fontSize: isMobile ? 'clamp(14px, 3.5vw, 20px)' : 'clamp(16px, 1.5vw, 27px)',
+                          fontWeight: 600,
+                          color: '#03355c',
+                          whiteSpace: 'nowrap',
+                          direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                        }}
+                      >
+                        {t.preferredLanguage || 'Preferred language'}:
+                      </label>
+                      <div style={{ position: 'relative' }}>
+                        <select
+                          style={{
+                            width: '340px',
+                            padding: 'clamp(10px, 2vw, 15px)',
+                            paddingRight: isRTL ? 'clamp(10px, 2vw, 15px)' : 'clamp(35px, 3vw, 45px)',
+                            paddingLeft: isRTL ? 'clamp(35px, 3vw, 45px)' : 'clamp(10px, 2vw, 15px)',
+                            fontSize: isMobile ? 'clamp(14px, 3.5vw, 18px)' : 'clamp(16px, 1.5vw, 20px)',
+                            border: '1px solid #e0e0e0',
+                            borderRadius: '10px',
+                            backgroundColor: '#ffffff',
+                            color: '#03355c',
+                            direction: isRTL ? 'rtl' : 'ltr',
+                            fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                            cursor: 'pointer',
+                            appearance: 'none'
+                          }}
+                        >
+                          <option value="thai">{accountData.preferredLanguage}</option>
+                        </select>
+                        <span style={{ fontSize: 'clamp(16px, 2vw, 20px)', color: '#666666', position: 'absolute', [isRTL ? 'left' : 'right']: 'clamp(12px, 1.5vw, 18px)', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }}>▼</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Divider line */}
+                <div
+                  style={{
+                    height: '2px',
+                    backgroundColor: '#87d1db',
+                    marginBottom: isMobile ? 'clamp(25px, 6vw, 40px)' : 'clamp(35px, 4vw, 50px)',
+                    marginTop: isMobile ? 'clamp(25px, 6vw, 40px)' : 'clamp(35px, 4vw, 50px)',
+                    marginLeft: isMobile ? `calc(-1 * clamp(15px, 3vw, 25px))` : `calc(-1 * clamp(30px, 3vw, 50px))`,
+                    marginRight: isMobile ? `calc(-1 * clamp(15px, 3vw, 25px))` : `calc(-1 * clamp(30px, 3vw, 50px))`,
+                    width: `calc(100% + ${isMobile ? 'clamp(30px, 6vw, 50px)' : 'clamp(60px, 6vw, 100px)'})`
+                  }}
+                />
+
+                {/* FREEZE SUBSCRIPTION */}
+                <div style={{ marginBottom: isMobile ? 'clamp(30px, 7vw, 50px)' : 'clamp(40px, 4vw, 60px)' }}>
+                  <h3
+                    className="font-bold uppercase"
+                    style={{
+                      fontSize: isMobile ? 'clamp(18px, 5vw, 28px)' : 'clamp(24px, 2.5vw, 46px)',
+                      color: '#03355c',
+                      marginBottom: isMobile ? 'clamp(20px, 5vw, 30px)' : 'clamp(25px, 3vw, 35px)',
+                      direction: isRTL ? 'rtl' : 'ltr',
+                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                    }}
+                  >
+                    {t.freezeSubscription || 'FREEZE SUBSCRIPTION'}
+                  </h3>
+                  
+                  <div
+                    style={{
+                      fontSize: isMobile ? 'clamp(14px, 3.5vw, 20px)' : 'clamp(16px, 1.5vw, 30px)',
+                      color: '#03355c',
+                      marginBottom: isMobile ? 'clamp(15px, 4vw, 25px)' : 'clamp(20px, 3vw, 30px)',
+                      direction: isRTL ? 'rtl' : 'ltr',
+                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                    }}
+                  >
+                    {t.pickFreezeDates || 'Pick the dates for subscription freeze period:'}
+                  </div>
+
+                  <div
+                    style={{
+                      display: 'grid',
+                      gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+                      gap: isMobile ? 'clamp(15px, 4vw, 25px)' : 'clamp(20px, 3vw, 40px)',
+                      marginBottom: isMobile ? 'clamp(20px, 5vw, 30px)' : 'clamp(25px, 3vw, 40px)'
+                    }}
+                  >
+                    {/* Start date */}
+                    <div>
+                      <label
+                        style={{
+                          display: 'block',
+                          fontSize: isMobile ? 'clamp(14px, 3.5vw, 18px)' : 'clamp(16px, 1.5vw, 20px)',
+                          color: '#03355c',
+                          marginBottom: 'clamp(8px, 1vw, 12px)',
+                          direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                        }}
+                      >
+                        {t.startDate || 'Start date'}:
+                      </label>
+                      <div style={{ position: 'relative' }}>
+                        <input
+                          type="text"
+                          value={freezeStartDate}
+                          readOnly
+                          style={{
+                            width: '100%',
+                            padding: 'clamp(10px, 2vw, 15px)',
+                            paddingRight: isRTL ? 'clamp(10px, 2vw, 15px)' : 'clamp(40px, 3vw, 50px)',
+                            paddingLeft: isRTL ? 'clamp(40px, 3vw, 50px)' : 'clamp(10px, 2vw, 15px)',
+                            fontSize: isMobile ? 'clamp(14px, 3.5vw, 18px)' : 'clamp(16px, 1.5vw, 20px)',
+                            border: '1px solid #e0e0e0',
+                            borderRadius: '10px',
+                            backgroundColor: '#ffffff',
+                            color: '#03355c',
+                            direction: isRTL ? 'rtl' : 'ltr',
+                            fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                            cursor: 'pointer'
+                          }}
+                        />
+                        <span style={{ fontSize: 'clamp(18px, 2vw, 24px)', position: 'absolute', [isRTL ? 'left' : 'right']: 'clamp(12px, 1.5vw, 18px)', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }}>📅</span>
+                      </div>
+                    </div>
+
+                    {/* End date */}
+                    <div>
+                      <label
+                        style={{
+                          display: 'block',
+                          fontSize: isMobile ? 'clamp(14px, 3.5vw, 18px)' : 'clamp(16px, 1.5vw, 20px)',
+                          color: '#03355c',
+                          marginBottom: 'clamp(8px, 1vw, 12px)',
+                          direction: isRTL ? 'rtl' : 'ltr',
+                          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                        }}
+                      >
+                        {t.endDate || 'End date'}:
+                      </label>
+                      <div style={{ position: 'relative' }}>
+                        <input
+                          type="text"
+                          value={freezeEndDate}
+                          readOnly
+                          style={{
+                            width: '100%',
+                            padding: 'clamp(10px, 2vw, 15px)',
+                            paddingRight: isRTL ? 'clamp(10px, 2vw, 15px)' : 'clamp(40px, 3vw, 50px)',
+                            paddingLeft: isRTL ? 'clamp(40px, 3vw, 50px)' : 'clamp(10px, 2vw, 15px)',
+                            fontSize: isMobile ? 'clamp(14px, 3.5vw, 18px)' : 'clamp(16px, 1.5vw, 20px)',
+                            border: '1px solid #e0e0e0',
+                            borderRadius: '10px',
+                            backgroundColor: '#ffffff',
+                            color: '#03355c',
+                            direction: isRTL ? 'rtl' : 'ltr',
+                            fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                            cursor: 'pointer'
+                          }}
+                        />
+                        <span style={{ fontSize: 'clamp(18px, 2vw, 24px)', position: 'absolute', [isRTL ? 'left' : 'right']: 'clamp(12px, 1.5vw, 18px)', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }}>📅</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Terms and checkbox for freeze */}
+                  <div
+                    style={{
+                      fontSize: isMobile ? 'clamp(14px, 3.5vw, 18px)' : 'clamp(16px, 1.5vw, 20px)',
+                      color: '#03355c',
+                      marginBottom: 'clamp(12px, 2vw, 18px)',
+                      direction: isRTL ? 'rtl' : 'ltr',
+                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                    }}
+                  >
+                    {t.readFreezeTerms || 'Please read and confirm the following terms before submitting the Freeze subscription request.'}
+                  </div>
+                  
+                  <textarea
+                    readOnly
+                    value="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+                    style={{
+                      width: '100%',
+                      minHeight: isMobile ? 'clamp(100px, 25vw, 150px)' : 'clamp(120px, 15vw, 180px)',
+                      padding: 'clamp(12px, 2vw, 18px)',
+                      fontSize: isMobile ? 'clamp(12px, 3vw, 16px)' : 'clamp(14px, 1.5vw, 18px)',
+                      border: '1px solid #e0e0e0',
+                      borderRadius: '10px',
+                      backgroundColor: '#ffffff',
+                      color: '#666666',
+                      direction: isRTL ? 'rtl' : 'ltr',
+                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                      resize: 'vertical',
+                      overflowY: 'auto',
+                      marginBottom: 'clamp(15px, 3vw, 25px)'
+                    }}
+                  />
+
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 'clamp(8px, 1.5vw, 15px)',
+                      flexDirection: isRTL ? 'row-reverse' : 'row',
+                      marginBottom: 'clamp(15px, 3vw, 25px)'
+                    }}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={freezeTermsAccepted}
+                      onChange={(e) => setFreezeTermsAccepted(e.target.checked)}
+                      style={{
+                        width: 'clamp(18px, 2.5vw, 24px)',
+                        height: 'clamp(18px, 2.5vw, 24px)',
+                        cursor: 'pointer'
+                      }}
+                    />
+                    <label
+                      style={{
+                        fontSize: isMobile ? 'clamp(14px, 3.5vw, 18px)' : 'clamp(16px, 1.5vw, 20px)',
+                        color: '#03355c',
+                        cursor: 'pointer',
+                        direction: isRTL ? 'rtl' : 'ltr',
+                        fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                      }}
+                    >
+                      {t.freezeTermsConfirm || 'I have read and confirm my freeze subscription request and its terms.'}
+                    </label>
+                  </div>
+
+                  <div
+                    style={{
+                      fontSize: isMobile ? 'clamp(14px, 3.5vw, 18px)' : 'clamp(16px, 1.5vw, 20px)',
+                      color: '#03355c',
+                      cursor: 'pointer',
+                      textDecoration: 'underline',
+                      fontWeight: 600,
+                      direction: isRTL ? 'rtl' : 'ltr',
+                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                    }}
+                  >
+                    {t.submitFreezeRequest || 'Submit freeze request'}
+                  </div>
+                </div>
+
+                {/* Divider line */}
+                <div
+                  style={{
+                    height: '2px',
+                    backgroundColor: '#87d1db',
+                    marginBottom: isMobile ? 'clamp(25px, 6vw, 40px)' : 'clamp(35px, 4vw, 50px)',
+                    marginTop: isMobile ? 'clamp(25px, 6vw, 40px)' : 'clamp(35px, 4vw, 50px)',
+                    marginLeft: isMobile ? `calc(-1 * clamp(15px, 3vw, 25px))` : `calc(-1 * clamp(30px, 3vw, 50px))`,
+                    marginRight: isMobile ? `calc(-1 * clamp(15px, 3vw, 25px))` : `calc(-1 * clamp(30px, 3vw, 50px))`,
+                    width: `calc(100% + ${isMobile ? 'clamp(30px, 6vw, 50px)' : 'clamp(60px, 6vw, 100px)'})`
+                  }}
+                />
+
+                {/* DELETE ACCOUNT */}
+                <div>
+                  <h3
+                    className="font-bold uppercase"
+                    style={{
+                      fontSize: isMobile ? 'clamp(18px, 5vw, 28px)' : 'clamp(24px, 2.5vw, 46px)',
+                      color: '#03355c',
+                      marginBottom: isMobile ? 'clamp(20px, 5vw, 30px)' : 'clamp(25px, 3vw, 35px)',
+                      direction: isRTL ? 'rtl' : 'ltr',
+                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                    }}
+                  >
+                    {t.deleteAccount || 'DELETE ACCOUNT'}
+                  </h3>
+                  
+                  <div
+                    style={{
+                      fontSize: isMobile ? 'clamp(14px, 3.5vw, 18px)' : 'clamp(16px, 1.5vw, 20px)',
+                      color: '#03355c',
+                      marginBottom: 'clamp(12px, 2vw, 18px)',
+                      direction: isRTL ? 'rtl' : 'ltr',
+                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                    }}
+                  >
+                    {t.readDeleteTerms || 'Please read and confirm the following terms before submitting the account cancelation request'}
+                  </div>
+                  
+                  <textarea
+                    readOnly
+                    value="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+                    style={{
+                      width: '100%',
+                      minHeight: isMobile ? 'clamp(100px, 25vw, 150px)' : 'clamp(120px, 15vw, 180px)',
+                      padding: 'clamp(12px, 2vw, 18px)',
+                      fontSize: isMobile ? 'clamp(12px, 3vw, 16px)' : 'clamp(14px, 1.5vw, 18px)',
+                      border: '1px solid #e0e0e0',
+                      borderRadius: '10px',
+                      backgroundColor: '#ffffff',
+                      color: '#666666',
+                      direction: isRTL ? 'rtl' : 'ltr',
+                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                      resize: 'vertical',
+                      overflowY: 'auto',
+                      marginBottom: 'clamp(15px, 3vw, 25px)'
+                    }}
+                  />
+
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 'clamp(8px, 1.5vw, 15px)',
+                      flexDirection: isRTL ? 'row-reverse' : 'row',
+                      marginBottom: 'clamp(15px, 3vw, 25px)'
+                    }}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={deleteTermsAccepted}
+                      onChange={(e) => setDeleteTermsAccepted(e.target.checked)}
+                      style={{
+                        width: 'clamp(18px, 2.5vw, 24px)',
+                        height: 'clamp(18px, 2.5vw, 24px)',
+                        cursor: 'pointer'
+                      }}
+                    />
+                    <label
+                      style={{
+                        fontSize: isMobile ? 'clamp(14px, 3.5vw, 18px)' : 'clamp(16px, 1.5vw, 20px)',
+                        color: '#03355c',
+                        cursor: 'pointer',
+                        direction: isRTL ? 'rtl' : 'ltr',
+                        fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                      }}
+                    >
+                      {t.deleteTermsConfirm || 'I have read and confirm my account cancelation request and its terms.'}
+                    </label>
+                  </div>
+
+                  <div
+                    style={{
+                      fontSize: isMobile ? 'clamp(14px, 3.5vw, 18px)' : 'clamp(16px, 1.5vw, 20px)',
+                      color: '#03355c',
+                      cursor: 'pointer',
+                      textDecoration: 'underline',
+                      fontWeight: 600,
+                      direction: isRTL ? 'rtl' : 'ltr',
+                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                    }}
+                  >
+                    {t.submitAccountDeletion || 'Submit account deletion request'}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </section>
       </div>
 
