@@ -10,6 +10,7 @@ import PaymentPage from './components/PaymentPage';
 import ThankYouPage from './components/ThankYouPage';
 import ErrorPage from './components/ErrorPage';
 import JoinUs from './components/JoinUs';
+import LoginPage from './components/LoginPage';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route path="/thank-you" element={<ThankYouPage />} />
             <Route path="/error" element={<ErrorPage />} />
             <Route path="/join-us" element={<JoinUs />} />
+            <Route path="/account" element={<LoginPage />} />
           </Routes>
         </div>
       </Router>
