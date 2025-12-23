@@ -190,6 +190,10 @@ export const translations = {
     billingInformation: 'BILLING INFORMATION',
     orderHistory: 'ORDER HISTORY',
     accountSettings: 'ACCOUNT SETTINGS',
+    yourRecentOrders: 'YOUR RECENT ORDERS',
+    orderNumber: 'Order number',
+    status: 'Status',
+    trackOrder: 'Track order',
     billingAlertText: 'Please contact our service team about your payment to continue receiving communication and internet services.',
     contactOurTeam: 'CONTACT OUR TEAM',
     yourPaymentMethods: 'YOUR PAYMENT METHODS',
@@ -397,7 +401,11 @@ export const translations = {
     invoiceNumber: 'رقم الفاتورة',
     date: 'التاريخ',
     downloadInvoice: 'تحميل الفاتورة',
-    change: 'تغيير'
+    change: 'تغيير',
+    yourRecentOrders: 'طلباتك الأخيرة',
+    orderNumber: 'رقم الطلب',
+    status: 'الحالة',
+    trackOrder: 'تتبع الطلب'
   }
 };
 

@@ -5,12 +5,14 @@ import { useLanguage } from '../../../contexts/LanguageContext';
 import { translations } from '../../../translations';
 import qLogo from './Assets/Q.png';
 import underlineImage from './Assets/underline@2x.png';
+import productPlaceholder from './Assets/product_placeholder@2x.png';
 
 const General = () => {
   const { language, isRTL } = useLanguage();
   const t = translations[language];
   const [isMobile, setIsMobile] = useState(false);
   const [activeSection, setActiveSection] = useState('general');
+  const [expandedOrder, setExpandedOrder] = useState(null);
 
   useEffect(() => {
     const updateIsMobile = () => {
@@ -47,6 +49,63 @@ const General = () => {
       { number: '#2522', date: '01/01/2025', total: '150 NIS' },
       { number: '#2518', date: '01/12/2024', total: '150 NIS' },
       { number: '#2505', date: '01/11/2024', total: '150 NIS' }
+    ],
+    orders: [
+      { 
+        number: '#2532', 
+        date: '01/02/2025', 
+        total: '345 NIS', 
+        status: 'In progress',
+        items: [
+          { name: 'iPhone 13, 128gb', price: '200 NIS', quantity: 1, total: '200 NIS' },
+          { name: 'Safety phone bundle', price: '145 NIS', quantity: 1, total: '145 NIS' }
+        ],
+        deliveryInfo: 'Your package should arrive in 3-5 business days'
+      },
+      { 
+        number: '#2522', 
+        date: '01/01/2025', 
+        total: '150 NIS', 
+        status: 'Shipped',
+        items: [
+          { name: 'iPhone 13, 128gb', price: '100 NIS', quantity: 1, total: '100 NIS' },
+          { name: 'Safety phone bundle', price: '50 NIS', quantity: 1, total: '50 NIS' }
+        ],
+        deliveryInfo: 'Your package should arrive in 3-5 business days'
+      },
+      { 
+        number: '#2518', 
+        date: '21/12/2024', 
+        total: '3350 NIS', 
+        status: 'Shipped',
+        items: [
+          { name: 'iPhone 13, 128gb', price: '320 NIS', quantity: 10, total: '3200 NIS' },
+          { name: 'Safety phone bundle', price: '150 NIS', quantity: 1, total: '150 NIS' }
+        ],
+        deliveryInfo: 'Your package should arrive in 3-5 business days'
+      },
+      { 
+        number: '#2505', 
+        date: '01/11/2024', 
+        total: '245 NIS', 
+        status: 'Completed',
+        items: [
+          { name: 'iPhone 13, 128gb', price: '150 NIS', quantity: 1, total: '150 NIS' },
+          { name: 'Safety phone bundle', price: '95 NIS', quantity: 1, total: '95 NIS' }
+        ],
+        deliveryInfo: 'Your package should arrive in 3-5 business days'
+      },
+      { 
+        number: '#2495', 
+        date: '11/10/2024', 
+        total: '150 NIS', 
+        status: 'Completed',
+        items: [
+          { name: 'iPhone 13, 128gb', price: '100 NIS', quantity: 1, total: '100 NIS' },
+          { name: 'Safety phone bundle', price: '50 NIS', quantity: 1, total: '50 NIS' }
+        ],
+        deliveryInfo: 'Your package should arrive in 3-5 business days'
+      }
     ]
   };
 
@@ -144,7 +203,7 @@ const General = () => {
             <div style={{ marginBottom: isMobile ? 'clamp(40px, 8vw, 60px)' : 'clamp(60px, 5vw, 80px)' }}>
               <h2
                 className="font-bold uppercase"
-                onClick={() => setActiveSection('general')}
+                onClick={() => setActiveSection(activeSection === 'general' ? null : 'general')}
                 style={{
                   fontSize: isMobile ? 'clamp(24px, 7vw, 40px)' : 'clamp(32px, 3vw, 55px)',
                   color: activeSection === 'general' ? '#03355c' : '#666666',
@@ -548,7 +607,7 @@ const General = () => {
             <div style={{ marginTop: isMobile ? 'clamp(40px, 8vw, 60px)' : 'clamp(60px, 5vw, 80px)' }}>
               <h2
                 className="font-bold uppercase"
-                onClick={() => setActiveSection('billing')}
+                onClick={() => setActiveSection(activeSection === 'billing' ? null : 'billing')}
                 style={{
                   fontSize: isMobile ? 'clamp(24px, 7vw, 40px)' : 'clamp(32px, 3vw, 55px)',
                   color: activeSection === 'billing' ? '#03355c' : '#666666',
@@ -883,7 +942,7 @@ const General = () => {
             <div style={{ marginTop: isMobile ? 'clamp(40px, 8vw, 60px)' : 'clamp(60px, 5vw, 80px)' }}>
               <h2
                 className="font-bold uppercase"
-                onClick={() => setActiveSection('order-history')}
+                onClick={() => setActiveSection(activeSection === 'order-history' ? null : 'order-history')}
                 style={{
                   fontSize: isMobile ? 'clamp(24px, 7vw, 40px)' : 'clamp(32px, 3vw, 55px)',
                   color: activeSection === 'order-history' ? '#03355c' : '#666666',
@@ -897,11 +956,412 @@ const General = () => {
                 {t.orderHistory || 'ORDER HISTORY'}
               </h2>
             </div>
+          </div>
 
+          {/* ORDER HISTORY Content - full width */}
+          {activeSection === 'order-history' && (
+            <div
+              style={{
+                backgroundColor: '#ededed',
+                padding: isMobile ? 'clamp(20px, 5vw, 30px)' : 'clamp(25px, 3vw, 40px)',
+                marginLeft: isMobile ? `calc(-1 * clamp(15px, 3vw, 25px))` : `calc(-1 * clamp(30px, 3vw, 50px))`,
+                marginRight: isMobile ? `calc(-1 * clamp(15px, 3vw, 25px))` : `calc(-1 * clamp(30px, 3vw, 50px))`,
+                paddingLeft: isMobile ? 'clamp(15px, 3vw, 25px)' : 'clamp(30px, 3vw, 50px)',
+                paddingRight: isMobile ? 'clamp(15px, 3vw, 25px)' : 'clamp(30px, 3vw, 50px)',
+                animation: 'fadeIn 0.5s ease-in',
+                overflow: 'hidden'
+              }}
+            >
+              {/* Content inside gray block */}
+              <div
+                style={{
+                  maxWidth: isMobile ? '100%' : '1200px'
+                }}
+              >
+                {/* YOUR RECENT ORDERS */}
+                <div style={{ marginBottom: isMobile ? 'clamp(30px, 7vw, 50px)' : 'clamp(40px, 4vw, 60px)' }}>
+                  <h3
+                    className="font-bold uppercase"
+                    style={{
+                      fontSize: isMobile ? 'clamp(18px, 5vw, 28px)' : 'clamp(24px, 2.5vw, 46px)',
+                      color: '#03355c',
+                      marginBottom: isMobile ? 'clamp(20px, 5vw, 30px)' : 'clamp(25px, 3vw, 35px)',
+                      direction: isRTL ? 'rtl' : 'ltr',
+                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                    }}
+                  >
+                    {t.yourRecentOrders || 'YOUR RECENT ORDERS'}
+                  </h3>
+                  
+                  {/* Desktop Table */}
+                  {!isMobile && (
+                    <div style={{ overflowX: 'auto' }}>
+                      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                        <thead>
+                          <tr style={{ borderBottom: '2px solid #e0e0e0' }}>
+                            <th
+                              style={{
+                                textAlign: 'left',
+                                padding: 'clamp(12px, 1.5vw, 20px)',
+                                fontSize: 'clamp(16px, 1.8vw, 24px)',
+                                color: '#03355c',
+                                fontWeight: 600,
+                                direction: isRTL ? 'rtl' : 'ltr',
+                                fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                              }}
+                            >
+                              {t.orderNumber || 'Order number'}
+                            </th>
+                            <th
+                              style={{
+                                textAlign: 'left',
+                                padding: 'clamp(12px, 1.5vw, 20px)',
+                                fontSize: 'clamp(16px, 1.8vw, 24px)',
+                                color: '#03355c',
+                                fontWeight: 600,
+                                direction: isRTL ? 'rtl' : 'ltr',
+                                fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                              }}
+                            >
+                              {t.date || 'Date'}
+                            </th>
+                            <th
+                              style={{
+                                textAlign: 'left',
+                                padding: 'clamp(12px, 1.5vw, 20px)',
+                                fontSize: 'clamp(16px, 1.8vw, 24px)',
+                                color: '#03355c',
+                                fontWeight: 600,
+                                direction: isRTL ? 'rtl' : 'ltr',
+                                fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                              }}
+                            >
+                              {t.total || 'Total'}
+                            </th>
+                            <th
+                              style={{
+                                textAlign: 'left',
+                                padding: 'clamp(12px, 1.5vw, 20px)',
+                                fontSize: 'clamp(16px, 1.8vw, 24px)',
+                                color: '#03355c',
+                                fontWeight: 600,
+                                direction: isRTL ? 'rtl' : 'ltr',
+                                fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                              }}
+                            >
+                              {t.status || 'Status'}
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {accountData.orders.map((order, index) => (
+                            <React.Fragment key={index}>
+                              <tr 
+                                style={{ 
+                                  borderBottom: '1px solid #e0e0e0',
+                                  backgroundColor: expandedOrder === index ? '#f5f5f5' : 'transparent',
+                                  cursor: 'pointer'
+                                }}
+                                onClick={() => setExpandedOrder(expandedOrder === index ? null : index)}
+                              >
+                                <td
+                                  style={{
+                                    padding: 'clamp(12px, 1.5vw, 20px)',
+                                    fontSize: 'clamp(16px, 1.8vw, 22px)',
+                                    color: '#03355c',
+                                    direction: isRTL ? 'rtl' : 'ltr',
+                                    fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                                  }}
+                                >
+                                  {order.number}
+                                </td>
+                                <td
+                                  style={{
+                                    padding: 'clamp(12px, 1.5vw, 20px)',
+                                    fontSize: 'clamp(16px, 1.8vw, 22px)',
+                                    color: '#03355c',
+                                    direction: isRTL ? 'rtl' : 'ltr',
+                                    fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                                  }}
+                                >
+                                  {order.date}
+                                </td>
+                                <td
+                                  style={{
+                                    padding: 'clamp(12px, 1.5vw, 20px)',
+                                    fontSize: 'clamp(16px, 1.8vw, 22px)',
+                                    color: '#03355c',
+                                    fontWeight: expandedOrder === index ? 700 : 400,
+                                    direction: isRTL ? 'rtl' : 'ltr',
+                                    fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                                  }}
+                                >
+                                  {order.total}
+                                </td>
+                                <td
+                                  style={{
+                                    padding: 'clamp(12px, 1.5vw, 20px)',
+                                    fontSize: 'clamp(16px, 1.8vw, 22px)',
+                                    color: '#03355c',
+                                    fontWeight: expandedOrder === index ? 700 : 400,
+                                    direction: isRTL ? 'rtl' : 'ltr',
+                                    fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                                  }}
+                                >
+                                  {order.status}
+                                </td>
+                              </tr>
+                              {expandedOrder === index && (
+                                <tr>
+                                  <td colSpan="4" style={{ padding: 'clamp(20px, 2.5vw, 30px)', backgroundColor: '#ffffff', borderBottom: '1px solid #e0e0e0' }}>
+                                    {order.items.length > 0 && order.items.map((item, itemIndex) => (
+                                      <div
+                                        key={itemIndex}
+                                        style={{
+                                          display: 'flex',
+                                          alignItems: 'center',
+                                          gap: 'clamp(12px, 2vw, 20px)',
+                                          marginBottom: itemIndex < order.items.length - 1 ? 'clamp(15px, 2vw, 20px)' : 'clamp(15px, 2vw, 20px)',
+                                          flexDirection: isRTL ? 'row-reverse' : 'row'
+                                        }}
+                                      >
+                                        <img
+                                          src={productPlaceholder}
+                                          alt={item.name}
+                                          style={{
+                                            width: 'clamp(40px, 4vw, 60px)',
+                                            height: 'clamp(40px, 4vw, 60px)',
+                                            objectFit: 'contain'
+                                          }}
+                                        />
+                                        <div style={{ flex: 1 }}>
+                                          <div
+                                            style={{
+                                              fontSize: 'clamp(16px, 1.8vw, 22px)',
+                                              color: (item.name.includes('iPhone 13, 128gb') || item.name.includes('Safety phone bundle')) ? '#000000' : '#03355c',
+                                              textDecoration: (item.name.includes('iPhone 13, 128gb') || item.name.includes('Safety phone bundle')) ? 'underline' : 'none',
+                                              marginBottom: 'clamp(4px, 0.5vw, 8px)',
+                                              direction: isRTL ? 'rtl' : 'ltr',
+                                              fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                                            }}
+                                          >
+                                            {item.name}
+                                          </div>
+                                          <div
+                                            style={{
+                                              fontSize: 'clamp(14px, 1.5vw, 18px)',
+                                              color: '#666666',
+                                              direction: isRTL ? 'rtl' : 'ltr',
+                                              fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                                            }}
+                                          >
+                                            <span style={{ color: '#000000' }}>{item.price} x {item.quantity} {t.credits || 'credits'}</span> ({t.total || 'Total'} {item.total})
+                                          </div>
+                                        </div>
+                                      </div>
+                                    ))}
+                                    {order.deliveryInfo && (
+                                      <div
+                                        style={{
+                                          marginTop: 'clamp(15px, 2vw, 20px)',
+                                          paddingTop: 'clamp(15px, 2vw, 20px)',
+                                          borderTop: '1px solid #e0e0e0'
+                                        }}
+                                      >
+                                        <div
+                                          style={{
+                                            fontSize: 'clamp(14px, 1.5vw, 18px)',
+                                            color: '#666666',
+                                            marginBottom: 'clamp(8px, 1vw, 12px)',
+                                            direction: isRTL ? 'rtl' : 'ltr',
+                                            fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                                          }}
+                                        >
+                                          {order.deliveryInfo}
+                                        </div>
+                                        <div
+                                          style={{
+                                            fontSize: 'clamp(14px, 1.5vw, 18px)',
+                                            color: '#03355c',
+                                            cursor: 'pointer',
+                                            textDecoration: 'underline',
+                                            fontWeight: 600,
+                                            direction: isRTL ? 'rtl' : 'ltr',
+                                            fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                                          }}
+                                        >
+                                          {t.trackOrder || 'Track order'}
+                                        </div>
+                                      </div>
+                                    )}
+                                  </td>
+                                </tr>
+                              )}
+                            </React.Fragment>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+
+                  {/* Mobile List */}
+                  {isMobile && (
+                    <div>
+                      {accountData.orders.map((order, index) => (
+                        <div key={index}>
+                          <div
+                            style={{
+                              borderBottom: '1px solid #e0e0e0',
+                              padding: 'clamp(15px, 4vw, 20px) 0',
+                              display: 'flex',
+                              justifyContent: 'space-between',
+                              alignItems: 'flex-start',
+                              flexDirection: isRTL ? 'row-reverse' : 'row',
+                              backgroundColor: expandedOrder === index ? '#f5f5f5' : 'transparent',
+                              cursor: 'pointer'
+                            }}
+                            onClick={() => setExpandedOrder(expandedOrder === index ? null : index)}
+                          >
+                            <div style={{ flex: 1 }}>
+                              <div
+                                style={{
+                                  fontSize: 'clamp(16px, 4vw, 22px)',
+                                  color: '#03355c',
+                                  fontWeight: expandedOrder === index ? 700 : 600,
+                                  marginBottom: 'clamp(4px, 1vw, 8px)',
+                                  direction: isRTL ? 'rtl' : 'ltr',
+                                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                                }}
+                              >
+                                {order.number}
+                              </div>
+                              <div
+                                style={{
+                                  fontSize: 'clamp(14px, 3.5vw, 20px)',
+                                  color: '#03355c',
+                                  marginBottom: 'clamp(4px, 1vw, 8px)',
+                                  direction: isRTL ? 'rtl' : 'ltr',
+                                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                                }}
+                              >
+                                {order.date} • {order.total}
+                              </div>
+                              <div
+                                style={{
+                                  fontSize: 'clamp(14px, 3.5vw, 18px)',
+                                  color: '#03355c',
+                                  direction: isRTL ? 'rtl' : 'ltr',
+                                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                                }}
+                              >
+                                {order.status}
+                              </div>
+                            </div>
+                          </div>
+                          {expandedOrder === index && (
+                            <div style={{ padding: 'clamp(15px, 4vw, 20px)', backgroundColor: '#ffffff', borderBottom: '1px solid #e0e0e0' }}>
+                              {order.items.length > 0 && order.items.map((item, itemIndex) => (
+                                <div
+                                  key={itemIndex}
+                                  style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: 'clamp(12px, 2vw, 20px)',
+                                    marginBottom: itemIndex < order.items.length - 1 ? 'clamp(15px, 2vw, 20px)' : 'clamp(15px, 2vw, 20px)',
+                                    flexDirection: isRTL ? 'row-reverse' : 'row'
+                                  }}
+                                >
+                                  <img
+                                    src={productPlaceholder}
+                                    alt={item.name}
+                                    style={{
+                                      width: 'clamp(40px, 6vw, 60px)',
+                                      height: 'clamp(40px, 6vw, 60px)',
+                                      objectFit: 'contain'
+                                    }}
+                                  />
+                                  <div style={{ flex: 1 }}>
+                                    <div
+                                      style={{
+                                        fontSize: 'clamp(16px, 4vw, 22px)',
+                                        color: (item.name.includes('iPhone 13, 128gb') || item.name.includes('Safety phone bundle')) ? '#000000' : '#03355c',
+                                        textDecoration: (item.name.includes('iPhone 13, 128gb') || item.name.includes('Safety phone bundle')) ? 'underline' : 'none',
+                                        marginBottom: 'clamp(4px, 0.5vw, 8px)',
+                                        direction: isRTL ? 'rtl' : 'ltr',
+                                        fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                                      }}
+                                    >
+                                      {item.name}
+                                    </div>
+                                    <div
+                                      style={{
+                                        fontSize: 'clamp(14px, 3.5vw, 18px)',
+                                        color: '#666666',
+                                        direction: isRTL ? 'rtl' : 'ltr',
+                                        fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                                      }}
+                                    >
+                                      <span style={{ color: '#000000' }}>{item.price} x {item.quantity} {t.credits || 'credits'}</span> ({t.total || 'Total'} {item.total})
+                                    </div>
+                                  </div>
+                                </div>
+                              ))}
+                              {order.deliveryInfo && (
+                                <div
+                                  style={{
+                                    marginTop: 'clamp(15px, 2vw, 20px)',
+                                    paddingTop: 'clamp(15px, 2vw, 20px)',
+                                    borderTop: '1px solid #e0e0e0'
+                                  }}
+                                >
+                                  <div
+                                    style={{
+                                      fontSize: 'clamp(14px, 3.5vw, 18px)',
+                                      color: '#666666',
+                                      marginBottom: 'clamp(8px, 1vw, 12px)',
+                                      direction: isRTL ? 'rtl' : 'ltr',
+                                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                                    }}
+                                  >
+                                    {order.deliveryInfo}
+                                  </div>
+                                  <div
+                                    style={{
+                                      fontSize: 'clamp(14px, 3.5vw, 18px)',
+                                      color: '#03355c',
+                                      cursor: 'pointer',
+                                      textDecoration: 'underline',
+                                      fontWeight: 600,
+                                      direction: isRTL ? 'rtl' : 'ltr',
+                                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                                    }}
+                                  >
+                                    {t.trackOrder || 'Track order'}
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Content Container for other sections */}
+          <div
+            style={{
+              maxWidth: isMobile ? '100%' : '1200px',
+              margin: 0
+            }}
+          >
             <div style={{ marginTop: isMobile ? 'clamp(40px, 8vw, 60px)' : 'clamp(60px, 5vw, 80px)' }}>
               <h2
                 className="font-bold uppercase"
-                onClick={() => setActiveSection('account-settings')}
+                onClick={() => setActiveSection(activeSection === 'account-settings' ? null : 'account-settings')}
                 style={{
                   fontSize: isMobile ? 'clamp(24px, 7vw, 40px)' : 'clamp(32px, 3vw, 55px)',
                   color: activeSection === 'account-settings' ? '#03355c' : '#666666',
