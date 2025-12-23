@@ -27,7 +27,7 @@ function App() {
             <Route path="/thank-you" element={<ThankYouPage />} />
             <Route path="/error" element={<ErrorPage />} />
             <Route path="/join-us" element={<JoinUs />} />
-            <Route path="/my-account" element={<LoginPage />} />
+            <Route path="/account" element={<LoginPage />} />
           </Routes>
         </div>
       </Router>
