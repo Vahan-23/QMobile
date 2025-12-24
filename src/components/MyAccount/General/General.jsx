@@ -287,7 +287,6 @@ const General = () => {
           className="relative w-full"
           style={{
             paddingTop: isMobile ? 'clamp(30px, 8vw, 60px)' : 'clamp(60px, 5vw, 100px)',
-            paddingBottom: isMobile ? 'clamp(30px, 8vw, 60px)' : 'clamp(60px, 5vw, 100px)',
             paddingLeft: isMobile ? 'clamp(15px, 3vw, 25px)' : 'clamp(30px, 3vw, 50px)',
             paddingRight: isMobile ? 'clamp(15px, 3vw, 25px)' : 'clamp(30px, 3vw, 50px)',
             backgroundColor: '#ffffff'
@@ -1515,7 +1514,7 @@ const General = () => {
                   
                   <div
                     style={{
-                      width: '640px',
+                      width: isMobile ? '100%' : '640px',
                       display: 'flex',
                       flexDirection: 'column',
                       gap: 'clamp(20px, 5vw, 30px)',
@@ -1526,10 +1525,10 @@ const General = () => {
                     <div
                       style={{
                         display: 'flex',
-                        alignItems: 'center',
+                        alignItems: isMobile ? 'flex-start' : 'center',
                         gap: 'clamp(12px, 2vw, 20px)',
-                        flexDirection: isRTL ? 'row-reverse' : 'row',
-                        justifyContent: 'space-between'
+                        flexDirection: isMobile ? 'column' : (isRTL ? 'row-reverse' : 'row'),
+                        justifyContent: isMobile ? 'flex-start' : 'space-between'
                       }}
                     >
                       <label
@@ -1546,12 +1545,13 @@ const General = () => {
                       </label>
                       <div
                         style={{
-                          position: 'relative'
+                          position: 'relative',
+                          width: isMobile ? '100%' : '340px'
                         }}
                       >
                         <select
                           style={{
-                            width: '340px',
+                            width: '100%',
                             padding: 'clamp(10px, 2vw, 15px)',
                             paddingRight: isRTL ? 'clamp(10px, 2vw, 15px)' : 'clamp(70px, 6vw, 80px)',
                             paddingLeft: isRTL ? 'clamp(70px, 6vw, 80px)' : 'clamp(10px, 2vw, 15px)',
@@ -1593,10 +1593,10 @@ const General = () => {
                     <div
                       style={{
                         display: 'flex',
-                        alignItems: 'center',
+                        alignItems: isMobile ? 'flex-start' : 'center',
                         gap: 'clamp(12px, 2vw, 20px)',
-                        flexDirection: isRTL ? 'row-reverse' : 'row',
-                        justifyContent: 'space-between'
+                        flexDirection: isMobile ? 'column' : (isRTL ? 'row-reverse' : 'row'),
+                        justifyContent: isMobile ? 'flex-start' : 'space-between'
                       }}
                     >
                       <label
@@ -1611,10 +1611,10 @@ const General = () => {
                       >
                         {t.preferredLanguage || 'Preferred language'}:
                       </label>
-                      <div style={{ position: 'relative' }}>
+                      <div style={{ position: 'relative', width: isMobile ? '100%' : '340px' }}>
                         <select
                           style={{
-                            width: '340px',
+                            width: '100%',
                             padding: 'clamp(10px, 2vw, 15px)',
                             paddingRight: isRTL ? 'clamp(10px, 2vw, 15px)' : 'clamp(35px, 3vw, 45px)',
                             paddingLeft: isRTL ? 'clamp(35px, 3vw, 45px)' : 'clamp(10px, 2vw, 15px)',
@@ -1721,7 +1721,7 @@ const General = () => {
                       >
                         {t.startDate || 'Start date'}:
                       </label>
-                      <div style={{ position: 'relative', width: '330px' }}>
+                      <div style={{ position: 'relative', width: isMobile ? '100%' : '330px' }}>
                         <input
                           ref={startDateInputRef}
                           type="date"
@@ -1760,10 +1760,10 @@ const General = () => {
                           alt="Calendar"
                           onClick={handleStartDateIconClick}
                           style={{
-                            width: isMobile ? 'clamp(18px, 4vw, 24px)' : 'clamp(20px, 2vw, 28px)',
-                            height: isMobile ? 'clamp(18px, 4vw, 24px)' : 'clamp(20px, 2vw, 28px)',
+                            width: isMobile ? 'clamp(20px, 5vw, 28px)' : 'clamp(20px, 2vw, 28px)',
+                            height: isMobile ? 'clamp(20px, 5vw, 28px)' : 'clamp(20px, 2vw, 28px)',
                             position: 'absolute',
-                            [isRTL ? 'left' : 'right']: 'clamp(10px, 1.5vw, 15px)',
+                            [isRTL ? 'left' : 'right']: isMobile ? 'clamp(12px, 2vw, 18px)' : 'clamp(10px, 1.5vw, 15px)',
                             top: '50%',
                             transform: 'translateY(-50%)',
                             cursor: 'pointer',
@@ -1787,7 +1787,7 @@ const General = () => {
                       >
                         {t.endDate || 'End date'}:
                       </label>
-                      <div style={{ position: 'relative', width: '330px' }}>
+                      <div style={{ position: 'relative', width: isMobile ? '100%' : '330px' }}>
                         <input
                           ref={endDateInputRef}
                           type="date"
@@ -1815,10 +1815,10 @@ const General = () => {
                           alt="Calendar"
                           onClick={handleEndDateIconClick}
                           style={{
-                            width: isMobile ? 'clamp(18px, 4vw, 24px)' : 'clamp(20px, 2vw, 28px)',
-                            height: isMobile ? 'clamp(18px, 4vw, 24px)' : 'clamp(20px, 2vw, 28px)',
+                            width: isMobile ? 'clamp(20px, 5vw, 28px)' : 'clamp(20px, 2vw, 28px)',
+                            height: isMobile ? 'clamp(20px, 5vw, 28px)' : 'clamp(20px, 2vw, 28px)',
                             position: 'absolute',
-                            [isRTL ? 'left' : 'right']: 'clamp(10px, 1.5vw, 15px)',
+                            [isRTL ? 'left' : 'right']: isMobile ? 'clamp(12px, 2vw, 18px)' : 'clamp(10px, 1.5vw, 15px)',
                             top: '50%',
                             transform: 'translateY(-50%)',
                             cursor: 'pointer',
@@ -1833,7 +1833,7 @@ const General = () => {
                       <div
                         style={{
                           width: '100%',
-                          height: '330px',
+                          height: isMobile ? 'clamp(280px, 70vw, 330px)' : '330px',
                           border: '1px solid #e0e0e0',
                           borderRadius: '10px',
                           padding: 'clamp(15px, 2vw, 20px)',
@@ -1841,12 +1841,12 @@ const General = () => {
                           display: 'flex',
                           flexDirection: 'column',
                           alignSelf: 'start',
-                          marginTop: '-210px'
+                          marginTop: isMobile ? '0' : '-210px'
                         }}
                       >
                         <div
                           style={{
-                            fontSize: 'clamp(16px, 1.5vw, 20px)',
+                            fontSize: isMobile ? 'clamp(14px, 4vw, 18px)' : 'clamp(16px, 1.5vw, 20px)',
                             fontWeight: 600,
                             color: '#ffffff',
                             marginBottom: 'clamp(15px, 2vw, 20px)',
@@ -1861,7 +1861,7 @@ const General = () => {
                           style={{
                             display: 'grid',
                             gridTemplateColumns: 'repeat(7, 1fr)',
-                            gap: '4px',
+                            gap: isMobile ? 'clamp(2px, 0.5vw, 4px)' : '4px',
                             flex: 1
                           }}
                         >
@@ -1870,11 +1870,11 @@ const General = () => {
                             <div
                               key={index}
                               style={{
-                                fontSize: 'clamp(10px, 1.2vw, 12px)',
+                                fontSize: isMobile ? 'clamp(10px, 2.5vw, 12px)' : 'clamp(10px, 1.2vw, 12px)',
                                 fontWeight: 600,
                                 color: '#ffffff',
                                 textAlign: 'center',
-                                padding: '4px'
+                                padding: isMobile ? 'clamp(2px, 0.5vw, 4px)' : '4px'
                               }}
                             >
                               {day}
@@ -1900,7 +1900,7 @@ const General = () => {
                                   display: 'flex',
                                   alignItems: 'center',
                                   justifyContent: 'center',
-                                  fontSize: 'clamp(10px, 1.2vw, 14px)',
+                                  fontSize: isMobile ? 'clamp(11px, 3vw, 14px)' : 'clamp(10px, 1.2vw, 14px)',
                                   backgroundColor: isStart || isEnd ? '#69d3e4' : isInRange ? '#03355c' : 'transparent',
                                   color: '#ffffff',
                                   borderRadius: isStart ? '50% 0 0 50%' : isEnd ? '0 50% 50% 0' : isInRange ? '0' : '50%',
@@ -1938,11 +1938,11 @@ const General = () => {
                       width: '100%',
                       minHeight: isMobile ? 'clamp(100px, 25vw, 150px)' : 'clamp(120px, 15vw, 180px)',
                       padding: 'clamp(12px, 2vw, 18px)',
-                      fontSize: isMobile ? 'clamp(12px, 3vw, 16px)' : 'clamp(14px, 1.5vw, 18px)',
+                      fontSize: isMobile ? 'clamp(14px, 3.5vw, 18px)' : 'clamp(16px, 1.5vw, 20px)',
                       border: '1px solid #e0e0e0',
                       borderRadius: '10px',
                       backgroundColor: '#ffffff',
-                      color: '#666666',
+                      color: '#03355c',
                       direction: isRTL ? 'rtl' : 'ltr',
                       fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
                       resize: 'vertical',
@@ -1997,20 +1997,27 @@ const General = () => {
                     {t.submitFreezeRequest || 'Submit freeze request'}
                   </div>
                 </div>
+              </div>
 
-                {/* Divider line */}
-                <div
-                  style={{
-                    height: '2px',
-                    backgroundColor: '#87d1db',
-                    marginBottom: isMobile ? 'clamp(25px, 6vw, 40px)' : 'clamp(35px, 4vw, 50px)',
-                    marginTop: isMobile ? 'clamp(25px, 6vw, 40px)' : 'clamp(35px, 4vw, 50px)',
-                    marginLeft: isMobile ? `calc(-1 * clamp(15px, 3vw, 25px))` : `calc(-1 * clamp(30px, 3vw, 50px))`,
-                    marginRight: isMobile ? `calc(-1 * clamp(15px, 3vw, 25px))` : `calc(-1 * clamp(30px, 3vw, 50px))`,
-                    width: `calc(100% + ${isMobile ? 'clamp(30px, 6vw, 50px)' : 'clamp(60px, 6vw, 100px)'})`
-                  }}
-                />
+              {/* Divider line - full width */}
+              <div
+                style={{
+                  height: '2px',
+                  backgroundColor: '#87d1db',
+                  marginBottom: isMobile ? 'clamp(25px, 6vw, 40px)' : 'clamp(35px, 4vw, 50px)',
+                  marginTop: isMobile ? 'clamp(25px, 6vw, 40px)' : 'clamp(35px, 4vw, 50px)',
+                  marginLeft: isMobile ? `calc(-1 * clamp(15px, 3vw, 25px) - clamp(15px, 3vw, 25px))` : `calc(-1 * clamp(30px, 3vw, 50px) - clamp(30px, 3vw, 50px))`,
+                  marginRight: isMobile ? `calc(-1 * clamp(15px, 3vw, 25px) - clamp(15px, 3vw, 25px))` : `calc(-1 * clamp(30px, 3vw, 50px) - clamp(30px, 3vw, 50px))`,
+                  width: `calc(100% + ${isMobile ? 'clamp(60px, 12vw, 100px)' : 'clamp(120px, 12vw, 200px)'})`
+                }}
+              />
 
+              {/* Content inside gray block */}
+              <div
+                style={{
+                  maxWidth: isMobile ? '100%' : '1200px'
+                }}
+              >
                 {/* DELETE ACCOUNT */}
                 <div>
                   <h3
@@ -2045,11 +2052,11 @@ const General = () => {
                       width: '100%',
                       minHeight: isMobile ? 'clamp(100px, 25vw, 150px)' : 'clamp(120px, 15vw, 180px)',
                       padding: 'clamp(12px, 2vw, 18px)',
-                      fontSize: isMobile ? 'clamp(12px, 3vw, 16px)' : 'clamp(14px, 1.5vw, 18px)',
+                      fontSize: isMobile ? 'clamp(14px, 3.5vw, 18px)' : 'clamp(16px, 1.5vw, 20px)',
                       border: '1px solid #e0e0e0',
                       borderRadius: '10px',
                       backgroundColor: '#ffffff',
-                      color: '#666666',
+                      color: '#03355c',
                       direction: isRTL ? 'rtl' : 'ltr',
                       fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
                       resize: 'vertical',
