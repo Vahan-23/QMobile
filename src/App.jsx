@@ -14,6 +14,7 @@ import LoginPage from './components/LoginPage';
 import General from './components/MyAccount/General';
 import SupportPage from './components/SupportPage';
 import FAQPage from './components/FAQpages';
+import ContactUsPage from './components/ContactUsPage';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
             <Route path="/join-us" element={<JoinUs />} />
             <Route path="/support" element={<SupportPage />} />
             <Route path="/faqs" element={<FAQPage />} />
+            <Route path="/contact-us" element={<ContactUsPage />} />
             <Route path="/account" element={<LoginPage />} />
             <Route path="/account/general" element={<General />} />
           </Routes>
