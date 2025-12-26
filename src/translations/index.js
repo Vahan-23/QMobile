@@ -330,7 +330,15 @@ export const translations = {
     faqSettingsQ6: 'QUESTION TITLE',
     faqSettingsA6: 'Answer text here...',
     faqSettingsQ7: 'QUESTION TITLE',
-    faqSettingsA7: 'Answer text here...'
+    faqSettingsA7: 'Answer text here...',
+    // Contact Us page
+    bestWaysToReachUs: 'BEST WAYS TO REACH US',
+    leaveUsAMessage: 'LEAVE US A MESSAGE',
+    yourMessage: 'Your message',
+    letsConnect: "LET'S CONNECT",
+    facebook: 'FACEBOOK',
+    instagram: 'INSTAGRAM',
+    tiktok: 'TIKTOK'
   },
   ar: {
     welcomeText: 'مرحباً بك في المنزل',
@@ -663,7 +671,15 @@ export const translations = {
     faqSettingsQ6: 'عنوان السؤال',
     faqSettingsA6: 'نص الإجابة هنا...',
     faqSettingsQ7: 'عنوان السؤال',
-    faqSettingsA7: 'نص الإجابة هنا...'
+    faqSettingsA7: 'نص الإجابة هنا...',
+    // Contact Us page
+    bestWaysToReachUs: 'أفضل الطرق للتواصل معنا',
+    leaveUsAMessage: 'اترك لنا رسالة',
+    yourMessage: 'رسالتك',
+    letsConnect: 'دعنا نتواصل',
+    facebook: 'فيسبوك',
+    instagram: 'إنستغرام',
+    tiktok: 'تيك توك'
   }
 };
 
