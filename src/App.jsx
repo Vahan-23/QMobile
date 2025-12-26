@@ -12,6 +12,8 @@ import ErrorPage from './components/ErrorPage';
 import JoinUs from './components/JoinUs';
 import LoginPage from './components/LoginPage';
 import General from './components/MyAccount/General';
+import SupportPage from './components/SupportPage';
+import FAQPage from './components/FAQpages';
 
 function App() {
   return (
@@ -28,6 +30,8 @@ function App() {
             <Route path="/thank-you" element={<ThankYouPage />} />
             <Route path="/error" element={<ErrorPage />} />
             <Route path="/join-us" element={<JoinUs />} />
+            <Route path="/support" element={<SupportPage />} />
+            <Route path="/faqs" element={<FAQPage />} />
             <Route path="/account" element={<LoginPage />} />
             <Route path="/account/general" element={<General />} />
           </Routes>
