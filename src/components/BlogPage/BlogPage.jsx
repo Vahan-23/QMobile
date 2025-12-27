@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { translations } from '../../translations';
 import BlogHeader from './BlogHeader';
@@ -215,8 +216,9 @@ const BlogPage = () => {
                   </h3>
 
                   {/* Read More Button */}
-                  <button
-                    className="w-full font-bold uppercase text-white py-3 px-6 rounded-lg transition-all duration-300 hover:opacity-90"
+                  <Link
+                    to={`/blog/${post.id}`}
+                    className="w-full font-bold uppercase text-white py-3 px-6 rounded-lg transition-all duration-300 hover:opacity-90 text-center block"
                     style={{
                       fontSize: 'clamp(14px, 1.5vw, 18px)',
                       backgroundColor: 'rgb(0, 84, 147)',
@@ -226,11 +228,12 @@ const BlogPage = () => {
                       paddingRight: 'clamp(20px, 2.5vw, 32px)',
                       borderRadius: '8px',
                       direction: isRTL ? 'rtl' : 'ltr',
-                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                      fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                      textDecoration: 'none'
                     }}
                   >
                     {t.readMore || 'READ MORE'}
-                  </button>
+                  </Link>
                 </div>
               </div>
             ))}

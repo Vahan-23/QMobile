@@ -4,7 +4,7 @@ import { translations } from '../../translations';
 import { pxToPosition } from '../WelcomePage/utils/responsive';
 import MobileFooter from '../WelcomePage/MobileFooter';
 
-const BlogFooter = () => {
+const BlogInnerFooter = () => {
   const { language, isRTL } = useLanguage();
   const t = translations[language];
 
@@ -380,5 +380,5 @@ const BlogFooter = () => {
   );
 };
 
-export default BlogFooter;
+export default BlogInnerFooter;
 
