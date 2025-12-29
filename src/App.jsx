@@ -17,6 +17,7 @@ import FAQPage from './components/FAQpages';
 import ContactUsPage from './components/ContactUsPage';
 import BlogPage from './components/BlogPage';
 import BlogInnerPage from './components/BlogInnerPage';
+import AboutUsPage from './components/AboutUsPage';
 
 function App() {
   return (
@@ -38,6 +39,8 @@ function App() {
             <Route path="/contact-us" element={<ContactUsPage />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:id" element={<BlogInnerPage />} />
+            <Route path="/our-story" element={<AboutUsPage />} />
+            <Route path="/about-us" element={<AboutUsPage />} />
             <Route path="/account" element={<LoginPage />} />
             <Route path="/account/general" element={<General />} />
           </Routes>
