@@ -3,9 +3,19 @@ import { useLanguage } from '../../contexts/LanguageContext';
 import { translations } from '../../translations';
 import { pxToPosition } from './utils/responsive';
 
-const MobileFooter = () => {
+const MobileFooter = ({ onOpenCookieModal }) => {
   const { language, isRTL } = useLanguage();
   const t = translations[language];
+
+  const handleCookiesPolicyClick = (e) => {
+    e.preventDefault();
+    if (onOpenCookieModal) {
+      onOpenCookieModal();
+    } else {
+      // Fallback to navigation if no handler provided
+      window.location.href = '/cookies-policy';
+    }
+  };
   return (
     <div className="lg:hidden">
       <footer 
@@ -166,13 +176,15 @@ const MobileFooter = () => {
               </li>
               <li style={{ marginBottom: 'clamp(5px, 1vw, 50px)' }}>
                 <a 
-                  href="/cookies-policy" 
+                  href="/cookies-policy"
+                  onClick={handleCookiesPolicyClick}
                   className="opacity-90 hover:opacity-100 transition-opacity no-underline" 
                   style={{ 
                     fontSize: '23px',
                     color: '#e3f1f8',
                     direction: isRTL ? 'rtl' : 'ltr',
-                    fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
+                    fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                    cursor: 'pointer'
                   }}>
                   {t.cookiesPolicy}
                 </a>

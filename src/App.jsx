@@ -17,6 +17,9 @@ import FAQPage from './components/FAQpages';
 import ContactUsPage from './components/ContactUsPage';
 import BlogPage from './components/BlogPage';
 import BlogInnerPage from './components/BlogInnerPage';
+import AboutUsPage from './components/AboutUsPage';
+import Page404 from './components/404Page';
+import TermsPage from './components/TermsPage';
 
 function App() {
   return (
@@ -38,8 +41,14 @@ function App() {
             <Route path="/contact-us" element={<ContactUsPage />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:id" element={<BlogInnerPage />} />
+            <Route path="/our-story" element={<AboutUsPage />} />
+            <Route path="/about-us" element={<AboutUsPage />} />
+            <Route path="/terms-conditions" element={<TermsPage />} />
+            <Route path="/privacy-policy" element={<TermsPage />} />
+            <Route path="/cookies-policy" element={<TermsPage />} />
             <Route path="/account" element={<LoginPage />} />
             <Route path="/account/general" element={<General />} />
+            <Route path="*" element={<Page404 />} />
           </Routes>
         </div>
       </Router>
