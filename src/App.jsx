@@ -18,6 +18,7 @@ import ContactUsPage from './components/ContactUsPage';
 import BlogPage from './components/BlogPage';
 import BlogInnerPage from './components/BlogInnerPage';
 import AboutUsPage from './components/AboutUsPage';
+import Page404 from './components/404Page';
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
             <Route path="/about-us" element={<AboutUsPage />} />
             <Route path="/account" element={<LoginPage />} />
             <Route path="/account/general" element={<General />} />
+            <Route path="*" element={<Page404 />} />
           </Routes>
         </div>
       </Router>
