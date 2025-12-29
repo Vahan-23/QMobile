@@ -5,22 +5,53 @@ import { translations } from '../../translations';
 const AboutUsHeader = ({
   showTitle = false,
   titleKey = 'aboutUs',
-  children
+  children,
+  backgroundStyle
 }) => {
   const { language, isRTL, toggleLanguage } = useLanguage();
   const t = translations[language];
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [viewportWidth, setViewportWidth] = useState(
+    typeof window !== 'undefined' ? window.innerWidth : 768
+  );
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      const width = window.innerWidth;
+      setViewportWidth(width);
+      setIsMobile(width <= 768);
     };
-    
+
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  const constrainedWidth = Math.min(Math.max(viewportWidth, 290), 768);
+  const interpolationProgress =
+    constrainedWidth <= 290
+      ? 0
+      : constrainedWidth >= 768
+      ? 1
+      : (constrainedWidth - 290) / (768 - 290);
+
+  const lerp = (min, max) => min + (max - min) * interpolationProgress;
+
+  const mobileLogoDimensions = {
+    width: `${lerp(7, 20)}rem`,
+    height: `${lerp(3, 8)}rem`
+  };
+
+  const mobileSwitchDimensions = {
+    width: `${lerp(3, 8)}rem`,
+    height: `${lerp(3, 8)}rem`
+  };
+
+  const mobileBurgerDimensions = {
+    width: `${lerp(2, 4)}rem`,
+    height: `${lerp(2, 4)}rem`
+  };
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -28,18 +59,25 @@ const AboutUsHeader = ({
 
   return (
     <header
-      className="w-full text-white bg-transparent relative z-50"
+      className="w-full text-white overflow-x-hidden"
       style={{
-        padding: isMobile ? '15px' : '20px 10px',
+        padding: '0px 0px',
         fontFamily: "'Rubik', sans-serif",
-        overflow: 'visible'
+        background: backgroundStyle ?? 'transparent'
       }}
     >
-      <div className="max-w-[1895px] mx-auto w-full" style={{ overflow: 'visible' }}>
+      <div
+        className="max-w-[1895px] mx-auto w-full"
+        style={{
+          padding: isMobile
+            ? `${lerp(0, 20)}px ${lerp(8, 20)}px 0px`
+            : 'clamp(15px, 2vw, 30px)'
+        }}
+      >
         {/* Desktop Navigation Row */}
-        <div className="hidden md:flex justify-between items-center w-full" style={{ gap: 'clamp(8px, 2vw, 48px)' }}>
+        <div className="hidden min-[769px]:flex justify-between items-center w-full gap-2 sm:gap-4 md:gap-6 lg:gap-8 xl:gap-12">
           {/* Logo */}
-          <div className="flex items-center flex-shrink-0">
+          <div className="flex items-center flex-shrink-0 min-w-0">
             <img
               src={t.logo}
               alt="Qmobile Logo"
@@ -48,10 +86,10 @@ const AboutUsHeader = ({
           </div>
 
           {/* Navigation Links */}
-          <div className="flex items-center flex-1 justify-center" style={{ gap: 'clamp(8px, 1.5vw, 32px)', minWidth: 0 }}>
+          <div className="flex items-center flex-nowrap justify-center flex-1 min-w-0 nav-links-gap">
             <a 
               href="/join-us" 
-              className="text-white hover:opacity-80 transition-opacity whitespace-nowrap font-light flex-shrink-0"
+              className="text-white hover:opacity-80 transition-opacity whitespace-nowrap flex-shrink font-light"
               style={{ 
                 fontSize: 'clamp(16px, 2vw, 36px)',
                 direction: isRTL ? 'rtl' : 'ltr',
@@ -62,7 +100,7 @@ const AboutUsHeader = ({
             </a>
             <a 
               href="/our-story" 
-              className="text-white hover:opacity-80 transition-opacity whitespace-nowrap font-light flex-shrink-0"
+              className="text-white hover:opacity-80 transition-opacity whitespace-nowrap flex-shrink font-light"
               style={{ 
                 fontSize: 'clamp(16px, 2vw, 36px)',
                 direction: isRTL ? 'rtl' : 'ltr',
@@ -73,7 +111,7 @@ const AboutUsHeader = ({
             </a>
             <a 
               href="/marketplace" 
-              className="text-white hover:opacity-80 transition-opacity whitespace-nowrap font-light flex-shrink-0"
+              className="text-white hover:opacity-80 transition-opacity whitespace-nowrap flex-shrink font-light"
               style={{ 
                 fontSize: 'clamp(16px, 2vw, 36px)',
                 direction: isRTL ? 'rtl' : 'ltr',
@@ -84,7 +122,7 @@ const AboutUsHeader = ({
             </a>
             <a 
               href="/support" 
-              className="text-white hover:opacity-80 transition-opacity whitespace-nowrap font-light flex-shrink-0"
+              className="text-white hover:opacity-80 transition-opacity whitespace-nowrap flex-shrink font-light"
               style={{ 
                 fontSize: 'clamp(16px, 2vw, 36px)',
                 direction: isRTL ? 'rtl' : 'ltr',
@@ -95,7 +133,7 @@ const AboutUsHeader = ({
             </a>
             <a 
               href="/blog" 
-              className="text-white hover:opacity-80 transition-opacity whitespace-nowrap font-light flex-shrink-0"
+              className="text-white hover:opacity-80 transition-opacity whitespace-nowrap flex-shrink font-light"
               style={{ 
                 fontSize: 'clamp(16px, 2vw, 36px)',
                 direction: isRTL ? 'rtl' : 'ltr',
@@ -106,7 +144,7 @@ const AboutUsHeader = ({
             </a>
             <a 
               href="/account" 
-              className="text-white hover:opacity-80 transition-opacity whitespace-nowrap font-light flex-shrink-0"
+              className="text-white hover:opacity-80 transition-opacity whitespace-nowrap flex-shrink font-light"
               style={{ 
                 fontSize: 'clamp(16px, 2vw, 36px)',
                 direction: isRTL ? 'rtl' : 'ltr',
@@ -115,46 +153,40 @@ const AboutUsHeader = ({
             >
               {t.myAccount}
             </a>
-          </div>
 
-          {/* Language Switch */}
-          <div className="flex items-center flex-shrink-0">
-            <button 
-              onClick={toggleLanguage}
-              className="flex items-center text-white hover:opacity-80 transition-opacity"
-            >
-              <img
-                src="/Images/2x/switch language icon@2x.png"
-                alt="Switch language"
-                className="object-contain"
-                style={{
-                  width: '60px',
-                  height: '60px',
-                  marginTop: 'clamp(10px, 2vw, 46px)'
-                }}
-              />
-            </button>
+            {/* Language Switch */}
+            <div className="flex items-center flex-shrink-0 ml-1 sm:ml-2">
+              <button 
+                onClick={toggleLanguage}
+                className="flex items-center text-white hover:opacity-80 transition-opacity"
+              >
+                <img
+                  src="/Images/2x/switch language icon@2x.png"
+                  alt="Switch language"
+                  className="object-contain w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 xl:w-20 xl:h-20 2xl:w-24 2xl:h-24"
+                  style={{
+                    marginTop: 'clamp(10px, 2vw, 46px)'
+                  }}
+                />
+              </button>
+            </div>
           </div>
         </div>
 
         {/* Mobile Navigation Row */}
-        <div className="flex md:hidden justify-between items-center w-full" style={{ minWidth: 0, overflow: 'visible' }}>
+        <div className="flex min-[769px]:hidden justify-between items-center w-full">
           {/* Logo */}
-          <div className="flex items-center flex-shrink-0" style={{ minWidth: 0, maxWidth: '50%' }}>
+          <div className="flex items-center flex-shrink-0">
             <img
               src={t.logo}
               alt="Qmobile Logo"
-              className="w-auto max-h-full"
-              style={{
-                height: 'clamp(2.5rem, 8vw, 4rem)',
-                maxWidth: '100%',
-                objectFit: 'contain'
-              }}
+              className="object-contain"
+              style={mobileLogoDimensions}
             />
           </div>
 
           {/* Right side: Language Switch and Burger */}
-          <div className="flex items-center" style={{ gap: 'clamp(8px, 2vw, 16px)' }}>
+          <div className="flex items-center gap-4">
             {/* Language Switch */}
             <div className="flex items-center flex-shrink-0">
               <button 
@@ -166,10 +198,7 @@ const AboutUsHeader = ({
                   src="/Images/2x/switch language icon@2x.png"
                   alt="Switch language"
                   className="object-contain"
-                  style={{
-                    width: '60px',
-                    height: '60px'
-                  }}
+                  style={mobileSwitchDimensions}
                 />
               </button>
             </div>
@@ -177,18 +206,13 @@ const AboutUsHeader = ({
             {/* Burger Menu Button */}
             <button
               onClick={toggleMobileMenu}
-              className="flex items-center justify-center text-white hover:opacity-80 transition-opacity flex-shrink-0"
+              className="flex items-center justify-center text-white hover:opacity-80 transition-opacity"
             >
               <img
                 src="/Images/2x/hamburger@2x.png"
                 alt="Menu"
                 className="object-contain"
-                style={{
-                  width: 'clamp(2rem, 6vw, 2.5rem)',
-                  height: 'clamp(2rem, 6vw, 2.5rem)',
-                  minWidth: '2rem',
-                  minHeight: '2rem'
-                }}
+                style={mobileBurgerDimensions}
               />
             </button>
           </div>
@@ -196,7 +220,7 @@ const AboutUsHeader = ({
 
         {/* Mobile Menu Dropdown */}
         {isMobileMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 border-t border-white/20">
+          <div className="min-[769px]:hidden mt-4 pb-4 border-t border-white/20">
             <div className="flex flex-col gap-4 pt-4">
               <a 
                 href="/join-us" 
@@ -268,13 +292,15 @@ const AboutUsHeader = ({
           </div>
         )}
 
-
         {showTitle && (
-          <div className="w-full" style={{ marginTop: 'clamp(40px, 8vw, 96px)' }}>
-            <h1 
-              className="text-center font-bold uppercase"
-              style={{ 
-                marginBottom: 'clamp(15px, 2vw, 30px)', 
+          <div
+            className="w-full homepage-title-wrapper"
+            style={{ marginTop: 'clamp(40px, 8vw, 96px)' }}
+          >
+            <h1
+              className="text-center font-bold uppercase homepage-title-main"
+              style={{
+                marginBottom: 'clamp(15px, 2vw, 30px)',
                 fontSize: 'clamp(2rem, 5vw, 4.7rem)',
                 direction: isRTL ? 'rtl' : 'ltr',
                 fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
@@ -292,5 +318,3 @@ const AboutUsHeader = ({
 };
 
 export default AboutUsHeader;
-
-

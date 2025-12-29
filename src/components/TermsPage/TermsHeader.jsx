@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { translations } from '../../translations';
 
-const Header404 = ({
+const TermsHeader = ({
   showTitle = false,
   titleKey = 'aboutUs',
   children,
@@ -63,15 +63,13 @@ const Header404 = ({
       style={{
         padding: '0px 0px',
         fontFamily: "'Rubik', sans-serif",
-        background: backgroundStyle ?? 'transparent'
+        background: backgroundStyle ?? 'linear-gradient(to right, rgb(0, 84, 147), rgb(51, 177, 215))'
       }}
     >
       <div
         className="max-w-[1895px] mx-auto w-full"
         style={{
-          padding: isMobile
-            ? `${lerp(0, 20)}px ${lerp(8, 20)}px 0px`
-            : 'clamp(15px, 2vw, 30px)'
+          padding: isMobile ? '15px' : '50px 40px'
         }}
       >
         {/* Desktop Navigation Row */}
@@ -317,4 +315,4 @@ const Header404 = ({
   );
 };
 
-export default Header404;
+export default TermsHeader;
