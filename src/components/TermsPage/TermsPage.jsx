@@ -1,10 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import TermsHeader from './TermsHeader';
 import TermsFooter from './TermsFooter';
+import CookiePreferencesModal from './CookiePreferencesModal';
 
 const TermsPage = () => {
   const { language, isRTL } = useLanguage();
+  const [isCookieModalOpen, setIsCookieModalOpen] = useState(false);
+
+  useEffect(() => {
+    // Check if user has already set cookie preferences
+    const cookiePreferences = localStorage.getItem('cookiePreferences');
+    if (!cookiePreferences) {
+      // Show modal after a short delay
+      const timer = setTimeout(() => {
+        setIsCookieModalOpen(true);
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
+  const handleSaveCookiePreferences = (preferences) => {
+    localStorage.setItem('cookiePreferences', JSON.stringify(preferences));
+    setIsCookieModalOpen(false);
+  };
+
+  const handleCloseCookieModal = () => {
+    setIsCookieModalOpen(false);
+  };
+
+  const handleOpenCookieModal = () => {
+    setIsCookieModalOpen(true);
+  };
 
   return (
     <div
@@ -122,7 +149,14 @@ const TermsPage = () => {
       </div>
 
       {/* Footer */}
-      <TermsFooter />
+      <TermsFooter onOpenCookieModal={handleOpenCookieModal} />
+
+      {/* Cookie Preferences Modal */}
+      <CookiePreferencesModal
+        isOpen={isCookieModalOpen}
+        onClose={handleCloseCookieModal}
+        onSave={handleSaveCookiePreferences}
+      />
     </div>
   );
 };
