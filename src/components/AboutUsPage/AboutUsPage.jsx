@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
-import { translations } from '../../translations';
 import AboutUsHeader from './AboutUsHeader';
 import AboutUsFooter from './AboutUsFooter';
 
@@ -10,15 +9,13 @@ import up1Image from './Assets/up1.png';
 import down2Image from './Assets/down2.png';
 import up3Image from './Assets/up3.png';
 import down4Image from './Assets/down4.png';
-import circlesImage from './Assets/circles.png';
 import fromToImage from './Assets/from-to.png';
 import glocalImage from './Assets/Glocal.png';
 import personalTouchImage from './Assets/personal-touch.png';
 import activeEvolutionImage from './Assets/active-evolution.png';
 
 const AboutUsPage = () => {
-  const { language, isRTL } = useLanguage();
-  const t = translations[language];
+  const { isRTL } = useLanguage();
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {

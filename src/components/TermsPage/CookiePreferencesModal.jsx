@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 
 const CookiePreferencesModal = ({ isOpen, onClose, onSave }) => {
-  const { language, isRTL } = useLanguage();
+  const { isRTL } = useLanguage();
   const [cookies, setCookies] = useState({
     strictlyNecessary: true, // mandatory, always true
     analytical: true,

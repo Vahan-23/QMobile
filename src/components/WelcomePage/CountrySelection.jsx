@@ -10,7 +10,7 @@ const DROPDOWN_BORDER = '#555';
 const CountrySelection = () => {
   const { language, isRTL } = useLanguage();
   const t = translations[language];
-  const [selectedCountry, setSelectedCountry] = useState(null);
+  const [, setSelectedCountry] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedOtherCountry, setSelectedOtherCountry] = useState('Thailand');
   const dropdownRef = useRef(null);

@@ -1110,7 +1110,7 @@ const General = () => {
                                 fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
                               }}
                             >
-                              {t.orderNumber || 'Order number'}
+                              {t.orderNumberLabel || 'Order number'}
                             </th>
                             <th
                               style={{

@@ -5,7 +5,7 @@ import TermsFooter from './TermsFooter';
 import CookiePreferencesModal from './CookiePreferencesModal';
 
 const TermsPage = () => {
-  const { language, isRTL } = useLanguage();
+  const { isRTL } = useLanguage();
   const [isCookieModalOpen, setIsCookieModalOpen] = useState(false);
 
   useEffect(() => {
