@@ -19,17 +19,9 @@ const WelcomeHero = () => {
         backgroundColor: HERO_BG,
         paddingTop: 'clamp(48px, 8vw, 80px)',
         paddingBottom: 'clamp(32px, 5vw, 80px)',
-        transform: isRTL ? 'scaleX(-1)' : 'none',
-        transition: 'transform 0.3s ease-in-out',
       }}
     >
-      <div
-        className="w-full max-w-[1895px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12"
-        style={{
-          transform: isRTL ? 'scaleX(-1)' : 'none',
-          transition: 'transform 0.3s ease-in-out',
-        }}
-      >
+      <div className="w-full max-w-[1895px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
         <div className="flex flex-col lg:flex-row lg:items-center lg:gap-10 xl:gap-16">
           {/* 1–6: welcome, switch, country selection — first on mobile, left on desktop */}
           <div
@@ -92,14 +84,13 @@ const WelcomeHero = () => {
                   aspectRatio: '1',
                   left: '50%',
                   top: '50%',
-                  transform: isRTL ? 'translate(50%, -50%)' : 'translate(-50%, -50%)',
+                  transform: 'translate(-50%, -50%)',
                 }}
               >
                 <img
                   src={heroImage}
                   alt=""
                   className="absolute inset-0 w-full h-full object-cover object-center"
-                  style={{ transform: isRTL ? 'scaleX(-1)' : 'none' }}
                 />
               </div>
               {/* Hero logo (Q) on top */}
@@ -110,7 +101,6 @@ const WelcomeHero = () => {
                 style={{
                   maxWidth: 'clamp(140px, 48vw, 900px)',
                   width: '100%',
-                  transform: isRTL ? 'scaleX(-1)' : 'none',
                 }}
               />
             </div>

@@ -21,11 +21,11 @@ const CountrySelection = () => {
       const rect = dropdownRef.current.getBoundingClientRect();
       setDropdownPosition({
         top: rect.bottom + 8,
-        left: isRTL ? rect.right - rect.width : rect.left,
+        left: rect.left,
         width: rect.width,
       });
     }
-  }, [isDropdownOpen, isRTL]);
+  }, [isDropdownOpen]);
 
   useEffect(() => {
     if (isDropdownOpen) {
@@ -190,7 +190,6 @@ const CountrySelection = () => {
           style={{
             backgroundColor: DROPDOWN_BG,
             borderColor: DROPDOWN_BORDER,
-            flexDirection: isRTL ? 'row-reverse' : 'row',
           }}
         >
           <div
@@ -253,7 +252,6 @@ const CountrySelection = () => {
                   }}
                   className="w-full flex items-center gap-2 px-3 py-2 cursor-pointer border-0 bg-transparent text-left hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
                   style={{
-                    flexDirection: isRTL ? 'row-reverse' : 'row',
                     direction: isRTL ? 'rtl' : 'ltr',
                     fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
                   }}
