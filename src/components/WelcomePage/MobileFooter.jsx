@@ -2,6 +2,7 @@ import React from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { translations } from '../../translations';
 import { pxToPosition } from './utils/responsive';
+import footerLogo from './pngs/logoFooter.png';
 
 const MobileFooter = ({ onOpenCookieModal }) => {
   const { language, isRTL } = useLanguage();
@@ -21,7 +22,7 @@ const MobileFooter = ({ onOpenCookieModal }) => {
       <footer 
         className="text-white relative" 
         style={{ 
-          background: 'linear-gradient(to top, #005490 0%, #22afe4 100%)',
+          backgroundColor: '#03355c',
           paddingTop: pxToPosition(63, { minPx: 32, maxPx: 63 }),
           paddingBottom: pxToPosition(63, { minPx: 32, maxPx: 63 }),
           paddingLeft: pxToPosition(50, { minPx: 16, maxPx: 50 }),
@@ -40,7 +41,7 @@ const MobileFooter = ({ onOpenCookieModal }) => {
               padding: 0
             }}>
             <img 
-              src={t.logo} 
+              src={footerLogo} 
               alt="Qmobile Logo" 
               className="w-full max-w-[250px] sm:max-w-[300px] md:max-w-[350px] h-auto"
               style={{ 
