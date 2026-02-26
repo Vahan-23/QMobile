@@ -108,28 +108,26 @@ const CountrySelection = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isDropdownOpen]);
 
-  const flagSize = 'clamp(44px, 10vw, 72px)';
+  const flagSize = 'clamp(45px, 6vw, 115px)';
 
   return (
     <div className="relative w-full">
       <h2
-        className="font-bold uppercase tracking-wide mt-6"
+        className={`font-bold uppercase tracking-wide mt-6 text-center lg:text-left ${isRTL ? 'lg:text-right' : ''}`}
         style={{
           color: TEXT_DARK,
-          fontSize: 'clamp(0.9rem, 2vw, 1.5rem)',
+          fontSize: 'clamp(20px, 5vw, 35px)',
           lineHeight: 1.3,
           fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
           direction: isRTL ? 'rtl' : 'ltr',
-          textAlign: isRTL ? 'right' : 'left',
-          whiteSpace: 'pre-line',
         }}
       >
-        {t.whereDoYouLive}
+        {t.whereDoYouLive.replace(/\n/g, ' ')}
       </h2>
 
       <div
-        className="flex flex-wrap gap-4 sm:gap-6 md:gap-8 mt-4"
-        style={{ justifyContent: isRTL ? 'flex-end' : 'flex-start' }}
+        className={`flex flex-nowrap mt-4 justify-center overflow-x-auto lg:overflow-visible ${isRTL ? 'lg:justify-end' : 'lg:justify-start'}`}
+        style={{ gap: 'clamp(12px, 5vw, 95px)' }}
       >
         {countries.map((country, index) => (
           <button
@@ -137,11 +135,7 @@ const CountrySelection = () => {
             type="button"
             onClick={() => setSelectedCountry(country.name)}
             className="flex flex-col items-center cursor-pointer border-0 bg-transparent p-0 transition-transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 rounded-full"
-            style={{
-              flexShrink: 0,
-              outlineOffset: 4,
-              outline: selectedCountry === country.name ? `3px solid #66c8d5` : 'none',
-            }}
+            style={{ flexShrink: 0 }}
           >
             <div
               className="rounded-full overflow-hidden flex items-center justify-center bg-gray-200 border-2 border-white shadow"
@@ -173,19 +167,19 @@ const CountrySelection = () => {
       </div>
 
       <h2
-        className="font-bold uppercase tracking-wide mt-6 mb-2"
+        className={`font-bold uppercase tracking-wide mb-2 text-center lg:text-left ${isRTL ? 'lg:text-right' : ''}`}
         style={{
           color: TEXT_DARK,
-          fontSize: 'clamp(0.85rem, 1.8vw, 1.25rem)',
+          fontSize: 'clamp(18px, 4vw, 28px)',
+          marginTop: 'clamp(32px, 10vw, 90px)',
           fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
           direction: isRTL ? 'rtl' : 'ltr',
-          textAlign: isRTL ? 'right' : 'left',
         }}
       >
         {t.pickAnotherCountry}
       </h2>
 
-      <div className="relative mt-2" style={{ zIndex: 1000 }}>
+      <div className={`relative mt-2 flex justify-center lg:justify-start ${isRTL ? 'lg:justify-end' : ''}`} style={{ zIndex: 1000 }}>
         <div
           ref={dropdownRef}
           role="button"

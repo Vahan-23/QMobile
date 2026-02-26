@@ -17,7 +17,7 @@ const WelcomeHero = () => {
       className="relative overflow-hidden w-full"
       style={{
         backgroundColor: HERO_BG,
-        paddingTop: 'clamp(24px, 4vw, 64px)',
+        paddingTop: 'clamp(48px, 8vw, 80px)',
         paddingBottom: 'clamp(32px, 5vw, 80px)',
         transform: isRTL ? 'scaleX(-1)' : 'none',
         transition: 'transform 0.3s ease-in-out',
@@ -31,19 +31,15 @@ const WelcomeHero = () => {
         }}
       >
         <div className="flex flex-col lg:flex-row lg:items-center lg:gap-10 xl:gap-16">
-          {/* Left column: welcome, switch language, country selection */}
+          {/* 1–6: welcome, switch, country selection — first on mobile, left on desktop */}
           <div
-            className="flex-1 flex flex-col min-w-0 order-2 lg:order-1"
-            style={{
-              alignItems: isRTL ? 'flex-end' : 'flex-start',
-              textAlign: isRTL ? 'right' : 'left',
-            }}
+            className={`flex-1 flex flex-col min-w-0 order-1 items-center text-center ${isRTL ? 'lg:items-end lg:text-right' : 'lg:items-start lg:text-left'}`}
           >
             <h2
               className="font-light leading-tight"
               style={{
                 color: TEXT_DARK,
-                fontSize: 'clamp(2rem, 5vw, 4.5rem)',
+                fontSize: 'clamp(30px, 4vw, 90px)',
                 direction: isRTL ? 'rtl' : 'ltr',
                 fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
               }}
@@ -54,35 +50,40 @@ const WelcomeHero = () => {
             <button
               type="button"
               onClick={toggleLanguage}
-              className="cursor-pointer bg-transparent border-none p-0 mt-3 sm:mt-4 inline-block text-left"
+              className={`cursor-pointer bg-transparent border-none p-0 mt-2 sm:mt-3 inline-block self-center ${isRTL ? 'lg:self-end' : 'lg:self-start'}`}
               style={{
-                color: TEXT_DARK,
-                fontSize: 'clamp(0.95rem, 1.5vw, 1.25rem)',
+                color: '#005392',
+                fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)',
                 fontWeight: 500,
                 direction: isRTL ? 'rtl' : 'ltr',
                 fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-                alignSelf: isRTL ? 'flex-end' : 'flex-start',
               }}
             >
               <span className="block">{t.switchLanguage}</span>
               <span
-                className="block mt-0.5 h-0.5 rounded-full"
-                style={{ backgroundColor: TEXT_DARK, width: '60%', minWidth: 80 }}
+                className="block mt-0.5 h-0.5 rounded-full mx-auto lg:mx-0"
+                style={{ backgroundColor: '#005392', width: '60%', minWidth: 80 }}
                 aria-hidden
               />
             </button>
 
-            <div className="mt-6 lg:mt-8 w-full max-w-[600px]">
+            <div
+              className="w-full max-w-[600px] lg:max-w-[600px]"
+              style={{ marginTop: 'clamp(32px, 15vw, 190px)' }}
+            >
               <CountrySelection />
             </div>
           </div>
 
-          {/* Right column: Hero logo (Q) with hero image visible inside its circle */}
+          {/* 7: Hero logo — last on mobile (centered), right on desktop */}
           <div
-            className="flex-1 flex items-center justify-center lg:justify-end order-1 lg:order-2 mb-6 lg:mb-0"
-            style={{ minHeight: 'clamp(240px, 40vw, 520px)' }}
+            className="flex-1 flex items-center justify-center order-2 lg:justify-end mb-6 lg:mb-0 mt-8 lg:mt-0"
+            style={{ minHeight: 'clamp(200px, 40vw, 520px)' }}
           >
-            <div className="relative w-full max-w-[min(900px,90vw)] flex items-center justify-center">
+            <div
+              className="relative w-full flex items-center justify-center"
+              style={{ maxWidth: 'clamp(140px, 48vw, 900px)' }}
+            >
               {/* Hero image: circle matches Q hole size, image fills it and is clipped */}
               <div
                 className="absolute overflow-hidden rounded-full"
@@ -107,7 +108,7 @@ const WelcomeHero = () => {
                 alt=""
                 className="relative z-10 w-full h-auto object-contain"
                 style={{
-                  maxWidth: 900,
+                  maxWidth: 'clamp(140px, 48vw, 900px)',
                   width: '100%',
                   transform: isRTL ? 'scaleX(-1)' : 'none',
                 }}

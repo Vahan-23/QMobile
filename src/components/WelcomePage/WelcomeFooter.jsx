@@ -19,11 +19,15 @@ const WelcomeFooter = () => {
   return (
     <footer
       className="text-white w-full flex items-center"
-      style={{ backgroundColor: FOOTER_BG, minHeight: 260, maxHeight: 260 }}
+      style={{
+        backgroundColor: FOOTER_BG,
+        minHeight: 'clamp(100px, 25vw, 260px)',
+        maxHeight: 'clamp(100px, 25vw, 260px)',
+      }}
     >
-      <div className="w-full max-w-[1895px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 py-6">
+      <div className="w-full max-w-[1895px] mx-auto px-3 sm:px-6 md:px-8 lg:px-12 py-4 sm:py-6">
         <div
-          className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6"
+          className="flex flex-row items-center justify-between gap-2 sm:gap-6"
           style={{
             flexDirection: isRTL ? 'row-reverse' : 'row',
             direction: isRTL ? 'rtl' : 'ltr',
@@ -33,16 +37,16 @@ const WelcomeFooter = () => {
             <img
               src={footerLogo}
               alt="Q mobile"
-              className="h-10 sm:h-12 md:h-14 w-auto object-contain"
+              className="h-6 sm:h-8 md:h-10 lg:h-12 w-auto object-contain"
               style={{ filter: 'brightness(0) invert(1)' }}
             />
           </a>
           <nav
-            className="flex flex-wrap items-center gap-x-2 gap-y-1"
+            className="flex flex-wrap items-center gap-x-1 sm:gap-x-2 gap-y-0"
             style={{
-              justifyContent: isRTL ? 'flex-end' : 'flex-start',
+              justifyContent: isRTL ? 'flex-start' : 'flex-end',
               fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-              fontSize: 38,
+              fontSize: 'clamp(12px, 2.2vw, 38px)',
             }}
           >
             {links.map((link, index) => (
