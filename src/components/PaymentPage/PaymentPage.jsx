@@ -251,8 +251,8 @@ const PaymentPage = () => {
            </div>
 
            <div className="flex flex-col gap-3" style={{ marginTop: 'auto' }}>
-            <a
-              href="#"
+            <button
+              type="button"
               className="flex items-end gap-2 payment-link"
               style={{
                 direction: isRTL ? 'rtl' : 'ltr',
@@ -260,7 +260,10 @@ const PaymentPage = () => {
                 textDecoration: 'none',
                 cursor: 'pointer',
                 display: 'inline-flex',
-                width: 'fit-content'
+                width: 'fit-content',
+                background: 'none',
+                border: 'none',
+                padding: 0
               }}
             >
               <span
@@ -283,10 +286,10 @@ const PaymentPage = () => {
                   marginBottom: '8px'
                 }}
               />
-            </a>
+            </button>
             
-            <a
-              href="#"
+            <button
+              type="button"
               className="flex items-end gap-2 payment-link"
               style={{
                 direction: isRTL ? 'rtl' : 'ltr',
@@ -294,7 +297,10 @@ const PaymentPage = () => {
                 textDecoration: 'none',
                 cursor: 'pointer',
                 display: 'inline-flex',
-                width: 'fit-content'
+                width: 'fit-content',
+                background: 'none',
+                border: 'none',
+                padding: 0
               }}
             >
               <img
@@ -327,7 +333,7 @@ const PaymentPage = () => {
                   marginBottom: '8px'
                 }}
               />
-            </a>
+            </button>
           </div>
         </section>
 
@@ -719,8 +725,8 @@ const PaymentPage = () => {
                   </div>
                 </div>
                 
-                <a
-                  href="#"
+                <button
+                  type="button"
                   className="flex items-end gap-2 payment-link"
                   style={{
                     direction: isRTL ? 'rtl' : 'ltr',
@@ -728,7 +734,10 @@ const PaymentPage = () => {
                     textDecoration: 'none',
                     cursor: 'pointer',
                     display: 'inline-flex',
-                    width: 'fit-content'
+                    width: 'fit-content',
+                    background: 'none',
+                    border: 'none',
+                    padding: 0
                   }}
                 >
                   <span
@@ -751,7 +760,7 @@ const PaymentPage = () => {
                       marginBottom: '8px'
                     }}
                   />
-                </a>
+                </button>
               </div>
               
                <button

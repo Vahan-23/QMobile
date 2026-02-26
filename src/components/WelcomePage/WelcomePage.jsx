@@ -2,6 +2,7 @@ import React from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import WelcomeHeader from './WelcomeHeader';
 import WelcomeHero from './WelcomeHero';
+import HeroFooterWave from './HeroFooterWave';
 import WelcomeFooter from './WelcomeFooter';
 
 const WelcomePage = () => {
@@ -13,13 +14,9 @@ const WelcomePage = () => {
       dir={isRTL ? 'rtl' : 'ltr'}
     >
       <div className="max-w-[1895px] mx-auto w-full">
-          {/* Header */}
           <WelcomeHeader />
-
-          {/* Hero Section (includes CountrySelection inside) */}
           <WelcomeHero />
-
-          {/* Footer */}
+          <HeroFooterWave />
           <WelcomeFooter />
       </div>
     </div>

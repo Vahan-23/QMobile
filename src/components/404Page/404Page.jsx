@@ -5,7 +5,7 @@ import Header404 from './404Header';
 import Footer404 from './404Footer';
 
 const Page404 = () => {
-  const { language, isRTL } = useLanguage();
+  const { isRTL } = useLanguage();
 
   return (
     <div

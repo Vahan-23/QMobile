@@ -164,7 +164,6 @@ const ProductPage = () => {
     if (fullText.toUpperCase().includes('PAY WITH')) {
       const upperText = fullText.toUpperCase();
       const payWithIndex = upperText.indexOf('PAY WITH');
-      const beforePayWith = fullText.substring(0, payWithIndex).trim();
       const afterPayWith = fullText.substring(payWithIndex + 'PAY WITH'.length).trim();
       
       if (afterPayWith) {

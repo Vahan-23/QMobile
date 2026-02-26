@@ -2,354 +2,282 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { translations } from '../../translations';
-import { pxToPosition, pxToResponsive } from './utils/responsive';
+
+const TEXT_DARK = '#03355c';
+const DROPDOWN_BG = '#e8e8e8';
+const DROPDOWN_BORDER = '#555';
 
 const CountrySelection = () => {
   const { language, isRTL } = useLanguage();
   const t = translations[language];
-  const [selectedCountry, setSelectedCountry] = useState(null);
+  const [, setSelectedCountry] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedOtherCountry, setSelectedOtherCountry] = useState('Thailand');
   const dropdownRef = useRef(null);
   const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0, width: 0 });
 
-  // Update dropdown position for Portal
   const updateDropdownPosition = useCallback(() => {
     if (isDropdownOpen && dropdownRef.current) {
       const rect = dropdownRef.current.getBoundingClientRect();
       setDropdownPosition({
-        top: rect.bottom + 8, // getBoundingClientRect already accounts for scroll
-        left: isRTL ? rect.right - rect.width : rect.left, // Adjust for RTL
-        width: rect.width
+        top: rect.bottom + 8,
+        left: rect.left,
+        width: rect.width,
       });
     }
-  }, [isDropdownOpen, isRTL]);
+  }, [isDropdownOpen]);
 
   useEffect(() => {
     if (isDropdownOpen) {
       updateDropdownPosition();
-      const handleScroll = () => updateDropdownPosition();
-      const handleResize = () => updateDropdownPosition();
-      window.addEventListener('scroll', handleScroll);
-      window.addEventListener('resize', handleResize);
+      window.addEventListener('scroll', updateDropdownPosition);
+      window.addEventListener('resize', updateDropdownPosition);
       return () => {
-        window.removeEventListener('scroll', handleScroll);
-        window.removeEventListener('resize', handleResize);
+        window.removeEventListener('scroll', updateDropdownPosition);
+        window.removeEventListener('resize', updateDropdownPosition);
       };
     }
   }, [isDropdownOpen, updateDropdownPosition]);
 
-  // Mapping countries to ISO codes for flags
   const countryCodeMap = {
-    'Greece': 'GR',
-    'Germany': 'DE',
-    'Israel': 'IL',
+    Greece: 'GR',
+    Germany: 'DE',
+    Israel: 'IL',
     'United Arab Emirates': 'AE',
-    'Thailand': 'TH',
+    Thailand: 'TH',
     'United States': 'US',
     'United Kingdom': 'GB',
-    'France': 'FR',
-    'Italy': 'IT',
-    'Spain': 'ES',
-    'Japan': 'JP',
-    'Australia': 'AU'
+    France: 'FR',
+    Italy: 'IT',
+    Spain: 'ES',
+    Japan: 'JP',
+    Australia: 'AU',
   };
 
-  // Country keys for translations
   const countryKeys = {
-    'Greece': 'greece',
-    'Germany': 'germany',
-    'Israel': 'israel',
+    Greece: 'greece',
+    Germany: 'germany',
+    Israel: 'israel',
     'United Arab Emirates': 'uae',
-    'Thailand': 'thailand',
+    Thailand: 'thailand',
     'United States': 'usa',
     'United Kingdom': 'uk',
-    'France': 'france',
-    'Italy': 'italy',
-    'Spain': 'spain',
-    'Japan': 'japan',
-    'Australia': 'australia'
+    France: 'france',
+    Italy: 'italy',
+    Spain: 'spain',
+    Japan: 'japan',
+    Australia: 'australia',
   };
 
   const countries = [
-    { name: 'Greece', flag: 'greece', key: 'greece' },
-    { name: 'Germany', flag: 'germany', key: 'germany' },
-    { name: 'Israel', flag: 'israel', key: 'israel' },
-    { name: 'United Arab Emirates', flag: 'uae', key: 'uae' }
+    { name: 'Greece', key: 'greece' },
+    { name: 'Germany', key: 'germany' },
+    { name: 'Israel', key: 'israel' },
+    { name: 'United Arab Emirates', key: 'uae' },
   ];
 
   const otherCountries = [
-    { name: 'Thailand', flag: 'thailand', key: 'thailand' },
-    { name: 'United States', flag: 'usa', key: 'usa' },
-    { name: 'United Kingdom', flag: 'uk', key: 'uk' },
-    { name: 'France', flag: 'france', key: 'france' },
-    { name: 'Italy', flag: 'italy', key: 'italy' },
-    { name: 'Spain', flag: 'spain', key: 'spain' },
-    { name: 'Japan', flag: 'japan', key: 'japan' },
-    { name: 'Australia', flag: 'australia', key: 'australia' }
+    { name: 'Thailand', key: 'thailand' },
+    { name: 'United States', key: 'usa' },
+    { name: 'United Kingdom', key: 'uk' },
+    { name: 'France', key: 'france' },
+    { name: 'Italy', key: 'italy' },
+    { name: 'Spain', key: 'spain' },
+    { name: 'Japan', key: 'japan' },
+    { name: 'Australia', key: 'australia' },
   ];
 
-  // Get translated country name
   const getCountryName = (countryName) => {
     const key = countryKeys[countryName];
     return key ? t.countries[key] : countryName;
   };
 
-  // Get flag URL from the internet
   const getFlagUrl = (countryName) => {
     const code = countryCodeMap[countryName];
-    if (code) {
-      return `https://flagcdn.com/w320/${code.toLowerCase()}.png`;
-    }
-    return null;
+    return code ? `https://flagcdn.com/w320/${code.toLowerCase()}.png` : null;
   };
 
-  // Close dropdown when clicking outside its area
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (isDropdownOpen && dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        // Check that click was not on dropdown list
-        const dropdownList = document.querySelector('[data-dropdown-list]');
-        if (!dropdownList || !dropdownList.contains(event.target)) {
-          setIsDropdownOpen(false);
-        }
+    const handleClickOutside = (e) => {
+      if (!isDropdownOpen || !dropdownRef.current?.contains(e.target)) {
+        const list = document.querySelector('[data-dropdown-list]');
+        if (!list?.contains(e.target)) setIsDropdownOpen(false);
       }
     };
-
-    if (isDropdownOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
+    if (isDropdownOpen) document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isDropdownOpen]);
 
-  // Specific positions from design:
-  // padding: 50px left and right, max-width: 600px
-  // gap between flags: 153px
-  // dropdown flags: 190px
+  const flagSize = 'clamp(45px, 6vw, 115px)';
 
   return (
-    <main 
-      className="relative"
-      style={{
-        paddingLeft: pxToPosition(50, { minPx: 16, maxPx: 50 }),
-        paddingRight: pxToPosition(50, { minPx: 16, maxPx: 50 }),
-        paddingTop: pxToPosition(56, { minPx: 32, maxPx: 56 }),
-        paddingBottom: pxToPosition(56, { minPx: 32, maxPx: 56 })
-      }}>
-      <div 
-        className="w-full"
-        style={{ 
-          maxWidth: pxToResponsive(600, 80)
-        }}>
-        <h1 
-          className="drop-shadow-lg" 
-          style={{ 
-            color: '#03355c',
-            fontSize: 'clamp(1.2rem, 3vw, 2.5rem)',
-            lineHeight: 'clamp(1.4rem, 3.5vw, 3rem)',
-            fontWeight: '700',
-            letterSpacing: 'clamp(2px, 0.3vw, 4px)',
-            fontFamily: isRTL ? 'Arial, sans-serif' : 'unset',
-            marginTop: 'clamp(10px, 2vw, 20px)',
-            marginBottom: pxToPosition(25, { minPx: 15, maxPx: 25 }), // Gap between title and flags
-            direction: isRTL ? 'rtl' : 'ltr',
-            textAlign: isRTL ? 'right' : 'left',
-            whiteSpace: 'pre-line'
-          }}>
-          {t.whereDoYouLive}
-        </h1>
+    <div className="relative w-full">
+      <h2
+        className={`font-bold uppercase tracking-wide mt-6 text-center lg:text-left ${isRTL ? 'lg:text-right' : ''}`}
+        style={{
+          color: TEXT_DARK,
+          fontSize: 'clamp(20px, 5vw, 35px)',
+          lineHeight: 1.3,
+          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+          direction: isRTL ? 'rtl' : 'ltr',
+        }}
+      >
+        {t.whereDoYouLive.replace(/\n/g, ' ')}
+      </h2>
 
-        {/* Flags row - specific positions from design */}
-        {/* Flags and columns: at 560px width responsive, positioned and sized */}
-        <div 
-          className="flex items-start mb-2 sm:mb-3 md:mb-4 flags-row-mobile"
-          style={{
-            marginTop: pxToPosition(20, { minPx: 15, maxPx: 20 }), // Gap between title and flags
-            gap: pxToPosition(120, { minPx: 60, maxPx: 120 }), // Gap between flags
-            flexWrap: 'nowrap' // Prevent wrapping, keep flags in a row
-          }}>
-          {countries.map((country, index) => (
+      <div
+        className={`flex flex-nowrap mt-4 justify-center overflow-x-auto lg:overflow-visible ${isRTL ? 'lg:justify-end' : 'lg:justify-start'}`}
+        style={{ gap: 'clamp(12px, 5vw, 95px)' }}
+      >
+        {countries.map((country, index) => (
+          <button
+            key={country.name}
+            type="button"
+            onClick={() => setSelectedCountry(country.name)}
+            className="flex flex-col items-center cursor-pointer border-0 bg-transparent p-0 transition-transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 rounded-full"
+            style={{ flexShrink: 0 }}
+          >
             <div
-              key={index}
-              className="cursor-pointer transition-transform hover:scale-110 flag-item"
-              style={{
-                flexShrink: 0,
-                width: 'auto'
-              }}
-              onClick={() => setSelectedCountry(country.name)}
+              className="rounded-full overflow-hidden flex items-center justify-center bg-gray-200 border-2 border-white shadow"
+              style={{ width: flagSize, height: flagSize }}
             >
-              <div
-                className="rounded-full mx-auto border-[1px] sm:border-[2px] border-white overflow-hidden flex items-center justify-center shadow-lg bg-gray-200 flag-item"
-                style={{
-                  width: pxToResponsive(65, 5), // Responsive flag size, base 65px
-                  height: pxToResponsive(65, 5), // Responsive flag size, base 65px
-                  marginBottom: pxToPosition(4, { minPx: 2, maxPx: 4 }), // Gap between flag and text
-                  outline: selectedCountry === country.name ? '3px solid #66c8d5' : 'none',
-                  outlineOffset: '4px'
+              <img
+                src={getFlagUrl(country.name)}
+                alt=""
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  e.target.parentElement.style.background = '#0066cc';
                 }}
-              >
-                <img 
-                  src={getFlagUrl(country.name)}
-                  alt={`${country.name} flag`}
-                  className="w-full h-full object-cover flag-item"
-                  style={{ borderRadius: '50%' }}
-                  onError={(e) => {
-                    // If flag image failed to load, hide it and set background
-                    e.target.style.display = 'none';
-                    e.target.parentElement.style.background = '#0066cc';
-                  }}
-                />
-              </div>
-              <div 
-                className="drop-shadow-md font-semibold text-center flag-text" 
-                style={{ 
-                  color: '#7b7b7b',
-                  fontSize: 'clamp(0.65rem, 1.2vw, 0.75rem)', // Responsive text size
-                  lineHeight: '1.2',
-                  direction: isRTL ? 'rtl' : 'ltr',
-                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-                }}>
-                {getCountryName(country.name)}
-              </div>
+              />
             </div>
-          ))}
+            <span
+              className="font-semibold mt-1.5 text-center"
+              style={{
+                color: TEXT_DARK,
+                fontSize: 'clamp(0.6rem, 1.2vw, 0.8rem)',
+                direction: isRTL ? 'rtl' : 'ltr',
+                fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+              }}
+            >
+              {getCountryName(country.name)}
+            </span>
+          </button>
+        ))}
+      </div>
+
+      <h2
+        className={`font-bold uppercase tracking-wide mb-2 text-center lg:text-left ${isRTL ? 'lg:text-right' : ''}`}
+        style={{
+          color: TEXT_DARK,
+          fontSize: 'clamp(18px, 4vw, 28px)',
+          marginTop: 'clamp(32px, 10vw, 90px)',
+          fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+          direction: isRTL ? 'rtl' : 'ltr',
+        }}
+      >
+        {t.pickAnotherCountry}
+      </h2>
+
+      <div className={`relative mt-2 flex justify-center lg:justify-start ${isRTL ? 'lg:justify-end' : ''}`} style={{ zIndex: 1000 }}>
+        <div
+          ref={dropdownRef}
+          role="button"
+          tabIndex={0}
+          onClick={() => setIsDropdownOpen((v) => !v)}
+          onKeyDown={(e) => e.key === 'Enter' && setIsDropdownOpen((v) => !v)}
+          className="flex items-center gap-2 cursor-pointer rounded-lg border-2 px-3 py-2 w-full max-w-[304px]"
+          style={{
+            backgroundColor: DROPDOWN_BG,
+            borderColor: DROPDOWN_BORDER,
+          }}
+        >
+          <div
+            className="rounded-full overflow-hidden flex-shrink-0 bg-gray-200 border border-gray-300"
+            style={{ width: 28, height: 28 }}
+          >
+            <img
+              src={getFlagUrl(selectedOtherCountry)}
+              alt=""
+              className="w-full h-full object-cover"
+              onError={(e) => {
+                e.target.style.display = 'none';
+                e.target.parentElement.style.background = '#0066cc';
+              }}
+            />
+          </div>
+          <span
+            className="flex-1 truncate font-medium"
+            style={{
+              color: '#333',
+              fontSize: 'clamp(0.95rem, 2vw, 1.25rem)',
+              direction: isRTL ? 'rtl' : 'ltr',
+              fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+              textAlign: isRTL ? 'right' : 'left',
+            }}
+          >
+            {getCountryName(selectedOtherCountry)}
+          </span>
+          <svg
+            className={`flex-shrink-0 w-4 h-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`}
+            fill="none"
+            stroke={DROPDOWN_BORDER}
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
         </div>
 
-        {/* Dropdown section for other countries */}
-        <div style={{ marginTop: pxToPosition(25, { minPx: 15, maxPx: 25 }) }}>
-          <div 
-            className="mb-3 sm:mb-4 md:mb-5 drop-shadow-lg" 
-            style={{ 
-              color: '#03355c', 
-              fontSize: 'clamp(1rem, 2.5vw, 2rem)', 
-              fontWeight: '800',
-              marginBottom: pxToPosition(10, { minPx: 5, maxPx: 10 }), // Responsive margin bottom
-              direction: isRTL ? 'rtl' : 'ltr',
-              textAlign: isRTL ? 'right' : 'left',
-              fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-            }}>
-            {t.pickAnotherCountry}
-          </div>
-          <div className="relative" style={{ zIndex: 1000 }}>
-            <div 
-              ref={dropdownRef}
-              className="border-2 bg-white/90 backdrop-blur-sm cursor-pointer flex items-center gap-2 shadow-lg"
-              style={{ 
-                width: 'clamp(55vw, 16.0422vw, 304px)',
-                padding: 'clamp(3px, 0.211082vw, 4px)',
-                borderColor: '#03355c', 
-                borderRadius: '8px',
-                flexDirection: isRTL ? 'row-reverse' : 'row'
+        {isDropdownOpen &&
+          createPortal(
+            <div
+              data-dropdown-list
+              className="fixed rounded-lg border-2 shadow-lg max-h-60 overflow-y-auto py-1"
+              style={{
+                top: dropdownPosition.top,
+                left: dropdownPosition.left,
+                width: dropdownPosition.width || 304,
+                backgroundColor: '#fff',
+                borderColor: DROPDOWN_BORDER,
+                zIndex: 10000,
               }}
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             >
-              <div
-                className="rounded-full border-2 border-white overflow-hidden flex items-center justify-center flex-shrink-0 bg-gray-200"
-                style={{
-                  width: pxToResponsive(32, 4),
-                  height: pxToResponsive(32, 4),
-                  ...(isRTL ? { marginRight: pxToPosition(6, { minPx: 3, maxPx: 6 }) } : { marginLeft: pxToPosition(6, { minPx: 3, maxPx: 6 }) }) // Flag position
-                }}
-              >
-                <img 
-                  src={getFlagUrl(selectedOtherCountry)}
-                  alt={`${selectedOtherCountry} flag`}
-                  className="w-full h-full object-cover"
-                  style={{ borderRadius: '50%' }}
-                  onError={(e) => {
-                    // If flag image failed to load, hide it and set gradient background
-                    e.target.style.display = 'none';
-                    e.target.parentElement.style.background = 'linear-gradient(180deg, red 0%, red 33%, white 33%, white 66%, red 66%, red 100%)';
+              {otherCountries.map((country) => (
+                <button
+                  key={country.name}
+                  type="button"
+                  onClick={() => {
+                    setSelectedOtherCountry(country.name);
+                    setIsDropdownOpen(false);
                   }}
-                />
-              </div>
-              <span 
-                className="flex-grow truncate" 
-                style={{ 
-                  color: '#03355c', 
-                  fontSize: 'clamp(1.5rem, 4vw, 2.75rem)', 
-                  fontWeight: '500',
-                  direction: isRTL ? 'rtl' : 'ltr',
-                  fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
-                  textAlign: isRTL ? 'right' : 'left'
-                }}>
-                {getCountryName(selectedOtherCountry)}
-              </span>
-              <svg 
-                className={`w-3 h-3 sm:w-4 sm:h-4 transition-transform flex-shrink-0 ${isDropdownOpen ? 'rotate-180' : ''}`} 
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
-                style={{ color: '#03355c' }}
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
-            </div>
-            
-            {isDropdownOpen && createPortal(
-              <div 
-                data-dropdown-list
-                className="fixed bg-white border-2 shadow-lg max-h-60 overflow-y-auto" 
-                style={{ 
-                  top: `${dropdownPosition.top}px`,
-                  left: `${dropdownPosition.left}px`,
-                  width: dropdownPosition.width || 'clamp(55vw, 16.0422vw, 304px)',
-                  borderColor: '#03355c', 
-                  borderRadius: '8px',
-                  zIndex: 10000 // High z-index for Portal
-                }}>
-                {otherCountries.map((country, index) => (
+                  className="w-full flex items-center gap-2 px-3 py-2 cursor-pointer border-0 bg-transparent text-left hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
+                  style={{
+                    direction: isRTL ? 'rtl' : 'ltr',
+                    fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit',
+                  }}
+                >
                   <div
-                    key={index}
-                    className="cursor-pointer hover:bg-gray-100 flex items-center gap-2 sm:gap-3"
-                    style={{
-                      padding: pxToPosition(8, { minPx: 6, maxPx: 8 }) // Item padding
-                    }}
-                    onClick={() => {
-                      setSelectedOtherCountry(country.name);
-                      setIsDropdownOpen(false);
-                    }}
+                    className="rounded-full overflow-hidden flex-shrink-0 bg-gray-200 border border-gray-300"
+                    style={{ width: 24, height: 24 }}
                   >
-                    <div
-                      className="rounded-full border-2 border-white overflow-hidden flex items-center justify-center flex-shrink-0 bg-gray-200"
-                      style={{
-                        width: pxToResponsive(32, 4),
-                        height: pxToResponsive(32, 4)
+                    <img
+                      src={getFlagUrl(country.name)}
+                      alt=""
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        e.target.parentElement.style.background = '#0066cc';
                       }}
-                    >
-                      <img 
-                        src={getFlagUrl(country.name)}
-                        alt={`${country.name} flag`}
-                        className="w-full h-full object-cover"
-                        style={{ borderRadius: '50%' }}
-                        onError={(e) => {
-                          // If flag image failed to load, hide it and set gradient background
-                          e.target.style.display = 'none';
-                          e.target.parentElement.style.background = 'linear-gradient(180deg, red 0%, red 33%, white 33%, white 66%, red 66%, red 100%)';
-                        }}
-                      />
-                    </div>
-                    <span 
-                      className="text-gray-800 text-sm sm:text-base"
-                      style={{
-                        direction: isRTL ? 'rtl' : 'ltr',
-                        fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
-                      }}
-                    >
-                      {getCountryName(country.name)}
-                    </span>
+                    />
                   </div>
-                ))}
-              </div>,
-              document.body
-            )}
-          </div>
-        </div>
+                  <span className="text-gray-800 text-sm">{getCountryName(country.name)}</span>
+                </button>
+              ))}
+            </div>,
+            document.body
+          )}
       </div>
-    </main>
+    </div>
   );
 };
 
