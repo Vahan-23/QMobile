@@ -349,15 +349,18 @@ const Homepage = () => {
             }}
           >
             {[
-              { icon: '/Images/2x/chat_bold22@2x.png', label: t.chat },
-              { icon: '/Images/2x/wa_bold22@2x.png', label: t.whatsapp },
-              { icon: '/Images/2x/phone_bold22@2x.png', label: t.callUs }
-            ].map(({ icon, label }) => (
-              <div
+              { icon: '/Images/2x/chat_bold22@2x.png', label: t.chat, href: '/support' },
+              { icon: '/Images/2x/wa_bold22@2x.png', label: t.whatsapp, href: '/support' },
+              { icon: '/Images/2x/phone_bold22@2x.png', label: t.callUs, href: '/support' }
+            ].map(({ icon, label, href }) => (
+              <a
                 key={label}
-                className="flex flex-col items-center"
+                href={href}
+                className="flex flex-col items-center cursor-pointer transition-transform hover:-translate-y-1 no-underline"
                 style={{
-                  gap: '0.2rem'
+                  gap: '0.2rem',
+                  color: 'inherit',
+                  textDecoration: 'none'
                 }}
               >
                 <img
@@ -382,7 +385,7 @@ const Homepage = () => {
                 >
                   {label}
                 </span>
-              </div>
+              </a>
             ))}
           </div>
 
