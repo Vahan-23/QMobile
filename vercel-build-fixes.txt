@@ -1,0 +1,58 @@
+================================================================================
+ИЗМЕНЕНИЯ ПОСЛЕ ФИКСАЦИИ VERCEL BUILD
+================================================================================
+
+1. Неиспользуемые переменные (ESLint no-unused-vars)
+--------------------------------------------------------------------------------
+
+• src/components/404Page/404Page.jsx
+  Убрана деструктуризация language из useLanguage(); оставлен только isRTL.
+
+• src/components/AboutUsPage/AboutUsPage.jsx
+  Удалён импорт circlesImage, переменная t и импорт translations (не использовались).
+
+• src/components/ProductPage/ProductPage.jsx
+  Удалена неиспользуемая переменная beforePayWith в разборе текста «PAY WITH».
+
+• src/components/TermsPage/CookiePreferencesModal.jsx
+  Убрана деструктуризация language из useLanguage().
+
+• src/components/TermsPage/TermsPage.jsx
+  Убрана деструктуризация language из useLanguage().
+
+• src/components/WelcomePage/CountrySelection.jsx
+  Состояние выбора страны заменено на const [, setSelectedCountry] = useState(null),
+  чтобы не было неиспользуемой переменной selectedCountry.
+
+
+2. Ссылки без валидного href (ESLint jsx-a11y/anchor-is-valid)
+--------------------------------------------------------------------------------
+
+• src/components/PaymentPage/PaymentPage.jsx
+  Три элемента <a href="#"> заменены на <button type="button"> с теми же стилями
+  (background: none, border: none, padding: 0):
+  - блок «CHANGE SHIPPING ADDRESS» (~строка 254),
+  - блок «FIND MY CURRENT LOCATION» (~строка 288),
+  - блок «ADD NEW CREDIT CARD» (~строка 722).
+
+
+3. Дубликаты ключей в переводах (ESLint no-dupe-keys)
+--------------------------------------------------------------------------------
+
+• src/translations/index.js
+  В объектах локалей (th, ar) в секции «General page» удалены повторяющиеся ключи:
+  - shippingAddress (уже есть в секции Payment),
+  - orderNumber (уже есть в секции Thank you).
+  Добавлен ключ orderNumberLabel для заголовка таблицы в разделе аккаунта:
+  - в th: orderNumberLabel: 'Order number',
+  - в ar: orderNumberLabel: 'رقم الطلب'.
+
+• src/components/MyAccount/General/General.jsx
+  В заголовке таблицы заказов вместо t.orderNumber используется t.orderNumberLabel
+  (fallback 'Order number' сохранён).
+
+
+================================================================================
+Итог: сборка с CI=true (как на Vercel) проходит без ошибок и без предупреждений
+ESLint по перечисленным правилам.
+================================================================================
