@@ -9,17 +9,28 @@ const SUPPORT_SECTION_COLOR = '#ffffff';
  * the path fills with support section color below the curve.
  */
 const HeroSupportWave = () => (
-  <div
-    className="w-full block -mt-8 min-[769px]:-mt-[120px]"
-    style={{
-      lineHeight: 0,
-      marginBottom: -1,
-      background: 'transparent',
-      backgroundColor: 'transparent',
-      position: 'relative',
-      zIndex: 10
-    }}
-  >
+  <>
+    <style>{`
+      .hero-support-wave {
+        margin-top: -2rem;
+      }
+      @media (min-width: 769px) {
+        .hero-support-wave {
+          margin-top: clamp(-120px, calc(-70px - 50 * (100vw - 768px) / 1127), -70px);
+        }
+      }
+    `}</style>
+    <div
+      className="hero-support-wave w-full block"
+      style={{
+        lineHeight: 0,
+        marginBottom: -1,
+        background: 'transparent',
+        backgroundColor: 'transparent',
+        position: 'relative',
+        zIndex: 10
+      }}
+    >
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 1200 80"
@@ -34,6 +45,7 @@ const HeroSupportWave = () => (
       />
     </svg>
   </div>
+  </>
 );
 
 export default HeroSupportWave;

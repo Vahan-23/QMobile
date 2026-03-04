@@ -184,7 +184,7 @@ const Homepage = () => {
                 }
           }
         >
-          <div className="w-full flex flex-col lg:flex-row items-center gap-10 lg:gap-4 relative z-[2]">
+          <div className="w-full flex flex-row items-center gap-10 lg:gap-4 relative z-[2]">
             <div
               className="flex flex-col flex-shrink-0"
               style={{
