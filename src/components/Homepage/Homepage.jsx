@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import HomepageHeader from './HomepageHeader';
-import homepageDesktopHero from './HomePageHero.png';
+import homeHero from './homeHero.png';
+import HeroSupportWave from './HeroSupportWave';
 import homepageMobileHero from './homePageMobilehero.png';
 import homepageMobileBanner from './Assets/homepage_mobile_banner.png';
 import qKeepingTextLTR from './q_IS_keeping.svg';
@@ -62,7 +63,7 @@ const Homepage = () => {
       : (constrainedWidth - 290) / (768 - 290);
   const lerp = (min, max) => min + (max - min) * interpolationProgress;
   const mobileWelcomeFontSize = `${lerp(21, 46)}px`;
-  const productsHeadingFontSize = isMobile ? `${lerp(25, 63)}px` : '63px';
+  const productsHeadingFontSize = isMobile ? `${lerp(25, 63)}px` : 'clamp(42px, 5vw, 52px)';
   const productTitleFontSizeMobile = `${lerp(13, 36)}px`;
   const productPriceFontSizeMobile = `${lerp(14, 28.8)}px`;
   const productTotalFontSizeMobile = `${lerp(12, 20.4)}px`;
@@ -78,10 +79,6 @@ const Homepage = () => {
   const testimonialOriginFontSizeMobile = `${lerp(9, 20)}px`;
   const testimonialFlagSizeMobile = `${lerp(44, 80)}px`;
   const testimonialArrowSizeMobile = `${lerp(17, 40)}px`;
-
-  const supportOffset = 'clamp(175px, calc(175px + (600px - 175px) * ((100vw - 505px) / 1390)), 600px)';
-  const supportTightPadding = 'clamp(8px, 3vw, 80px)';
-  const supportWidePadding = 'clamp(181px, 32vw, 283px)';
 
   const testimonialSlides = useMemo(() => {
     const countries = t.countries || {};
@@ -147,52 +144,61 @@ const Homepage = () => {
           background: 'linear-gradient(to top, #22afe4 0%, #005490 100%)'
         }}
       >
-        <img
-          src={homepageDesktopHero}
-          alt="Qmobile homepage hero"
-          className="hidden min-[769px]:block w-full h-auto object-cover pointer-events-none select-none"
-          style={mirrorImageStyle()}
-        />
-        <div className={`${isMobile ? 'relative' : 'absolute inset-0'} flex flex-col`}>
+        <div className="relative flex flex-col">
           <HomepageHeader showTitle={false} backgroundStyle="transparent">
         <section
           className="relative w-full"
-          style={{
-            marginTop:
-              'clamp(0px, calc(0px + (120px - 0px) * ((100vw - 505px) / 1390)), 120px)',
-            paddingBottom:
-              'clamp(0px, calc(0px + (180px - 0px) * ((100vw - 505px) / 1390)), 180px)',
-            marginLeft: 'clamp(10px, calc(10px + (40px - 10px) * ((100vw - 505px) / 1390)), 40px)',
-            ...(isRTL
+          style={
+            isMobile
               ? {
-                  paddingRight: 'clamp(10px, 2.5vw, 80px)',
-                  paddingLeft: 'clamp(20px, 4vw, 160px)'
+                  marginTop: 'clamp(0px, calc(0px + (120px - 0px) * ((100vw - 505px) / 1390)), 120px)',
+                  paddingBottom: 'clamp(0px, calc(0px + (180px - 0px) * ((100vw - 505px) / 1390)), 180px)',
+                  marginLeft: 'clamp(10px, calc(10px + (40px - 10px) * ((100vw - 505px) / 1390)), 40px)',
+                  ...(isRTL
+                    ? {
+                        paddingRight: 'clamp(10px, 2.5vw, 80px)',
+                        paddingLeft: 'clamp(20px, 4vw, 160px)'
+                      }
+                    : {
+                        paddingLeft: 0,
+                        paddingRight: 'clamp(20px, 4vw, 160px)'
+                      })
                 }
               : {
-                  paddingLeft: 0,
-                  paddingRight: 'clamp(20px, 4vw, 160px)'
-                })
-          }}
+                  marginTop: 'clamp(0px, 4vw, 72px)',
+                  paddingBottom: 0,
+                  marginLeft: 'clamp(12px, 2.5vw, 40px)',
+                  ...(isRTL
+                    ? {
+                        paddingRight: 'clamp(12px, 2.5vw, 60px)',
+                        paddingLeft: 'clamp(20px, 3vw, 100px)'
+                      }
+                    : {
+                        paddingLeft: 0,
+                        paddingRight: 'clamp(20px, 3vw, 100px)'
+                      })
+                }
+          }
         >
-          <div className="w-full flex flex-col lg:flex-row items-center gap-10 lg:gap-16 relative z-[2]">
+          <div className="w-full flex flex-row items-center gap-10 lg:gap-4 relative z-[2]">
             <div
-              className="flex-1 flex flex-col"
+              className="flex flex-col flex-shrink-0"
               style={{
                 textAlign: 'left',
                 alignItems: 'flex-start',
                 alignSelf: 'flex-start',
                 maxWidth: 'fit-content',
-                marginLeft: isRTL
-                  ? 0
-                  : 'clamp(10px, calc(10px + (60px - 10px) * ((100vw - 505px) / 1390)), 60px)',
+                marginLeft: isMobile
+                  ? (isRTL ? 0 : 'clamp(10px, calc(10px + (60px - 10px) * ((100vw - 505px) / 1390)), 60px)')
+                  : (isRTL ? 0 : 'clamp(12px, 1.5vw, 40px)'),
                 marginRight: 0,
-                gap: 'clamp(0.8rem, calc(0.8rem + (3.7rem - 0.8rem) * ((100vw - 768px) / 1127)), 3.7rem)',
-                marginTop: isMobile
-                  ? 'clamp(20px, 0px + 0vw, 0px)'
-                  : 'clamp(0px, calc((100vw - 768px) * 0.0), 0px)',
+                gap: isMobile
+                  ? 'clamp(0.8rem, calc(0.8rem + (3.7rem - 0.8rem) * ((100vw - 768px) / 1127)), 3.7rem)'
+                  : 'clamp(0.6rem, 1.5vw, 2.25rem)',
+                marginTop: isMobile ? 'clamp(20px, 0px + 0vw, 0px)' : 0,
                 padding: isMobile
                   ? 'clamp(10px, 1.14907px + 3.10559vw, 60px)'
-                  : 'clamp(25px, calc(25px + (100vw - 768px) * (35 / 1127)), 60px)'
+                  : 'clamp(20px, 2.5vw, 44px)'
               }}
             >
               <p
@@ -200,7 +206,7 @@ const Homepage = () => {
                 style={{
                   fontSize: isMobile
                     ? mobileWelcomeFontSize
-                    : 'clamp(18px, calc(18px + (67 - 18) * ((100vw - 505px) / 1390)), 67px)',
+                    : 'clamp(18px, 3vw, 52px)',
                   letterSpacing: isRTL ? '0.02rem' : '0.02rem',
                   color: '#67c9d6',
                   textAlign: isRTL ? 'right' : 'left'
@@ -221,31 +227,22 @@ const Homepage = () => {
                     aspectRatio: '1154.9 / 303.37',
                     width: isMobile
                       ? 'clamp(200px, 3.931px + 56.525vw, 444px)'
-                      : 'clamp(210px, 44vw, 48rem)',
+                      : 'clamp(240px, 38vw, 34rem)',
                     height: 'auto'
                   }}
                   alt={t.homeHeroHeadline}
                 />
               </div>
               <button
-                className="hidden min-[769px]:inline-flex px-10 py-3 rounded-full transition"
+                className="hidden min-[769px]:inline-flex rounded-full transition"
                 style={{
-                  width:
-                    'clamp(150px, calc(150px + (600 - 150) * ((100vw - 505px) / 1390)), 600px)',
-                  maxWidth:
-                    'clamp(150px, calc(150px + (600 - 150) * ((100vw - 505px) / 1390)), 600px)',
-                  minWidth: '150px',
-                  paddingBlock:
-                    'clamp(10px, calc(10px + (30 - 10) * ((100vw - 505px) / 1390)), 30px)',
-                  paddingInline:
-                    'clamp(24px, calc(24px + (180 - 24) * ((100vw - 505px) / 1390)), 180px)',
+                  paddingBlock: 'clamp(14px, 1.8vw, 26px)',
+                  paddingInline: 'clamp(28px, 4vw, 52px)',
                   textTransform: 'uppercase',
                   fontWeight: 100,
-                  fontSize:
-                    'clamp(11px, calc(11px + (57 - 11) * ((100vw - 505px) / 1390)), 57px)',
+                  fontSize: 'clamp(15px, 2vw, 32px)',
                   textAlign: 'center',
-                  marginTop:
-                    'clamp(10px, calc(10px + (50 - 10) * ((100vw - 505px) / 1390)), 50px)',
+                  marginTop: 'clamp(10px, 1.4vw, 24px)',
                   backgroundColor: '#67c9d6',
                   color: '#000000'
                 }}
@@ -262,6 +259,20 @@ const Homepage = () => {
               </button>
             </div>
 
+            <div
+              className="hidden min-[769px]:flex flex-1 justify-center items-center min-w-0"
+              style={{ marginTop: 70 }}
+            >
+              <img
+                src={homeHero}
+                alt=""
+                className="object-contain"
+                style={mirrorImageStyle({
+                  width: 'clamp(560px, 78vw, 1200px)',
+                  height: 'auto'
+                })}
+              />
+            </div>
           </div>
 
         </section>
@@ -286,126 +297,125 @@ const Homepage = () => {
           </div>
         )}
 
-        <section
-          className="relative z-[3] w-full hidden min-[769px]:block"
-          style={{
-            marginTop:
-              'clamp(0px, calc(0px + (400px - 0px) * ((100vw - 505px) / 1390)), 400px)'
-          }}
-        >
-          <div
-            key={isRTL ? 'rtl-support' : 'ltr-support'}
-            className="max-w-[1200px] mx-auto flex flex-col gap-10 text-white"
-            style={{
-              alignItems: 'center',
-              textAlign: 'center',
-              ...(isRTL
-                ? {
-                    marginRight: supportOffset,
-                    marginLeft: 0,
-                    paddingLeft: supportTightPadding,
-                    paddingRight: supportWidePadding
-                  }
-                : {
-                    marginLeft: supportOffset,
-                    marginRight: 0,
-                    paddingRight: supportTightPadding,
-                    paddingLeft: supportWidePadding
-                  }),
-              gap: '0.2rem',
-              paddingTop: 'clamp(117px, -268.459px + 38.9608vw, 360px)'
-            }}
-          >
-            <div>
-              <h2
-                className="font-bold uppercase"
-                style={{
-                  fontSize:
-                    'clamp(19px, calc(19px + (70 - 19) * ((100vw - 505px) / 1390)), 70px)',
-                  color: '#04365d',
-                  textAlign: 'center'
-                }}
-              >
-                {t.homeSupportHeading}
-              </h2>
-            </div>
-
-            <div
-              className="flex flex-wrap justify-center md:justify-end"
-              style={{
-                gap: '0.7rem clamp(1.5rem, 4vw, 3.5rem)'
-              }}
-            >
-              {[
-                { icon: '/Images/2x/chat_bold22@2x.png', label: t.chat },
-                { icon: '/Images/2x/wa_bold22@2x.png', label: t.whatsapp },
-                { icon: '/Images/2x/phone_bold22@2x.png', label: t.callUs }
-              ].map(({ icon, label }) => (
-                <div
-                  key={label}
-                  className="flex flex-col items-center"
-                  style={{
-                    gap: '0.2rem'
-                  }}
-                >
-                  <img
-                    src={icon}
-                    alt={label}
-                    style={mirrorImageStyle({
-                      width:
-                        'clamp(40px, calc(40px + (120 - 40) * ((100vw - 505px) / 1390)), 120px)',
-                      height: 'auto',
-                      filter: 'drop-shadow(0 10px 25px rgba(0,0,0,0.2))'
-                    })}
-                  />
-                  <span
-                    className="text-white font-extrabold"
-                    style={{
-                      fontSize:
-                        'clamp(10px, calc(10px + (28 - 10) * ((100vw - 505px) / 1390)), 28px)',
-                      color: '#04365d',
-                      letterSpacing: '0px',
-                      textTransform: 'uppercase'
-                    }}
-                  >
-                    {label}
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            <div>
-              <p
-                className="uppercase font-semibold tracking-[0.3em] mt-2 text-white/80"
-                style={{
-                  fontSize:
-                    'clamp(19px, calc(19px + (68 - 19) * ((100vw - 505px) / 1390)), 68px)',
-                  letterSpacing: '0.03em',
-                  color: '#04365d',
-                  textAlign: isRTL ? 'left' : 'right'
-                }}
-              >
-                {t.homeSupportSubheading}
-              </p>
-            </div>
-          </div>
-        </section>
-
           </HomepageHeader>
         </div>
       </div>
+
+      <HeroSupportWave />
+
+      <section
+        className="relative z-[3] w-full hidden min-[769px]:block"
+        style={{
+          marginTop: 0,
+          backgroundColor: '#ffffff'
+        }}
+      >
+        <div
+          key={isRTL ? 'rtl-support' : 'ltr-support'}
+          className="mx-auto flex flex-col gap-10 text-white"
+          style={{
+            maxWidth: isMobile ? '100%' : '80%',
+            alignItems: 'center',
+            textAlign: 'center',
+            paddingLeft: 'clamp(20px, 5vw, 48px)',
+            paddingRight: 'clamp(20px, 5vw, 48px)',
+            gap: '0.2rem',
+            paddingTop: 'clamp(24px, 4vw, 48px)',
+            paddingBottom: 'clamp(24px, 4vw, 48px)'
+          }}
+        >
+          <div>
+            <h2
+              className="font-bold uppercase"
+              style={{
+                fontSize:
+                  'clamp(19px, calc(19px + (70 - 19) * ((100vw - 505px) / 1390)), 70px)',
+                color: '#04365d',
+                textAlign: 'center'
+              }}
+            >
+              {t.homeSupportHeading}
+            </h2>
+          </div>
+
+          <div
+            className="flex flex-wrap justify-center md:justify-end"
+            style={{
+              gap: '0.7rem clamp(1.5rem, 4vw, 3.5rem)'
+            }}
+          >
+            {[
+              { icon: '/Images/2x/chat_bold22@2x.png', label: t.chat, href: '/support' },
+              { icon: '/Images/2x/wa_bold22@2x.png', label: t.whatsapp, href: '/support' },
+              { icon: '/Images/2x/phone_bold22@2x.png', label: t.callUs, href: '/support' }
+            ].map(({ icon, label, href }) => (
+              <a
+                key={label}
+                href={href}
+                className="flex flex-col items-center cursor-pointer transition-transform hover:-translate-y-1 no-underline"
+                style={{
+                  gap: '0.2rem',
+                  color: 'inherit',
+                  textDecoration: 'none'
+                }}
+              >
+                <img
+                  src={icon}
+                  alt={label}
+                  style={mirrorImageStyle({
+                    width:
+                      'clamp(40px, calc(40px + (120 - 40) * ((100vw - 505px) / 1390)), 120px)',
+                    height: 'auto',
+                    filter: 'drop-shadow(0 10px 25px rgba(0,0,0,0.2))'
+                  })}
+                />
+                <span
+                  className="text-white font-extrabold"
+                  style={{
+                    fontSize:
+                      'clamp(10px, calc(10px + (28 - 10) * ((100vw - 505px) / 1390)), 28px)',
+                    color: '#04365d',
+                    letterSpacing: '0px',
+                    textTransform: 'uppercase'
+                  }}
+                >
+                  {label}
+                </span>
+              </a>
+            ))}
+          </div>
+
+          <div>
+            <p
+              className="uppercase font-semibold tracking-[0.3em] mt-2 text-white/80"
+              style={{
+                fontSize:
+                  'clamp(19px, calc(19px + (68 - 19) * ((100vw - 505px) / 1390)), 68px)',
+                letterSpacing: '0.03em',
+                color: '#04365d',
+                textAlign: isRTL ? 'left' : 'right'
+              }}
+            >
+              {t.homeSupportSubheading}
+            </p>
+          </div>
+        </div>
+      </section>
 
       {!isMobile && (
         <section
           className="w-full text-[#04365d]"
           style={{
-            padding: 'clamp(30px, 4vw, 150px) clamp(24px, 7vw, 90px)',
+            padding: 'clamp(30px, 4vw, 150px) clamp(24px, 7vw, 20px)',
             background: '#67cad7'
           }}
         >
           <div
             className="mx-auto flex flex-col gap-6 text-center"
-            style={{ alignItems: 'center' }}
+            style={{
+              alignItems: 'center',
+              maxWidth: '80%'
+            }}
           >
             <p
               style={{
@@ -453,26 +463,27 @@ const Homepage = () => {
           }}
         >
           <div
+            className="mx-auto"
             style={{
-              maxWidth: '1260px',
-              marginLeft: isRTL ? 'auto' : 0,
-              marginRight: isRTL ? 0 : 'auto',
-              paddingLeft: 'clamp(20px, 6vw, 80px)',
-              paddingRight: 'clamp(20px, 6vw, 80px)'
+              maxWidth: isMobile ? '1260px' : '80%',
+              paddingLeft: isMobile ? 'clamp(20px, 6vw, 80px)' : 'clamp(20px, 5vw, 48px)',
+              paddingRight: isMobile ? 'clamp(20px, 6vw, 80px)' : 'clamp(20px, 5vw, 48px)',
+              marginLeft: isMobile && isRTL ? 'auto' : undefined,
+              marginRight: isMobile && !isRTL ? 'auto' : undefined
             }}
           >
             <div
               className="flex flex-col"
               style={{
-                alignItems: isRTL ? 'flex-end' : 'flex-start',
-                textAlign: isRTL ? 'right' : 'left'
+                alignItems: isMobile ? (isRTL ? 'flex-end' : 'flex-start') : 'center',
+                textAlign: isMobile ? (isRTL ? 'right' : 'left') : 'center'
               }}
             >
               <h2
                 className="font-bold uppercase text-[#03355c]"
                 style={{
                   fontSize: productsHeadingFontSize,
-                  textAlign: isRTL ? 'right' : 'left'
+                  textAlign: isMobile ? (isRTL ? 'right' : 'left') : 'center'
                 }}
                 dangerouslySetInnerHTML={{
                   __html: isMobile
@@ -483,7 +494,7 @@ const Homepage = () => {
               {!isMobile && (
                 <a
                   href="/marketplace"
-                  className="flex items-center gap-4"
+                  className="flex items-center gap-4 justify-center"
                   style={{
                     flexDirection: isRTL ? 'row-reverse' : 'row',
                     textDecoration: 'none',
@@ -504,7 +515,7 @@ const Homepage = () => {
                       fontSize: '30px',
                       fontWeight: 700,
                       letterSpacing: '0.1em',
-                      textAlign: isRTL ? 'right' : 'left',
+                      textAlign: 'center',
                       margin: 0
                     }}
                   >
@@ -528,10 +539,15 @@ const Homepage = () => {
         <section
           className="w-full"
           style={{
-            padding: `clamp(10px, 2vw, 25px) clamp(20px, 6vw, 80px) ${isMobile ? '25px' : '170px'}`
+            padding: isMobile
+              ? `clamp(10px, 2vw, 25px) clamp(20px, 6vw, 80px) 25px`
+              : `clamp(10px, 2vw, 25px) clamp(20px, 5vw, 48px) 170px`
           }}
         >
-          <div className="max-w-[1895px] mx-auto">
+          <div
+            className="mx-auto"
+            style={{ maxWidth: isMobile ? '1895px' : '80%' }}
+          >
             <style>{`
               @keyframes homepage-bubble {
                 0% { transform: scale(0.99); }
@@ -548,25 +564,26 @@ const Homepage = () => {
               }
             `}</style>
             <div
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
               style={{
                 gridTemplateColumns: isMobile
                   ? 'repeat(2, minmax(0, 1fr))'
-                  : undefined
+                  : undefined,
+                gap: isMobile ? '1.5rem' : '1rem'
               }}
             >
               {displayedProductPresets.map(product => (
                 <div
                   key={product.id}
                   style={{
-                    marginTop: isMobile ? productCardMarginTopMobile : '60px'
+                    marginTop: isMobile ? productCardMarginTopMobile : '40px'
                   }}
                 >
                   <div className="bg-white homepage-product-card" style={{ cursor: 'pointer' }}>
                     <div
                       className="mx-auto aspect-square mb-4 overflow-hidden"
                       style={{
-                        width: isMobile ? productImageWidthMobile : '88%',
+                        width: isMobile ? productImageWidthMobile : '78%',
                         marginInline: isMobile ? productImageMarginMobile : 'auto'
                       }}
                     >
@@ -588,7 +605,7 @@ const Homepage = () => {
                       <h3
                         className="font-bold"
                         style={{
-                          fontSize: isMobile ? productTitleFontSizeMobile : '36px',
+                          fontSize: isMobile ? productTitleFontSizeMobile : '28px',
                           color: '#000000',
                           direction: isRTL ? 'rtl' : 'ltr',
                           fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
@@ -598,9 +615,9 @@ const Homepage = () => {
                       </h3>
                       <p
                         style={{
-                          fontSize: isMobile ? productPriceFontSizeMobile : '1.8rem',
+                          fontSize: isMobile ? productPriceFontSizeMobile : '1.4rem',
                           color: '#000000',
-                          marginTop: '20px',
+                          marginTop: '12px',
                           direction: isRTL ? 'rtl' : 'ltr',
                           fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
                         }}
@@ -609,7 +626,7 @@ const Homepage = () => {
                       </p>
                       <p
                         style={{
-                          fontSize: isMobile ? productTotalFontSizeMobile : '1.275rem',
+                          fontSize: isMobile ? productTotalFontSizeMobile : '1.1rem',
                           color: '#767676',
                           direction: isRTL ? 'rtl' : 'ltr',
                           fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
@@ -618,10 +635,10 @@ const Homepage = () => {
                         ({t.total} {product.total} NIS)
                       </p>
                       <button
-                        className="mx-auto text-white py-1 md:py-1.5 px-8 md:px-10 rounded-full font-medium hover:opacity-90 transition-opacity mt-4"
+                        className="mx-auto text-white py-1 md:py-1.5 px-6 md:px-8 rounded-full font-medium hover:opacity-90 transition-opacity mt-3"
                         style={{
                           backgroundColor: '#005291',
-                          fontSize: isMobile ? addToCartFontSizeMobile : '1.4rem',
+                          fontSize: isMobile ? addToCartFontSizeMobile : '1.2rem',
                           paddingInline: isMobile ? '1rem' : undefined,
                           direction: isRTL ? 'rtl' : 'ltr',
                           fontFamily: isRTL ? 'Arial, sans-serif' : 'inherit'
@@ -687,11 +704,24 @@ const Homepage = () => {
         )}
 
         <section className="relative w-full overflow-hidden">
-          <img
-            src={isMobile ? homepageMobileBanner : t.homeHeroWave}
-            alt=""
-            className="w-full h-auto object-cover"
-          />
+          {isMobile ? (
+            <img
+              src={homepageMobileBanner}
+              alt=""
+              className="w-full h-auto object-cover"
+            />
+          ) : (
+            <div className="flex justify-center w-full">
+              <div className="w-full" style={{ maxWidth: '80%' }}>
+                <img
+                  src={t.homeHeroWave}
+                  alt=""
+                  className="w-full h-auto object-cover"
+                  style={{ borderRadius: 50 }}
+                />
+              </div>
+            </div>
+          )}
         </section>
 
         {isMobile && (
@@ -771,173 +801,326 @@ const Homepage = () => {
         <section
           className="relative overflow-hidden"
           style={{
-            background: isMobile
-              ? '#ffffff'
-              : 'linear-gradient(135deg, #e3f5ff 0%, #ffffff 55%, #f0f9ff 100%)',
+            background: '#ffffff',
             padding: 'clamp(60px, 8vw, 120px) 0'
           }}
         >
-          <div
-            className="flex flex-col items-center mx-auto"
-            style={{
-              gap: '0.1rem',
-              maxWidth: '1260px',
-              width: '100%',
-              paddingInline: isMobile
-                ? 'clamp(20px, 9vw, 80px)'
-                : 'clamp(20px, 6vw, 80px)'
-            }}
-          >
-            <p
-              className="text-center font-bold"
-              style={{
-                fontSize: isMobile ? testimonialBodyFontSizeMobile : '40px',
-                color: '#005392'
-              }}
-            >
-              {currentTestimonial.body}
-            </p>
-          </div>
-
-          <div
-            className="relative w-full"
-            style={{
-              marginTop: '20px'
-            }}
-          >
-            <button
-              type="button"
-              onClick={goToPreviousTestimonial}
-              onKeyDown={event => {
-                if (event.key === 'Enter' || event.key === ' ') {
-                  event.preventDefault();
-                  goToPreviousTestimonial();
-                }
-              }}
-              aria-label={t.homeTestimonialPrevLabel || 'Previous testimonial'}
-              style={{
-                position: 'absolute',
-                left: '30px',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                width: isMobile ? testimonialArrowSizeMobile : '40px',
-                height: isMobile ? testimonialArrowSizeMobile : '40px',
-                padding: 0,
-                border: 'none',
-                background: 'transparent',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-            >
-              <img
-                src="/Images/2x/arrow_left@2x.png"
-                alt=""
-                style={{
-                  width: isMobile ? testimonialArrowSizeMobile : '40px',
-                  height: 'auto'
-                }}
-              />
-            </button>
-            <div
-              className="flex flex-col items-center mx-auto"
-              style={{
-                gap: '0.1rem',
-                maxWidth: '1260px',
-                width: '100%',
-                paddingInline: isMobile
-                  ? 'clamp(20px, 9vw, 80px)'
-                  : 'clamp(20px, 6vw, 80px)'
-              }}
-            >
-              <h4
-                className="text-center"
-                style={{
-                  fontSize: isMobile ? testimonialNameFontSizeMobile : '36px',
-                  color: '#04365d',
-                  letterSpacing: '0.1em'
-                }}
-              >
-                {currentTestimonial.name}
-              </h4>
-              <p
-                className="text-center"
-                style={{
-                  fontSize: isMobile ? testimonialOriginFontSizeMobile : '20px',
-                  color: '#04365d',
-                  letterSpacing: '0.03em'
-                }}
-              >
-                {currentTestimonial.origin}
-              </p>
+          {isMobile ? (
+            <>
               <div
-                className="flex items-center justify-center"
+                className="flex flex-col items-center mx-auto"
                 style={{
-                  gap: '1.75rem',
+                  gap: '0.1rem',
+                  maxWidth: '1260px',
+                  width: '100%',
+                  paddingInline: 'clamp(20px, 9vw, 80px)'
+                }}
+              >
+                <p
+                  className="text-center font-bold"
+                  style={{
+                    fontSize: testimonialBodyFontSizeMobile,
+                    color: '#005392'
+                  }}
+                >
+                  {currentTestimonial.body}
+                </p>
+              </div>
+
+              <div className="relative w-full" style={{ marginTop: '20px' }}>
+                <button
+                  type="button"
+                  onClick={goToPreviousTestimonial}
+                  onKeyDown={event => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      event.preventDefault();
+                      goToPreviousTestimonial();
+                    }
+                  }}
+                  aria-label={t.homeTestimonialPrevLabel || 'Previous testimonial'}
+                  style={{
+                    position: 'absolute',
+                    left: '30px',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    width: testimonialArrowSizeMobile,
+                    height: testimonialArrowSizeMobile,
+                    padding: 0,
+                    border: 'none',
+                    background: 'transparent',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                >
+                  <img
+                    src="/Images/2x/arrow_left@2x.png"
+                    alt=""
+                    style={{
+                      width: testimonialArrowSizeMobile,
+                      height: 'auto'
+                    }}
+                  />
+                </button>
+                <div
+                  className="flex flex-col items-center mx-auto"
+                  style={{
+                    gap: '0.1rem',
+                    maxWidth: '1260px',
+                    width: '100%',
+                    paddingInline: 'clamp(20px, 9vw, 80px)'
+                  }}
+                >
+                  <h4
+                    className="text-center"
+                    style={{
+                      fontSize: testimonialNameFontSizeMobile,
+                      color: '#04365d',
+                      letterSpacing: '0.1em'
+                    }}
+                  >
+                    {currentTestimonial.name}
+                  </h4>
+                  <p
+                    className="text-center"
+                    style={{
+                      fontSize: testimonialOriginFontSizeMobile,
+                      color: '#04365d',
+                      letterSpacing: '0.03em'
+                    }}
+                  >
+                    {currentTestimonial.origin}
+                  </p>
+                  <div
+                    className="flex items-center justify-center"
+                    style={{
+                      gap: '1.75rem',
+                      marginTop: '20px'
+                    }}
+                  >
+                    {currentTestimonial.flags.map(flag => (
+                      <div
+                        key={flag.code}
+                        className="rounded-full overflow-hidden"
+                        style={{
+                          width: testimonialFlagSizeMobile,
+                          height: testimonialFlagSizeMobile,
+                          border: '0.5px solid #000000',
+                          boxShadow: '0 8px 20px rgba(3, 53, 92, 0.15)'
+                        }}
+                      >
+                        <img
+                          src={`https://flagcdn.com/w80/${flag.code.toLowerCase()}.png`}
+                          alt={flag.label}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover'
+                          }}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={goToNextTestimonial}
+                  onKeyDown={event => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      event.preventDefault();
+                      goToNextTestimonial();
+                    }
+                  }}
+                  aria-label={t.homeTestimonialNextLabel || 'Next testimonial'}
+                  style={{
+                    position: 'absolute',
+                    right: '30px',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    width: testimonialArrowSizeMobile,
+                    height: testimonialArrowSizeMobile,
+                    padding: 0,
+                    border: 'none',
+                    background: 'transparent',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                >
+                  <img
+                    src="/Images/2x/arrow_right@2x.png"
+                    alt=""
+                    style={{
+                      width: testimonialArrowSizeMobile,
+                      height: 'auto'
+                    }}
+                  />
+                </button>
+              </div>
+            </>
+          ) : (
+            <div
+              className="relative mx-auto"
+              style={{
+                maxWidth: '80%',
+                width: '100%',
+                paddingInline: 'clamp(20px, 6vw, 80px)'
+              }}
+            >
+              <div
+                className="flex flex-col items-center"
+                style={{ gap: '0.1rem' }}
+              >
+                <p
+                  className="text-center font-bold"
+                  style={{
+                    fontSize: '40px',
+                    color: '#005392'
+                  }}
+                >
+                  {currentTestimonial.body}
+                </p>
+              </div>
+
+              <div
+                className="relative w-full"
+                style={{
                   marginTop: '20px'
                 }}
               >
-                {currentTestimonial.flags.map(flag => (
-                  <div
-                    key={flag.code}
-                    className="rounded-full overflow-hidden"
+                <button
+                  type="button"
+                  onClick={goToPreviousTestimonial}
+                  onKeyDown={event => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      event.preventDefault();
+                      goToPreviousTestimonial();
+                    }
+                  }}
+                  aria-label={t.homeTestimonialPrevLabel || 'Previous testimonial'}
+                  style={{
+                    position: 'absolute',
+                    left: '30px',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    width: '40px',
+                    height: '40px',
+                    padding: 0,
+                    border: 'none',
+                    background: 'transparent',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                >
+                  <img
+                    src="/Images/2x/arrow_left@2x.png"
+                    alt=""
                     style={{
-                      width: isMobile ? testimonialFlagSizeMobile : '80px',
-                      height: isMobile ? testimonialFlagSizeMobile : '80px',
-                      border: '0.5px solid #000000',
-                      boxShadow: '0 8px 20px rgba(3, 53, 92, 0.15)'
+                      width: '40px',
+                      height: 'auto'
+                    }}
+                  />
+                </button>
+                <div
+                  className="flex flex-col items-center"
+                  style={{
+                    gap: '0.1rem',
+                    width: '100%'
+                  }}
+                >
+                  <h4
+                    className="text-center"
+                    style={{
+                      fontSize: '36px',
+                      color: '#04365d',
+                      letterSpacing: '0.1em'
                     }}
                   >
-                    <img
-                      src={`https://flagcdn.com/w80/${flag.code.toLowerCase()}.png`}
-                      alt={flag.label}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover'
-                      }}
-                    />
+                    {currentTestimonial.name}
+                  </h4>
+                  <p
+                    className="text-center"
+                    style={{
+                      fontSize: '20px',
+                      color: '#04365d',
+                      letterSpacing: '0.03em'
+                    }}
+                  >
+                    {currentTestimonial.origin}
+                  </p>
+                  <div
+                    className="flex items-center justify-center"
+                    style={{
+                      gap: '1.75rem',
+                      marginTop: '20px'
+                    }}
+                  >
+                    {currentTestimonial.flags.map(flag => (
+                      <div
+                        key={flag.code}
+                        className="rounded-full overflow-hidden"
+                        style={{
+                          width: '80px',
+                          height: '80px',
+                          border: '0.5px solid #000000',
+                          boxShadow: '0 8px 20px rgba(3, 53, 92, 0.15)'
+                        }}
+                      >
+                        <img
+                          src={`https://flagcdn.com/w80/${flag.code.toLowerCase()}.png`}
+                          alt={flag.label}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover'
+                          }}
+                        />
+                      </div>
+                    ))}
                   </div>
-                ))}
+                </div>
+                <button
+                  type="button"
+                  onClick={goToNextTestimonial}
+                  onKeyDown={event => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      event.preventDefault();
+                      goToNextTestimonial();
+                    }
+                  }}
+                  aria-label={t.homeTestimonialNextLabel || 'Next testimonial'}
+                  style={{
+                    position: 'absolute',
+                    right: '30px',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    width: '40px',
+                    height: '40px',
+                    padding: 0,
+                    border: 'none',
+                    background: 'transparent',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                >
+                  <img
+                    src="/Images/2x/arrow_right@2x.png"
+                    alt=""
+                    style={{
+                      width: '40px',
+                      height: 'auto'
+                    }}
+                  />
+                </button>
               </div>
             </div>
-            <button
-              type="button"
-              onClick={goToNextTestimonial}
-              onKeyDown={event => {
-                if (event.key === 'Enter' || event.key === ' ') {
-                  event.preventDefault();
-                  goToNextTestimonial();
-                }
-              }}
-              aria-label={t.homeTestimonialNextLabel || 'Next testimonial'}
-              style={{
-                position: 'absolute',
-                right: '30px',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                width: isMobile ? testimonialArrowSizeMobile : '40px',
-                height: isMobile ? testimonialArrowSizeMobile : '40px',
-                padding: 0,
-                border: 'none',
-                background: 'transparent',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-            >
-              <img
-                src="/Images/2x/arrow_right@2x.png"
-                alt=""
-                style={{
-                  width: isMobile ? testimonialArrowSizeMobile : '40px',
-                  height: 'auto'
-                }}
-              />
-            </button>
-          </div>
+          )}
         </section>
       </main>
 
