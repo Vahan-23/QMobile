@@ -80,10 +80,6 @@ const Homepage = () => {
   const testimonialFlagSizeMobile = `${lerp(44, 80)}px`;
   const testimonialArrowSizeMobile = `${lerp(17, 40)}px`;
 
-  const supportOffset = 'clamp(175px, calc(175px + (600px - 175px) * ((100vw - 505px) / 1390)), 600px)';
-  const supportTightPadding = 'clamp(8px, 3vw, 80px)';
-  const supportWidePadding = 'clamp(181px, 32vw, 283px)';
-
   const testimonialSlides = useMemo(() => {
     const countries = t.countries || {};
 

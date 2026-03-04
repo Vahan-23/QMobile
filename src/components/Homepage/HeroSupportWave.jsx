@@ -1,6 +1,5 @@
 import React from 'react';
 
-const HERO_BOTTOM = '#005490';
 const SUPPORT_SECTION_COLOR = '#ffffff';
 
 /**
